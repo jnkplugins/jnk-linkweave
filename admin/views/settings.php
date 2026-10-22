@@ -19,6 +19,10 @@ unset( $public_types["attachment"] ); // media has no linkable body content
     __( "Choose what Linkweave reads and how picky its suggestions are.", "jnk-linkweave" )
 );
 ?>
+    <?php if ( has_action( "jnk_linkweave_settings_after" ) ) : ?>
+        <?php // The license card sits under the settings; the same jump link as in every JnK plugin. ?>
+        <p style="margin:0 0 8px;text-align:right"><a href="#lp-jnk-linkweave-license"><?php esc_html_e( "License", "jnk-linkweave" ); ?> &darr;</a></p>
+    <?php endif; ?>
     <form id="jnk-linkweave-settings-form" onsubmit="return false;">
         <h2 class="jnkui-section-title"><?php esc_html_e( "What Linkweave reads", "jnk-linkweave" ); ?></h2>
         <p class="jnkui-section-desc"><?php esc_html_e( "Which content is used for suggestions and reports.", "jnk-linkweave" ); ?></p>
@@ -96,7 +100,7 @@ unset( $public_types["attachment"] ); // media has no linkable body content
                 <th scope="row"><?php esc_html_e( "When you delete the plugin", "jnk-linkweave" ); ?></th>
                 <td>
                     <label><input type="checkbox" name="delete_data_on_uninstall" value="1" <?php checked( $delete ); ?>> <?php esc_html_e( "Also delete Linkweave's data (rules, reports and settings)", "jnk-linkweave" ); ?></label>
-                    <p class="description"><?php esc_html_e( "Off by default, so nothing is lost if you deactivate the plugin, delete it, or a Pro licence runs out.", "jnk-linkweave" ); ?></p>
+                    <p class="description"><?php esc_html_e( "Off by default, so nothing is lost if you deactivate the plugin, delete it, or a Pro license runs out.", "jnk-linkweave" ); ?></p>
                 </td>
             </tr>
             </tbody>

@@ -70,6 +70,7 @@ class JnkLinkweave_Activator {
         }
 
         self::migrate_links_unique_key();
+        self::check_tables();
 
         $version = defined( "JNK_LINKWEAVE_VERSION" ) ? JNK_LINKWEAVE_VERSION : "1.0.0";
         update_option( "jnk_linkweave_version", $version );
@@ -87,6 +88,47 @@ class JnkLinkweave_Activator {
         if ( ! wp_next_scheduled( "jnk_linkweave_daily_scan" ) ) {
             wp_schedule_event( time(), "daily", "jnk_linkweave_daily_scan" );
         }
+    }
+
+    /** The tables Linkweave cannot work without, without the prefix. */
+    public const TABLES = [ "index", "links", "rules" ];
+
+    /** Option holding what check_tables() found missing, if anything. */
+    public const SCHEMA_PROBLEM_OPTION = "jnk_linkweave_schema_problem";
+
+    /**
+     * Confirm the tables exist after dbDelta(), which fails without a word.
+     *
+     * On MariaDB 11.7+ the index table was never created (VECTOR became a
+     * reserved word, fixed in 1.11.2), yet the plugin activated fine and the
+     * dashboard said "100%" over an index that did not exist. Remember what is
+     * missing, with the database's own error, so the screens can say so.
+     *
+     * @return string[] the missing table names
+     */
+    public static function check_tables(): array {
+        global $wpdb;
+        $missing = [];
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery -- schema introspection; no cache applies.
+        foreach ( self::TABLES as $t ) {
+            $name = $wpdb->prefix . "jnk_linkweave_" . $t;
+            if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $wpdb->esc_like( $name ) ) ) !== $name ) {
+                $missing[] = $name;
+            }
+        }
+        // phpcs:enable
+        if ( $missing ) {
+            update_option( self::SCHEMA_PROBLEM_OPTION, [ "tables" => $missing, "error" => (string) $wpdb->last_error ], false );
+        } else {
+            delete_option( self::SCHEMA_PROBLEM_OPTION );
+        }
+        return $missing;
+    }
+
+    /** What is missing, or null: [ "tables" => string[], "error" => string ]. */
+    public static function schema_problem(): ?array {
+        $p = get_option( self::SCHEMA_PROBLEM_OPTION, null );
+        return is_array( $p ) && ! empty( $p["tables"] ) ? $p : null;
     }
 
     /**

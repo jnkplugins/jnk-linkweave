@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.2
-Stable tag: 1.11.2
+Stable tag: 1.12.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -165,8 +165,15 @@ Running that regenerates the build output from the source. No other build step i
 
 == Changelog ==
 
+= 1.12.0 =
+* New: if a database table could not be created, Linkweave says so on its screens, with the database's error, instead of showing an empty index as complete.
+* Changed: the License card looks and works the same in every JnK plugin. In the free version it shows your free license, which keeps the plugin updated, and links to your account if you bought Pro.
+* Changed: the upgrade page has a "Download the Pro zip" button and the three steps, and says what WordPress shows when you upload Pro over this version.
+* Changed: "licence" is now spelled "license" everywhere.
+* Pro: license handling fixes, see the Pro changelog.
+
 = 1.11.2 =
-* Fixed: on MySQL 9 the plugin could not create its search index table, because MySQL 9 reserves the word VECTOR. Link suggestions stayed empty. Updating creates the table and reads your posts again by itself.
+* Fixed: on MariaDB 11.7 and newer the plugin could not create its search index table, because those versions reserve the word VECTOR. Link suggestions stayed empty. Updating creates the table and reads your posts again by itself.
 
 = 1.11.1 =
 * Pro: fixed an update notice that could show again after updating. No change in the free version.

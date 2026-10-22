@@ -231,6 +231,19 @@ class Index_Builder {
         $status["total"]   = (int) $status["total"];
         $status["read"]    = (int) $status["read"];
         $status["indexed"] = (int) $status["indexed"];
+
+        // No index table means no index, whatever the last run saved: never "100%".
+        $problem = \JnkLinkweave_Activator::schema_problem();
+        if ( $problem && in_array( self::table(), $problem["tables"], true ) ) {
+            $status["is_running"] = false;
+            $status["state"]      = "error";
+            $status["indexed"]    = 0;
+            $status["error"]      = sprintf(
+                /* translators: %s: the database's error message */
+                __( "The index table could not be created, so nothing can be indexed. The database said: %s", "jnk-linkweave" ),
+                "" !== $problem["error"] ? $problem["error"] : __( "no reason given", "jnk-linkweave" )
+            );
+        }
         return $status;
     }
 

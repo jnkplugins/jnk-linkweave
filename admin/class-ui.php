@@ -84,7 +84,10 @@ class UI {
         echo '<a class="jnkui-brand" href="' . esc_url( self::url( "" ) ) . '">'
             . '<span class="jnkui-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>'
             . "<b>" . esc_html__( "Linkweave", "jnk-linkweave" ) . "</b>"
-            . '<span class="jnkui-ver">' . esc_html( "v" . JNK_LINKWEAVE_VERSION ) . "</span></a>";
+            . '<span class="jnkui-ver">' . esc_html( "v" . JNK_LINKWEAVE_VERSION ) . "</span>"
+            // Says Pro is on, rather than leaving people to infer it from tabs that unlock.
+            . ( \JnkLinkweave\Rules_Engine::is_pro() ? '<span class="jnkui-pro-badge" style="margin-left:6px;padding:1px 7px;border-radius:999px;background:#4f46e5;color:#fff;font-size:11px;font-weight:600;letter-spacing:.02em;vertical-align:middle">Pro</span>' : "" )
+            . "</a>";
 
         echo '<nav class="jnkui-tabs" aria-label="' . esc_attr__( "Linkweave sections", "jnk-linkweave" ) . '">';
         foreach ( self::primary_tabs() as $suffix => $label ) {

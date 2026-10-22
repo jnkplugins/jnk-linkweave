@@ -2,245 +2,323 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: JnK Linkweave 1.11.2\n"
+"Project-Id-Version: JnK Linkweave 1.12.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-22T18:16:56+00:00\n"
+"POT-Creation-Date: 2026-10-22T20:46:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: jnk-linkweave\n"
 
-#: pro/licensorpro-client/licensorpro-client.php:655
-msgid "Renew your licence"
+#: pro/licensorpro-client/licensorpro-client.php:738
+msgid "Manage license"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:741
+#: admin/class-admin.php:175
+msgid "Renew license"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:742
+#: admin/class-admin.php:174
+msgid "Activate license"
+msgstr ""
+
+#. translators: %s: plugin name
+#: pro/licensorpro-client/licensorpro-client.php:769
+#, php-format
+msgid "<strong>%s Pro is on.</strong> Thank you! Every Pro tool is switched on for this site, and updates come to your dashboard."
+msgstr ""
+
+#. translators: %s: plugin name
+#: pro/licensorpro-client/licensorpro-client.php:818
+#, php-format
+msgid "<strong>%s Pro is installed, but no Pro license is active on this site.</strong> Enter your license key to switch on the Pro tools."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:824
+msgid "Enter license key"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:827
+msgid "Find your key in your account"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:853
+msgid "Renew your license"
 msgstr ""
 
 #. translators: 1: plugin name, 2: expiry date, 3: lock date, 4: days left
-#: pro/licensorpro-client/licensorpro-client.php:661
+#: pro/licensorpro-client/licensorpro-client.php:859
 #, php-format
-msgid "<strong>Your %1$s Pro licence expired on %2$s.</strong> Pro keeps working as normal until %3$s (%4$d days left). Updates, including security fixes, and email support have stopped. After %3$s, everything you already set up keeps working and your visitors won't notice a thing, but the Pro tools in your dashboard will lock."
+msgid "<strong>Your %1$s Pro license expired on %2$s.</strong> Pro keeps working as normal until %3$s (%4$d days left). Updates, including security fixes, and email support have stopped. After %3$s, everything you already set up keeps working and your visitors won't notice a thing, but the Pro tools in your dashboard will lock."
 msgstr ""
 
 #. translators: 1: plugin name, 2: expiry date
-#: pro/licensorpro-client/licensorpro-client.php:671
+#: pro/licensorpro-client/licensorpro-client.php:869
 #, php-format
-msgid "<strong>%1$s Pro tools are locked because your licence expired on %2$s.</strong> Your site, and everything visitors see, still works. Renew to unlock the Pro tools and get updates, including security fixes, again."
+msgid "<strong>%1$s Pro tools are locked because your license expired on %2$s.</strong> Your site, and everything visitors see, still works. Renew to unlock the Pro tools and get updates, including security fixes, again."
 msgstr ""
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:679
+#: pro/licensorpro-client/licensorpro-client.php:877
 #, php-format
-msgid "<strong>This site is no longer activated on your %s Pro licence.</strong> The Pro tools in your dashboard are locked until you activate it again. Everything visitors see keeps working."
+msgid "<strong>This site is no longer activated on your %s Pro license.</strong> The Pro tools in your dashboard are locked until you activate it again. Everything visitors see keeps working."
 msgstr ""
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:686
+#: pro/licensorpro-client/licensorpro-client.php:884
 #, php-format
-msgid "<strong>Your %s Pro licence is no longer active.</strong> It was refunded or cancelled, so the Pro tools in your dashboard are locked and updates have stopped. Everything visitors see keeps working."
+msgid "<strong>Your %s Pro license is no longer active.</strong> It was refunded or cancelled, so the Pro tools in your dashboard are locked and updates have stopped. Everything visitors see keeps working."
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:788
+#: pro/licensorpro-client/licensorpro-client.php:986
 msgid "Please enter a license key."
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:800
-#: pro/licensorpro-client/licensorpro-client.php:855
+#: pro/licensorpro-client/licensorpro-client.php:998
+#: pro/licensorpro-client/licensorpro-client.php:1057
 msgid "License response failed signature verification."
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:838
+#: pro/licensorpro-client/licensorpro-client.php:1040
 msgid "No license key set."
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:921
+#: pro/licensorpro-client/licensorpro-client.php:1125
 msgid "Only deactivating temporarily"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:922
+#: pro/licensorpro-client/licensorpro-client.php:1126
 msgid "I could not work out how to use it"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:923
+#: pro/licensorpro-client/licensorpro-client.php:1127
 msgid "It is missing a feature I need"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:924
+#: pro/licensorpro-client/licensorpro-client.php:1128
 msgid "It did not work"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:925
+#: pro/licensorpro-client/licensorpro-client.php:1129
 msgid "It broke something on my site"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:926
+#: pro/licensorpro-client/licensorpro-client.php:1130
 msgid "I found a better plugin"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:927
+#: pro/licensorpro-client/licensorpro-client.php:1131
 msgid "I no longer need it"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:928
+#: pro/licensorpro-client/licensorpro-client.php:1132
 msgid "Something else"
 msgstr ""
 
 #. translators: %s: plugin name.
-#: pro/licensorpro-client/licensorpro-client.php:955
+#: pro/licensorpro-client/licensorpro-client.php:1159
 #, php-format
 msgid "Before you turn %s off"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:959
+#: pro/licensorpro-client/licensorpro-client.php:1163
 msgid "If you have a moment, what went wrong? It is the only way we hear about it."
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:970
+#: pro/licensorpro-client/licensorpro-client.php:1174
 msgid "Anything else? (optional)"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:972
+#: pro/licensorpro-client/licensorpro-client.php:1176
 msgid "Sends your answer, the plugin version and your site address. Nothing else, and nothing from your site content."
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:976
+#: pro/licensorpro-client/licensorpro-client.php:1180
 msgid "Send and deactivate"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:979
+#: pro/licensorpro-client/licensorpro-client.php:1183
 msgid "Skip and deactivate"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:982
+#: pro/licensorpro-client/licensorpro-client.php:1186
 #: admin/assets/js/admin.js:406
 msgid "Cancel"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1103
-#: pro/licensorpro-client/licensorpro-client.php:1119
+#: pro/licensorpro-client/licensorpro-client.php:1307
+#: pro/licensorpro-client/licensorpro-client.php:1323
 msgid "API URL not configured."
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1138
+#: pro/licensorpro-client/licensorpro-client.php:1342
 msgid "Unexpected response from license server."
 msgstr ""
 
 #. translators: %s: human-readable time difference, e.g. "3 months".
-#: pro/licensorpro-client/licensorpro-client.php:1433
+#: pro/licensorpro-client/licensorpro-client.php:1640
 #: includes/class-dates.php:34
 #, php-format
 msgid "in %s"
 msgstr ""
 
 #. translators: %s: human-readable time difference, e.g. "13 days".
-#: pro/licensorpro-client/licensorpro-client.php:1434
+#: pro/licensorpro-client/licensorpro-client.php:1641
 #: includes/class-dates.php:36
 #, php-format
 msgid "%s ago"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1458
+#: pro/licensorpro-client/licensorpro-client.php:1666
 #, php-format
 msgid "%s License"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1467
-#: pro/licensorpro-client/licensorpro-client.php:1508
+#: pro/licensorpro-client/licensorpro-client.php:1676
+msgid "This site was deactivated, so its seat is free for another site. Enter the key again here to switch the Pro tools back on."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1686
+#: pro/licensorpro-client/licensorpro-client.php:1706
+#: pro/licensorpro-client/licensorpro-client.php:1756
 msgid "License key"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1469
+#: pro/licensorpro-client/licensorpro-client.php:1687
+msgid "Type"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1689
+msgid "Free license: updates of the free version only. It does not switch on Pro."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1690
+msgid "Free license: updates arrive in your dashboard like any other plugin."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1692
+#: pro/licensorpro-client/licensorpro-client.php:1731
+msgid "Last checked"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1696
+#: pro/licensorpro-client/licensorpro-client.php:1737
+msgid "Check for updates now"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1697
+msgid "Bought Pro? Download the Pro version from your account and upload it over this one. Everything you set up stays."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1698
+#: pro/licensorpro-client/licensorpro-client.php:1763
+msgid "Go to your account"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1708
 msgid "active"
 msgstr ""
 
 #. translators: %s: date the Pro tools lock
-#: pro/licensorpro-client/licensorpro-client.php:1471
+#: pro/licensorpro-client/licensorpro-client.php:1710
 #, php-format
 msgid "expired, Pro tools stay on until %s"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1472
+#: pro/licensorpro-client/licensorpro-client.php:1711
 msgid "expired, Pro tools locked"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1474
+#: pro/licensorpro-client/licensorpro-client.php:1713
 msgid "this site is not activated"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1475
+#: pro/licensorpro-client/licensorpro-client.php:1714
 msgid "no longer active (refunded or cancelled)"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1477
+#: pro/licensorpro-client/licensorpro-client.php:1716
 #: admin/assets/js/admin.js:345
 #: admin/assets/js/admin.js:657
 msgid "Status"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1479
+#: pro/licensorpro-client/licensorpro-client.php:1718
 msgid "Renew"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1483
+#: pro/licensorpro-client/licensorpro-client.php:1722
 msgid "Offline mode"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1485
+#: pro/licensorpro-client/licensorpro-client.php:1724
 #, php-format
 msgid "cached license valid until %s"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1489
+#: pro/licensorpro-client/licensorpro-client.php:1728
 msgid "Update channel"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1490
+#: pro/licensorpro-client/licensorpro-client.php:1729
 msgid "Site limit"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1491
+#: pro/licensorpro-client/licensorpro-client.php:1730
 msgid "Expires"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1491
+#: pro/licensorpro-client/licensorpro-client.php:1730
 msgid "Never"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1492
-msgid "Last checked"
-msgstr ""
-
-#: pro/licensorpro-client/licensorpro-client.php:1496
+#: pro/licensorpro-client/licensorpro-client.php:1735
 msgid "Deactivate this site"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1498
-msgid "Check for updates now"
+#: pro/licensorpro-client/licensorpro-client.php:1752
+msgid "Have a Pro license key? Enter it here to switch on the Pro tools. It replaces the free license on this site."
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1506
+#: pro/licensorpro-client/licensorpro-client.php:1753
 msgid "Enter your license key to activate this site."
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1511
+#: pro/licensorpro-client/licensorpro-client.php:1759
 msgid "Activate"
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1671
+#: pro/licensorpro-client/licensorpro-client.php:1762
+msgid "Your key is in your purchase email and in your account."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1770
+msgid "Need a hand?"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1771
+msgid "Contact support"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1936
 msgid "License activated."
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1680
+#: pro/licensorpro-client/licensorpro-client.php:1948
 msgid "Site deactivated."
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1691
+#: pro/licensorpro-client/licensorpro-client.php:1959
 msgid "License is valid. Update info refreshed."
 msgstr ""
 
-#: pro/licensorpro-client/licensorpro-client.php:1698
+#: pro/licensorpro-client/licensorpro-client.php:1966
 msgid "Permission denied."
 msgstr ""
 
@@ -271,61 +349,62 @@ msgstr ""
 msgid "https://jnkplugins.com"
 msgstr ""
 
-#: admin/class-admin.php:57
-msgid "This is JnK Linkweave Pro, but no licence is active on this site, so the Pro features are switched off: the URL Changer, link click analytics, Search Console targeting, the auto-link map, the Anchor Text and Links per post reports, broken-link repair, related posts, link preview cards, bulk link insertion, the link check before you publish, extra rule options, cross-site linking, AI re-ranking, AI assistant access and the CSV exports."
+#: admin/class-admin.php:41
+msgid "JnK Linkweave could not create its database tables."
 msgstr ""
 
-#: admin/class-admin.php:59
+#: admin/class-admin.php:42
+msgid "Link suggestions and the reports need them. Send the details below to support (jnkplugins.com/contact) and we will sort it out with you."
+msgstr ""
+
+#: admin/class-admin.php:85
+msgid "This is JnK Linkweave Pro, but no license is active on this site, so the Pro features are switched off: the URL Changer, link click analytics, Search Console targeting, the auto-link map, the Anchor Text and Links per post reports, broken-link repair, related posts, link preview cards, bulk link insertion, the link check before you publish, extra rule options, cross-site linking, AI re-ranking, AI assistant access and the CSV exports."
+msgstr ""
+
+#: admin/class-admin.php:87
+#: admin/views/upgrade.php:73
 msgid "Enter your license key"
 msgstr ""
 
-#: admin/class-admin.php:69
-#: admin/class-ui.php:102
+#: admin/class-admin.php:97
+#: admin/class-ui.php:105
 #: admin/views/settings.php:18
 msgid "Settings"
 msgstr ""
 
-#: admin/class-admin.php:76
-#: admin/class-admin.php:158
-#: admin/class-admin.php:159
+#: admin/class-admin.php:104
+#: admin/class-admin.php:186
+#: admin/class-admin.php:187
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: admin/class-admin.php:94
+#: admin/class-admin.php:122
 msgid "View details"
 msgstr ""
 
-#: admin/class-admin.php:98
+#: admin/class-admin.php:126
 msgid "Docs"
 msgstr ""
 
-#: admin/class-admin.php:100
+#: admin/class-admin.php:128
 msgid "Support"
 msgstr ""
 
-#: admin/class-admin.php:146
-msgid "Activate license"
-msgstr ""
-
-#: admin/class-admin.php:147
-msgid "Renew license"
-msgstr ""
-
-#: admin/class-admin.php:208
+#: admin/class-admin.php:236
 #: admin/views/dashboard.php:48
 msgid "Rebuild index"
 msgstr ""
 
-#: admin/class-admin.php:209
+#: admin/class-admin.php:237
 msgid "Reading your posts…"
 msgstr ""
 
-#: admin/class-admin.php:210
+#: admin/class-admin.php:238
 msgid "Done"
 msgstr ""
 
 #. translators: %d: number of posts read.
-#: admin/class-admin.php:212
+#: admin/class-admin.php:240
 #, php-format
 msgid "Last full read: just now (%d posts)"
 msgstr ""
@@ -430,15 +509,15 @@ msgstr ""
 msgid "Linkweave"
 msgstr ""
 
-#: admin/class-ui.php:89
+#: admin/class-ui.php:92
 msgid "Linkweave sections"
 msgstr ""
 
-#: admin/class-ui.php:94
+#: admin/class-ui.php:97
 msgid "More tools"
 msgstr ""
 
-#: admin/class-ui.php:101
+#: admin/class-ui.php:104
 msgid "Help"
 msgstr ""
 
@@ -729,99 +808,103 @@ msgstr ""
 msgid "Choose what Linkweave reads and how picky its suggestions are."
 msgstr ""
 
-#: admin/views/settings.php:23
+#: admin/views/settings.php:24
+msgid "License"
+msgstr ""
+
+#: admin/views/settings.php:27
 msgid "What Linkweave reads"
 msgstr ""
 
-#: admin/views/settings.php:24
+#: admin/views/settings.php:28
 msgid "Which content is used for suggestions and reports."
 msgstr ""
 
-#: admin/views/settings.php:28
+#: admin/views/settings.php:32
 msgid "Post types"
 msgstr ""
 
-#: admin/views/settings.php:38
+#: admin/views/settings.php:42
 msgid "The kinds of content Linkweave reads and suggests links to. Posts and Pages by default. Changes take effect straight away; adding a type reads those posts in the background."
 msgstr ""
 
-#: admin/views/settings.php:42
+#: admin/views/settings.php:46
 msgid "Shortest post to suggest"
 msgstr ""
 
-#: admin/views/settings.php:45
+#: admin/views/settings.php:49
 msgid "Very short posts are left out of suggestions. Small words like “the” and “a” are not counted, so 40 here is roughly an 80 to 100 word post."
 msgstr ""
 
-#: admin/views/settings.php:49
+#: admin/views/settings.php:53
 msgid "Keep up to date"
 msgstr ""
 
-#: admin/views/settings.php:50
+#: admin/views/settings.php:54
 msgid "Re-read a post every time it is saved"
 msgstr ""
 
-#: admin/views/settings.php:54
+#: admin/views/settings.php:58
 msgid "Suggestions"
 msgstr ""
 
-#: admin/views/settings.php:55
+#: admin/views/settings.php:59
 msgid "How link ideas are picked and shown in the editor."
 msgstr ""
 
-#: admin/views/settings.php:59
+#: admin/views/settings.php:63
 msgid "How posts are matched"
 msgstr ""
 
-#: admin/views/settings.php:62
+#: admin/views/settings.php:66
 msgid "Smart match (recommended)"
 msgstr ""
 
-#: admin/views/settings.php:63
+#: admin/views/settings.php:67
 msgid "Classic match"
 msgstr ""
 
-#: admin/views/settings.php:65
+#: admin/views/settings.php:69
 msgid "Smart match is not fooled by a word repeated many times or by very long posts, so its suggestions are usually sharper. You can switch at any time."
 msgstr ""
 
-#: admin/views/settings.php:69
+#: admin/views/settings.php:73
 msgid "Suggestions per post"
 msgstr ""
 
-#: admin/views/settings.php:72
+#: admin/views/settings.php:76
 msgid "How many link ideas the editor sidebar shows for each post (1 to 50)."
 msgstr ""
 
-#: admin/views/settings.php:76
+#: admin/views/settings.php:80
 msgid "How close a match must be"
 msgstr ""
 
-#: admin/views/settings.php:79
+#: admin/views/settings.php:83
 msgid "From 0 to 1. Lower shows more ideas, higher shows only very close matches. 0.25 is a good start."
 msgstr ""
 
-#: admin/views/settings.php:91
+#: admin/views/settings.php:95
 msgid "If you remove the plugin"
 msgstr ""
 
-#: admin/views/settings.php:92
+#: admin/views/settings.php:96
 msgid "Your data is kept unless you say otherwise."
 msgstr ""
 
-#: admin/views/settings.php:96
+#: admin/views/settings.php:100
 msgid "When you delete the plugin"
 msgstr ""
 
-#: admin/views/settings.php:98
+#: admin/views/settings.php:102
 msgid "Also delete Linkweave's data (rules, reports and settings)"
 msgstr ""
 
-#: admin/views/settings.php:99
-msgid "Off by default, so nothing is lost if you deactivate the plugin, delete it, or a Pro licence runs out."
+#: admin/views/settings.php:103
+msgid "Off by default, so nothing is lost if you deactivate the plugin, delete it, or a Pro license runs out."
 msgstr ""
 
-#: admin/views/settings.php:105
+#: admin/views/settings.php:109
 msgid "Save settings"
 msgstr ""
 
@@ -994,7 +1077,38 @@ msgid "Install Pro over this version: same rules, same reports, nothing to set u
 msgstr ""
 
 #: admin/views/upgrade.php:68
-msgid "Already bought Pro? Download the Pro zip from your account, go to Plugins, Add New, Upload Plugin, choose “Replace current with uploaded”, then enter your licence key under Linkweave Settings."
+msgid "Already bought Pro?"
+msgstr ""
+
+#: admin/views/upgrade.php:70
+#: admin/views/upgrade.php:71
+msgid "Download the Pro zip"
+msgstr ""
+
+#: admin/views/upgrade.php:70
+msgid "From your account on jnkplugins.com, under your license."
+msgstr ""
+
+#: admin/views/upgrade.php:72
+msgid "Upload it over this one"
+msgstr ""
+
+#: admin/views/upgrade.php:72
+msgid "Plugins, Add New, Upload Plugin. WordPress shows this copy as JnK Linkweave and the upload as JnK Linkweave Pro. Choose “Replace current with uploaded”."
+msgstr ""
+
+#: admin/views/upgrade.php:73
+msgid "A notice at the top of the screen takes you to the box, in Linkweave Settings under License. The key is in your purchase email."
+msgstr ""
+
+#. translators: %s: the database's error message
+#: includes/class-index-builder.php:243
+#, php-format
+msgid "The index table could not be created, so nothing can be indexed. The database said: %s"
+msgstr ""
+
+#: includes/class-index-builder.php:244
+msgid "no reason given"
 msgstr ""
 
 #: includes/class-plugin.php:109
@@ -1092,13 +1206,13 @@ msgstr ""
 msgid "Loading…"
 msgstr ""
 
-#: admin/assets/js/admin.js:102
-msgid "just now"
-msgstr ""
-
 #: admin/assets/js/admin.js:69
 #: admin/assets/js/admin.js:340
 msgid "Edit"
+msgstr ""
+
+#: admin/assets/js/admin.js:102
+msgid "just now"
 msgstr ""
 
 #: admin/assets/js/admin.js:102

@@ -64,7 +64,13 @@ $jnk_linkweave_pro_features = [
         </div>
     <?php endforeach; ?>
 </div>
-<p class="description" style="max-width:680px">
-    <?php esc_html_e( "Already bought Pro? Download the Pro zip from your account, go to Plugins, Add New, Upload Plugin, choose “Replace current with uploaded”, then enter your licence key under Linkweave Settings.", "jnk-linkweave" ); ?>
-</p>
+<div class="jnkui-card">
+    <div class="jnkui-card-head"><div><h2><?php esc_html_e( "Already bought Pro?", "jnk-linkweave" ); ?></h2></div></div>
+    <ol class="jnkui-steps">
+        <li><strong><?php esc_html_e( "Download the Pro zip", "jnk-linkweave" ); ?></strong><?php esc_html_e( "From your account on jnkplugins.com, under your license.", "jnk-linkweave" ); ?>
+            <br><a class="button button-primary" style="margin-top:6px" href="<?php echo esc_url( "https://license.jnkplugins.com/account/licenses?utm_source=plugin&utm_medium=upgrade-page&utm_campaign=jnk-linkweave" ); ?>" target="_blank" rel="noopener"><?php esc_html_e( "Download the Pro zip", "jnk-linkweave" ); ?></a></li>
+        <li><strong><?php esc_html_e( "Upload it over this one", "jnk-linkweave" ); ?></strong><?php esc_html_e( "Plugins, Add New, Upload Plugin. WordPress shows this copy as JnK Linkweave and the upload as JnK Linkweave Pro. Choose “Replace current with uploaded”.", "jnk-linkweave" ); ?></li>
+        <li><strong><?php esc_html_e( "Enter your license key", "jnk-linkweave" ); ?></strong><?php esc_html_e( "A notice at the top of the screen takes you to the box, in Linkweave Settings under License. The key is in your purchase email.", "jnk-linkweave" ); ?></li>
+    </ol>
+</div>
 <?php \JnkLinkweave\Admin\UI::close(); ?>

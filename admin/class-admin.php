@@ -17,8 +17,31 @@ class Admin {
         // Late priority, so WordPress's own "View details" item is already present.
         add_filter( "plugin_row_meta", [ $this, "plugin_row_meta" ], 99, 2 );
         add_action( "admin_notices", [ $this, "unlicensed_pro_notice" ] );
+        add_action( "admin_notices", [ $this, "schema_problem_notice" ] );
         // "Links in / out" column on the Posts list (free).
         Posts_Column::register();
+    }
+
+    /**
+     * A table Linkweave needs could not be created. dbDelta() says nothing, so
+     * without this the plugin looked healthy while suggestions stayed empty.
+     */
+    public function schema_problem_notice(): void {
+        $problem = \JnkLinkweave_Activator::schema_problem();
+        if ( ! $problem || ! current_user_can( "manage_options" ) ) {
+            return;
+        }
+        $screen = function_exists( "get_current_screen" ) ? get_current_screen() : null;
+        $id     = $screen ? (string) $screen->id : "";
+        if ( false === strpos( $id, self::MENU_SLUG ) && ! in_array( $id, [ "plugins", "dashboard" ], true ) ) {
+            return;
+        }
+        printf(
+            '<div class="notice notice-error"><p><strong>%s</strong> %s</p><p><code>%s</code></p></div>',
+            esc_html__( "JnK Linkweave could not create its database tables.", "jnk-linkweave" ),
+            esc_html__( "Link suggestions and the reports need them. Send the details below to support (jnkplugins.com/contact) and we will sort it out with you.", "jnk-linkweave" ),
+            esc_html( implode( ", ", $problem["tables"] ) . ( "" !== $problem["error"] ? ": " . $problem["error"] : "" ) )
+        );
     }
 
     /**
@@ -34,6 +57,11 @@ class Admin {
             return;
         }
         if ( Rules_Engine::is_pro() || ! current_user_can( "manage_options" ) ) {
+            return;
+        }
+        // The licensing SDK (1.8.0) shows this notice the same way in every JnK
+        // plugin. This one stays for an older SDK copy loaded by another plugin.
+        if ( apply_filters( "jnk_linkweave_sdk_shows_licence_notice", false ) ) {
             return;
         }
         // An expired, locked or revoked licence gets the licensing module's own
@@ -54,7 +82,7 @@ class Admin {
             '<div class="notice notice-info jnk-linkweave-unlicensed-notice"><p>%s <a href="%s">%s</a></p></div>',
             // The same notice shows right after "Deactivate this site", so it must not
             // claim a key was never entered, and it names every feature that is off.
-            esc_html__( "This is JnK Linkweave Pro, but no licence is active on this site, so the Pro features are switched off: the URL Changer, link click analytics, Search Console targeting, the auto-link map, the Anchor Text and Links per post reports, broken-link repair, related posts, link preview cards, bulk link insertion, the link check before you publish, extra rule options, cross-site linking, AI re-ranking, AI assistant access and the CSV exports.", "jnk-linkweave" ),
+            esc_html__( "This is JnK Linkweave Pro, but no license is active on this site, so the Pro features are switched off: the URL Changer, link click analytics, Search Console targeting, the auto-link map, the Anchor Text and Links per post reports, broken-link repair, related posts, link preview cards, bulk link insertion, the link check before you publish, extra rule options, cross-site linking, AI re-ranking, AI assistant access and the CSV exports.", "jnk-linkweave" ),
             esc_url( admin_url( "admin.php?page=" . self::MENU_SLUG . "-settings" ) ),
             esc_html__( "Enter your license key", "jnk-linkweave" )
         );
