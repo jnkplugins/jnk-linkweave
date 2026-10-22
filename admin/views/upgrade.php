@@ -66,6 +66,7 @@ $jnk_linkweave_pro_features = [
 </div>
 <div class="jnkui-card">
     <div class="jnkui-card-head"><div><h2><?php esc_html_e( "Already bought Pro?", "jnk-linkweave" ); ?></h2></div></div>
+    <div class="jnkui-card-body"><p style="margin:0"><strong><?php esc_html_e( "Fastest: paste your Pro license key in Linkweave Settings, under License, and click Install Pro now. Pro is installed over this version for you. Or do it by hand:", "jnk-linkweave" ); ?></strong> <a class="button" href="<?php echo esc_url( admin_url( "admin.php?page=jnk-linkweave-settings#lp-jnk-linkweave-license" ) ); ?>"><?php esc_html_e( "Open the License box", "jnk-linkweave" ); ?></a></p></div>
     <ol class="jnkui-steps">
         <li><strong><?php esc_html_e( "Download the Pro zip", "jnk-linkweave" ); ?></strong><?php esc_html_e( "From your account on jnkplugins.com, under your license.", "jnk-linkweave" ); ?>
             <br><a class="button button-primary" style="margin-top:6px" href="<?php echo esc_url( "https://license.jnkplugins.com/account/licenses?utm_source=plugin&utm_medium=upgrade-page&utm_campaign=jnk-linkweave" ); ?>" target="_blank" rel="noopener"><?php esc_html_e( "Download the Pro zip", "jnk-linkweave" ); ?></a></li>
