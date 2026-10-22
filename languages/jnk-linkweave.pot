@@ -1,0 +1,1586 @@
+# Copyright (C) 2026 JnK Plugins
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: JnK Linkweave 1.11.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-18T15:08:11+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: jnk-linkweave\n"
+
+#: pro/licensorpro-client/licensorpro-client.php:653
+msgid "Renew your licence"
+msgstr ""
+
+#. translators: 1: plugin name, 2: expiry date, 3: lock date, 4: days left
+#: pro/licensorpro-client/licensorpro-client.php:659
+#, php-format
+msgid "<strong>Your %1$s Pro licence expired on %2$s.</strong> Pro keeps working as normal until %3$s (%4$d days left). Updates, including security fixes, and email support have stopped. After %3$s, everything you already set up keeps working and your visitors won't notice a thing, but the Pro tools in your dashboard will lock."
+msgstr ""
+
+#. translators: 1: plugin name, 2: expiry date
+#: pro/licensorpro-client/licensorpro-client.php:669
+#, php-format
+msgid "<strong>%1$s Pro tools are locked because your licence expired on %2$s.</strong> Your site, and everything visitors see, still works. Renew to unlock the Pro tools and get updates, including security fixes, again."
+msgstr ""
+
+#. translators: %s: plugin name
+#: pro/licensorpro-client/licensorpro-client.php:677
+#, php-format
+msgid "<strong>This site is no longer activated on your %s Pro licence.</strong> The Pro tools in your dashboard are locked until you activate it again. Everything visitors see keeps working."
+msgstr ""
+
+#. translators: %s: plugin name
+#: pro/licensorpro-client/licensorpro-client.php:684
+#, php-format
+msgid "<strong>Your %s Pro licence is no longer active.</strong> It was refunded or cancelled, so the Pro tools in your dashboard are locked and updates have stopped. Everything visitors see keeps working."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:786
+msgid "Please enter a license key."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:798
+#: pro/licensorpro-client/licensorpro-client.php:853
+msgid "License response failed signature verification."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:836
+msgid "No license key set."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:919
+msgid "Only deactivating temporarily"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:920
+msgid "I could not work out how to use it"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:921
+msgid "It is missing a feature I need"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:922
+msgid "It did not work"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:923
+msgid "It broke something on my site"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:924
+msgid "I found a better plugin"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:925
+msgid "I no longer need it"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:926
+msgid "Something else"
+msgstr ""
+
+#. translators: %s: plugin name.
+#: pro/licensorpro-client/licensorpro-client.php:953
+#, php-format
+msgid "Before you turn %s off"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:957
+msgid "If you have a moment, what went wrong? It is the only way we hear about it."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:968
+msgid "Anything else? (optional)"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:970
+msgid "Sends your answer, the plugin version and your site address. Nothing else, and nothing from your site content."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:974
+msgid "Send and deactivate"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:977
+msgid "Skip and deactivate"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:980
+#: admin/assets/js/admin.js:406
+msgid "Cancel"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1101
+#: pro/licensorpro-client/licensorpro-client.php:1117
+msgid "API URL not configured."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1136
+msgid "Unexpected response from license server."
+msgstr ""
+
+#. translators: %s: human-readable time difference, e.g. "3 months".
+#: pro/licensorpro-client/licensorpro-client.php:1393
+#: includes/class-dates.php:34
+#, php-format
+msgid "in %s"
+msgstr ""
+
+#. translators: %s: human-readable time difference, e.g. "13 days".
+#: pro/licensorpro-client/licensorpro-client.php:1394
+#: includes/class-dates.php:36
+#, php-format
+msgid "%s ago"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1418
+#, php-format
+msgid "%s License"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1427
+#: pro/licensorpro-client/licensorpro-client.php:1468
+msgid "License key"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1429
+msgid "active"
+msgstr ""
+
+#. translators: %s: date the Pro tools lock
+#: pro/licensorpro-client/licensorpro-client.php:1431
+#, php-format
+msgid "expired, Pro tools stay on until %s"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1432
+msgid "expired, Pro tools locked"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1434
+msgid "this site is not activated"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1435
+msgid "no longer active (refunded or cancelled)"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1437
+#: admin/assets/js/admin.js:345
+#: admin/assets/js/admin.js:657
+msgid "Status"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1439
+msgid "Renew"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1443
+msgid "Offline mode"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1445
+#, php-format
+msgid "cached license valid until %s"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1449
+msgid "Update channel"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1450
+msgid "Site limit"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1451
+msgid "Expires"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1451
+msgid "Never"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1452
+msgid "Last checked"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1456
+msgid "Deactivate this site"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1458
+msgid "Check for updates now"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1466
+msgid "Enter your license key to activate this site."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1471
+msgid "Activate"
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1631
+msgid "License activated."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1640
+msgid "Site deactivated."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1651
+msgid "License is valid. Update info refreshed."
+msgstr ""
+
+#: pro/licensorpro-client/licensorpro-client.php:1658
+msgid "Permission denied."
+msgstr ""
+
+#. Plugin Name of the plugin
+#: jnk-linkweave.php
+#: editor/src/index.js:20
+#: editor/src/index.js:24
+msgid "JnK Linkweave"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: jnk-linkweave.php
+msgid "https://jnkplugins.com/jnk-linkweave/"
+msgstr ""
+
+#. Description of the plugin
+#: jnk-linkweave.php
+msgid "Affordable, server-side internal linking for WordPress — suggestions, auto-linking rules, and orphan &amp; broken-link reports."
+msgstr ""
+
+#. Author of the plugin
+#: jnk-linkweave.php
+msgid "JnK Plugins"
+msgstr ""
+
+#. Author URI of the plugin
+#: jnk-linkweave.php
+msgid "https://jnkplugins.com"
+msgstr ""
+
+#: admin/class-admin.php:57
+msgid "This is JnK Linkweave Pro, but no licence is active on this site, so the Pro features are switched off: the URL Changer, link click analytics, Search Console targeting, the auto-link map, the Anchor Text and Links per post reports, broken-link repair, related posts, link preview cards, bulk link insertion, the link check before you publish, extra rule options, cross-site linking, AI re-ranking, AI assistant access and the CSV exports."
+msgstr ""
+
+#: admin/class-admin.php:59
+msgid "Enter your license key"
+msgstr ""
+
+#: admin/class-admin.php:69
+#: admin/class-ui.php:102
+#: admin/views/settings.php:18
+msgid "Settings"
+msgstr ""
+
+#: admin/class-admin.php:76
+#: admin/class-admin.php:158
+#: admin/class-admin.php:159
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: admin/class-admin.php:94
+msgid "View details"
+msgstr ""
+
+#: admin/class-admin.php:98
+msgid "Docs"
+msgstr ""
+
+#: admin/class-admin.php:100
+msgid "Support"
+msgstr ""
+
+#: admin/class-admin.php:146
+msgid "Activate license"
+msgstr ""
+
+#: admin/class-admin.php:147
+msgid "Renew license"
+msgstr ""
+
+#: admin/class-admin.php:208
+#: admin/views/dashboard.php:48
+msgid "Rebuild index"
+msgstr ""
+
+#: admin/class-admin.php:209
+msgid "Reading your posts…"
+msgstr ""
+
+#: admin/class-admin.php:210
+msgid "Done"
+msgstr ""
+
+#. translators: %d: number of posts read.
+#: admin/class-admin.php:212
+#, php-format
+msgid "Last full read: just now (%d posts)"
+msgstr ""
+
+#: admin/class-posts-column.php:37
+msgid "Internal links: how many of your posts link here, and how many links this post sends out"
+msgstr ""
+
+#: admin/class-posts-column.php:38
+msgid "Links in / out"
+msgstr ""
+
+#: admin/class-posts-column.php:58
+msgid "Counted once published"
+msgstr ""
+
+#. translators: %d: number of internal links pointing at this post.
+#: admin/class-posts-column.php:74
+#, php-format
+msgid "%d internal link points here"
+msgid_plural "%d internal links point here"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of links in.
+#: admin/class-posts-column.php:79
+#: admin/assets/js/admin.js:564
+#, php-format,js-format
+msgid "%d in"
+msgid_plural "%d in"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of internal links in this post.
+#: admin/class-posts-column.php:84
+#, php-format
+msgid "This post links to %d of your posts"
+msgid_plural "This post links to %d of your posts"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of links out.
+#: admin/class-posts-column.php:89
+#, php-format
+msgid "%d out"
+msgstr ""
+
+#: admin/class-ui.php:21
+#: admin/views/dashboard.php:51
+msgid "Overview"
+msgstr ""
+
+#: admin/class-ui.php:22
+#: admin/views/rules.php:11
+msgid "Auto-link rules"
+msgstr ""
+
+#: admin/class-ui.php:23
+msgid "Orphans"
+msgstr ""
+
+#: admin/class-ui.php:24
+#: admin/views/inbound.php:6
+msgid "Inbound links"
+msgstr ""
+
+#: admin/class-ui.php:25
+#: admin/views/broken.php:9
+#: admin/views/dashboard.php:103
+msgid "Broken links"
+msgstr ""
+
+#: admin/class-ui.php:26
+msgid "Link clicks"
+msgstr ""
+
+#: admin/class-ui.php:33
+msgid "URL changer"
+msgstr ""
+
+#: admin/class-ui.php:34
+msgid "Search Console"
+msgstr ""
+
+#: admin/class-ui.php:35
+msgid "Anchor text"
+msgstr ""
+
+#: admin/class-ui.php:36
+msgid "Link map"
+msgstr ""
+
+#: admin/class-ui.php:37
+msgid "Links per post"
+msgstr ""
+
+#: admin/class-ui.php:69
+msgid "Pro"
+msgstr ""
+
+#: admin/class-ui.php:86
+msgid "Linkweave"
+msgstr ""
+
+#: admin/class-ui.php:89
+msgid "Linkweave sections"
+msgstr ""
+
+#: admin/class-ui.php:94
+msgid "More tools"
+msgstr ""
+
+#: admin/class-ui.php:101
+msgid "Help"
+msgstr ""
+
+#: admin/views/broken.php:6
+msgid "Check all links now"
+msgstr ""
+
+#: admin/views/broken.php:10
+msgid "Links in your posts that lead to a page that no longer exists. Linkweave checks every day; you can also check right now."
+msgstr ""
+
+#: admin/views/dashboard.php:47
+#: admin/assets/js/admin.js:201
+msgid "Run now"
+msgstr ""
+
+#: admin/views/dashboard.php:52
+msgid "How your internal links are doing, and what to fix next."
+msgstr ""
+
+#: admin/views/dashboard.php:59
+msgid "Linkweave is reading your posts for the first time."
+msgstr ""
+
+#: admin/views/dashboard.php:60
+msgid "This page updates by itself. If it still says Queued after a few seconds, click Run now."
+msgstr ""
+
+#: admin/views/dashboard.php:64
+msgid "The last read of your posts stopped before it finished."
+msgstr ""
+
+#: admin/views/dashboard.php:65
+msgid "Nothing is lost. Click Run it again now, top right."
+msgstr ""
+
+#: admin/views/dashboard.php:69
+msgid "Start here: let Linkweave read your posts once."
+msgstr ""
+
+#: admin/views/dashboard.php:70
+msgid "Linkweave suggests links by comparing your posts with each other. Click Rebuild index; it takes a minute or two on most sites and then keeps itself up to date as you publish."
+msgstr ""
+
+#: admin/views/dashboard.php:76
+msgid "Posts Linkweave knows"
+msgstr ""
+
+#: admin/views/dashboard.php:80
+#: admin/assets/js/admin.js:186
+msgid "Queued, waiting for WordPress to start it"
+msgstr ""
+
+#. translators: 1: posts read so far, 2: total posts.
+#: admin/views/dashboard.php:84
+#: admin/assets/js/admin.js:193
+#, php-format,js-format
+msgid "Reading posts %1$d of %2$d"
+msgstr ""
+
+#. translators: %s: time of the last full rebuild.
+#: admin/views/dashboard.php:91
+#, php-format
+msgid "Last full read: %s"
+msgstr ""
+
+#: admin/views/dashboard.php:92
+msgid "never"
+msgstr ""
+
+#: admin/views/dashboard.php:98
+#: admin/views/orphans.php:15
+msgid "Posts nothing links to"
+msgstr ""
+
+#: admin/views/dashboard.php:100
+#: admin/views/dashboard.php:111
+#: admin/views/dashboard.php:127
+#: admin/views/dashboard.php:159
+msgid "Counted after the first read"
+msgstr ""
+
+#: admin/views/dashboard.php:100
+msgid "Readers and search engines struggle to find these"
+msgstr ""
+
+#: admin/views/dashboard.php:100
+msgid "Every post has at least one link in"
+msgstr ""
+
+#: admin/views/dashboard.php:105
+msgid "Links that lead to a missing page"
+msgstr ""
+
+#: admin/views/dashboard.php:105
+msgid "No dead links found"
+msgstr ""
+
+#: admin/views/dashboard.php:108
+msgid "Internal links"
+msgstr ""
+
+#. translators: %s: number of active auto-link rules.
+#: admin/views/dashboard.php:113
+#, php-format
+msgid "Plus %s auto-link rule"
+msgid_plural "Plus %s auto-link rules"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/views/dashboard.php:122
+msgid "Link coverage"
+msgstr ""
+
+#: admin/views/dashboard.php:123
+msgid "How many internal links point at each of your posts. Aim to move posts out of the red."
+msgstr ""
+
+#: admin/views/dashboard.php:131
+#: admin/assets/js/linkmap.js:27
+msgid "No links in"
+msgstr ""
+
+#: admin/views/dashboard.php:132
+#: admin/assets/js/linkmap.js:28
+msgid "1 to 2 links"
+msgstr ""
+
+#: admin/views/dashboard.php:133
+#: admin/assets/js/linkmap.js:29
+msgid "3 to 5 links"
+msgstr ""
+
+#: admin/views/dashboard.php:134
+#: admin/assets/js/linkmap.js:30
+msgid "6 or more"
+msgstr ""
+
+#: admin/views/dashboard.php:137
+msgid "Share of posts by number of internal links pointing at them"
+msgstr ""
+
+#: admin/views/dashboard.php:154
+msgid "Posts that need a link"
+msgstr ""
+
+#: admin/views/dashboard.php:155
+msgid "Open one and Linkweave shows which of your posts should link to it."
+msgstr ""
+
+#: admin/views/dashboard.php:156
+msgid "See all"
+msgstr ""
+
+#: admin/views/dashboard.php:161
+msgid "Nothing to fix"
+msgstr ""
+
+#: admin/views/dashboard.php:161
+msgid "Every post has at least one internal link pointing at it."
+msgstr ""
+
+#: admin/views/dashboard.php:169
+msgid "0 links in"
+msgstr ""
+
+#: admin/views/dashboard.php:185
+msgid "Getting started"
+msgstr ""
+
+#: admin/views/dashboard.php:186
+msgid "Four steps to a well-linked site."
+msgstr ""
+
+#: admin/views/dashboard.php:188
+msgid "Let Linkweave read your posts"
+msgstr ""
+
+#: admin/views/dashboard.php:188
+msgid "Rebuild index, top right."
+msgstr ""
+
+#: admin/views/dashboard.php:189
+msgid "Add links while you write"
+msgstr ""
+
+#: admin/views/dashboard.php:189
+msgid "Open any post: suggestions appear in the Linkweave sidebar."
+msgstr ""
+
+#: admin/views/dashboard.php:190
+msgid "Add an auto-link rule"
+msgstr ""
+
+#: admin/views/dashboard.php:190
+msgid "Link a phrase to a page everywhere it appears."
+msgstr ""
+
+#: admin/views/dashboard.php:191
+msgid "Give every post a link in"
+msgstr ""
+
+#: admin/views/dashboard.php:191
+msgid "Work down the list on the left."
+msgstr ""
+
+#: admin/views/dashboard.php:199
+msgid "Your most linked-to posts"
+msgstr ""
+
+#: admin/views/dashboard.php:200
+msgid "The pages your own site points to most. Search engines treat these as your most important pages."
+msgstr ""
+
+#: admin/views/dashboard.php:201
+msgid "All posts"
+msgstr ""
+
+#: admin/views/dashboard.php:204
+msgid "No internal links yet"
+msgstr ""
+
+#: admin/views/dashboard.php:204
+msgid "Once your posts link to each other, the busiest pages show up here."
+msgstr ""
+
+#. translators: %s: number of links.
+#: admin/views/dashboard.php:215
+#, php-format
+msgid "%s link"
+msgid_plural "%s links"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/views/inbound.php:7
+msgid "How many of your own posts link to each page. The pages at the top are the ones your site treats as most important."
+msgstr ""
+
+#: admin/views/inbound.php:51
+msgid "No category"
+msgstr ""
+
+#: admin/views/inbound.php:60
+msgid "Other topics"
+msgstr ""
+
+#: admin/views/inbound.php:101
+msgid "Your link map"
+msgstr ""
+
+#: admin/views/inbound.php:102
+msgid "Every square is one post, grouped by topic. The colour shows how many of your posts link to it. Hover for the title, click to open it."
+msgstr ""
+
+#: admin/views/inbound.php:105
+msgid "Posts"
+msgstr ""
+
+#: admin/views/inbound.php:106
+msgid "Topics"
+msgstr ""
+
+#: admin/views/inbound.php:117
+msgid "Only links saved in your posts count here. Links added on the fly by auto-link rules are not stored. New links are counted within a minute of saving a post."
+msgstr ""
+
+#: admin/views/orphans.php:16
+msgid "Published posts with no internal links pointing at them. Pick one to see which of your posts should link to it."
+msgstr ""
+
+#: admin/views/orphans.php:22
+msgid "Only links saved in your posts count here. Links added on the fly by auto-link rules are not stored, so a post that only gets those can still show up. New links are picked up within a minute of saving a post."
+msgstr ""
+
+#: admin/views/rules.php:12
+msgid "Pick a word or phrase and the page it should link to. Linkweave adds the link wherever that phrase appears, without changing your saved posts."
+msgstr ""
+
+#. translators: 1: opening link tag, 2: closing link tag.
+#: admin/views/rules.php:26
+#, php-format
+msgid "Need to change a URL across every post at once, with one-click undo? %1$sSee what Pro adds%2$s."
+msgstr ""
+
+#: admin/views/settings.php:19
+msgid "Choose what Linkweave reads and how picky its suggestions are."
+msgstr ""
+
+#: admin/views/settings.php:23
+msgid "What Linkweave reads"
+msgstr ""
+
+#: admin/views/settings.php:24
+msgid "Which content is used for suggestions and reports."
+msgstr ""
+
+#: admin/views/settings.php:28
+msgid "Post types"
+msgstr ""
+
+#: admin/views/settings.php:38
+msgid "The kinds of content Linkweave reads and suggests links to. Posts and Pages by default. Changes take effect straight away; adding a type reads those posts in the background."
+msgstr ""
+
+#: admin/views/settings.php:42
+msgid "Shortest post to suggest"
+msgstr ""
+
+#: admin/views/settings.php:45
+msgid "Very short posts are left out of suggestions. Small words like “the” and “a” are not counted, so 40 here is roughly an 80 to 100 word post."
+msgstr ""
+
+#: admin/views/settings.php:49
+msgid "Keep up to date"
+msgstr ""
+
+#: admin/views/settings.php:50
+msgid "Re-read a post every time it is saved"
+msgstr ""
+
+#: admin/views/settings.php:54
+msgid "Suggestions"
+msgstr ""
+
+#: admin/views/settings.php:55
+msgid "How link ideas are picked and shown in the editor."
+msgstr ""
+
+#: admin/views/settings.php:59
+msgid "How posts are matched"
+msgstr ""
+
+#: admin/views/settings.php:62
+msgid "Smart match (recommended)"
+msgstr ""
+
+#: admin/views/settings.php:63
+msgid "Classic match"
+msgstr ""
+
+#: admin/views/settings.php:65
+msgid "Smart match is not fooled by a word repeated many times or by very long posts, so its suggestions are usually sharper. You can switch at any time."
+msgstr ""
+
+#: admin/views/settings.php:69
+msgid "Suggestions per post"
+msgstr ""
+
+#: admin/views/settings.php:72
+msgid "How many link ideas the editor sidebar shows for each post (1 to 50)."
+msgstr ""
+
+#: admin/views/settings.php:76
+msgid "How close a match must be"
+msgstr ""
+
+#: admin/views/settings.php:79
+msgid "From 0 to 1. Lower shows more ideas, higher shows only very close matches. 0.25 is a good start."
+msgstr ""
+
+#: admin/views/settings.php:91
+msgid "If you remove the plugin"
+msgstr ""
+
+#: admin/views/settings.php:92
+msgid "Your data is kept unless you say otherwise."
+msgstr ""
+
+#: admin/views/settings.php:96
+msgid "When you delete the plugin"
+msgstr ""
+
+#: admin/views/settings.php:98
+msgid "Also delete Linkweave's data (rules, reports and settings)"
+msgstr ""
+
+#: admin/views/settings.php:99
+msgid "Off by default, so nothing is lost if you deactivate the plugin, delete it, or a Pro licence runs out."
+msgstr ""
+
+#: admin/views/settings.php:105
+msgid "Save settings"
+msgstr ""
+
+#: admin/views/upgrade.php:15
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: admin/views/upgrade.php:28
+msgid "One-click auto-link map"
+msgstr ""
+
+#: admin/views/upgrade.php:28
+msgid "Turn your topical clusters into auto-link rules in one click, keyed on phrases your other posts already use."
+msgstr ""
+
+#: admin/views/upgrade.php:29
+msgid "Add links in bulk"
+msgstr ""
+
+#: admin/views/upgrade.php:29
+msgid "Pick several related posts and add a link from each of them to the page you are working on, in one click."
+msgstr ""
+
+#: admin/views/upgrade.php:30
+msgid "Bulk review & approve"
+msgstr ""
+
+#: admin/views/upgrade.php:30
+msgid "Tick several editor suggestions and insert them all at once."
+msgstr ""
+
+#: admin/views/upgrade.php:31
+msgid "Internal-link click analytics"
+msgstr ""
+
+#: admin/views/upgrade.php:31
+msgid "See which internal links visitors actually follow, tracked on your own server."
+msgstr ""
+
+#: admin/views/upgrade.php:32
+msgid "Search Console targeting"
+msgstr ""
+
+#: admin/views/upgrade.php:32
+msgid "Import your Search Console Queries export to steer suggestions toward pages that earn clicks."
+msgstr ""
+
+#: admin/views/upgrade.php:33
+msgid "Focus-keyword boost"
+msgstr ""
+
+#: admin/views/upgrade.php:33
+msgid "Rank suggestions using the Yoast or Rank Math focus keyphrases you already set."
+msgstr ""
+
+#: admin/views/upgrade.php:34
+msgid "Broken-link repair"
+msgstr ""
+
+#: admin/views/upgrade.php:34
+msgid "Unlink or re-point the dead links the free report finds, one at a time or all at once."
+msgstr ""
+
+#: admin/views/upgrade.php:35
+msgid "Bulk URL changer + rollback"
+msgstr ""
+
+#: admin/views/upgrade.php:35
+msgid "Find-and-replace a URL across your whole site, with one-click rollback of any batch."
+msgstr ""
+
+#: admin/views/upgrade.php:36
+msgid "Link check before you publish"
+msgstr ""
+
+#: admin/views/upgrade.php:36
+msgid "When you click Publish, see how many internal links the post has and add a good match in one click."
+msgstr ""
+
+#: admin/views/upgrade.php:37
+msgid "Dead-end report"
+msgstr ""
+
+#: admin/views/upgrade.php:37
+msgid "Find posts that link to none of your other posts, with links in and out for every post and a CSV export."
+msgstr ""
+
+#: admin/views/upgrade.php:38
+msgid "More from each rule"
+msgstr ""
+
+#: admin/views/upgrade.php:38
+msgid "Other words for the same link, limit a rule to some post types or categories, mark paid links as sponsored, switch rules off for one post, and import or export rules as CSV."
+msgstr ""
+
+#: admin/views/upgrade.php:39
+msgid "AI assistants (read only)"
+msgstr ""
+
+#: admin/views/upgrade.php:39
+msgid "Let AI tools that use the WordPress Abilities API read your orphan posts, link counts and suggestions. Needs WordPress 6.9 or newer."
+msgstr ""
+
+#: admin/views/upgrade.php:40
+msgid "Anchor text report"
+msgstr ""
+
+#: admin/views/upgrade.php:40
+msgid "See every anchor you use, where it points, and which ones are over-used."
+msgstr ""
+
+#: admin/views/upgrade.php:41
+msgid "Related posts"
+msgstr ""
+
+#: admin/views/upgrade.php:41
+msgid "A “Read more” list of related posts for readers, added with a shortcode."
+msgstr ""
+
+#: admin/views/upgrade.php:42
+msgid "Link preview cards"
+msgstr ""
+
+#: admin/views/upgrade.php:42
+msgid "Optional hover cards with title, image and excerpt on internal links."
+msgstr ""
+
+#: admin/views/upgrade.php:43
+msgid "CSV export"
+msgstr ""
+
+#: admin/views/upgrade.php:43
+msgid "Export the orphan-page and anchor-text reports to CSV."
+msgstr ""
+
+#: admin/views/upgrade.php:44
+msgid "Cross-site linking"
+msgstr ""
+
+#: admin/views/upgrade.php:44
+msgid "Suggest links between the sites on your license, right in the editor. Works on every plan."
+msgstr ""
+
+#: admin/views/upgrade.php:45
+msgid "AI second opinion"
+msgstr ""
+
+#: admin/views/upgrade.php:45
+msgid "Let AI re-order the suggestions using your own OpenAI or Anthropic key. You pay them directly; we never charge per use."
+msgstr ""
+
+#: admin/views/upgrade.php:50
+msgid "Linkweave Pro"
+msgstr ""
+
+#: admin/views/upgrade.php:51
+msgid "You are using the free version: unlimited auto-link rules, suggestions in the editor, and the orphan and broken-link reports. Pro adds the tools that do the work for you."
+msgstr ""
+
+#: admin/views/upgrade.php:52
+msgid "See Pro plans"
+msgstr ""
+
+#: admin/views/upgrade.php:56
+msgid "Upgrading keeps everything."
+msgstr ""
+
+#: admin/views/upgrade.php:57
+msgid "Install Pro over this version: same rules, same reports, nothing to set up again."
+msgstr ""
+
+#: admin/views/upgrade.php:68
+msgid "Already bought Pro? Download the Pro zip from your account, go to Plugins, Add New, Upload Plugin, choose “Replace current with uploaded”, then enter your licence key under Linkweave Settings."
+msgstr ""
+
+#: includes/class-plugin.php:109
+msgid "Insert a JnK Linkweave suggestion"
+msgstr ""
+
+#: includes/class-plugin.php:110
+msgid "JnK Linkweave suggestions"
+msgstr ""
+
+#: includes/class-plugin.php:111
+msgid "Close"
+msgstr ""
+
+#: includes/class-plugin.php:112
+msgid "No suggestions for this post yet."
+msgstr ""
+
+#: includes/class-plugin.php:113
+msgid "Save the post once before requesting suggestions."
+msgstr ""
+
+#: includes/class-plugin.php:114
+msgid "Insert"
+msgstr ""
+
+#: includes/class-plugin.php:115
+msgid "The link goes on a matching phrase already in your text when there is one; otherwise at the cursor. Select words first to link those instead."
+msgstr ""
+
+#: includes/class-plugin.php:117
+msgid "Suggestions appear once this post is published: drafts are not indexed yet. Publish it, wait a moment, then click the button again."
+msgstr ""
+
+#: includes/class-plugin.php:118
+msgid "This post has not been indexed yet. It is normally picked up within a minute of saving; try again shortly, or rebuild the index from the JnK Linkweave dashboard."
+msgstr ""
+
+#. translators: 1: indexable word count of this post, 2: configured minimum.
+#: includes/class-plugin.php:120
+#, php-format
+msgid "This post is too short to index, so it has no suggestions yet. It has %1$d indexable words and the minimum is %2$d (common words like \"the\" are not counted)."
+msgstr ""
+
+#: includes/class-plugin.php:121
+msgid "This post type is not being indexed. You can add it under Post types in JnK Linkweave → Settings."
+msgstr ""
+
+#: includes/class-plugin.php:122
+msgid "No related posts cleared the relevance threshold for this one. Lowering Minimum relevance in Settings will surface weaker matches."
+msgstr ""
+
+#: includes/class-plugin.php:123
+msgid "The index has not been built yet. Build it once from JnK Linkweave → Dashboard → Rebuild index."
+msgstr ""
+
+#: includes/class-plugin.php:126
+#: editor/src/strength.js:16
+msgid "Very close match"
+msgstr ""
+
+#: includes/class-plugin.php:127
+#: editor/src/strength.js:19
+msgid "Close match"
+msgstr ""
+
+#: includes/class-plugin.php:128
+#: editor/src/strength.js:22
+msgid "Related"
+msgstr ""
+
+#: includes/class-plugin.php:129
+#: editor/src/strength.js:24
+msgid "Loosely related"
+msgstr ""
+
+#: admin/assets/js/admin.js:571
+msgid "Filter by title…"
+msgstr ""
+
+#: admin/assets/js/admin.js:571
+msgid "Filter by title"
+msgstr ""
+
+#: admin/assets/js/admin.js:72
+#: admin/assets/js/admin.js:490
+#: admin/assets/js/admin.js:561
+msgid "View"
+msgstr ""
+
+#: admin/assets/js/admin.js:330
+#: admin/assets/js/admin.js:467
+#: admin/assets/js/admin.js:547
+#: admin/assets/js/admin.js:623
+msgid "Loading…"
+msgstr ""
+
+#: admin/assets/js/admin.js:102
+msgid "just now"
+msgstr ""
+
+#: admin/assets/js/admin.js:69
+#: admin/assets/js/admin.js:340
+msgid "Edit"
+msgstr ""
+
+#: admin/assets/js/admin.js:102
+msgid "in a moment"
+msgstr ""
+
+#. translators: 1: posts saved so far, 2: total posts.
+#: admin/assets/js/admin.js:190
+#, js-format
+msgid "Saving what it learned: %1$d of %2$d"
+msgstr ""
+
+#: admin/assets/js/admin.js:221
+msgid "The last read stopped before it finished."
+msgstr ""
+
+#: admin/assets/js/admin.js:222
+msgid "The last read failed."
+msgstr ""
+
+#: admin/assets/js/admin.js:223
+#: admin/assets/js/admin.js:279
+#: admin/assets/js/admin.js:295
+msgid "Run it again now"
+msgstr ""
+
+#: admin/assets/js/admin.js:336
+msgid "Created by the link map. Clearing the map removes it; rules you wrote are never touched."
+msgstr ""
+
+#: admin/assets/js/admin.js:336
+msgid "from link map"
+msgstr ""
+
+#: admin/assets/js/admin.js:336
+msgid "This rule uses Pro options and is paused on the free version."
+msgstr ""
+
+#: admin/assets/js/admin.js:338
+msgid "Its settings are kept. It runs again when the Pro version is back."
+msgstr ""
+
+#: admin/assets/js/admin.js:338
+msgid "Paused"
+msgstr ""
+
+#: admin/assets/js/admin.js:338
+#: admin/assets/js/admin.js:353
+#: admin/assets/js/admin.js:397
+msgid "On"
+msgstr ""
+
+#: admin/assets/js/admin.js:340
+msgid "Delete"
+msgstr ""
+
+#: admin/assets/js/admin.js:345
+#: admin/assets/js/admin.js:350
+msgid "Phrase"
+msgstr ""
+
+#: admin/assets/js/admin.js:345
+#: admin/assets/js/admin.js:351
+msgid "Links to"
+msgstr ""
+
+#: admin/assets/js/admin.js:345
+msgid "Links this rule adds across your published posts right now. Mentions already inside a link, a heading or code, and mentions on the target page itself, are skipped, so 0 can be correct."
+msgstr ""
+
+#: admin/assets/js/admin.js:345
+msgid "Links added"
+msgstr ""
+
+#: admin/assets/js/admin.js:346
+msgid "No rules yet"
+msgstr ""
+
+#: admin/assets/js/admin.js:346
+msgid "A rule links one phrase to one page everywhere it appears. Add your first one on the right."
+msgstr ""
+
+#: admin/assets/js/admin.js:348
+msgid "Add a rule"
+msgstr ""
+
+#: admin/assets/js/admin.js:348
+msgid "Linkweave links this phrase wherever it appears in your posts."
+msgstr ""
+
+#: admin/assets/js/admin.js:350
+msgid "e.g. internal linking"
+msgstr ""
+
+#: admin/assets/js/admin.js:354
+#: admin/assets/js/admin.js:394
+msgid "Match capital letters"
+msgstr ""
+
+#: admin/assets/js/admin.js:355
+#: admin/assets/js/admin.js:395
+msgid "Open in a new tab"
+msgstr ""
+
+#: admin/assets/js/admin.js:356
+msgid "Tells search engines not to pass ranking credit through this link"
+msgstr ""
+
+#: admin/assets/js/admin.js:359
+#: admin/assets/js/admin.js:400
+msgid "Most per post"
+msgstr ""
+
+#: admin/assets/js/admin.js:360
+#: admin/assets/js/admin.js:401
+msgid "Most across the site"
+msgstr ""
+
+#: admin/assets/js/admin.js:360
+#: admin/assets/js/admin.js:401
+msgid "0 means no limit"
+msgstr ""
+
+#: admin/assets/js/admin.js:363
+msgid "Add rule"
+msgstr ""
+
+#: admin/assets/js/admin.js:370
+msgid "Delete this rule?"
+msgstr ""
+
+#: admin/assets/js/admin.js:374
+msgid "Rule deleted."
+msgstr ""
+
+#: admin/assets/js/admin.js:405
+msgid "Save"
+msgstr ""
+
+#: admin/assets/js/admin.js:427
+msgid "Rule saved."
+msgstr ""
+
+#: admin/assets/js/admin.js:453
+msgid "Rule added."
+msgstr ""
+
+#: admin/assets/js/admin.js:474
+msgid "No orphan posts"
+msgstr ""
+
+#. translators: 1: opening link tag to the Overview screen, 2: closing link tag.
+#: admin/assets/js/admin.js:477
+#, js-format
+msgid "Every published post has at least one internal link pointing at it. If you have not built the index yet, %1$sdo that on the Overview%2$s first."
+msgstr ""
+
+#: admin/assets/js/admin.js:485
+#, js-format
+msgid "%d post needs a link"
+msgid_plural "%d posts need a link"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/assets/js/admin.js:486
+msgid "Linkweave compares each one with the rest of your site and lists the posts that talk about the same thing."
+msgstr ""
+
+#: admin/assets/js/admin.js:492
+msgid "Shorter than the minimum length in Settings, so it is never suggested as a link target."
+msgstr ""
+
+#: admin/assets/js/admin.js:492
+msgid "Too short to suggest"
+msgstr ""
+
+#: admin/assets/js/admin.js:493
+#: admin/assets/js/admin.js:510
+msgid "Find posts that could link here"
+msgstr ""
+
+#: admin/assets/js/admin.js:510
+msgid "Hide"
+msgstr ""
+
+#: admin/assets/js/admin.js:513
+msgid "Looking through your posts…"
+msgstr ""
+
+#: admin/assets/js/admin.js:519
+msgid "No close matches yet. Write a related post and link it here, or add an auto-link rule for this page."
+msgstr ""
+
+#: admin/assets/js/admin.js:527
+msgid "How closely the two posts match"
+msgstr ""
+
+#: admin/assets/js/admin.js:528
+msgid "Open"
+msgstr ""
+
+#: admin/assets/js/admin.js:531
+msgid "Open a post and add the link in the editor."
+msgstr ""
+
+#: admin/assets/js/admin.js:532
+msgid "Pro adds the links for you"
+msgstr ""
+
+#: admin/assets/js/admin.js:551
+msgid "Nothing to show yet"
+msgstr ""
+
+#: admin/assets/js/admin.js:551
+msgid "Build the index on the Overview and the counts appear here."
+msgstr ""
+
+#. translators: %d: number of posts.
+#: admin/assets/js/admin.js:568
+#: admin/assets/js/linkmap.js:35
+#, js-format
+msgid "%d post"
+msgid_plural "%d posts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/assets/js/admin.js:570
+#, js-format
+msgid "%d with no links in, shown in red."
+msgid_plural "%d with no links in, shown in red."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/assets/js/admin.js:570
+msgid "Every post has at least one link in."
+msgstr ""
+
+#: admin/assets/js/admin.js:600
+msgid "Still checking. Reload in a minute to see the results."
+msgstr ""
+
+#: admin/assets/js/admin.js:600
+msgid "All links checked."
+msgstr ""
+
+#: admin/assets/js/admin.js:610
+msgid "Checking every link…"
+msgstr ""
+
+#: admin/assets/js/admin.js:632
+msgid "No broken links"
+msgstr ""
+
+#: admin/assets/js/admin.js:635
+#, js-format
+msgid "Last checked %1$s, %2$d link in total."
+msgid_plural "Last checked %1$s, %2$d links in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/assets/js/admin.js:637
+#, js-format
+msgid "Last checked %s."
+msgstr ""
+
+#: admin/assets/js/admin.js:638
+msgid "Not checked yet"
+msgstr ""
+
+#: admin/assets/js/admin.js:638
+msgid "Linkweave checks your links once a day. Click “Check all links now” to do it straight away."
+msgstr ""
+
+#: admin/assets/js/admin.js:652
+msgid "Page missing"
+msgstr ""
+
+#: admin/assets/js/admin.js:657
+msgid "Found in"
+msgstr ""
+
+#: admin/assets/js/admin.js:657
+msgid "Points at"
+msgstr ""
+
+#: admin/assets/js/admin.js:657
+msgid "Link text"
+msgstr ""
+
+#: admin/assets/js/admin.js:657
+msgid "Checked"
+msgstr ""
+
+#: admin/assets/js/admin.js:699
+msgid "Saving…"
+msgstr ""
+
+#: admin/assets/js/admin.js:703
+#: admin/assets/js/admin.js:706
+msgid "Settings saved."
+msgstr ""
+
+#: admin/assets/js/admin.js:706
+msgid "The index is being rebuilt in the background to add the post types you ticked."
+msgstr ""
+
+#. translators: %d: number of internal links pointing at a post.
+#: admin/assets/js/linkmap.js:37
+#, js-format
+msgid "%d link in"
+msgid_plural "%d links in"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of links.
+#: admin/assets/js/linkmap.js:39
+#, js-format
+msgid "%d link"
+msgid_plural "%d links"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/assets/js/linkmap.js:52
+#, js-format
+msgid "%d with no links in"
+msgid_plural "%d with no links in"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/assets/js/linkmap.js:62
+msgid "Nothing links here yet"
+msgstr ""
+
+#: admin/assets/js/linkmap.js:94
+msgid "Read across a row: how many links that topic's posts send to each topic. The shaded diagonal is links inside the same topic. A row of empty cells is a topic that never links out."
+msgstr ""
+
+#: admin/assets/js/linkmap.js:95
+msgid "From ↓"
+msgstr ""
+
+#: admin/assets/js/linkmap.js:95
+msgid "To →"
+msgstr ""
+
+#: admin/assets/js/linkmap.js:96
+msgid "Total out"
+msgstr ""
+
+#: admin/assets/js/linkmap.js:105
+msgid "None"
+msgstr ""
+
+#: admin/assets/js/linkmap.js:125
+msgid "Which topics link to which. Topics that link to each other help readers move around your site."
+msgstr ""
+
+#: editor/src/InboundOpportunities.jsx:19
+msgid "Drafts are not indexed yet. Once this post is published, related posts that should link here show up within a minute or so."
+msgstr ""
+
+#: editor/src/InboundOpportunities.jsx:24
+msgid "This post has not been indexed yet. It is normally picked up within a minute of saving; this list refreshes on its own."
+msgstr ""
+
+#: editor/src/InboundOpportunities.jsx:29
+msgid "This post is too short to index, so no related posts can be found for it."
+msgstr ""
+
+#: editor/src/InboundOpportunities.jsx:34
+msgid "This post type is not being indexed (see Post types in Settings)."
+msgstr ""
+
+#: editor/src/InboundOpportunities.jsx:39
+msgid "The index has not been built yet (JnK Linkweave → Dashboard → Rebuild index)."
+msgstr ""
+
+#: editor/src/InboundOpportunities.jsx:44
+msgid "No inbound opportunities found yet: every closely related post already links here, or none is related closely enough."
+msgstr ""
+
+#: editor/src/InboundOpportunities.jsx:92
+msgid "Posts that should link here"
+msgstr ""
+
+#: editor/src/InboundOpportunities.jsx:94
+msgid "Topically related posts that don’t yet link to this one. Open one to add the link."
+msgstr ""
+
+#. translators: %s: raw relevance score.
+#: editor/src/InboundOpportunities.jsx:126
+#, js-format
+msgid "Relevance %s"
+msgstr ""
+
+#. translators: %s: comma-separated list of shared words.
+#: editor/src/InboundOpportunities.jsx:137
+#: editor/src/SuggestionItem.jsx:44
+#, js-format
+msgid "Both mention: %s"
+msgstr ""
+
+#: editor/src/InboundOpportunities.jsx:150
+#: editor/src/SuggestionList.jsx:143
+#: editor/src/SuggestionList.jsx:232
+#: editor/src/SuggestionList.jsx:248
+#: editor/src/SuggestionList.jsx:271
+#: editor/src/SuggestionList.jsx:302
+msgid "Refresh"
+msgstr ""
+
+#: editor/src/Sidebar.jsx:26
+msgid "Suggested links"
+msgstr ""
+
+#: editor/src/Sidebar.jsx:29
+msgid "Posts that cover the same topic. Click into a paragraph, then insert a link."
+msgstr ""
+
+#. translators: 1: plain-language strength, 2: raw relevance score.
+#: editor/src/SuggestionItem.jsx:8
+#, js-format
+msgid "%1$s — relevance %2$s. Higher means more topic words in common."
+msgstr ""
+
+#: editor/src/SuggestionItem.jsx:54
+msgid "Insert link"
+msgstr ""
+
+#: editor/src/SuggestionList.jsx:51
+msgid "Click into the paragraph you want the link in, then insert."
+msgstr ""
+
+#: editor/src/SuggestionList.jsx:75
+msgid "That block cannot hold a link. Select a paragraph or list item and try again."
+msgstr ""
+
+#. translators: 1: indexable word count of this post, 2: configured minimum.
+#: editor/src/SuggestionList.jsx:171
+#, js-format
+msgid "This post is too short to index, so it has no suggestions yet. It has %1$d indexable words and the minimum is %2$d — that is counted after common words like \"the\" and \"a\" are removed, so it is roughly half the visible word count."
+msgstr ""
+
+#: editor/src/SuggestionList.jsx:180
+msgid "Add a few more paragraphs, or lower the minimum in Settings."
+msgstr ""
+
+#: editor/src/SuggestionList.jsx:190
+#: editor/src/SuggestionList.jsx:210
+msgid "Open settings"
+msgstr ""
+
+#: editor/src/SuggestionList.jsx:200
+msgid "This post type is not being indexed, so there is nothing to suggest here. You can add it under Post types in Settings."
+msgstr ""
+
+#: editor/src/SuggestionList.jsx:220
+msgid "No related posts cleared the relevance threshold for this one. That usually means it covers a topic nothing else on the site touches yet."
+msgstr ""
+
+#: editor/src/SuggestionList.jsx:226
+msgid "Lowering the minimum relevance score in Settings will surface weaker matches."
+msgstr ""
+
+#: editor/src/SuggestionList.jsx:242
+msgid "Suggestions appear once this post is published: drafts are not indexed yet. After publishing, this panel fills in within a minute or so."
+msgstr ""
+
+#: editor/src/SuggestionList.jsx:258
+msgid "This post has not been indexed yet. It is normally picked up within a minute of saving; a rebuild will catch it immediately."
+msgstr ""
+
+#: editor/src/SuggestionList.jsx:268
+msgid "Rebuild the index"
+msgstr ""
+
+#: editor/src/SuggestionList.jsx:281
+msgid "No suggestions yet. Linkweave ranks suggestions against an index of your existing posts, so that index has to be built once before it can suggest anything."
+msgstr ""
+
+#: editor/src/SuggestionList.jsx:292
+msgid "Build the index"
+msgstr ""
+
+#: editor/src/SuggestionList.jsx:296
+msgid "Already built it? Save this post, then refresh."
+msgstr ""

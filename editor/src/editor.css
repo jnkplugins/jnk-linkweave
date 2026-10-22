@@ -1,0 +1,109 @@
+/*
+ * Linkweave editor sidebar. Free and Pro panels share these class names, so this
+ * one stylesheet styles both. Each suggestion is a small card: title, match pill,
+ * a two-line preview, the shared topics, and the insert action.
+ */
+.jnk-linkweave-suggestions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+}
+.jnk-linkweave-suggestion {
+    position: relative;
+    margin: 0;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, .04);
+    transition: border-color .15s, box-shadow .15s;
+}
+.jnk-linkweave-suggestion:hover {
+    border-color: #94a3b8;
+    box-shadow: 0 4px 14px -6px rgba(15, 23, 42, .18);
+}
+/* Title on its own line, match label under it: side by side, a narrow sidebar
+   squeezed the title to two or three words per line. */
+.jnk-linkweave-suggestion__title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+.jnk-linkweave-suggestion__title a {
+    color: #0f172a;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.35;
+    text-decoration: none;
+}
+.jnk-linkweave-suggestion__title a:hover {
+    color: #0e7490;
+    text-decoration: underline;
+}
+.jnk-linkweave-suggestion__score {
+    flex: none;
+    font-size: 10.5px;
+    font-weight: 700;
+    line-height: 18px;
+    color: #0e7490;
+    background: #ecfeff;
+    border: 1px solid #a5f3fc;
+    padding: 0 7px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+.jnk-linkweave-suggestion__excerpt {
+    color: #475569;
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 6px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.jnk-linkweave-suggestion__terms {
+    color: #64748b;
+    font-size: 11px;
+    font-style: normal;
+    margin: 0 0 8px;
+}
+.jnk-linkweave-suggestion .components-button.is-secondary {
+    border-radius: 7px;
+    box-shadow: inset 0 0 0 1px #0e7490;
+    color: #0e7490;
+    font-weight: 600;
+}
+.jnk-linkweave-suggestion .components-button.is-secondary:hover {
+    background: #0e7490;
+    color: #fff;
+}
+.jnk-linkweave-bulkbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    border-radius: 9px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+.jnk-linkweave-suggestion__check {
+    margin: 0;
+}
+.jnk-linkweave-suggestion__check .components-checkbox-control__label {
+    display: none;
+}
+.jnk-linkweave-suggestion:has(.jnk-linkweave-suggestion__check input:checked) {
+    border-color: #0e7490;
+    background: #f0fdff;
+}
+.jnk-linkweave-inbound__hint,
+.jnk-linkweave-inbound__empty {
+    color: #64748b;
+    font-size: 12px;
+}

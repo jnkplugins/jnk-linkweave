@@ -1,0 +1,1581 @@
+# Translation of JnK Linkweave into Korean.
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: JnK Linkweave 1.9.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
+"POT-Creation-Date: 2026-10-18T15:08:01+00:00\n"
+"PO-Revision-Date: 2026-10-10 16:38+0000\n"
+"Last-Translator: JnK Plugins\n"
+"Language-Team: Korean\n"
+"Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Domain: jnk-linkweave\n"
+"X-Generator: WP-CLI 2.12.0\n"
+
+#: pro/licensorpro-client/licensorpro-client.php:653
+msgid "Renew your licence"
+msgstr "라이선스 갱신하기"
+
+#. translators: 1: plugin name, 2: expiry date, 3: lock date, 4: days left
+#: pro/licensorpro-client/licensorpro-client.php:659
+#, php-format
+msgid "<strong>Your %1$s Pro licence expired on %2$s.</strong> Pro keeps working as normal until %3$s (%4$d days left). Updates, including security fixes, and email support have stopped. After %3$s, everything you already set up keeps working and your visitors won't notice a thing, but the Pro tools in your dashboard will lock."
+msgstr "<strong>%1$s Pro 라이선스가 %2$s에 만료되었습니다.</strong> Pro는 %3$s까지 평소처럼 작동합니다(%4$d일 남음). 보안 수정을 포함한 업데이트와 이메일 지원은 중단되었습니다. %3$s 이후에도 이미 설정한 모든 것은 계속 작동하고 방문자는 아무 차이도 느끼지 못하지만, 대시보드의 Pro 도구는 잠깁니다."
+
+#. translators: 1: plugin name, 2: expiry date
+#: pro/licensorpro-client/licensorpro-client.php:669
+#, php-format
+msgid "<strong>%1$s Pro tools are locked because your licence expired on %2$s.</strong> Your site, and everything visitors see, still works. Renew to unlock the Pro tools and get updates, including security fixes, again."
+msgstr "<strong>라이선스가 %2$s에 만료되어 %1$s Pro 도구가 잠겼습니다.</strong> 사이트와 방문자가 보는 모든 것은 계속 작동합니다. 갱신하면 Pro 도구가 다시 열리고, 보안 수정을 포함한 업데이트도 다시 받을 수 있습니다."
+
+#. translators: %s: plugin name
+#: pro/licensorpro-client/licensorpro-client.php:677
+#, php-format
+msgid "<strong>This site is no longer activated on your %s Pro licence.</strong> The Pro tools in your dashboard are locked until you activate it again. Everything visitors see keeps working."
+msgstr "<strong>이 사이트는 더 이상 %s Pro 라이선스에서 활성화되어 있지 않습니다.</strong> 다시 활성화할 때까지 대시보드의 Pro 도구는 잠깁니다. 방문자가 보는 모든 것은 계속 작동합니다."
+
+#. translators: %s: plugin name
+#: pro/licensorpro-client/licensorpro-client.php:684
+#, php-format
+msgid "<strong>Your %s Pro licence is no longer active.</strong> It was refunded or cancelled, so the Pro tools in your dashboard are locked and updates have stopped. Everything visitors see keeps working."
+msgstr "<strong>%s Pro 라이선스가 더 이상 활성 상태가 아닙니다.</strong> 환불되었거나 취소되어 대시보드의 Pro 도구가 잠겼고 업데이트도 중단되었습니다. 방문자가 보는 모든 것은 계속 작동합니다."
+
+#: pro/licensorpro-client/licensorpro-client.php:786
+msgid "Please enter a license key."
+msgstr "라이선스 키를 입력하세요."
+
+#: pro/licensorpro-client/licensorpro-client.php:798
+#: pro/licensorpro-client/licensorpro-client.php:853
+msgid "License response failed signature verification."
+msgstr "라이선스 응답의 서명 검증에 실패했습니다."
+
+#: pro/licensorpro-client/licensorpro-client.php:836
+msgid "No license key set."
+msgstr "라이선스 키가 설정되지 않았습니다."
+
+#: pro/licensorpro-client/licensorpro-client.php:919
+msgid "Only deactivating temporarily"
+msgstr "잠시 비활성화하는 것뿐입니다"
+
+#: pro/licensorpro-client/licensorpro-client.php:920
+msgid "I could not work out how to use it"
+msgstr "사용 방법을 모르겠습니다"
+
+#: pro/licensorpro-client/licensorpro-client.php:921
+msgid "It is missing a feature I need"
+msgstr "필요한 기능이 없습니다"
+
+#: pro/licensorpro-client/licensorpro-client.php:922
+msgid "It did not work"
+msgstr "작동하지 않았습니다"
+
+#: pro/licensorpro-client/licensorpro-client.php:923
+msgid "It broke something on my site"
+msgstr "사이트에 문제가 생겼습니다"
+
+#: pro/licensorpro-client/licensorpro-client.php:924
+msgid "I found a better plugin"
+msgstr "더 좋은 플러그인을 찾았습니다"
+
+#: pro/licensorpro-client/licensorpro-client.php:925
+msgid "I no longer need it"
+msgstr "더 이상 필요하지 않습니다"
+
+#: pro/licensorpro-client/licensorpro-client.php:926
+msgid "Something else"
+msgstr "기타"
+
+#. translators: %s: plugin name.
+#: pro/licensorpro-client/licensorpro-client.php:953
+#, php-format
+msgid "Before you turn %s off"
+msgstr "%s 비활성화 전에"
+
+#: pro/licensorpro-client/licensorpro-client.php:957
+msgid "If you have a moment, what went wrong? It is the only way we hear about it."
+msgstr "잠시 시간이 있으시면 무엇이 문제였는지 알려 주세요. 저희가 문제를 알 수 있는 유일한 방법입니다."
+
+#: pro/licensorpro-client/licensorpro-client.php:968
+msgid "Anything else? (optional)"
+msgstr "더 하실 말씀이 있나요? (선택)"
+
+#: pro/licensorpro-client/licensorpro-client.php:970
+msgid "Sends your answer, the plugin version and your site address. Nothing else, and nothing from your site content."
+msgstr "답변, 플러그인 버전, 사이트 주소를 보냅니다. 그 밖의 정보나 사이트 콘텐츠는 보내지 않습니다."
+
+#: pro/licensorpro-client/licensorpro-client.php:974
+msgid "Send and deactivate"
+msgstr "보내고 비활성화"
+
+#: pro/licensorpro-client/licensorpro-client.php:977
+msgid "Skip and deactivate"
+msgstr "건너뛰고 비활성화"
+
+#: pro/licensorpro-client/licensorpro-client.php:980
+#: admin/assets/js/admin.js:406
+msgid "Cancel"
+msgstr "취소"
+
+#: pro/licensorpro-client/licensorpro-client.php:1101
+#: pro/licensorpro-client/licensorpro-client.php:1117
+msgid "API URL not configured."
+msgstr "API URL이 설정되지 않았습니다."
+
+#: pro/licensorpro-client/licensorpro-client.php:1136
+msgid "Unexpected response from license server."
+msgstr "라이선스 서버에서 예상하지 못한 응답이 왔습니다."
+
+#. translators: %s: human-readable time difference, e.g. "3 months".
+#: pro/licensorpro-client/licensorpro-client.php:1393
+#: includes/class-dates.php:34
+#, php-format
+msgid "in %s"
+msgstr "%s 후"
+
+#. translators: %s: human-readable time difference, e.g. "13 days".
+#: pro/licensorpro-client/licensorpro-client.php:1394
+#: includes/class-dates.php:36
+#, php-format
+msgid "%s ago"
+msgstr "%s 전"
+
+#: pro/licensorpro-client/licensorpro-client.php:1418
+#, php-format
+msgid "%s License"
+msgstr "%s 라이선스"
+
+#: pro/licensorpro-client/licensorpro-client.php:1427
+#: pro/licensorpro-client/licensorpro-client.php:1468
+msgid "License key"
+msgstr "라이선스 키"
+
+#: pro/licensorpro-client/licensorpro-client.php:1429
+msgid "active"
+msgstr "활성"
+
+#. translators: %s: date the Pro tools lock
+#: pro/licensorpro-client/licensorpro-client.php:1431
+#, php-format
+msgid "expired, Pro tools stay on until %s"
+msgstr "만료됨, %s까지 Pro 도구 사용 가능"
+
+#: pro/licensorpro-client/licensorpro-client.php:1432
+msgid "expired, Pro tools locked"
+msgstr "만료됨, Pro 도구 잠김"
+
+#: pro/licensorpro-client/licensorpro-client.php:1434
+msgid "this site is not activated"
+msgstr "이 사이트는 활성화되지 않았습니다"
+
+#: pro/licensorpro-client/licensorpro-client.php:1435
+msgid "no longer active (refunded or cancelled)"
+msgstr "더 이상 활성 상태가 아님(환불 또는 취소됨)"
+
+#: pro/licensorpro-client/licensorpro-client.php:1437
+#: admin/assets/js/admin.js:345
+#: admin/assets/js/admin.js:657
+msgid "Status"
+msgstr "상태"
+
+#: pro/licensorpro-client/licensorpro-client.php:1439
+msgid "Renew"
+msgstr "갱신"
+
+#: pro/licensorpro-client/licensorpro-client.php:1443
+msgid "Offline mode"
+msgstr "오프라인 모드"
+
+#: pro/licensorpro-client/licensorpro-client.php:1445
+#, php-format
+msgid "cached license valid until %s"
+msgstr "캐시된 라이선스, %s까지 유효"
+
+#: pro/licensorpro-client/licensorpro-client.php:1449
+msgid "Update channel"
+msgstr "업데이트 채널"
+
+#: pro/licensorpro-client/licensorpro-client.php:1450
+msgid "Site limit"
+msgstr "사이트 한도"
+
+#: pro/licensorpro-client/licensorpro-client.php:1451
+msgid "Expires"
+msgstr "만료일"
+
+#: pro/licensorpro-client/licensorpro-client.php:1451
+msgid "Never"
+msgstr "없음"
+
+#: pro/licensorpro-client/licensorpro-client.php:1452
+msgid "Last checked"
+msgstr "마지막 확인"
+
+#: pro/licensorpro-client/licensorpro-client.php:1456
+msgid "Deactivate this site"
+msgstr "이 사이트 비활성화"
+
+#: pro/licensorpro-client/licensorpro-client.php:1458
+msgid "Check for updates now"
+msgstr "지금 업데이트 확인"
+
+#: pro/licensorpro-client/licensorpro-client.php:1466
+msgid "Enter your license key to activate this site."
+msgstr "이 사이트를 활성화하려면 라이선스 키를 입력하세요."
+
+#: pro/licensorpro-client/licensorpro-client.php:1471
+msgid "Activate"
+msgstr "활성화"
+
+#: pro/licensorpro-client/licensorpro-client.php:1631
+msgid "License activated."
+msgstr "라이선스가 활성화되었습니다."
+
+#: pro/licensorpro-client/licensorpro-client.php:1640
+msgid "Site deactivated."
+msgstr "사이트가 비활성화되었습니다."
+
+#: pro/licensorpro-client/licensorpro-client.php:1651
+msgid "License is valid. Update info refreshed."
+msgstr "라이선스가 유효합니다. 업데이트 정보를 새로 고쳤습니다."
+
+#: pro/licensorpro-client/licensorpro-client.php:1658
+msgid "Permission denied."
+msgstr "권한이 없습니다."
+
+#. Plugin Name of the plugin
+#: jnk-linkweave.php
+#: editor/src/index.js:20
+#: editor/src/index.js:24
+msgid "JnK Linkweave"
+msgstr "JnK Linkweave"
+
+#. Plugin URI of the plugin
+#: jnk-linkweave.php
+msgid "https://jnkplugins.com/jnk-linkweave/"
+msgstr "https://jnkplugins.com/jnk-linkweave/"
+
+#. Description of the plugin
+#: jnk-linkweave.php
+msgid "Affordable, server-side internal linking for WordPress — suggestions, auto-linking rules, and orphan &amp; broken-link reports."
+msgstr "합리적인 가격의 WordPress용 서버 측 내부 링크 도구: 링크 제안, 자동 링크 규칙, 링크 없는 글 및 깨진 링크 보고서."
+
+#. Author of the plugin
+#: jnk-linkweave.php
+msgid "JnK Plugins"
+msgstr "JnK Plugins"
+
+#. Author URI of the plugin
+#: jnk-linkweave.php
+msgid "https://jnkplugins.com"
+msgstr "https://jnkplugins.com"
+
+#: admin/class-admin.php:57
+msgid "This is JnK Linkweave Pro, but no licence is active on this site, so the Pro features are switched off: the URL Changer, link click analytics, Search Console targeting, the auto-link map, the Anchor Text and Links per post reports, broken-link repair, related posts, link preview cards, bulk link insertion, the link check before you publish, extra rule options, cross-site linking, AI re-ranking, AI assistant access and the CSV exports."
+msgstr "JnK Linkweave Pro이지만 이 사이트에 활성 라이선스가 없어 Pro 기능이 꺼져 있습니다: URL 변경 도구, 링크 클릭 분석, Search Console 타기팅, 자동 링크 맵, 앵커 텍스트 및 글별 링크 보고서, 깨진 링크 수리, 관련 글, 링크 미리보기 카드, 링크 일괄 삽입, 발행 전 링크 확인, 추가 규칙 옵션, 사이트 간 링크, AI 재정렬, AI 어시스턴트 접근, CSV 내보내기."
+
+#: admin/class-admin.php:59
+msgid "Enter your license key"
+msgstr "라이선스 키를 입력하세요"
+
+#: admin/class-admin.php:69
+#: admin/class-ui.php:102
+#: admin/views/settings.php:18
+msgid "Settings"
+msgstr "설정"
+
+#: admin/class-admin.php:76
+#: admin/class-admin.php:158
+#: admin/class-admin.php:159
+msgid "Upgrade to Pro"
+msgstr "Pro로 업그레이드"
+
+#: admin/class-admin.php:94
+msgid "View details"
+msgstr "자세히 보기"
+
+#: admin/class-admin.php:98
+msgid "Docs"
+msgstr "문서"
+
+#: admin/class-admin.php:100
+msgid "Support"
+msgstr "지원"
+
+#: admin/class-admin.php:146
+msgid "Activate license"
+msgstr "라이선스 활성화"
+
+#: admin/class-admin.php:147
+msgid "Renew license"
+msgstr "라이선스 갱신"
+
+#: admin/class-admin.php:208
+#: admin/views/dashboard.php:48
+msgid "Rebuild index"
+msgstr "색인 다시 만들기"
+
+#: admin/class-admin.php:209
+msgid "Reading your posts…"
+msgstr "글을 읽는 중…"
+
+#: admin/class-admin.php:210
+msgid "Done"
+msgstr "완료"
+
+#. translators: %d: number of posts read.
+#: admin/class-admin.php:212
+#, php-format
+msgid "Last full read: just now (%d posts)"
+msgstr "마지막 전체 읽기: 방금(글 %d개)"
+
+#: admin/class-posts-column.php:37
+msgid "Internal links: how many of your posts link here, and how many links this post sends out"
+msgstr "내부 링크: 이 글로 연결하는 글 수와 이 글에서 나가는 링크 수"
+
+#: admin/class-posts-column.php:38
+msgid "Links in / out"
+msgstr "들어오는 / 나가는 링크"
+
+#: admin/class-posts-column.php:58
+msgid "Counted once published"
+msgstr "발행 후 집계됩니다"
+
+#. translators: %d: number of internal links pointing at this post.
+#: admin/class-posts-column.php:74
+#, php-format
+msgid "%d internal link points here"
+msgid_plural "%d internal links point here"
+msgstr[0] "내부 링크 %d개가 이 글을 가리킵니다"
+
+#. translators: %d: number of links in.
+#: admin/class-posts-column.php:79
+#: admin/assets/js/admin.js:564
+#, php-format
+msgid "%d in"
+msgid_plural "%d in"
+msgstr[0] "들어오는 링크 %d개"
+
+#. translators: %d: number of internal links in this post.
+#: admin/class-posts-column.php:84
+#, php-format
+msgid "This post links to %d of your posts"
+msgid_plural "This post links to %d of your posts"
+msgstr[0] "이 글은 내 글 %d개로 연결합니다"
+
+#. translators: %d: number of links out.
+#: admin/class-posts-column.php:89
+#, php-format
+msgid "%d out"
+msgstr "나감 %d"
+
+#: admin/class-ui.php:21
+#: admin/views/dashboard.php:51
+msgid "Overview"
+msgstr "개요"
+
+#: admin/class-ui.php:22
+#: admin/views/rules.php:11
+msgid "Auto-link rules"
+msgstr "자동 링크 규칙"
+
+#: admin/class-ui.php:23
+msgid "Orphans"
+msgstr "링크 없는 글"
+
+#: admin/class-ui.php:24
+#: admin/views/inbound.php:6
+msgid "Inbound links"
+msgstr "들어오는 링크"
+
+#: admin/class-ui.php:25
+#: admin/views/broken.php:9
+#: admin/views/dashboard.php:103
+msgid "Broken links"
+msgstr "깨진 링크"
+
+#: admin/class-ui.php:26
+msgid "Link clicks"
+msgstr "링크 클릭"
+
+#: admin/class-ui.php:33
+msgid "URL changer"
+msgstr "URL 변경 도구"
+
+#: admin/class-ui.php:34
+msgid "Search Console"
+msgstr "Search Console"
+
+#: admin/class-ui.php:35
+msgid "Anchor text"
+msgstr "앵커 텍스트"
+
+#: admin/class-ui.php:36
+msgid "Link map"
+msgstr "링크 맵"
+
+#: admin/class-ui.php:37
+msgid "Links per post"
+msgstr "글별 링크"
+
+#: admin/class-ui.php:69
+msgid "Pro"
+msgstr "Pro"
+
+#: admin/class-ui.php:86
+msgid "Linkweave"
+msgstr "Linkweave"
+
+#: admin/class-ui.php:89
+msgid "Linkweave sections"
+msgstr "Linkweave 섹션"
+
+#: admin/class-ui.php:94
+msgid "More tools"
+msgstr "더 많은 도구"
+
+#: admin/class-ui.php:101
+msgid "Help"
+msgstr "도움말"
+
+#: admin/views/broken.php:6
+msgid "Check all links now"
+msgstr "지금 모든 링크 확인"
+
+#: admin/views/broken.php:10
+msgid "Links in your posts that lead to a page that no longer exists. Linkweave checks every day; you can also check right now."
+msgstr "글에 있는 링크 중 더 이상 존재하지 않는 페이지로 연결되는 링크입니다. Linkweave가 매일 확인하며, 지금 바로 확인할 수도 있습니다."
+
+#: admin/views/dashboard.php:47
+#: admin/assets/js/admin.js:201
+msgid "Run now"
+msgstr "지금 실행"
+
+#: admin/views/dashboard.php:52
+msgid "How your internal links are doing, and what to fix next."
+msgstr "내부 링크 현황과 다음에 고칠 것을 보여 줍니다."
+
+#: admin/views/dashboard.php:59
+msgid "Linkweave is reading your posts for the first time."
+msgstr "Linkweave가 처음으로 글을 읽고 있습니다."
+
+#: admin/views/dashboard.php:60
+msgid "This page updates by itself. If it still says Queued after a few seconds, click Run now."
+msgstr "이 페이지는 자동으로 업데이트됩니다. 몇 초 뒤에도 대기 중이라고 나오면 지금 실행을 클릭하세요."
+
+#: admin/views/dashboard.php:64
+msgid "The last read of your posts stopped before it finished."
+msgstr "마지막 글 읽기가 끝나기 전에 멈췄습니다."
+
+#: admin/views/dashboard.php:65
+msgid "Nothing is lost. Click Run it again now, top right."
+msgstr "잃은 것은 없습니다. 오른쪽 위의 지금 다시 실행을 클릭하세요."
+
+#: admin/views/dashboard.php:69
+msgid "Start here: let Linkweave read your posts once."
+msgstr "여기서 시작하세요: Linkweave가 글을 한 번 읽게 하세요."
+
+#: admin/views/dashboard.php:70
+msgid "Linkweave suggests links by comparing your posts with each other. Click Rebuild index; it takes a minute or two on most sites and then keeps itself up to date as you publish."
+msgstr "Linkweave는 글끼리 비교해서 링크를 제안합니다. 색인 다시 만들기를 클릭하세요. 대부분의 사이트에서 1~2분이면 끝나고, 그 뒤로는 글을 발행할 때마다 자동으로 최신 상태를 유지합니다."
+
+#: admin/views/dashboard.php:76
+msgid "Posts Linkweave knows"
+msgstr "Linkweave가 아는 글"
+
+#: admin/views/dashboard.php:80
+#: admin/assets/js/admin.js:186
+msgid "Queued, waiting for WordPress to start it"
+msgstr "대기 중, WordPress가 시작하기를 기다리는 중"
+
+#. translators: 1: posts read so far, 2: total posts.
+#: admin/views/dashboard.php:84
+#: admin/assets/js/admin.js:193
+#, php-format
+msgid "Reading posts %1$d of %2$d"
+msgstr "글 읽는 중: %2$d개 중 %1$d개"
+
+#. translators: %s: time of the last full rebuild.
+#: admin/views/dashboard.php:91
+#, php-format
+msgid "Last full read: %s"
+msgstr "마지막 전체 읽기: %s"
+
+#: admin/views/dashboard.php:92
+msgid "never"
+msgstr "아직 없음"
+
+#: admin/views/dashboard.php:98
+#: admin/views/orphans.php:15
+msgid "Posts nothing links to"
+msgstr "아무 링크도 받지 않는 글"
+
+#: admin/views/dashboard.php:100
+#: admin/views/dashboard.php:111
+#: admin/views/dashboard.php:127
+#: admin/views/dashboard.php:159
+msgid "Counted after the first read"
+msgstr "첫 읽기가 끝나면 집계됩니다"
+
+#: admin/views/dashboard.php:100
+msgid "Readers and search engines struggle to find these"
+msgstr "독자와 검색엔진이 찾기 어려운 글입니다"
+
+#: admin/views/dashboard.php:100
+msgid "Every post has at least one link in"
+msgstr "모든 글에 들어오는 링크가 하나 이상 있습니다"
+
+#: admin/views/dashboard.php:105
+msgid "Links that lead to a missing page"
+msgstr "없는 페이지로 연결되는 링크"
+
+#: admin/views/dashboard.php:105
+msgid "No dead links found"
+msgstr "깨진 링크가 없습니다"
+
+#: admin/views/dashboard.php:108
+msgid "Internal links"
+msgstr "내부 링크"
+
+#. translators: %s: number of active auto-link rules.
+#: admin/views/dashboard.php:113
+#, php-format
+msgid "Plus %s auto-link rule"
+msgid_plural "Plus %s auto-link rules"
+msgstr[0] "+ 자동 링크 규칙 %s개"
+
+#: admin/views/dashboard.php:122
+msgid "Link coverage"
+msgstr "링크 분포"
+
+#: admin/views/dashboard.php:123
+msgid "How many internal links point at each of your posts. Aim to move posts out of the red."
+msgstr "각 글을 가리키는 내부 링크 수입니다. 빨간색 구간의 글을 줄여 보세요."
+
+#: admin/views/dashboard.php:131
+#: admin/assets/js/linkmap.js:27
+msgid "No links in"
+msgstr "들어오는 링크 없음"
+
+#: admin/views/dashboard.php:132
+#: admin/assets/js/linkmap.js:28
+msgid "1 to 2 links"
+msgstr "링크 1~2개"
+
+#: admin/views/dashboard.php:133
+#: admin/assets/js/linkmap.js:29
+msgid "3 to 5 links"
+msgstr "링크 3~5개"
+
+#: admin/views/dashboard.php:134
+#: admin/assets/js/linkmap.js:30
+msgid "6 or more"
+msgstr "6개 이상"
+
+#: admin/views/dashboard.php:137
+msgid "Share of posts by number of internal links pointing at them"
+msgstr "받는 내부 링크 수에 따른 글 비율"
+
+#: admin/views/dashboard.php:154
+msgid "Posts that need a link"
+msgstr "링크가 필요한 글"
+
+#: admin/views/dashboard.php:155
+msgid "Open one and Linkweave shows which of your posts should link to it."
+msgstr "글을 열면 어떤 글에서 링크하면 좋을지 Linkweave가 보여 줍니다."
+
+#: admin/views/dashboard.php:156
+msgid "See all"
+msgstr "모두 보기"
+
+#: admin/views/dashboard.php:161
+msgid "Nothing to fix"
+msgstr "고칠 것이 없습니다"
+
+#: admin/views/dashboard.php:161
+msgid "Every post has at least one internal link pointing at it."
+msgstr "모든 글에 내부 링크가 하나 이상 연결되어 있습니다."
+
+#: admin/views/dashboard.php:169
+msgid "0 links in"
+msgstr "들어오는 링크 0개"
+
+#: admin/views/dashboard.php:185
+msgid "Getting started"
+msgstr "시작하기"
+
+#: admin/views/dashboard.php:186
+msgid "Four steps to a well-linked site."
+msgstr "링크가 잘 연결된 사이트를 위한 4단계입니다."
+
+#: admin/views/dashboard.php:188
+msgid "Let Linkweave read your posts"
+msgstr "Linkweave가 글을 읽게 하기"
+
+#: admin/views/dashboard.php:188
+msgid "Rebuild index, top right."
+msgstr "오른쪽 위의 색인 다시 만들기를 누르세요."
+
+#: admin/views/dashboard.php:189
+msgid "Add links while you write"
+msgstr "글을 쓰면서 링크 추가하기"
+
+#: admin/views/dashboard.php:189
+msgid "Open any post: suggestions appear in the Linkweave sidebar."
+msgstr "아무 글이나 여세요. Linkweave 사이드바에 제안이 나타납니다."
+
+#: admin/views/dashboard.php:190
+msgid "Add an auto-link rule"
+msgstr "자동 링크 규칙 추가하기"
+
+#: admin/views/dashboard.php:190
+msgid "Link a phrase to a page everywhere it appears."
+msgstr "어떤 문구가 나오는 모든 곳에서 그 문구를 한 페이지로 링크합니다."
+
+#: admin/views/dashboard.php:191
+msgid "Give every post a link in"
+msgstr "모든 글에 들어오는 링크 만들기"
+
+#: admin/views/dashboard.php:191
+msgid "Work down the list on the left."
+msgstr "왼쪽 목록을 차례로 처리하세요."
+
+#: admin/views/dashboard.php:199
+msgid "Your most linked-to posts"
+msgstr "가장 많이 링크된 글"
+
+#: admin/views/dashboard.php:200
+msgid "The pages your own site points to most. Search engines treat these as your most important pages."
+msgstr "내 사이트가 가장 많이 가리키는 페이지입니다. 검색엔진은 이 페이지들을 가장 중요한 페이지로 봅니다."
+
+#: admin/views/dashboard.php:201
+msgid "All posts"
+msgstr "모든 글"
+
+#: admin/views/dashboard.php:204
+msgid "No internal links yet"
+msgstr "아직 내부 링크가 없습니다"
+
+#: admin/views/dashboard.php:204
+msgid "Once your posts link to each other, the busiest pages show up here."
+msgstr "글끼리 링크하기 시작하면 링크가 가장 많은 페이지가 여기에 나타납니다."
+
+#. translators: %s: number of links.
+#: admin/views/dashboard.php:215
+#, php-format
+msgid "%s link"
+msgid_plural "%s links"
+msgstr[0] "링크 %s개"
+
+#: admin/views/inbound.php:7
+msgid "How many of your own posts link to each page. The pages at the top are the ones your site treats as most important."
+msgstr "각 페이지로 링크하는 내 글의 수입니다. 위쪽에 있는 페이지가 사이트에서 가장 중요하게 다루는 페이지입니다."
+
+#: admin/views/inbound.php:51
+msgid "No category"
+msgstr "카테고리 없음"
+
+#: admin/views/inbound.php:60
+msgid "Other topics"
+msgstr "기타 주제"
+
+#: admin/views/inbound.php:101
+msgid "Your link map"
+msgstr "링크 맵"
+
+#: admin/views/inbound.php:102
+msgid "Every square is one post, grouped by topic. The colour shows how many of your posts link to it. Hover for the title, click to open it."
+msgstr "사각형 하나가 글 하나이며, 주제별로 묶여 있습니다. 색은 그 글로 링크하는 내 글의 수를 나타냅니다. 마우스를 올리면 제목이 보이고, 클릭하면 열립니다."
+
+#: admin/views/inbound.php:105
+msgid "Posts"
+msgstr "글"
+
+#: admin/views/inbound.php:106
+msgid "Topics"
+msgstr "주제"
+
+#: admin/views/inbound.php:117
+msgid "Only links saved in your posts count here. Links added on the fly by auto-link rules are not stored. New links are counted within a minute of saving a post."
+msgstr "여기에는 글에 저장된 링크만 포함됩니다. 자동 링크 규칙이 실시간으로 추가하는 링크는 저장되지 않습니다. 새 링크는 글을 저장하고 1분 안에 집계됩니다."
+
+#: admin/views/orphans.php:16
+msgid "Published posts with no internal links pointing at them. Pick one to see which of your posts should link to it."
+msgstr "내부 링크를 하나도 받지 못한 발행된 글입니다. 하나를 고르면 어떤 글에서 링크하면 좋을지 볼 수 있습니다."
+
+#: admin/views/orphans.php:22
+msgid "Only links saved in your posts count here. Links added on the fly by auto-link rules are not stored, so a post that only gets those can still show up. New links are picked up within a minute of saving a post."
+msgstr "여기에는 글에 저장된 링크만 포함됩니다. 자동 링크 규칙이 실시간으로 추가하는 링크는 저장되지 않으므로, 그런 링크만 받는 글은 여기에 계속 나올 수 있습니다. 새 링크는 글을 저장하고 1분 안에 반영됩니다."
+
+#: admin/views/rules.php:12
+msgid "Pick a word or phrase and the page it should link to. Linkweave adds the link wherever that phrase appears, without changing your saved posts."
+msgstr "단어나 문구를 고르고 연결할 페이지를 지정하세요. 저장된 글은 바꾸지 않고, 그 문구가 나오는 곳마다 Linkweave가 링크를 추가합니다."
+
+#. translators: 1: opening link tag, 2: closing link tag.
+#: admin/views/rules.php:26
+#, php-format
+msgid "Need to change a URL across every post at once, with one-click undo? %1$sSee what Pro adds%2$s."
+msgstr "모든 글에서 URL을 한 번에 바꾸고 클릭 한 번으로 되돌리고 싶으신가요? %1$sPro 기능 보기%2$s."
+
+#: admin/views/settings.php:19
+msgid "Choose what Linkweave reads and how picky its suggestions are."
+msgstr "Linkweave가 무엇을 읽을지, 제안을 얼마나 까다롭게 할지 정하세요."
+
+#: admin/views/settings.php:23
+msgid "What Linkweave reads"
+msgstr "Linkweave가 읽는 콘텐츠"
+
+#: admin/views/settings.php:24
+msgid "Which content is used for suggestions and reports."
+msgstr "제안과 보고서에 사용할 콘텐츠입니다."
+
+#: admin/views/settings.php:28
+msgid "Post types"
+msgstr "글 유형"
+
+#: admin/views/settings.php:38
+msgid "The kinds of content Linkweave reads and suggests links to. Posts and Pages by default. Changes take effect straight away; adding a type reads those posts in the background."
+msgstr "Linkweave가 읽고 링크를 제안하는 콘텐츠 종류입니다. 기본값은 글과 페이지입니다. 변경 사항은 바로 적용되며, 유형을 추가하면 해당 글을 백그라운드에서 읽습니다."
+
+#: admin/views/settings.php:42
+msgid "Shortest post to suggest"
+msgstr "제안할 최소 글 길이"
+
+#: admin/views/settings.php:45
+msgid "Very short posts are left out of suggestions. Small words like “the” and “a” are not counted, so 40 here is roughly an 80 to 100 word post."
+msgstr "아주 짧은 글은 제안에서 제외됩니다. \"the\", \"a\" 같은 짧은 단어는 세지 않으므로, 여기서 40은 대략 80~100단어 분량의 글입니다."
+
+#: admin/views/settings.php:49
+msgid "Keep up to date"
+msgstr "최신 상태 유지"
+
+#: admin/views/settings.php:50
+msgid "Re-read a post every time it is saved"
+msgstr "글을 저장할 때마다 다시 읽기"
+
+#: admin/views/settings.php:54
+msgid "Suggestions"
+msgstr "제안"
+
+#: admin/views/settings.php:55
+msgid "How link ideas are picked and shown in the editor."
+msgstr "편집기에서 링크 아이디어를 고르고 보여 주는 방식입니다."
+
+#: admin/views/settings.php:59
+msgid "How posts are matched"
+msgstr "글을 매칭하는 방식"
+
+#: admin/views/settings.php:62
+msgid "Smart match (recommended)"
+msgstr "스마트 매칭(권장)"
+
+#: admin/views/settings.php:63
+msgid "Classic match"
+msgstr "클래식 매칭"
+
+#: admin/views/settings.php:65
+msgid "Smart match is not fooled by a word repeated many times or by very long posts, so its suggestions are usually sharper. You can switch at any time."
+msgstr "스마트 매칭은 여러 번 반복된 단어나 아주 긴 글에 속지 않아서 대개 더 정확한 제안을 합니다. 언제든 바꿀 수 있습니다."
+
+#: admin/views/settings.php:69
+msgid "Suggestions per post"
+msgstr "글당 제안 수"
+
+#: admin/views/settings.php:72
+msgid "How many link ideas the editor sidebar shows for each post (1 to 50)."
+msgstr "편집기 사이드바에서 글마다 보여 줄 링크 아이디어 수입니다(1~50)."
+
+#: admin/views/settings.php:76
+msgid "How close a match must be"
+msgstr "필요한 최소 유사도"
+
+#: admin/views/settings.php:79
+msgid "From 0 to 1. Lower shows more ideas, higher shows only very close matches. 0.25 is a good start."
+msgstr "0부터 1까지입니다. 낮을수록 더 많은 아이디어를, 높을수록 아주 비슷한 글만 보여 줍니다. 0.25로 시작하면 좋습니다."
+
+#: admin/views/settings.php:91
+msgid "If you remove the plugin"
+msgstr "플러그인을 제거하면"
+
+#: admin/views/settings.php:92
+msgid "Your data is kept unless you say otherwise."
+msgstr "따로 지정하지 않으면 데이터는 보존됩니다."
+
+#: admin/views/settings.php:96
+msgid "When you delete the plugin"
+msgstr "플러그인을 삭제할 때"
+
+#: admin/views/settings.php:98
+msgid "Also delete Linkweave's data (rules, reports and settings)"
+msgstr "Linkweave 데이터(규칙, 보고서, 설정)도 삭제"
+
+#: admin/views/settings.php:99
+msgid "Off by default, so nothing is lost if you deactivate the plugin, delete it, or a Pro licence runs out."
+msgstr "기본값은 꺼짐이므로, 플러그인을 비활성화하거나 삭제하거나 Pro 라이선스가 끝나도 아무것도 사라지지 않습니다."
+
+#: admin/views/settings.php:105
+msgid "Save settings"
+msgstr "설정 저장"
+
+#: admin/views/upgrade.php:15
+msgid "You do not have permission to access this page."
+msgstr "이 페이지에 접근할 권한이 없습니다."
+
+#: admin/views/upgrade.php:28
+msgid "One-click auto-link map"
+msgstr "원클릭 자동 링크 맵"
+
+#: admin/views/upgrade.php:28
+msgid "Turn your topical clusters into auto-link rules in one click, keyed on phrases your other posts already use."
+msgstr "다른 글에서 이미 쓰는 문구를 기준으로, 주제 클러스터를 클릭 한 번에 자동 링크 규칙으로 바꿉니다."
+
+#: admin/views/upgrade.php:29
+msgid "Add links in bulk"
+msgstr "링크 일괄 추가"
+
+#: admin/views/upgrade.php:29
+msgid "Pick several related posts and add a link from each of them to the page you are working on, in one click."
+msgstr "관련 글 여러 개를 골라, 각 글에서 지금 작업 중인 페이지로 가는 링크를 클릭 한 번에 추가합니다."
+
+#: admin/views/upgrade.php:30
+msgid "Bulk review & approve"
+msgstr "일괄 검토 및 승인"
+
+#: admin/views/upgrade.php:30
+msgid "Tick several editor suggestions and insert them all at once."
+msgstr "편집기 제안 여러 개를 선택해 한 번에 삽입합니다."
+
+#: admin/views/upgrade.php:31
+msgid "Internal-link click analytics"
+msgstr "내부 링크 클릭 분석"
+
+#: admin/views/upgrade.php:31
+msgid "See which internal links visitors actually follow, tracked on your own server."
+msgstr "방문자가 실제로 누르는 내부 링크를 내 서버에서 추적해 확인합니다."
+
+#: admin/views/upgrade.php:32
+msgid "Search Console targeting"
+msgstr "Search Console 타기팅"
+
+#: admin/views/upgrade.php:32
+msgid "Import your Search Console Queries export to steer suggestions toward pages that earn clicks."
+msgstr "Search Console 검색어 내보내기 파일을 가져와, 클릭을 얻는 페이지 쪽으로 제안을 유도합니다."
+
+#: admin/views/upgrade.php:33
+msgid "Focus-keyword boost"
+msgstr "포커스 키워드 가중치"
+
+#: admin/views/upgrade.php:33
+msgid "Rank suggestions using the Yoast or Rank Math focus keyphrases you already set."
+msgstr "이미 설정한 Yoast 또는 Rank Math 포커스 키프레이즈로 제안 순위를 매깁니다."
+
+#: admin/views/upgrade.php:34
+msgid "Broken-link repair"
+msgstr "깨진 링크 복구"
+
+#: admin/views/upgrade.php:34
+msgid "Unlink or re-point the dead links the free report finds, one at a time or all at once."
+msgstr "무료 보고서에서 찾은 깨진 링크를 하나씩 또는 한꺼번에 링크 해제하거나 다른 곳으로 연결합니다."
+
+#: admin/views/upgrade.php:35
+msgid "Bulk URL changer + rollback"
+msgstr "URL 일괄 변경 + 되돌리기"
+
+#: admin/views/upgrade.php:35
+msgid "Find-and-replace a URL across your whole site, with one-click rollback of any batch."
+msgstr "사이트 전체에서 URL을 찾아 바꾸고, 어떤 작업이든 클릭 한 번으로 되돌립니다."
+
+#: admin/views/upgrade.php:36
+msgid "Link check before you publish"
+msgstr "발행 전 링크 확인"
+
+#: admin/views/upgrade.php:36
+msgid "When you click Publish, see how many internal links the post has and add a good match in one click."
+msgstr "발행을 클릭하면 글의 내부 링크 수를 보고, 잘 맞는 글을 한 번의 클릭으로 추가합니다."
+
+#: admin/views/upgrade.php:37
+msgid "Dead-end report"
+msgstr "막다른 글 보고서"
+
+#: admin/views/upgrade.php:37
+msgid "Find posts that link to none of your other posts, with links in and out for every post and a CSV export."
+msgstr "다른 글로 전혀 연결하지 않는 글을 찾고, 모든 글의 들어오는/나가는 링크와 CSV 내보내기를 제공합니다."
+
+#: admin/views/upgrade.php:38
+msgid "More from each rule"
+msgstr "규칙 더 활용하기"
+
+#: admin/views/upgrade.php:38
+msgid "Other words for the same link, limit a rule to some post types or categories, mark paid links as sponsored, switch rules off for one post, and import or export rules as CSV."
+msgstr "같은 링크에 쓸 다른 단어, 규칙을 일부 글 유형이나 카테고리로 제한, 유료 링크를 sponsored로 표시, 한 글에서 규칙 끄기, 규칙 CSV 가져오기와 내보내기."
+
+#: admin/views/upgrade.php:39
+msgid "AI assistants (read only)"
+msgstr "AI 어시스턴트 (읽기 전용)"
+
+#: admin/views/upgrade.php:39
+msgid "Let AI tools that use the WordPress Abilities API read your orphan posts, link counts and suggestions. Needs WordPress 6.9 or newer."
+msgstr "WordPress Abilities API를 사용하는 AI 도구가 고아 글, 링크 수, 제안을 읽을 수 있습니다. WordPress 6.9 이상이 필요합니다."
+
+#: admin/views/upgrade.php:40
+msgid "Anchor text report"
+msgstr "앵커 텍스트 보고서"
+
+#: admin/views/upgrade.php:40
+msgid "See every anchor you use, where it points, and which ones are over-used."
+msgstr "사용하는 모든 앵커와 연결 대상, 지나치게 많이 쓰인 앵커를 확인합니다."
+
+#: admin/views/upgrade.php:41
+msgid "Related posts"
+msgstr "관련 글"
+
+#: admin/views/upgrade.php:41
+msgid "A “Read more” list of related posts for readers, added with a shortcode."
+msgstr "독자를 위한 관련 글 \"더 읽기\" 목록을 숏코드로 추가합니다."
+
+#: admin/views/upgrade.php:42
+msgid "Link preview cards"
+msgstr "링크 미리보기 카드"
+
+#: admin/views/upgrade.php:42
+msgid "Optional hover cards with title, image and excerpt on internal links."
+msgstr "내부 링크에 마우스를 올리면 제목, 이미지, 요약을 보여 주는 카드입니다(선택 사항)."
+
+#: admin/views/upgrade.php:43
+msgid "CSV export"
+msgstr "CSV 내보내기"
+
+#: admin/views/upgrade.php:43
+msgid "Export the orphan-page and anchor-text reports to CSV."
+msgstr "링크 없는 글 보고서와 앵커 텍스트 보고서를 CSV로 내보냅니다."
+
+#: admin/views/upgrade.php:44
+msgid "Cross-site linking"
+msgstr "사이트 간 링크"
+
+#: admin/views/upgrade.php:44
+msgid "Suggest links between the sites on your license, right in the editor. Works on every plan."
+msgstr "라이선스에 등록된 사이트끼리 링크를 편집기에서 바로 제안합니다. 모든 요금제에서 사용할 수 있습니다."
+
+#: admin/views/upgrade.php:45
+msgid "AI second opinion"
+msgstr "AI 2차 검토"
+
+#: admin/views/upgrade.php:45
+msgid "Let AI re-order the suggestions using your own OpenAI or Anthropic key. You pay them directly; we never charge per use."
+msgstr "내 OpenAI 또는 Anthropic 키로 AI가 제안 순서를 다시 정하게 합니다. 비용은 해당 업체에 직접 지불하며, 저희는 사용량에 따라 요금을 받지 않습니다."
+
+#: admin/views/upgrade.php:50
+msgid "Linkweave Pro"
+msgstr "Linkweave Pro"
+
+#: admin/views/upgrade.php:51
+msgid "You are using the free version: unlimited auto-link rules, suggestions in the editor, and the orphan and broken-link reports. Pro adds the tools that do the work for you."
+msgstr "무료 버전을 사용 중입니다: 무제한 자동 링크 규칙, 편집기 안의 제안, 링크 없는 글 및 깨진 링크 보고서. Pro는 작업을 대신해 주는 도구를 더합니다."
+
+#: admin/views/upgrade.php:52
+msgid "See Pro plans"
+msgstr "Pro 요금제 보기"
+
+#: admin/views/upgrade.php:56
+msgid "Upgrading keeps everything."
+msgstr "업그레이드해도 모든 것이 그대로 유지됩니다."
+
+#: admin/views/upgrade.php:57
+msgid "Install Pro over this version: same rules, same reports, nothing to set up again."
+msgstr "이 버전 위에 Pro를 설치하세요. 규칙과 보고서는 그대로이고 다시 설정할 것이 없습니다."
+
+#: admin/views/upgrade.php:68
+msgid "Already bought Pro? Download the Pro zip from your account, go to Plugins, Add New, Upload Plugin, choose “Replace current with uploaded”, then enter your licence key under Linkweave Settings."
+msgstr "이미 Pro를 구매하셨나요? 계정에서 Pro zip 파일을 내려받고 플러그인 > 새로 추가 > 플러그인 업로드로 이동해 \"현재 것을 업로드한 것으로 교체\"를 선택한 다음, Linkweave 설정에서 라이선스 키를 입력하세요."
+
+#: includes/class-plugin.php:109
+msgid "Insert a JnK Linkweave suggestion"
+msgstr "JnK Linkweave 제안 삽입"
+
+#: includes/class-plugin.php:110
+msgid "JnK Linkweave suggestions"
+msgstr "JnK Linkweave 제안"
+
+#: includes/class-plugin.php:111
+msgid "Close"
+msgstr "닫기"
+
+#: includes/class-plugin.php:112
+msgid "No suggestions for this post yet."
+msgstr "이 글에 대한 제안이 아직 없습니다."
+
+#: includes/class-plugin.php:113
+msgid "Save the post once before requesting suggestions."
+msgstr "제안을 요청하기 전에 글을 한 번 저장하세요."
+
+#: includes/class-plugin.php:114
+msgid "Insert"
+msgstr "삽입"
+
+#: includes/class-plugin.php:115
+msgid "The link goes on a matching phrase already in your text when there is one; otherwise at the cursor. Select words first to link those instead."
+msgstr "텍스트에 일치하는 문구가 있으면 그 문구에 링크를 걸고, 없으면 커서 위치에 넣습니다. 특정 단어에 링크하려면 먼저 선택하세요."
+
+#: includes/class-plugin.php:117
+msgid "Suggestions appear once this post is published: drafts are not indexed yet. Publish it, wait a moment, then click the button again."
+msgstr "이 글이 발행되면 제안이 나타납니다. 임시글은 아직 색인되지 않습니다. 발행하고 잠시 기다린 뒤 버튼을 다시 클릭하세요."
+
+#: includes/class-plugin.php:118
+msgid "This post has not been indexed yet. It is normally picked up within a minute of saving; try again shortly, or rebuild the index from the JnK Linkweave dashboard."
+msgstr "이 글은 아직 색인되지 않았습니다. 보통 저장 후 1분 안에 처리됩니다. 잠시 후 다시 시도하거나 JnK Linkweave 대시보드에서 색인을 다시 만드세요."
+
+#. translators: 1: indexable word count of this post, 2: configured minimum.
+#: includes/class-plugin.php:120
+#, php-format
+msgid "This post is too short to index, so it has no suggestions yet. It has %1$d indexable words and the minimum is %2$d (common words like \"the\" are not counted)."
+msgstr "이 글은 색인하기에 너무 짧아서 아직 제안이 없습니다. 색인 가능한 단어가 %1$d개이고 최솟값은 %2$d개입니다(\"the\" 같은 흔한 단어는 세지 않습니다)."
+
+#: includes/class-plugin.php:121
+msgid "This post type is not being indexed. You can add it under Post types in JnK Linkweave → Settings."
+msgstr "이 글 유형은 색인되지 않고 있습니다. JnK Linkweave → 설정의 글 유형에서 추가할 수 있습니다."
+
+#: includes/class-plugin.php:122
+msgid "No related posts cleared the relevance threshold for this one. Lowering Minimum relevance in Settings will surface weaker matches."
+msgstr "이 글에 대해 관련성 기준을 넘은 관련 글이 없습니다. 설정에서 최소 관련성을 낮추면 덜 비슷한 글도 나타납니다."
+
+#: includes/class-plugin.php:123
+msgid "The index has not been built yet. Build it once from JnK Linkweave → Dashboard → Rebuild index."
+msgstr "색인이 아직 만들어지지 않았습니다. JnK Linkweave → 대시보드 → 색인 다시 만들기에서 한 번 만드세요."
+
+#: includes/class-plugin.php:126
+#: editor/src/strength.js:16
+msgid "Very close match"
+msgstr "매우 비슷함"
+
+#: includes/class-plugin.php:127
+#: editor/src/strength.js:19
+msgid "Close match"
+msgstr "비슷함"
+
+#: includes/class-plugin.php:128
+#: editor/src/strength.js:22
+msgid "Related"
+msgstr "관련 있음"
+
+#: includes/class-plugin.php:129
+#: editor/src/strength.js:24
+msgid "Loosely related"
+msgstr "약간 관련 있음"
+
+#: admin/assets/js/admin.js:571
+msgid "Filter by title…"
+msgstr "제목으로 필터…"
+
+#: admin/assets/js/admin.js:571
+msgid "Filter by title"
+msgstr "제목으로 필터"
+
+#: admin/assets/js/admin.js:72
+#: admin/assets/js/admin.js:490
+#: admin/assets/js/admin.js:561
+msgid "View"
+msgstr "보기"
+
+#: admin/assets/js/admin.js:330
+#: admin/assets/js/admin.js:467
+#: admin/assets/js/admin.js:547
+#: admin/assets/js/admin.js:623
+msgid "Loading…"
+msgstr "불러오는 중…"
+
+#: admin/assets/js/admin.js:102
+msgid "just now"
+msgstr "방금"
+
+#: admin/assets/js/admin.js:69
+#: admin/assets/js/admin.js:340
+msgid "Edit"
+msgstr "편집"
+
+#: admin/assets/js/admin.js:102
+msgid "in a moment"
+msgstr "잠시 후"
+
+#. translators: 1: posts saved so far, 2: total posts.
+#: admin/assets/js/admin.js:190
+msgid "Saving what it learned: %1$d of %2$d"
+msgstr "읽은 내용 저장 중: %2$d개 중 %1$d개"
+
+#: admin/assets/js/admin.js:221
+msgid "The last read stopped before it finished."
+msgstr "마지막 읽기가 끝나기 전에 멈췄습니다."
+
+#: admin/assets/js/admin.js:222
+msgid "The last read failed."
+msgstr "마지막 읽기가 실패했습니다."
+
+#: admin/assets/js/admin.js:223
+#: admin/assets/js/admin.js:279
+#: admin/assets/js/admin.js:295
+msgid "Run it again now"
+msgstr "지금 다시 실행"
+
+#: admin/assets/js/admin.js:336
+msgid "Created by the link map. Clearing the map removes it; rules you wrote are never touched."
+msgstr "링크 맵이 만든 규칙입니다. 맵을 지우면 함께 삭제되며, 직접 만든 규칙은 건드리지 않습니다."
+
+#: admin/assets/js/admin.js:336
+msgid "from link map"
+msgstr "링크 맵에서 생성"
+
+#: admin/assets/js/admin.js:336
+msgid "This rule uses Pro options and is paused on the free version."
+msgstr "이 규칙은 Pro 옵션을 사용하므로 무료 버전에서는 일시 중지됩니다."
+
+#: admin/assets/js/admin.js:338
+msgid "Its settings are kept. It runs again when the Pro version is back."
+msgstr "설정은 그대로 유지됩니다. Pro 버전이 돌아오면 다시 작동합니다."
+
+#: admin/assets/js/admin.js:338
+msgid "Paused"
+msgstr "일시 중지됨"
+
+#: admin/assets/js/admin.js:338
+#: admin/assets/js/admin.js:353
+#: admin/assets/js/admin.js:397
+msgid "On"
+msgstr "켜짐"
+
+#: admin/assets/js/admin.js:340
+msgid "Delete"
+msgstr "삭제"
+
+#: admin/assets/js/admin.js:345
+#: admin/assets/js/admin.js:350
+msgid "Phrase"
+msgstr "문구"
+
+#: admin/assets/js/admin.js:345
+#: admin/assets/js/admin.js:351
+msgid "Links to"
+msgstr "연결 대상"
+
+#: admin/assets/js/admin.js:345
+msgid "Links this rule adds across your published posts right now. Mentions already inside a link, a heading or code, and mentions on the target page itself, are skipped, so 0 can be correct."
+msgstr "이 규칙이 지금 발행된 글 전체에 추가하는 링크 수입니다. 이미 링크, 제목, 코드 안에 있는 언급과 대상 페이지 자체의 언급은 건너뛰므로 0이 맞을 수도 있습니다."
+
+#: admin/assets/js/admin.js:345
+msgid "Links added"
+msgstr "추가된 링크"
+
+#: admin/assets/js/admin.js:346
+msgid "No rules yet"
+msgstr "아직 규칙이 없습니다"
+
+#: admin/assets/js/admin.js:346
+msgid "A rule links one phrase to one page everywhere it appears. Add your first one on the right."
+msgstr "규칙은 한 문구를 그 문구가 나오는 모든 곳에서 한 페이지로 링크합니다. 오른쪽에서 첫 규칙을 추가하세요."
+
+#: admin/assets/js/admin.js:348
+msgid "Add a rule"
+msgstr "규칙 추가"
+
+#: admin/assets/js/admin.js:348
+msgid "Linkweave links this phrase wherever it appears in your posts."
+msgstr "Linkweave가 글에서 이 문구가 나오는 곳마다 링크를 겁니다."
+
+#: admin/assets/js/admin.js:350
+msgid "e.g. internal linking"
+msgstr "예: 내부 링크"
+
+#: admin/assets/js/admin.js:354
+#: admin/assets/js/admin.js:394
+msgid "Match capital letters"
+msgstr "대소문자 구분"
+
+#: admin/assets/js/admin.js:355
+#: admin/assets/js/admin.js:395
+msgid "Open in a new tab"
+msgstr "새 탭에서 열기"
+
+#: admin/assets/js/admin.js:356
+msgid "Tells search engines not to pass ranking credit through this link"
+msgstr "이 링크를 통해 검색 순위 점수를 넘기지 말라고 검색엔진에 알립니다"
+
+#: admin/assets/js/admin.js:359
+#: admin/assets/js/admin.js:400
+msgid "Most per post"
+msgstr "글당 최대"
+
+#: admin/assets/js/admin.js:360
+#: admin/assets/js/admin.js:401
+msgid "Most across the site"
+msgstr "사이트 전체 최대"
+
+#: admin/assets/js/admin.js:360
+#: admin/assets/js/admin.js:401
+msgid "0 means no limit"
+msgstr "0은 제한 없음"
+
+#: admin/assets/js/admin.js:363
+msgid "Add rule"
+msgstr "규칙 추가"
+
+#: admin/assets/js/admin.js:370
+msgid "Delete this rule?"
+msgstr "이 규칙을 삭제할까요?"
+
+#: admin/assets/js/admin.js:374
+msgid "Rule deleted."
+msgstr "규칙을 삭제했습니다."
+
+#: admin/assets/js/admin.js:405
+msgid "Save"
+msgstr "저장"
+
+#: admin/assets/js/admin.js:427
+msgid "Rule saved."
+msgstr "규칙을 저장했습니다."
+
+#: admin/assets/js/admin.js:453
+msgid "Rule added."
+msgstr "규칙을 추가했습니다."
+
+#: admin/assets/js/admin.js:474
+msgid "No orphan posts"
+msgstr "링크 없는 글이 없습니다"
+
+#. translators: 1: opening link tag to the Overview screen, 2: closing link tag.
+#: admin/assets/js/admin.js:477
+msgid "Every published post has at least one internal link pointing at it. If you have not built the index yet, %1$sdo that on the Overview%2$s first."
+msgstr "발행된 모든 글에 내부 링크가 하나 이상 연결되어 있습니다. 아직 색인을 만들지 않았다면 먼저 %1$s개요에서 만드세요%2$s."
+
+#: admin/assets/js/admin.js:485
+msgid "%d post needs a link"
+msgid_plural "%d posts need a link"
+msgstr[0] "링크가 필요한 글 %d개"
+
+#: admin/assets/js/admin.js:486
+msgid "Linkweave compares each one with the rest of your site and lists the posts that talk about the same thing."
+msgstr "Linkweave가 각 글을 사이트의 나머지 글과 비교해 같은 주제를 다루는 글을 보여 줍니다."
+
+#: admin/assets/js/admin.js:492
+msgid "Shorter than the minimum length in Settings, so it is never suggested as a link target."
+msgstr "설정의 최소 길이보다 짧아서 링크 대상으로 제안되지 않습니다."
+
+#: admin/assets/js/admin.js:492
+msgid "Too short to suggest"
+msgstr "너무 짧아서 제안 안 됨"
+
+#: admin/assets/js/admin.js:493
+#: admin/assets/js/admin.js:510
+msgid "Find posts that could link here"
+msgstr "여기로 링크할 수 있는 글 찾기"
+
+#: admin/assets/js/admin.js:510
+msgid "Hide"
+msgstr "숨기기"
+
+#: admin/assets/js/admin.js:513
+msgid "Looking through your posts…"
+msgstr "글을 살펴보는 중…"
+
+#: admin/assets/js/admin.js:519
+msgid "No close matches yet. Write a related post and link it here, or add an auto-link rule for this page."
+msgstr "아직 비슷한 글이 없습니다. 관련 글을 써서 여기로 링크하거나, 이 페이지에 대한 자동 링크 규칙을 추가하세요."
+
+#: admin/assets/js/admin.js:527
+msgid "How closely the two posts match"
+msgstr "두 글이 얼마나 비슷한지"
+
+#: admin/assets/js/admin.js:528
+msgid "Open"
+msgstr "열기"
+
+#: admin/assets/js/admin.js:531
+msgid "Open a post and add the link in the editor."
+msgstr "글을 열고 편집기에서 링크를 추가하세요."
+
+#: admin/assets/js/admin.js:532
+msgid "Pro adds the links for you"
+msgstr "Pro는 링크를 대신 추가해 줍니다"
+
+#: admin/assets/js/admin.js:551
+msgid "Nothing to show yet"
+msgstr "아직 표시할 내용이 없습니다"
+
+#: admin/assets/js/admin.js:551
+msgid "Build the index on the Overview and the counts appear here."
+msgstr "개요에서 색인을 만들면 여기에 링크 수가 나타납니다."
+
+#. translators: %d: number of posts.
+#: admin/assets/js/admin.js:568
+#: admin/assets/js/linkmap.js:35
+msgid "%d post"
+msgid_plural "%d posts"
+msgstr[0] "글 %d개"
+
+#: admin/assets/js/admin.js:570
+msgid "%d with no links in, shown in red."
+msgid_plural "%d with no links in, shown in red."
+msgstr[0] "들어오는 링크가 없는 글 %d개, 빨간색으로 표시됩니다."
+
+#: admin/assets/js/admin.js:570
+msgid "Every post has at least one link in."
+msgstr "모든 글에 들어오는 링크가 하나 이상 있습니다."
+
+#: admin/assets/js/admin.js:600
+msgid "Still checking. Reload in a minute to see the results."
+msgstr "아직 확인 중입니다. 1분 뒤에 새로 고침하면 결과를 볼 수 있습니다."
+
+#: admin/assets/js/admin.js:600
+msgid "All links checked."
+msgstr "모든 링크를 확인했습니다."
+
+#: admin/assets/js/admin.js:610
+msgid "Checking every link…"
+msgstr "모든 링크를 확인하는 중…"
+
+#: admin/assets/js/admin.js:632
+msgid "No broken links"
+msgstr "깨진 링크가 없습니다"
+
+#: admin/assets/js/admin.js:635
+msgid "Last checked %1$s, %2$d link in total."
+msgid_plural "Last checked %1$s, %2$d links in total."
+msgstr[0] "마지막 확인: %1$s, 전체 링크 %2$d개."
+
+#: admin/assets/js/admin.js:637
+msgid "Last checked %s."
+msgstr "마지막 확인: %s."
+
+#: admin/assets/js/admin.js:638
+msgid "Not checked yet"
+msgstr "아직 확인하지 않았습니다"
+
+#: admin/assets/js/admin.js:638
+msgid "Linkweave checks your links once a day. Click “Check all links now” to do it straight away."
+msgstr "Linkweave는 하루에 한 번 링크를 확인합니다. 지금 바로 확인하려면 \"지금 모든 링크 확인\"을 클릭하세요."
+
+#: admin/assets/js/admin.js:652
+msgid "Page missing"
+msgstr "페이지 없음"
+
+#: admin/assets/js/admin.js:657
+msgid "Found in"
+msgstr "발견 위치"
+
+#: admin/assets/js/admin.js:657
+msgid "Points at"
+msgstr "연결 대상"
+
+#: admin/assets/js/admin.js:657
+msgid "Link text"
+msgstr "링크 텍스트"
+
+#: admin/assets/js/admin.js:657
+msgid "Checked"
+msgstr "확인 시각"
+
+#: admin/assets/js/admin.js:699
+msgid "Saving…"
+msgstr "저장하는 중…"
+
+#: admin/assets/js/admin.js:703
+#: admin/assets/js/admin.js:706
+msgid "Settings saved."
+msgstr "설정을 저장했습니다."
+
+#: admin/assets/js/admin.js:706
+msgid "The index is being rebuilt in the background to add the post types you ticked."
+msgstr "선택한 글 유형을 추가하기 위해 백그라운드에서 색인을 다시 만들고 있습니다."
+
+#. translators: %d: number of internal links pointing at a post.
+#: admin/assets/js/linkmap.js:37
+msgid "%d link in"
+msgid_plural "%d links in"
+msgstr[0] "들어오는 링크 %d개"
+
+#. translators: %d: number of links.
+#: admin/assets/js/linkmap.js:39
+msgid "%d link"
+msgid_plural "%d links"
+msgstr[0] "링크 %d개"
+
+#: admin/assets/js/linkmap.js:52
+msgid "%d with no links in"
+msgid_plural "%d with no links in"
+msgstr[0] "들어오는 링크가 없는 글 %d개"
+
+#: admin/assets/js/linkmap.js:62
+msgid "Nothing links here yet"
+msgstr "아직 여기로 링크하는 글이 없습니다"
+
+#: admin/assets/js/linkmap.js:94
+msgid "Read across a row: how many links that topic's posts send to each topic. The shaded diagonal is links inside the same topic. A row of empty cells is a topic that never links out."
+msgstr "각 행을 가로로 읽으세요. 그 주제의 글이 각 주제로 보내는 링크 수입니다. 음영 처리된 대각선은 같은 주제 안의 링크입니다. 빈 칸만 있는 행은 밖으로 링크하지 않는 주제입니다."
+
+#: admin/assets/js/linkmap.js:95
+msgid "From ↓"
+msgstr "보내는 쪽 ↓"
+
+#: admin/assets/js/linkmap.js:95
+msgid "To →"
+msgstr "받는 쪽 →"
+
+#: admin/assets/js/linkmap.js:96
+msgid "Total out"
+msgstr "나가는 링크 합계"
+
+#: admin/assets/js/linkmap.js:105
+msgid "None"
+msgstr "없음"
+
+#: admin/assets/js/linkmap.js:125
+msgid "Which topics link to which. Topics that link to each other help readers move around your site."
+msgstr "어떤 주제가 어떤 주제로 링크하는지 보여 줍니다. 서로 링크하는 주제는 독자가 사이트를 둘러보는 데 도움이 됩니다."
+
+#: editor/src/InboundOpportunities.jsx:19
+msgid "Drafts are not indexed yet. Once this post is published, related posts that should link here show up within a minute or so."
+msgstr "임시글은 아직 색인되지 않습니다. 이 글이 발행되면 여기로 링크해야 할 관련 글이 1분 정도 안에 나타납니다."
+
+#: editor/src/InboundOpportunities.jsx:24
+msgid "This post has not been indexed yet. It is normally picked up within a minute of saving; this list refreshes on its own."
+msgstr "이 글은 아직 색인되지 않았습니다. 보통 저장 후 1분 안에 처리되며, 이 목록은 자동으로 새로 고쳐집니다."
+
+#: editor/src/InboundOpportunities.jsx:29
+msgid "This post is too short to index, so no related posts can be found for it."
+msgstr "이 글은 색인하기에 너무 짧아서 관련 글을 찾을 수 없습니다."
+
+#: editor/src/InboundOpportunities.jsx:34
+msgid "This post type is not being indexed (see Post types in Settings)."
+msgstr "이 글 유형은 색인되지 않고 있습니다(설정의 글 유형 참고)."
+
+#: editor/src/InboundOpportunities.jsx:39
+msgid "The index has not been built yet (JnK Linkweave → Dashboard → Rebuild index)."
+msgstr "색인이 아직 만들어지지 않았습니다(JnK Linkweave → 대시보드 → 색인 다시 만들기)."
+
+#: editor/src/InboundOpportunities.jsx:44
+msgid "No inbound opportunities found yet: every closely related post already links here, or none is related closely enough."
+msgstr "아직 들어오는 링크 기회가 없습니다: 아주 비슷한 글은 이미 모두 여기로 링크하고 있거나, 충분히 관련된 글이 없습니다."
+
+#: editor/src/InboundOpportunities.jsx:92
+msgid "Posts that should link here"
+msgstr "여기로 링크해야 할 글"
+
+#: editor/src/InboundOpportunities.jsx:94
+msgid "Topically related posts that don’t yet link to this one. Open one to add the link."
+msgstr "주제가 비슷하지만 아직 이 글로 링크하지 않은 글입니다. 하나를 열어 링크를 추가하세요."
+
+#. translators: %s: raw relevance score.
+#: editor/src/InboundOpportunities.jsx:126
+msgid "Relevance %s"
+msgstr "관련성 %s"
+
+#. translators: %s: comma-separated list of shared words.
+#: editor/src/InboundOpportunities.jsx:137
+#: editor/src/SuggestionItem.jsx:44
+msgid "Both mention: %s"
+msgstr "공통 단어: %s"
+
+#: editor/src/InboundOpportunities.jsx:150
+#: editor/src/SuggestionList.jsx:143
+#: editor/src/SuggestionList.jsx:232
+#: editor/src/SuggestionList.jsx:248
+#: editor/src/SuggestionList.jsx:271
+#: editor/src/SuggestionList.jsx:302
+msgid "Refresh"
+msgstr "새로 고침"
+
+#: editor/src/Sidebar.jsx:26
+msgid "Suggested links"
+msgstr "추천 링크"
+
+#: editor/src/Sidebar.jsx:29
+msgid "Posts that cover the same topic. Click into a paragraph, then insert a link."
+msgstr "같은 주제를 다루는 글입니다. 문단을 클릭한 다음 링크를 삽입하세요."
+
+#. translators: 1: plain-language strength, 2: raw relevance score.
+#: editor/src/SuggestionItem.jsx:8
+msgid "%1$s — relevance %2$s. Higher means more topic words in common."
+msgstr "%1$s: 관련성 %2$s. 높을수록 공통 주제어가 많습니다."
+
+#: editor/src/SuggestionItem.jsx:54
+msgid "Insert link"
+msgstr "링크 삽입"
+
+#: editor/src/SuggestionList.jsx:51
+msgid "Click into the paragraph you want the link in, then insert."
+msgstr "링크를 넣을 문단을 클릭한 다음 삽입하세요."
+
+#: editor/src/SuggestionList.jsx:75
+msgid "That block cannot hold a link. Select a paragraph or list item and try again."
+msgstr "이 블록에는 링크를 넣을 수 없습니다. 문단이나 목록 항목을 선택하고 다시 시도하세요."
+
+#. translators: 1: indexable word count of this post, 2: configured minimum.
+#: editor/src/SuggestionList.jsx:171
+msgid "This post is too short to index, so it has no suggestions yet. It has %1$d indexable words and the minimum is %2$d — that is counted after common words like \"the\" and \"a\" are removed, so it is roughly half the visible word count."
+msgstr "이 글은 색인하기에 너무 짧아서 아직 제안이 없습니다. 색인 가능한 단어가 %1$d개이고 최솟값은 %2$d개입니다. \"the\", \"a\" 같은 흔한 단어를 뺀 뒤 세므로, 보이는 단어 수의 대략 절반입니다."
+
+#: editor/src/SuggestionList.jsx:180
+msgid "Add a few more paragraphs, or lower the minimum in Settings."
+msgstr "문단을 몇 개 더 추가하거나 설정에서 최솟값을 낮추세요."
+
+#: editor/src/SuggestionList.jsx:190
+#: editor/src/SuggestionList.jsx:210
+msgid "Open settings"
+msgstr "설정 열기"
+
+#: editor/src/SuggestionList.jsx:200
+msgid "This post type is not being indexed, so there is nothing to suggest here. You can add it under Post types in Settings."
+msgstr "이 글 유형은 색인되지 않아서 여기에 제안할 것이 없습니다. 설정의 글 유형에서 추가할 수 있습니다."
+
+#: editor/src/SuggestionList.jsx:220
+msgid "No related posts cleared the relevance threshold for this one. That usually means it covers a topic nothing else on the site touches yet."
+msgstr "이 글에 대해 관련성 기준을 넘은 관련 글이 없습니다. 보통 사이트의 다른 글이 아직 다루지 않은 주제라는 뜻입니다."
+
+#: editor/src/SuggestionList.jsx:226
+msgid "Lowering the minimum relevance score in Settings will surface weaker matches."
+msgstr "설정에서 최소 관련성 점수를 낮추면 덜 비슷한 글도 나타납니다."
+
+#: editor/src/SuggestionList.jsx:242
+msgid "Suggestions appear once this post is published: drafts are not indexed yet. After publishing, this panel fills in within a minute or so."
+msgstr "이 글이 발행되면 제안이 나타납니다. 임시글은 아직 색인되지 않습니다. 발행 후 1분 정도면 이 패널이 채워집니다."
+
+#: editor/src/SuggestionList.jsx:258
+msgid "This post has not been indexed yet. It is normally picked up within a minute of saving; a rebuild will catch it immediately."
+msgstr "이 글은 아직 색인되지 않았습니다. 보통 저장 후 1분 안에 처리되며, 색인을 다시 만들면 바로 반영됩니다."
+
+#: editor/src/SuggestionList.jsx:268
+msgid "Rebuild the index"
+msgstr "색인 다시 만들기"
+
+#: editor/src/SuggestionList.jsx:281
+msgid "No suggestions yet. Linkweave ranks suggestions against an index of your existing posts, so that index has to be built once before it can suggest anything."
+msgstr "아직 제안이 없습니다. Linkweave는 기존 글의 색인을 기준으로 제안 순위를 매기므로, 제안을 받으려면 먼저 색인을 한 번 만들어야 합니다."
+
+#: editor/src/SuggestionList.jsx:292
+msgid "Build the index"
+msgstr "색인 만들기"
+
+#: editor/src/SuggestionList.jsx:296
+msgid "Already built it? Save this post, then refresh."
+msgstr "이미 만드셨나요? 이 글을 저장한 다음 새로 고치세요."
+
+#~ msgid "Let Claude, ChatGPT and other MCP apps read your orphan posts, link counts and suggestions. Needs WordPress 6.9 or newer."
+#~ msgstr "Claude, ChatGPT 및 기타 MCP 앱이 고아 글, 링크 수, 제안을 읽을 수 있게 합니다. WordPress 6.9 이상이 필요합니다."
+
+#~ msgid "Read only: orphan posts, link counts and link suggestions. Assistants never change your posts. Works with Claude, ChatGPT and other MCP apps through the free MCP Adapter plugin, and only for users who could see these reports anyway."
+#~ msgstr "읽기 전용: 고아 글, 링크 수, 링크 제안. 어시스턴트는 글을 절대 바꾸지 않습니다. 무료 MCP Adapter 플러그인을 통해 Claude, ChatGPT 및 기타 MCP 앱에서 작동하며, 원래 이 보고서를 볼 수 있는 사용자만 쓸 수 있습니다."
+
+#~ msgid "This is JnK Linkweave Pro, but no licence is active on this site, so the Pro features are switched off: the URL Changer, link click analytics, Search Console targeting, the auto-link map, the Anchor Text report, broken-link repair, related posts, link preview cards, bulk link insertion, cross-site linking, AI re-ranking and the CSV exports."
+#~ msgstr "JnK Linkweave Pro이지만 이 사이트에 활성 라이선스가 없어 Pro 기능이 꺼져 있습니다: URL 변경 도구, 링크 클릭 분석, Search Console 타기팅, 자동 링크 맵, 앵커 텍스트 보고서, 깨진 링크 복구, 관련 글, 링크 미리보기 카드, 링크 일괄 삽입, 사이트 간 링크, AI 재정렬, CSV 내보내기."
+
+#, php-format
+#~ msgid "Reading your posts: %1$d of %2$d (%3$s%%)"
+#~ msgstr "글을 읽는 중: %2$d개 중 %1$d개(%3$s%%)"
+
+#~ msgid "Cross-site linking (Agency)"
+#~ msgstr "사이트 간 링크(Agency)"
+
+#~ msgid "Suggest links between the sites on your license, right in the editor."
+#~ msgstr "라이선스에 등록된 사이트끼리 링크를 편집기에서 바로 제안합니다."
