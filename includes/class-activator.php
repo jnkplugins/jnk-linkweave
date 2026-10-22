@@ -16,7 +16,7 @@ class JnkLinkweave_Activator {
                 post_type VARCHAR(20) NOT NULL,
                 language VARCHAR(10) NOT NULL DEFAULT \"en\",
                 word_count INT UNSIGNED NOT NULL DEFAULT 0,
-                vector LONGTEXT NOT NULL,
+                `vector` LONGTEXT NOT NULL,
                 vector_norm DOUBLE NOT NULL DEFAULT 0,
                 indexed_at DATETIME NOT NULL,
                 PRIMARY KEY (post_id),

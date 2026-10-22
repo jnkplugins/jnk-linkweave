@@ -377,7 +377,7 @@ class Suggestion_Engine {
         global $wpdb;
         $table = Index_Builder::table();
         $row   = $wpdb->get_row(
-            $wpdb->prepare( "SELECT post_id, post_type, vector, vector_norm FROM %i WHERE post_id = %d", $table, $post_id ),
+            $wpdb->prepare( "SELECT post_id, post_type, `vector`, vector_norm FROM %i WHERE post_id = %d", $table, $post_id ),
             ARRAY_A
         );
         if ( ! $row ) {
@@ -400,7 +400,7 @@ class Suggestion_Engine {
         $table = Index_Builder::table();
         $rows  = $wpdb->get_results(
             $wpdb->prepare(
-                "SELECT post_id, vector, vector_norm, word_count FROM %i WHERE post_id != %d AND post_type = %s",
+                "SELECT post_id, `vector`, vector_norm, word_count FROM %i WHERE post_id != %d AND post_type = %s",
                 $table,
                 $exclude_id,
                 $post_type

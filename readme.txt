@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.2
-Stable tag: 1.11.1
+Stable tag: 1.11.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -164,6 +164,9 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.11.2 =
+* Fixed: on MySQL 9 the plugin could not create its search index table, because MySQL 9 reserves the word VECTOR. Link suggestions stayed empty. Updating creates the table and reads your posts again by itself.
 
 = 1.11.1 =
 * Pro: fixed an update notice that could show again after updating. No change in the free version.
