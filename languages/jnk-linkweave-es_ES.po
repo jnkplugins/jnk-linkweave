@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-10-22T21:14:15+00:00\n"
+"POT-Creation-Date: 2026-10-23T06:04:05+00:00\n"
 "PO-Revision-Date: 2026-10-10 16:38+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Spanish (Spain)\n"
@@ -16,368 +16,368 @@ msgstr ""
 "X-Domain: jnk-linkweave\n"
 "X-Generator: WP-CLI 2.12.0\n"
 
-#: pro/licensorpro-client/licensorpro-client.php:746
+#: pro/licensorpro-client/licensorpro-client.php:748
 msgid "Manage license"
 msgstr "Gestionar licencia"
 
-#: pro/licensorpro-client/licensorpro-client.php:749
+#: pro/licensorpro-client/licensorpro-client.php:751
 #: admin/class-admin.php:175
 msgid "Renew license"
 msgstr "Renovar licencia"
 
-#: pro/licensorpro-client/licensorpro-client.php:750
+#: pro/licensorpro-client/licensorpro-client.php:752
 #: admin/class-admin.php:174
 msgid "Activate license"
 msgstr "Activar licencia"
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:777
+#: pro/licensorpro-client/licensorpro-client.php:779
 #, php-format
 msgid "<strong>%s Pro is on.</strong> Thank you! Every Pro tool is switched on for this site, and updates come to your dashboard."
 msgstr "<strong>%s Pro está activado.</strong> ¡Gracias! Todas las herramientas Pro están activadas en este sitio y las actualizaciones llegan a tu escritorio."
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:826
+#: pro/licensorpro-client/licensorpro-client.php:828
 #, php-format
 msgid "<strong>%s Pro is installed, but no Pro license is active on this site.</strong> Enter your license key to switch on the Pro tools."
 msgstr "<strong>%s Pro está instalado, pero no hay ninguna licencia Pro activa en este sitio.</strong> Introduce tu clave de licencia para activar las herramientas Pro."
 
-#: pro/licensorpro-client/licensorpro-client.php:832
+#: pro/licensorpro-client/licensorpro-client.php:834
 msgid "Enter license key"
 msgstr "Introducir clave de licencia"
 
-#: pro/licensorpro-client/licensorpro-client.php:835
+#: pro/licensorpro-client/licensorpro-client.php:837
 msgid "Find your key in your account"
 msgstr "Busca tu clave en tu cuenta"
 
-#: pro/licensorpro-client/licensorpro-client.php:861
+#: pro/licensorpro-client/licensorpro-client.php:863
 msgid "Renew your license"
 msgstr "Renueva tu licencia"
 
 #. translators: 1: plugin name, 2: expiry date, 3: lock date, 4: days left
-#: pro/licensorpro-client/licensorpro-client.php:867
+#: pro/licensorpro-client/licensorpro-client.php:869
 #, php-format
 msgid "<strong>Your %1$s Pro license expired on %2$s.</strong> Pro keeps working as normal until %3$s (%4$d days left). Updates, including security fixes, and email support have stopped. After %3$s, everything you already set up keeps working and your visitors won't notice a thing, but the Pro tools in your dashboard will lock."
 msgstr "<strong>Tu licencia de %1$s Pro caducó el %2$s.</strong> Pro sigue funcionando con normalidad hasta el %3$s (quedan %4$d días). Las actualizaciones, incluidas las de seguridad, y el soporte por correo se han detenido. Después del %3$s, todo lo que ya configuraste sigue funcionando y tus visitantes no notarán nada, pero las herramientas Pro de tu escritorio se bloquearán."
 
 #. translators: 1: plugin name, 2: expiry date
-#: pro/licensorpro-client/licensorpro-client.php:877
+#: pro/licensorpro-client/licensorpro-client.php:879
 #, php-format
 msgid "<strong>%1$s Pro tools are locked because your license expired on %2$s.</strong> Your site, and everything visitors see, still works. Renew to unlock the Pro tools and get updates, including security fixes, again."
 msgstr "<strong>Las herramientas de %1$s Pro están bloqueadas porque tu licencia caducó el %2$s.</strong> Tu sitio, y todo lo que ven los visitantes, sigue funcionando. Renueva para desbloquear las herramientas Pro y volver a recibir actualizaciones, incluidas las de seguridad."
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:885
+#: pro/licensorpro-client/licensorpro-client.php:887
 #, php-format
 msgid "<strong>This site is no longer activated on your %s Pro license.</strong> The Pro tools in your dashboard are locked until you activate it again. Everything visitors see keeps working."
 msgstr "<strong>Este sitio ya no está activado en tu licencia de %s Pro.</strong> Las herramientas Pro de tu escritorio están bloqueadas hasta que lo vuelvas a activar. Todo lo que ven los visitantes sigue funcionando."
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:892
+#: pro/licensorpro-client/licensorpro-client.php:894
 #, php-format
 msgid "<strong>Your %s Pro license is no longer active.</strong> It was refunded or cancelled, so the Pro tools in your dashboard are locked and updates have stopped. Everything visitors see keeps working."
 msgstr "<strong>Tu licencia de %s Pro ya no está activa.</strong> Se reembolsó o se canceló, así que las herramientas Pro de tu escritorio están bloqueadas y las actualizaciones se han detenido. Todo lo que ven los visitantes sigue funcionando."
 
-#: pro/licensorpro-client/licensorpro-client.php:994
+#: pro/licensorpro-client/licensorpro-client.php:996
 msgid "Please enter a license key."
 msgstr "Introduce una clave de licencia."
 
-#: pro/licensorpro-client/licensorpro-client.php:1006
-#: pro/licensorpro-client/licensorpro-client.php:1065
+#: pro/licensorpro-client/licensorpro-client.php:1008
+#: pro/licensorpro-client/licensorpro-client.php:1067
 msgid "License response failed signature verification."
 msgstr "La respuesta de la licencia no ha superado la verificación de la firma."
 
-#: pro/licensorpro-client/licensorpro-client.php:1048
+#: pro/licensorpro-client/licensorpro-client.php:1050
 msgid "No license key set."
 msgstr "No hay ninguna clave de licencia."
 
-#: pro/licensorpro-client/licensorpro-client.php:1133
+#: pro/licensorpro-client/licensorpro-client.php:1155
 msgid "Only deactivating temporarily"
 msgstr "Solo lo desactivo temporalmente"
 
-#: pro/licensorpro-client/licensorpro-client.php:1134
+#: pro/licensorpro-client/licensorpro-client.php:1156
 msgid "I could not work out how to use it"
 msgstr "No supe cómo usarlo"
 
-#: pro/licensorpro-client/licensorpro-client.php:1135
+#: pro/licensorpro-client/licensorpro-client.php:1157
 msgid "It is missing a feature I need"
 msgstr "Le falta una función que necesito"
 
-#: pro/licensorpro-client/licensorpro-client.php:1136
+#: pro/licensorpro-client/licensorpro-client.php:1158
 msgid "It did not work"
 msgstr "No funcionó"
 
-#: pro/licensorpro-client/licensorpro-client.php:1137
+#: pro/licensorpro-client/licensorpro-client.php:1159
 msgid "It broke something on my site"
 msgstr "Rompió algo en mi sitio"
 
-#: pro/licensorpro-client/licensorpro-client.php:1138
+#: pro/licensorpro-client/licensorpro-client.php:1160
 msgid "I found a better plugin"
 msgstr "Encontré un plugin mejor"
 
-#: pro/licensorpro-client/licensorpro-client.php:1139
+#: pro/licensorpro-client/licensorpro-client.php:1161
 msgid "I no longer need it"
 msgstr "Ya no lo necesito"
 
-#: pro/licensorpro-client/licensorpro-client.php:1140
+#: pro/licensorpro-client/licensorpro-client.php:1162
 msgid "Something else"
 msgstr "Otro motivo"
 
 #. translators: %s: plugin name.
-#: pro/licensorpro-client/licensorpro-client.php:1167
+#: pro/licensorpro-client/licensorpro-client.php:1189
 #, php-format
 msgid "Before you turn %s off"
 msgstr "Antes de desactivar %s"
 
-#: pro/licensorpro-client/licensorpro-client.php:1171
+#: pro/licensorpro-client/licensorpro-client.php:1193
 msgid "If you have a moment, what went wrong? It is the only way we hear about it."
 msgstr "Si tienes un momento, ¿qué ha fallado? Es la única forma de que nos enteremos."
 
-#: pro/licensorpro-client/licensorpro-client.php:1182
+#: pro/licensorpro-client/licensorpro-client.php:1204
 msgid "Anything else? (optional)"
 msgstr "¿Algo más? (opcional)"
 
-#: pro/licensorpro-client/licensorpro-client.php:1184
+#: pro/licensorpro-client/licensorpro-client.php:1206
 msgid "Sends your answer, the plugin version and your site address. Nothing else, and nothing from your site content."
 msgstr "Envía tu respuesta, la versión del plugin y la dirección de tu sitio. Nada más, y nada del contenido de tu sitio."
 
-#: pro/licensorpro-client/licensorpro-client.php:1188
+#: pro/licensorpro-client/licensorpro-client.php:1210
 msgid "Send and deactivate"
 msgstr "Enviar y desactivar"
 
-#: pro/licensorpro-client/licensorpro-client.php:1191
+#: pro/licensorpro-client/licensorpro-client.php:1213
 msgid "Skip and deactivate"
 msgstr "Omitir y desactivar"
 
-#: pro/licensorpro-client/licensorpro-client.php:1194
+#: pro/licensorpro-client/licensorpro-client.php:1216
 #: admin/assets/js/admin.js:406
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: pro/licensorpro-client/licensorpro-client.php:1315
-#: pro/licensorpro-client/licensorpro-client.php:1331
+#: pro/licensorpro-client/licensorpro-client.php:1337
+#: pro/licensorpro-client/licensorpro-client.php:1353
 msgid "API URL not configured."
 msgstr "La URL de la API no está configurada."
 
-#: pro/licensorpro-client/licensorpro-client.php:1350
+#: pro/licensorpro-client/licensorpro-client.php:1372
 msgid "Unexpected response from license server."
 msgstr "Respuesta inesperada del servidor de licencias."
 
 #. translators: %s: human-readable time difference, e.g. "3 months".
-#: pro/licensorpro-client/licensorpro-client.php:1648
+#: pro/licensorpro-client/licensorpro-client.php:1670
 #: includes/class-dates.php:34
 #, php-format
 msgid "in %s"
 msgstr "dentro de %s"
 
 #. translators: %s: human-readable time difference, e.g. "13 days".
-#: pro/licensorpro-client/licensorpro-client.php:1649
+#: pro/licensorpro-client/licensorpro-client.php:1671
 #: includes/class-dates.php:36
 #, php-format
 msgid "%s ago"
 msgstr "hace %s"
 
-#: pro/licensorpro-client/licensorpro-client.php:1674
+#: pro/licensorpro-client/licensorpro-client.php:1696
 #, php-format
 msgid "%s License"
 msgstr "Licencia de %s"
 
-#: pro/licensorpro-client/licensorpro-client.php:1684
+#: pro/licensorpro-client/licensorpro-client.php:1706
 msgid "This site was deactivated, so its seat is free for another site. Enter the key again here to switch the Pro tools back on."
 msgstr "Este sitio se desactivó, así que su plaza queda libre para otro sitio. Vuelve a introducir la clave aquí para activar de nuevo las herramientas Pro."
 
-#: pro/licensorpro-client/licensorpro-client.php:1694
-#: pro/licensorpro-client/licensorpro-client.php:1725
-#: pro/licensorpro-client/licensorpro-client.php:1782
+#: pro/licensorpro-client/licensorpro-client.php:1716
+#: pro/licensorpro-client/licensorpro-client.php:1747
+#: pro/licensorpro-client/licensorpro-client.php:1804
 msgid "License key"
 msgstr "Clave de licencia"
 
-#: pro/licensorpro-client/licensorpro-client.php:1695
+#: pro/licensorpro-client/licensorpro-client.php:1717
 msgid "Type"
 msgstr "Tipo"
 
-#: pro/licensorpro-client/licensorpro-client.php:1697
+#: pro/licensorpro-client/licensorpro-client.php:1719
 msgid "Free license: updates of the free version only. It does not switch on Pro."
 msgstr "Licencia gratuita: solo actualizaciones de la versión gratuita. No activa Pro."
 
-#: pro/licensorpro-client/licensorpro-client.php:1698
+#: pro/licensorpro-client/licensorpro-client.php:1720
 msgid "Free license: updates arrive in your dashboard like any other plugin."
 msgstr "Licencia gratuita: las actualizaciones llegan a tu escritorio como las de cualquier otro plugin."
 
-#: pro/licensorpro-client/licensorpro-client.php:1700
-#: pro/licensorpro-client/licensorpro-client.php:1750
+#: pro/licensorpro-client/licensorpro-client.php:1722
+#: pro/licensorpro-client/licensorpro-client.php:1772
 msgid "Last checked"
 msgstr "Última comprobación"
 
-#: pro/licensorpro-client/licensorpro-client.php:1704
-#: pro/licensorpro-client/licensorpro-client.php:1756
+#: pro/licensorpro-client/licensorpro-client.php:1726
+#: pro/licensorpro-client/licensorpro-client.php:1778
 msgid "Check for updates now"
 msgstr "Buscar actualizaciones ahora"
 
-#: pro/licensorpro-client/licensorpro-client.php:1707
+#: pro/licensorpro-client/licensorpro-client.php:1729
 msgid "Bought Pro?"
 msgstr "¿Compraste Pro?"
 
-#: pro/licensorpro-client/licensorpro-client.php:1708
+#: pro/licensorpro-client/licensorpro-client.php:1730
 msgid "Enter your Pro license key and Pro is installed over this version. Everything you set up stays."
 msgstr "Introduce tu clave de licencia Pro y Pro se instala sobre esta versión. Todo lo que configuraste se mantiene."
 
-#: pro/licensorpro-client/licensorpro-client.php:1710
+#: pro/licensorpro-client/licensorpro-client.php:1732
 msgid "Pro license key"
 msgstr "Clave de licencia Pro"
 
-#: pro/licensorpro-client/licensorpro-client.php:1713
-#: pro/licensorpro-client/licensorpro-client.php:1763
+#: pro/licensorpro-client/licensorpro-client.php:1735
+#: pro/licensorpro-client/licensorpro-client.php:1785
 msgid "Install Pro now"
 msgstr "Instalar Pro ahora"
 
-#: pro/licensorpro-client/licensorpro-client.php:1715
+#: pro/licensorpro-client/licensorpro-client.php:1737
 msgid "Rather do it by hand? Download the Pro zip from your account and upload it over this plugin."
 msgstr "¿Prefieres hacerlo a mano? Descarga el zip de Pro desde tu cuenta y súbelo sobre este plugin."
 
-#: pro/licensorpro-client/licensorpro-client.php:1716
-#: pro/licensorpro-client/licensorpro-client.php:1790
+#: pro/licensorpro-client/licensorpro-client.php:1738
+#: pro/licensorpro-client/licensorpro-client.php:1812
 msgid "Go to your account"
 msgstr "Ir a tu cuenta"
 
-#: pro/licensorpro-client/licensorpro-client.php:1727
+#: pro/licensorpro-client/licensorpro-client.php:1749
 msgid "active"
 msgstr "activa"
 
 #. translators: %s: date the Pro tools lock
-#: pro/licensorpro-client/licensorpro-client.php:1729
+#: pro/licensorpro-client/licensorpro-client.php:1751
 #, php-format
 msgid "expired, Pro tools stay on until %s"
 msgstr "caducada, las herramientas Pro siguen activas hasta el %s"
 
-#: pro/licensorpro-client/licensorpro-client.php:1730
+#: pro/licensorpro-client/licensorpro-client.php:1752
 msgid "expired, Pro tools locked"
 msgstr "caducada, herramientas Pro bloqueadas"
 
-#: pro/licensorpro-client/licensorpro-client.php:1732
+#: pro/licensorpro-client/licensorpro-client.php:1754
 msgid "this site is not activated"
 msgstr "este sitio no está activado"
 
-#: pro/licensorpro-client/licensorpro-client.php:1733
+#: pro/licensorpro-client/licensorpro-client.php:1755
 msgid "no longer active (refunded or cancelled)"
 msgstr "ya no está activa (reembolsada o cancelada)"
 
-#: pro/licensorpro-client/licensorpro-client.php:1735
+#: pro/licensorpro-client/licensorpro-client.php:1757
 #: admin/assets/js/admin.js:345
 #: admin/assets/js/admin.js:657
 msgid "Status"
 msgstr "Estado"
 
-#: pro/licensorpro-client/licensorpro-client.php:1737
+#: pro/licensorpro-client/licensorpro-client.php:1759
 msgid "Renew"
 msgstr "Renovar"
 
-#: pro/licensorpro-client/licensorpro-client.php:1741
+#: pro/licensorpro-client/licensorpro-client.php:1763
 msgid "Offline mode"
 msgstr "Modo sin conexión"
 
-#: pro/licensorpro-client/licensorpro-client.php:1743
+#: pro/licensorpro-client/licensorpro-client.php:1765
 #, php-format
 msgid "cached license valid until %s"
 msgstr "licencia en caché válida hasta el %s"
 
-#: pro/licensorpro-client/licensorpro-client.php:1747
+#: pro/licensorpro-client/licensorpro-client.php:1769
 msgid "Update channel"
 msgstr "Canal de actualizaciones"
 
-#: pro/licensorpro-client/licensorpro-client.php:1748
+#: pro/licensorpro-client/licensorpro-client.php:1770
 msgid "Site limit"
 msgstr "Límite de sitios"
 
-#: pro/licensorpro-client/licensorpro-client.php:1749
+#: pro/licensorpro-client/licensorpro-client.php:1771
 msgid "Expires"
 msgstr "Caduca"
 
-#: pro/licensorpro-client/licensorpro-client.php:1749
+#: pro/licensorpro-client/licensorpro-client.php:1771
 msgid "Never"
 msgstr "Nunca"
 
-#: pro/licensorpro-client/licensorpro-client.php:1754
+#: pro/licensorpro-client/licensorpro-client.php:1776
 msgid "Deactivate this site"
 msgstr "Desactivar este sitio"
 
-#: pro/licensorpro-client/licensorpro-client.php:1761
+#: pro/licensorpro-client/licensorpro-client.php:1783
 msgid "This is the free version, running on your Pro license."
 msgstr "Esta es la versión gratuita, funcionando con tu licencia Pro."
 
-#: pro/licensorpro-client/licensorpro-client.php:1778
+#: pro/licensorpro-client/licensorpro-client.php:1800
 msgid "Have a Pro license key? Enter it here to switch on the Pro tools. It replaces the free license on this site."
 msgstr "¿Tienes una clave de licencia Pro? Introdúcela aquí para activar las herramientas Pro. Sustituye a la licencia gratuita en este sitio."
 
-#: pro/licensorpro-client/licensorpro-client.php:1779
+#: pro/licensorpro-client/licensorpro-client.php:1801
 msgid "Enter your license key to activate this site."
 msgstr "Introduce tu clave de licencia para activar este sitio."
 
-#: pro/licensorpro-client/licensorpro-client.php:1786
+#: pro/licensorpro-client/licensorpro-client.php:1808
 msgid "Activate"
 msgstr "Activar"
 
-#: pro/licensorpro-client/licensorpro-client.php:1789
+#: pro/licensorpro-client/licensorpro-client.php:1811
 msgid "Your key is in your purchase email and in your account."
 msgstr "Tu clave está en el correo de tu compra y en tu cuenta."
 
-#: pro/licensorpro-client/licensorpro-client.php:1797
+#: pro/licensorpro-client/licensorpro-client.php:1819
 msgid "Need a hand?"
 msgstr "¿Necesitas ayuda?"
 
-#: pro/licensorpro-client/licensorpro-client.php:1798
+#: pro/licensorpro-client/licensorpro-client.php:1820
 msgid "Contact support"
 msgstr "Contactar con soporte"
 
-#: pro/licensorpro-client/licensorpro-client.php:2003
+#: pro/licensorpro-client/licensorpro-client.php:2025
 msgid "Only someone who may install plugins on this site can install Pro."
 msgstr "Solo alguien que pueda instalar plugins en este sitio puede instalar Pro."
 
-#: pro/licensorpro-client/licensorpro-client.php:2016
+#: pro/licensorpro-client/licensorpro-client.php:2038
 msgid "That is a free license key, so it keeps this free version updated. Pro needs the key from your purchase email."
 msgstr "Esa es una clave de licencia gratuita, así que mantiene actualizada esta versión gratuita. Pro necesita la clave del correo de tu compra."
 
 #. translators: %s: URL of the customer account
-#: pro/licensorpro-client/licensorpro-client.php:2021
+#: pro/licensorpro-client/licensorpro-client.php:2043
 #, php-format
 msgid "Your key is active. Download the Pro zip from your account (%s) and upload it over this plugin instead."
 msgstr "Tu clave está activa. Descarga el zip de Pro desde tu cuenta (%s) y súbelo sobre este plugin."
 
-#: pro/licensorpro-client/licensorpro-client.php:2025
+#: pro/licensorpro-client/licensorpro-client.php:2047
 msgid "This site does not allow installing plugins from the dashboard."
 msgstr "Este sitio no permite instalar plugins desde el escritorio."
 
-#: pro/licensorpro-client/licensorpro-client.php:2029
+#: pro/licensorpro-client/licensorpro-client.php:2051
 msgid "The Pro download could not be fetched for this key."
 msgstr "No se pudo obtener la descarga de Pro para esta clave."
 
-#: pro/licensorpro-client/licensorpro-client.php:2037
+#: pro/licensorpro-client/licensorpro-client.php:2059
 msgid "This site asks for FTP details to install plugins."
 msgstr "Este sitio pide datos de FTP para instalar plugins."
 
-#: pro/licensorpro-client/licensorpro-client.php:2072
+#: pro/licensorpro-client/licensorpro-client.php:2094
 msgid "Installing Pro did not finish."
 msgstr "La instalación de Pro no terminó."
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:2077
+#: pro/licensorpro-client/licensorpro-client.php:2099
 #, php-format
 msgid "%s Pro is installed and your license is active. Reloading…"
 msgstr "%s Pro está instalado y tu licencia está activa. Recargando…"
 
-#: pro/licensorpro-client/licensorpro-client.php:2087
+#: pro/licensorpro-client/licensorpro-client.php:2109
 msgid "License activated."
 msgstr "Licencia activada."
 
-#: pro/licensorpro-client/licensorpro-client.php:2099
+#: pro/licensorpro-client/licensorpro-client.php:2121
 msgid "Site deactivated."
 msgstr "Sitio desactivado."
 
-#: pro/licensorpro-client/licensorpro-client.php:2110
+#: pro/licensorpro-client/licensorpro-client.php:2132
 msgid "License is valid. Update info refreshed."
 msgstr "La licencia es válida. Información de actualizaciones renovada."
 
-#: pro/licensorpro-client/licensorpro-client.php:2117
+#: pro/licensorpro-client/licensorpro-client.php:2139
 msgid "Permission denied."
 msgstr "Permiso denegado."
 
