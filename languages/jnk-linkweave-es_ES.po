@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-10-23T06:24:00+00:00\n"
+"POT-Creation-Date: 2026-10-23T07:13:09+00:00\n"
 "PO-Revision-Date: 2026-10-10 16:38+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Spanish (Spain)\n"
@@ -21,12 +21,12 @@ msgid "Manage license"
 msgstr "Gestionar licencia"
 
 #: pro/licensorpro-client/licensorpro-client.php:753
-#: admin/class-admin.php:175
+#: admin/class-admin.php:221
 msgid "Renew license"
 msgstr "Renovar licencia"
 
 #: pro/licensorpro-client/licensorpro-client.php:754
-#: admin/class-admin.php:174
+#: admin/class-admin.php:220
 msgid "Activate license"
 msgstr "Activar licencia"
 
@@ -408,62 +408,90 @@ msgstr "JnK Plugins"
 msgid "https://jnkplugins.com"
 msgstr "https://jnkplugins.com"
 
-#: admin/class-admin.php:41
+#: admin/class-admin.php:30
+msgid "JnK Linkweave database tables"
+msgstr "Tablas de la base de datos de JnK Linkweave"
+
+#: admin/class-admin.php:46
+msgid "JnK Linkweave is missing database tables"
+msgstr "A JnK Linkweave le faltan tablas en la base de datos"
+
+#: admin/class-admin.php:49
+msgid "Link suggestions and the reports cannot work without these tables. Send this list to support (jnkplugins.com/contact):"
+msgstr "Las sugerencias de enlaces y los informes no funcionan sin estas tablas. Envía esta lista al soporte (jnkplugins.com/contact):"
+
+#: admin/class-admin.php:58
+msgid "JnK Linkweave Pro data is ready"
+msgstr "Los datos de JnK Linkweave Pro están listos"
+
+#: admin/class-admin.php:58
+msgid "JnK Linkweave database tables are ready"
+msgstr "Las tablas de la base de datos de JnK Linkweave están listas"
+
+#. translators: %d: number of database tables
+#: admin/class-admin.php:63
+#, php-format
+msgid "The %d table JnK Linkweave needs is in the database."
+msgid_plural "All %d tables JnK Linkweave needs are in the database."
+msgstr[0] "La %d tabla que necesita JnK Linkweave está en la base de datos."
+msgstr[1] "Las %d tablas que necesita JnK Linkweave están en la base de datos."
+
+#: admin/class-admin.php:87
 msgid "JnK Linkweave could not create its database tables."
 msgstr "JnK Linkweave no pudo crear sus tablas en la base de datos."
 
-#: admin/class-admin.php:42
+#: admin/class-admin.php:88
 msgid "Link suggestions and the reports need them. Send the details below to support (jnkplugins.com/contact) and we will sort it out with you."
 msgstr "Las sugerencias de enlaces y los informes las necesitan. Envía los detalles de abajo al soporte (jnkplugins.com/contact) y lo resolvemos contigo."
 
-#: admin/class-admin.php:85
+#: admin/class-admin.php:131
 msgid "This is JnK Linkweave Pro, but no license is active on this site, so the Pro features are switched off: the URL Changer, link click analytics, Search Console targeting, the auto-link map, the Anchor Text and Links per post reports, broken-link repair, related posts, link preview cards, bulk link insertion, the link check before you publish, extra rule options, cross-site linking, AI re-ranking, AI assistant access and the CSV exports."
 msgstr "Esto es JnK Linkweave Pro, pero no hay ninguna licencia activa en este sitio, así que las funciones Pro están desactivadas: el cambiador de URL, las estadísticas de clics en enlaces, la segmentación con Search Console, el mapa de enlaces automáticos, los informes de texto de anclaje y de enlaces por entrada, la reparación de enlaces rotos, las entradas relacionadas, las tarjetas de vista previa, la inserción de enlaces en bloque, la revisión de enlaces antes de publicar, las opciones extra de las reglas, los enlaces entre sitios, la reordenación con IA, el acceso para asistentes de IA y las exportaciones CSV."
 
-#: admin/class-admin.php:87
+#: admin/class-admin.php:133
 #: admin/views/upgrade.php:74
 msgid "Enter your license key"
 msgstr "Introduce tu clave de licencia"
 
-#: admin/class-admin.php:97
+#: admin/class-admin.php:143
 #: admin/class-ui.php:105
 #: admin/views/settings.php:18
 msgid "Settings"
 msgstr "Ajustes"
 
-#: admin/class-admin.php:104
-#: admin/class-admin.php:186
-#: admin/class-admin.php:187
+#: admin/class-admin.php:150
+#: admin/class-admin.php:232
+#: admin/class-admin.php:233
 msgid "Upgrade to Pro"
 msgstr "Mejorar a Pro"
 
-#: admin/class-admin.php:122
+#: admin/class-admin.php:168
 msgid "View details"
 msgstr "Ver detalles"
 
-#: admin/class-admin.php:126
+#: admin/class-admin.php:172
 msgid "Docs"
 msgstr "Documentación"
 
-#: admin/class-admin.php:128
+#: admin/class-admin.php:174
 msgid "Support"
 msgstr "Soporte"
 
-#: admin/class-admin.php:236
+#: admin/class-admin.php:282
 #: admin/views/dashboard.php:48
 msgid "Rebuild index"
 msgstr "Reconstruir índice"
 
-#: admin/class-admin.php:237
+#: admin/class-admin.php:283
 msgid "Reading your posts…"
 msgstr "Leyendo tus entradas…"
 
-#: admin/class-admin.php:238
+#: admin/class-admin.php:284
 msgid "Done"
 msgstr "Hecho"
 
 #. translators: %d: number of posts read.
-#: admin/class-admin.php:240
+#: admin/class-admin.php:286
 #, php-format
 msgid "Last full read: just now (%d posts)"
 msgstr "Última lectura completa: ahora mismo (%d entradas)"

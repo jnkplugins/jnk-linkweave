@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-10-23T06:24:00+00:00\n"
+"POT-Creation-Date: 2026-10-23T07:13:09+00:00\n"
 "PO-Revision-Date: 2026-10-10 16:38+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Korean\n"
@@ -21,12 +21,12 @@ msgid "Manage license"
 msgstr "라이선스 관리"
 
 #: pro/licensorpro-client/licensorpro-client.php:753
-#: admin/class-admin.php:175
+#: admin/class-admin.php:221
 msgid "Renew license"
 msgstr "라이선스 갱신"
 
 #: pro/licensorpro-client/licensorpro-client.php:754
-#: admin/class-admin.php:174
+#: admin/class-admin.php:220
 msgid "Activate license"
 msgstr "라이선스 활성화"
 
@@ -408,62 +408,89 @@ msgstr "JnK Plugins"
 msgid "https://jnkplugins.com"
 msgstr "https://jnkplugins.com"
 
-#: admin/class-admin.php:41
+#: admin/class-admin.php:30
+msgid "JnK Linkweave database tables"
+msgstr "JnK Linkweave 데이터베이스 테이블"
+
+#: admin/class-admin.php:46
+msgid "JnK Linkweave is missing database tables"
+msgstr "JnK Linkweave에 데이터베이스 테이블이 없습니다"
+
+#: admin/class-admin.php:49
+msgid "Link suggestions and the reports cannot work without these tables. Send this list to support (jnkplugins.com/contact):"
+msgstr "이 테이블이 없으면 링크 추천과 보고서가 작동하지 않습니다. 이 목록을 지원팀(jnkplugins.com/contact)에 보내 주세요:"
+
+#: admin/class-admin.php:58
+msgid "JnK Linkweave Pro data is ready"
+msgstr "JnK Linkweave Pro 데이터가 준비되었습니다"
+
+#: admin/class-admin.php:58
+msgid "JnK Linkweave database tables are ready"
+msgstr "JnK Linkweave 데이터베이스 테이블이 준비되었습니다"
+
+#. translators: %d: number of database tables
+#: admin/class-admin.php:63
+#, php-format
+msgid "The %d table JnK Linkweave needs is in the database."
+msgid_plural "All %d tables JnK Linkweave needs are in the database."
+msgstr[0] "JnK Linkweave에 필요한 테이블 %d개가 모두 데이터베이스에 있습니다."
+
+#: admin/class-admin.php:87
 msgid "JnK Linkweave could not create its database tables."
 msgstr "JnK Linkweave가 데이터베이스 테이블을 만들지 못했습니다."
 
-#: admin/class-admin.php:42
+#: admin/class-admin.php:88
 msgid "Link suggestions and the reports need them. Send the details below to support (jnkplugins.com/contact) and we will sort it out with you."
 msgstr "링크 추천과 보고서에 이 테이블이 필요합니다. 아래 내용을 지원팀(jnkplugins.com/contact)에 보내 주시면 함께 해결해 드리겠습니다."
 
-#: admin/class-admin.php:85
+#: admin/class-admin.php:131
 msgid "This is JnK Linkweave Pro, but no license is active on this site, so the Pro features are switched off: the URL Changer, link click analytics, Search Console targeting, the auto-link map, the Anchor Text and Links per post reports, broken-link repair, related posts, link preview cards, bulk link insertion, the link check before you publish, extra rule options, cross-site linking, AI re-ranking, AI assistant access and the CSV exports."
 msgstr "JnK Linkweave Pro이지만 이 사이트에 활성 라이선스가 없어 Pro 기능이 꺼져 있습니다: URL 변경 도구, 링크 클릭 분석, Search Console 타기팅, 자동 링크 맵, 앵커 텍스트 및 글별 링크 보고서, 깨진 링크 수리, 관련 글, 링크 미리보기 카드, 링크 일괄 삽입, 발행 전 링크 확인, 추가 규칙 옵션, 사이트 간 링크, AI 재정렬, AI 어시스턴트 접근, CSV 내보내기."
 
-#: admin/class-admin.php:87
+#: admin/class-admin.php:133
 #: admin/views/upgrade.php:74
 msgid "Enter your license key"
 msgstr "라이선스 키를 입력하세요"
 
-#: admin/class-admin.php:97
+#: admin/class-admin.php:143
 #: admin/class-ui.php:105
 #: admin/views/settings.php:18
 msgid "Settings"
 msgstr "설정"
 
-#: admin/class-admin.php:104
-#: admin/class-admin.php:186
-#: admin/class-admin.php:187
+#: admin/class-admin.php:150
+#: admin/class-admin.php:232
+#: admin/class-admin.php:233
 msgid "Upgrade to Pro"
 msgstr "Pro로 업그레이드"
 
-#: admin/class-admin.php:122
+#: admin/class-admin.php:168
 msgid "View details"
 msgstr "자세히 보기"
 
-#: admin/class-admin.php:126
+#: admin/class-admin.php:172
 msgid "Docs"
 msgstr "문서"
 
-#: admin/class-admin.php:128
+#: admin/class-admin.php:174
 msgid "Support"
 msgstr "지원"
 
-#: admin/class-admin.php:236
+#: admin/class-admin.php:282
 #: admin/views/dashboard.php:48
 msgid "Rebuild index"
 msgstr "색인 다시 만들기"
 
-#: admin/class-admin.php:237
+#: admin/class-admin.php:283
 msgid "Reading your posts…"
 msgstr "글을 읽는 중…"
 
-#: admin/class-admin.php:238
+#: admin/class-admin.php:284
 msgid "Done"
 msgstr "완료"
 
 #. translators: %d: number of posts read.
-#: admin/class-admin.php:240
+#: admin/class-admin.php:286
 #, php-format
 msgid "Last full read: just now (%d posts)"
 msgstr "마지막 전체 읽기: 방금(글 %d개)"

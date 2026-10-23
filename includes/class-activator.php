@@ -108,20 +108,33 @@ class JnkLinkweave_Activator {
      */
     public static function check_tables(): array {
         global $wpdb;
-        $missing = [];
-        // phpcs:disable WordPress.DB.DirectDatabaseQuery -- schema introspection; no cache applies.
-        foreach ( self::TABLES as $t ) {
-            $name = $wpdb->prefix . "jnk_linkweave_" . $t;
-            if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $wpdb->esc_like( $name ) ) ) !== $name ) {
-                $missing[] = $name;
-            }
-        }
-        // phpcs:enable
+        $missing = self::missing_tables();
         if ( $missing ) {
             update_option( self::SCHEMA_PROBLEM_OPTION, [ "tables" => $missing, "error" => (string) $wpdb->last_error ], false );
         } else {
             delete_option( self::SCHEMA_PROBLEM_OPTION );
         }
+        return $missing;
+    }
+
+    /** @return string[] the full names of the tables this build needs */
+    public static function expected_tables(): array {
+        global $wpdb;
+        $tables = array_unique( array_merge( self::TABLES, (array) apply_filters( "jnk_linkweave_expected_tables", [] ) ) );
+        return array_values( array_map( static fn( $t ) => $wpdb->prefix . "jnk_linkweave_" . $t, $tables ) );
+    }
+
+    /** @return string[] the needed tables the database does not have (read only) */
+    public static function missing_tables(): array {
+        global $wpdb;
+        $missing = [];
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery -- schema introspection; no cache applies.
+        foreach ( self::expected_tables() as $name ) {
+            if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $wpdb->esc_like( $name ) ) ) !== $name ) {
+                $missing[] = $name;
+            }
+        }
+        // phpcs:enable
         return $missing;
     }
 

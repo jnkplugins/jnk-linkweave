@@ -18,8 +18,54 @@ class Admin {
         add_filter( "plugin_row_meta", [ $this, "plugin_row_meta" ], 99, 2 );
         add_action( "admin_notices", [ $this, "unlicensed_pro_notice" ] );
         add_action( "admin_notices", [ $this, "schema_problem_notice" ] );
+        add_filter( "site_status_tests", [ $this, "site_status_tests" ] );
         // "Links in / out" column on the Posts list (free).
         Posts_Column::register();
+    }
+
+    /** @param array<string,mixed> $tests */
+    public function site_status_tests( $tests ): array {
+        $tests                                 = (array) $tests;
+        $tests["direct"]["jnk_linkweave_tables"] = [
+            "label" => __( "JnK Linkweave database tables", "jnk-linkweave" ),
+            "test"  => [ $this, "site_health" ],
+        ];
+        return $tests;
+    }
+
+    /**
+     * Tools > Site Health, the same check as every JnK plugin's: are the tables
+     * there, and on the Pro build, is the Pro data ready. Checked live.
+     */
+    public function site_health(): array {
+        $problem = \JnkLinkweave_Activator::schema_problem();
+        $missing = \JnkLinkweave_Activator::missing_tables();
+        $badge   = [ "label" => "JnK Linkweave", "color" => $missing ? "red" : "blue" ];
+        if ( $missing ) {
+            return [
+                "label"       => __( "JnK Linkweave is missing database tables", "jnk-linkweave" ),
+                "status"      => "critical",
+                "badge"       => $badge,
+                "description" => "<p>" . esc_html__( "Link suggestions and the reports cannot work without these tables. Send this list to support (jnkplugins.com/contact):", "jnk-linkweave" ) . "</p><p><code>"
+                    . esc_html( implode( ", ", $missing ) . ( $problem && "" !== $problem["error"] ? ": " . $problem["error"] : "" ) ) . "</code></p>",
+                "actions"     => "",
+                "test"        => "jnk_linkweave_tables",
+            ];
+        }
+        $pro   = defined( "JNK_LINKWEAVE_PRO" ) && JNK_LINKWEAVE_PRO;
+        $count = count( \JnkLinkweave_Activator::expected_tables() );
+        return [
+            "label"       => $pro ? __( "JnK Linkweave Pro data is ready", "jnk-linkweave" ) : __( "JnK Linkweave database tables are ready", "jnk-linkweave" ),
+            "status"      => "good",
+            "badge"       => $badge,
+            "description" => "<p>" . esc_html( sprintf(
+                /* translators: %d: number of database tables */
+                _n( "The %d table JnK Linkweave needs is in the database.", "All %d tables JnK Linkweave needs are in the database.", $count, "jnk-linkweave" ),
+                $count
+            ) ) . "</p>",
+            "actions"     => "",
+            "test"        => "jnk_linkweave_tables",
+        ];
     }
 
     /**
