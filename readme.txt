@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.2
-Stable tag: 1.13.0
+Stable tag: 1.13.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,17 +66,21 @@ Bundle JnK Linkweave with Trinity Forms or EntryVault for ~20% off, or take all 
 
 = Privacy =
 
-In JnK Linkweave's free build, relevance scoring runs entirely in PHP on your server — **no post content ever leaves your site**. There is no phone-home and no telemetry.
+In JnK Linkweave's free build, relevance scoring runs entirely in PHP on your server, so **no post content ever leaves your site**. There is no telemetry. The zip from jnkplugins.com includes a small update client that asks our license server whether a newer version is out (see "External services").
 
 == External services ==
 
 This plugin does not send your content or data to any third-party service.
 
-The only outbound HTTP requests it makes are **to your own site**: the daily broken-link scanner issues a lightweight `HEAD` request to each internal link target (a URL on your own domain) to check whether it still resolves. These are self-requests to your site, filtered to your own home URL — no external endpoint is contacted, and nothing is transmitted off your server.
+The zip from jnkplugins.com checks our license server for updates: once or twice a day it sends your site address, its license key and the installed version to our license server on jnkplugins.com so WordPress can offer the update, and the update itself downloads from there. No post content is sent. Terms: https://jnkplugins.com/terms.php · Privacy: https://jnkplugins.com/privacy.php
+
+Apart from that:
+
+The only other outbound HTTP requests it makes are **to your own site**: the daily broken-link scanner issues a lightweight `HEAD` request to each internal link target (a URL on your own domain) to check whether it still resolves. These are self-requests to your site, filtered to your own home URL — no external endpoint is contacted, and nothing is transmitted off your server.
 
 == Installation ==
 
-1. Upload the plugin to `/wp-content/plugins/jnk-linkweave/` or install via the WordPress.org plugin directory.
+1. Download the zip from https://jnkplugins.com/jnk-linkweave/ and upload it under Plugins > Add New > Upload Plugin, or upload the folder to `/wp-content/plugins/jnk-linkweave/`.
 2. Activate "JnK Linkweave" through the **Plugins** menu.
 3. Open **JnK Linkweave → Dashboard**. Linkweave starts reading your posts by itself after activation; if it still says Queued after a few seconds, click **Run now**.
 4. Open any post in the editor — the JnK Linkweave sidebar appears with suggestions once indexing finishes.
@@ -164,6 +168,9 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.13.1 =
+* Changed: the readme says plainly what the free zip's update check sends and where, with current prices, and how to install from the jnkplugins.com zip. No code changes.
 
 = 1.13.0 =
 * New: bought Pro? Paste your Pro license key in Settings, under License, and click "Install Pro now". Pro is installed over this version for you, the same way WordPress applies an update, and everything you set up stays. Downloading and uploading the Pro zip still works.
