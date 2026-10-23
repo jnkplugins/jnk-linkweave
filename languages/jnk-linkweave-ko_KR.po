@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-10-23T06:04:05+00:00\n"
+"POT-Creation-Date: 2026-10-23T06:24:00+00:00\n"
 "PO-Revision-Date: 2026-10-10 16:38+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Korean\n"
@@ -16,368 +16,368 @@ msgstr ""
 "X-Domain: jnk-linkweave\n"
 "X-Generator: WP-CLI 2.12.0\n"
 
-#: pro/licensorpro-client/licensorpro-client.php:748
+#: pro/licensorpro-client/licensorpro-client.php:750
 msgid "Manage license"
 msgstr "라이선스 관리"
 
-#: pro/licensorpro-client/licensorpro-client.php:751
+#: pro/licensorpro-client/licensorpro-client.php:753
 #: admin/class-admin.php:175
 msgid "Renew license"
 msgstr "라이선스 갱신"
 
-#: pro/licensorpro-client/licensorpro-client.php:752
+#: pro/licensorpro-client/licensorpro-client.php:754
 #: admin/class-admin.php:174
 msgid "Activate license"
 msgstr "라이선스 활성화"
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:779
+#: pro/licensorpro-client/licensorpro-client.php:781
 #, php-format
 msgid "<strong>%s Pro is on.</strong> Thank you! Every Pro tool is switched on for this site, and updates come to your dashboard."
 msgstr "<strong>%s Pro가 켜졌습니다.</strong> 감사합니다! 이 사이트에서 모든 Pro 도구가 켜졌고, 업데이트는 대시보드로 전달됩니다."
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:828
+#: pro/licensorpro-client/licensorpro-client.php:830
 #, php-format
 msgid "<strong>%s Pro is installed, but no Pro license is active on this site.</strong> Enter your license key to switch on the Pro tools."
 msgstr "<strong>%s Pro가 설치되었지만 이 사이트에 활성화된 Pro 라이선스가 없습니다.</strong> Pro 도구를 켜려면 라이선스 키를 입력하세요."
 
-#: pro/licensorpro-client/licensorpro-client.php:834
+#: pro/licensorpro-client/licensorpro-client.php:836
 msgid "Enter license key"
 msgstr "라이선스 키 입력"
 
-#: pro/licensorpro-client/licensorpro-client.php:837
+#: pro/licensorpro-client/licensorpro-client.php:839
 msgid "Find your key in your account"
 msgstr "계정에서 키 찾기"
 
-#: pro/licensorpro-client/licensorpro-client.php:863
+#: pro/licensorpro-client/licensorpro-client.php:865
 msgid "Renew your license"
 msgstr "라이선스 갱신하기"
 
 #. translators: 1: plugin name, 2: expiry date, 3: lock date, 4: days left
-#: pro/licensorpro-client/licensorpro-client.php:869
+#: pro/licensorpro-client/licensorpro-client.php:871
 #, php-format
 msgid "<strong>Your %1$s Pro license expired on %2$s.</strong> Pro keeps working as normal until %3$s (%4$d days left). Updates, including security fixes, and email support have stopped. After %3$s, everything you already set up keeps working and your visitors won't notice a thing, but the Pro tools in your dashboard will lock."
 msgstr "<strong>%1$s Pro 라이선스가 %2$s에 만료되었습니다.</strong> Pro는 %3$s까지 평소처럼 작동합니다(%4$d일 남음). 보안 수정을 포함한 업데이트와 이메일 지원은 중단되었습니다. %3$s 이후에도 이미 설정한 모든 것은 계속 작동하고 방문자는 아무 차이도 느끼지 못하지만, 대시보드의 Pro 도구는 잠깁니다."
 
 #. translators: 1: plugin name, 2: expiry date
-#: pro/licensorpro-client/licensorpro-client.php:879
+#: pro/licensorpro-client/licensorpro-client.php:881
 #, php-format
 msgid "<strong>%1$s Pro tools are locked because your license expired on %2$s.</strong> Your site, and everything visitors see, still works. Renew to unlock the Pro tools and get updates, including security fixes, again."
 msgstr "<strong>라이선스가 %2$s에 만료되어 %1$s Pro 도구가 잠겼습니다.</strong> 사이트와 방문자가 보는 모든 것은 계속 작동합니다. 갱신하면 Pro 도구가 다시 열리고, 보안 수정을 포함한 업데이트도 다시 받을 수 있습니다."
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:887
+#: pro/licensorpro-client/licensorpro-client.php:889
 #, php-format
 msgid "<strong>This site is no longer activated on your %s Pro license.</strong> The Pro tools in your dashboard are locked until you activate it again. Everything visitors see keeps working."
 msgstr "<strong>이 사이트는 더 이상 %s Pro 라이선스에서 활성화되어 있지 않습니다.</strong> 다시 활성화할 때까지 대시보드의 Pro 도구는 잠깁니다. 방문자가 보는 모든 것은 계속 작동합니다."
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:894
+#: pro/licensorpro-client/licensorpro-client.php:896
 #, php-format
 msgid "<strong>Your %s Pro license is no longer active.</strong> It was refunded or cancelled, so the Pro tools in your dashboard are locked and updates have stopped. Everything visitors see keeps working."
 msgstr "<strong>%s Pro 라이선스가 더 이상 활성 상태가 아닙니다.</strong> 환불되었거나 취소되어 대시보드의 Pro 도구가 잠겼고 업데이트도 중단되었습니다. 방문자가 보는 모든 것은 계속 작동합니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:996
+#: pro/licensorpro-client/licensorpro-client.php:998
 msgid "Please enter a license key."
 msgstr "라이선스 키를 입력하세요."
 
-#: pro/licensorpro-client/licensorpro-client.php:1008
-#: pro/licensorpro-client/licensorpro-client.php:1067
+#: pro/licensorpro-client/licensorpro-client.php:1010
+#: pro/licensorpro-client/licensorpro-client.php:1069
 msgid "License response failed signature verification."
 msgstr "라이선스 응답의 서명 검증에 실패했습니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:1050
+#: pro/licensorpro-client/licensorpro-client.php:1052
 msgid "No license key set."
 msgstr "라이선스 키가 설정되지 않았습니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:1155
+#: pro/licensorpro-client/licensorpro-client.php:1184
 msgid "Only deactivating temporarily"
 msgstr "잠시 비활성화하는 것뿐입니다"
 
-#: pro/licensorpro-client/licensorpro-client.php:1156
+#: pro/licensorpro-client/licensorpro-client.php:1185
 msgid "I could not work out how to use it"
 msgstr "사용 방법을 모르겠습니다"
 
-#: pro/licensorpro-client/licensorpro-client.php:1157
+#: pro/licensorpro-client/licensorpro-client.php:1186
 msgid "It is missing a feature I need"
 msgstr "필요한 기능이 없습니다"
 
-#: pro/licensorpro-client/licensorpro-client.php:1158
+#: pro/licensorpro-client/licensorpro-client.php:1187
 msgid "It did not work"
 msgstr "작동하지 않았습니다"
 
-#: pro/licensorpro-client/licensorpro-client.php:1159
+#: pro/licensorpro-client/licensorpro-client.php:1188
 msgid "It broke something on my site"
 msgstr "사이트에 문제가 생겼습니다"
 
-#: pro/licensorpro-client/licensorpro-client.php:1160
+#: pro/licensorpro-client/licensorpro-client.php:1189
 msgid "I found a better plugin"
 msgstr "더 좋은 플러그인을 찾았습니다"
 
-#: pro/licensorpro-client/licensorpro-client.php:1161
+#: pro/licensorpro-client/licensorpro-client.php:1190
 msgid "I no longer need it"
 msgstr "더 이상 필요하지 않습니다"
 
-#: pro/licensorpro-client/licensorpro-client.php:1162
+#: pro/licensorpro-client/licensorpro-client.php:1191
 msgid "Something else"
 msgstr "기타"
 
 #. translators: %s: plugin name.
-#: pro/licensorpro-client/licensorpro-client.php:1189
+#: pro/licensorpro-client/licensorpro-client.php:1218
 #, php-format
 msgid "Before you turn %s off"
 msgstr "%s 비활성화 전에"
 
-#: pro/licensorpro-client/licensorpro-client.php:1193
+#: pro/licensorpro-client/licensorpro-client.php:1222
 msgid "If you have a moment, what went wrong? It is the only way we hear about it."
 msgstr "잠시 시간이 있으시면 무엇이 문제였는지 알려 주세요. 저희가 문제를 알 수 있는 유일한 방법입니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:1204
+#: pro/licensorpro-client/licensorpro-client.php:1233
 msgid "Anything else? (optional)"
 msgstr "더 하실 말씀이 있나요? (선택)"
 
-#: pro/licensorpro-client/licensorpro-client.php:1206
+#: pro/licensorpro-client/licensorpro-client.php:1235
 msgid "Sends your answer, the plugin version and your site address. Nothing else, and nothing from your site content."
 msgstr "답변, 플러그인 버전, 사이트 주소를 보냅니다. 그 밖의 정보나 사이트 콘텐츠는 보내지 않습니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:1210
+#: pro/licensorpro-client/licensorpro-client.php:1239
 msgid "Send and deactivate"
 msgstr "보내고 비활성화"
 
-#: pro/licensorpro-client/licensorpro-client.php:1213
+#: pro/licensorpro-client/licensorpro-client.php:1242
 msgid "Skip and deactivate"
 msgstr "건너뛰고 비활성화"
 
-#: pro/licensorpro-client/licensorpro-client.php:1216
+#: pro/licensorpro-client/licensorpro-client.php:1245
 #: admin/assets/js/admin.js:406
 msgid "Cancel"
 msgstr "취소"
 
-#: pro/licensorpro-client/licensorpro-client.php:1337
-#: pro/licensorpro-client/licensorpro-client.php:1353
+#: pro/licensorpro-client/licensorpro-client.php:1366
+#: pro/licensorpro-client/licensorpro-client.php:1382
 msgid "API URL not configured."
 msgstr "API URL이 설정되지 않았습니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:1372
+#: pro/licensorpro-client/licensorpro-client.php:1401
 msgid "Unexpected response from license server."
 msgstr "라이선스 서버에서 예상하지 못한 응답이 왔습니다."
 
 #. translators: %s: human-readable time difference, e.g. "3 months".
-#: pro/licensorpro-client/licensorpro-client.php:1670
+#: pro/licensorpro-client/licensorpro-client.php:1699
 #: includes/class-dates.php:34
 #, php-format
 msgid "in %s"
 msgstr "%s 후"
 
 #. translators: %s: human-readable time difference, e.g. "13 days".
-#: pro/licensorpro-client/licensorpro-client.php:1671
+#: pro/licensorpro-client/licensorpro-client.php:1700
 #: includes/class-dates.php:36
 #, php-format
 msgid "%s ago"
 msgstr "%s 전"
 
-#: pro/licensorpro-client/licensorpro-client.php:1696
+#: pro/licensorpro-client/licensorpro-client.php:1725
 #, php-format
 msgid "%s License"
 msgstr "%s 라이선스"
 
-#: pro/licensorpro-client/licensorpro-client.php:1706
+#: pro/licensorpro-client/licensorpro-client.php:1735
 msgid "This site was deactivated, so its seat is free for another site. Enter the key again here to switch the Pro tools back on."
 msgstr "이 사이트가 비활성화되어 다른 사이트에서 이 자리를 쓸 수 있습니다. Pro 도구를 다시 켜려면 여기에 키를 다시 입력하세요."
 
-#: pro/licensorpro-client/licensorpro-client.php:1716
-#: pro/licensorpro-client/licensorpro-client.php:1747
-#: pro/licensorpro-client/licensorpro-client.php:1804
+#: pro/licensorpro-client/licensorpro-client.php:1745
+#: pro/licensorpro-client/licensorpro-client.php:1776
+#: pro/licensorpro-client/licensorpro-client.php:1833
 msgid "License key"
 msgstr "라이선스 키"
 
-#: pro/licensorpro-client/licensorpro-client.php:1717
+#: pro/licensorpro-client/licensorpro-client.php:1746
 msgid "Type"
 msgstr "유형"
 
-#: pro/licensorpro-client/licensorpro-client.php:1719
+#: pro/licensorpro-client/licensorpro-client.php:1748
 msgid "Free license: updates of the free version only. It does not switch on Pro."
 msgstr "무료 라이선스: 무료 버전 업데이트만 받습니다. Pro를 켜지 않습니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:1720
+#: pro/licensorpro-client/licensorpro-client.php:1749
 msgid "Free license: updates arrive in your dashboard like any other plugin."
 msgstr "무료 라이선스: 다른 플러그인처럼 대시보드에서 업데이트를 받습니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:1722
-#: pro/licensorpro-client/licensorpro-client.php:1772
+#: pro/licensorpro-client/licensorpro-client.php:1751
+#: pro/licensorpro-client/licensorpro-client.php:1801
 msgid "Last checked"
 msgstr "마지막 확인"
 
-#: pro/licensorpro-client/licensorpro-client.php:1726
-#: pro/licensorpro-client/licensorpro-client.php:1778
+#: pro/licensorpro-client/licensorpro-client.php:1755
+#: pro/licensorpro-client/licensorpro-client.php:1807
 msgid "Check for updates now"
 msgstr "지금 업데이트 확인"
 
-#: pro/licensorpro-client/licensorpro-client.php:1729
+#: pro/licensorpro-client/licensorpro-client.php:1758
 msgid "Bought Pro?"
 msgstr "Pro를 구매하셨나요?"
 
-#: pro/licensorpro-client/licensorpro-client.php:1730
+#: pro/licensorpro-client/licensorpro-client.php:1759
 msgid "Enter your Pro license key and Pro is installed over this version. Everything you set up stays."
 msgstr "Pro 라이선스 키를 입력하면 Pro가 이 버전 위에 설치됩니다. 설정한 내용은 모두 그대로 유지됩니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:1732
+#: pro/licensorpro-client/licensorpro-client.php:1761
 msgid "Pro license key"
 msgstr "Pro 라이선스 키"
 
-#: pro/licensorpro-client/licensorpro-client.php:1735
-#: pro/licensorpro-client/licensorpro-client.php:1785
+#: pro/licensorpro-client/licensorpro-client.php:1764
+#: pro/licensorpro-client/licensorpro-client.php:1814
 msgid "Install Pro now"
 msgstr "지금 Pro 설치"
 
-#: pro/licensorpro-client/licensorpro-client.php:1737
+#: pro/licensorpro-client/licensorpro-client.php:1766
 msgid "Rather do it by hand? Download the Pro zip from your account and upload it over this plugin."
 msgstr "직접 하시겠어요? 계정에서 Pro zip 파일을 내려받아 이 플러그인 위에 업로드하세요."
 
-#: pro/licensorpro-client/licensorpro-client.php:1738
-#: pro/licensorpro-client/licensorpro-client.php:1812
+#: pro/licensorpro-client/licensorpro-client.php:1767
+#: pro/licensorpro-client/licensorpro-client.php:1841
 msgid "Go to your account"
 msgstr "계정으로 이동"
 
-#: pro/licensorpro-client/licensorpro-client.php:1749
+#: pro/licensorpro-client/licensorpro-client.php:1778
 msgid "active"
 msgstr "활성"
 
 #. translators: %s: date the Pro tools lock
-#: pro/licensorpro-client/licensorpro-client.php:1751
+#: pro/licensorpro-client/licensorpro-client.php:1780
 #, php-format
 msgid "expired, Pro tools stay on until %s"
 msgstr "만료됨, %s까지 Pro 도구 사용 가능"
 
-#: pro/licensorpro-client/licensorpro-client.php:1752
+#: pro/licensorpro-client/licensorpro-client.php:1781
 msgid "expired, Pro tools locked"
 msgstr "만료됨, Pro 도구 잠김"
 
-#: pro/licensorpro-client/licensorpro-client.php:1754
+#: pro/licensorpro-client/licensorpro-client.php:1783
 msgid "this site is not activated"
 msgstr "이 사이트는 활성화되지 않았습니다"
 
-#: pro/licensorpro-client/licensorpro-client.php:1755
+#: pro/licensorpro-client/licensorpro-client.php:1784
 msgid "no longer active (refunded or cancelled)"
 msgstr "더 이상 활성 상태가 아님(환불 또는 취소됨)"
 
-#: pro/licensorpro-client/licensorpro-client.php:1757
+#: pro/licensorpro-client/licensorpro-client.php:1786
 #: admin/assets/js/admin.js:345
 #: admin/assets/js/admin.js:657
 msgid "Status"
 msgstr "상태"
 
-#: pro/licensorpro-client/licensorpro-client.php:1759
+#: pro/licensorpro-client/licensorpro-client.php:1788
 msgid "Renew"
 msgstr "갱신"
 
-#: pro/licensorpro-client/licensorpro-client.php:1763
+#: pro/licensorpro-client/licensorpro-client.php:1792
 msgid "Offline mode"
 msgstr "오프라인 모드"
 
-#: pro/licensorpro-client/licensorpro-client.php:1765
+#: pro/licensorpro-client/licensorpro-client.php:1794
 #, php-format
 msgid "cached license valid until %s"
 msgstr "캐시된 라이선스, %s까지 유효"
 
-#: pro/licensorpro-client/licensorpro-client.php:1769
+#: pro/licensorpro-client/licensorpro-client.php:1798
 msgid "Update channel"
 msgstr "업데이트 채널"
 
-#: pro/licensorpro-client/licensorpro-client.php:1770
+#: pro/licensorpro-client/licensorpro-client.php:1799
 msgid "Site limit"
 msgstr "사이트 한도"
 
-#: pro/licensorpro-client/licensorpro-client.php:1771
+#: pro/licensorpro-client/licensorpro-client.php:1800
 msgid "Expires"
 msgstr "만료일"
 
-#: pro/licensorpro-client/licensorpro-client.php:1771
+#: pro/licensorpro-client/licensorpro-client.php:1800
 msgid "Never"
 msgstr "없음"
 
-#: pro/licensorpro-client/licensorpro-client.php:1776
+#: pro/licensorpro-client/licensorpro-client.php:1805
 msgid "Deactivate this site"
 msgstr "이 사이트 비활성화"
 
-#: pro/licensorpro-client/licensorpro-client.php:1783
+#: pro/licensorpro-client/licensorpro-client.php:1812
 msgid "This is the free version, running on your Pro license."
 msgstr "Pro 라이선스로 실행 중인 무료 버전입니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:1800
+#: pro/licensorpro-client/licensorpro-client.php:1829
 msgid "Have a Pro license key? Enter it here to switch on the Pro tools. It replaces the free license on this site."
 msgstr "Pro 라이선스 키가 있나요? 여기에 입력하면 Pro 도구가 켜집니다. 이 사이트의 무료 라이선스를 대신합니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:1801
+#: pro/licensorpro-client/licensorpro-client.php:1830
 msgid "Enter your license key to activate this site."
 msgstr "이 사이트를 활성화하려면 라이선스 키를 입력하세요."
 
-#: pro/licensorpro-client/licensorpro-client.php:1808
+#: pro/licensorpro-client/licensorpro-client.php:1837
 msgid "Activate"
 msgstr "활성화"
 
-#: pro/licensorpro-client/licensorpro-client.php:1811
+#: pro/licensorpro-client/licensorpro-client.php:1840
 msgid "Your key is in your purchase email and in your account."
 msgstr "키는 구매 확인 이메일과 계정에 있습니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:1819
+#: pro/licensorpro-client/licensorpro-client.php:1848
 msgid "Need a hand?"
 msgstr "도움이 필요하신가요?"
 
-#: pro/licensorpro-client/licensorpro-client.php:1820
+#: pro/licensorpro-client/licensorpro-client.php:1849
 msgid "Contact support"
 msgstr "지원팀에 문의"
 
-#: pro/licensorpro-client/licensorpro-client.php:2025
+#: pro/licensorpro-client/licensorpro-client.php:2054
 msgid "Only someone who may install plugins on this site can install Pro."
 msgstr "이 사이트에 플러그인을 설치할 수 있는 사용자만 Pro를 설치할 수 있습니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:2038
+#: pro/licensorpro-client/licensorpro-client.php:2067
 msgid "That is a free license key, so it keeps this free version updated. Pro needs the key from your purchase email."
 msgstr "무료 라이선스 키이므로 이 무료 버전의 업데이트를 받는 데 쓰입니다. Pro에는 구매 확인 이메일에 있는 키가 필요합니다."
 
 #. translators: %s: URL of the customer account
-#: pro/licensorpro-client/licensorpro-client.php:2043
+#: pro/licensorpro-client/licensorpro-client.php:2072
 #, php-format
 msgid "Your key is active. Download the Pro zip from your account (%s) and upload it over this plugin instead."
 msgstr "키가 활성화되었습니다. 계정(%s)에서 Pro zip 파일을 내려받아 이 플러그인 위에 업로드하세요."
 
-#: pro/licensorpro-client/licensorpro-client.php:2047
+#: pro/licensorpro-client/licensorpro-client.php:2076
 msgid "This site does not allow installing plugins from the dashboard."
 msgstr "이 사이트는 대시보드에서 플러그인 설치를 허용하지 않습니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:2051
+#: pro/licensorpro-client/licensorpro-client.php:2080
 msgid "The Pro download could not be fetched for this key."
 msgstr "이 키로 Pro 다운로드를 가져오지 못했습니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:2059
+#: pro/licensorpro-client/licensorpro-client.php:2088
 msgid "This site asks for FTP details to install plugins."
 msgstr "이 사이트는 플러그인을 설치할 때 FTP 정보를 요구합니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:2094
+#: pro/licensorpro-client/licensorpro-client.php:2123
 msgid "Installing Pro did not finish."
 msgstr "Pro 설치가 끝나지 않았습니다."
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:2099
+#: pro/licensorpro-client/licensorpro-client.php:2128
 #, php-format
 msgid "%s Pro is installed and your license is active. Reloading…"
 msgstr "%s Pro가 설치되었고 라이선스가 활성화되었습니다. 새로 고치는 중…"
 
-#: pro/licensorpro-client/licensorpro-client.php:2109
+#: pro/licensorpro-client/licensorpro-client.php:2138
 msgid "License activated."
 msgstr "라이선스가 활성화되었습니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:2121
+#: pro/licensorpro-client/licensorpro-client.php:2150
 msgid "Site deactivated."
 msgstr "사이트가 비활성화되었습니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:2132
+#: pro/licensorpro-client/licensorpro-client.php:2161
 msgid "License is valid. Update info refreshed."
 msgstr "라이선스가 유효합니다. 업데이트 정보를 새로 고쳤습니다."
 
-#: pro/licensorpro-client/licensorpro-client.php:2139
+#: pro/licensorpro-client/licensorpro-client.php:2168
 msgid "Permission denied."
 msgstr "권한이 없습니다."
 

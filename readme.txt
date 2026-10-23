@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.2
-Stable tag: 1.13.2
+Stable tag: 1.13.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -168,6 +168,9 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.13.3 =
+* Fixed: "Update now" could fail with "Download link expired" when clicked a while after WordPress last checked for updates. The plugin now fetches a fresh download link right before the update starts.
 
 = 1.13.2 =
 * Fixed: "Check again" on Dashboard > Updates now finds a new version straight away. Before, a release could stay hidden for up to 12 hours unless you used "Check for updates now" in the License card.
