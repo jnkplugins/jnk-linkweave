@@ -169,6 +169,8 @@ a.jnkui-stat:hover { border-color: color-mix(in srgb, var(--jnk-brand) 35%, var(
 .jnkui table.jnkui-table tbody tr:hover td, .jnkui table.jnk-linkweave-table tbody tr:hover td { background: #fafbff; }
 .jnkui table a { color: var(--jnk-ink); font-weight: 600; text-decoration: none; }
 .jnkui table a:hover { color: var(--jnk-brand); text-decoration: underline; }
+/* A long (often percent-encoded) URL wraps instead of pushing Status and Repair off-screen. */
+.jnkui td.jnk-linkweave-target { overflow-wrap: anywhere; word-break: break-word; min-width: 12rem; max-width: 28rem; }
 .jnkui td.is-num, .jnkui th.is-num { text-align: right; font-variant-numeric: tabular-nums; }
 .jnkui .jnkui-sub { display: block; color: var(--jnk-mute); font-size: 12.5px; font-weight: 400; margin-top: 2px; }
 .jnkui-table-wrap { overflow-x: auto; border-radius: var(--jnk-radius); }

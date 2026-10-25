@@ -33,6 +33,10 @@
     background: #fde7e9;
     color: #b32d2e;
 }
+.jnk-linkweave-wrap .jnk-linkweave-pill.is-unreachable {
+    background: var(--jnk-warn-bg, #fffbeb);
+    color: var(--jnk-warn, #b45309);
+}
 
 /* ---------- Orphans: each post expands into "posts that could link here" ---------- */
 .jnkui .jnk-orphans > li { display: block; }

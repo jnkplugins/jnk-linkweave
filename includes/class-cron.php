@@ -24,6 +24,9 @@ class Cron {
         // the daily schedule — it is slow and not needed for orphan accuracy.)
         add_action( "jnk_linkweave_index_complete", [ __CLASS__, "rebuild_links_graph" ], 10, 0 );
         add_action( self::SCAN_NOW_HOOK, [ __CLASS__, "scan_now" ], 10, 0 );
+        add_action( "action_scheduler_failed_action", [ __CLASS__, "resume_after_failed_step" ], 10, 1 );
+        add_action( "action_scheduler_failed_execution", [ __CLASS__, "resume_after_failed_step" ], 10, 1 );
+        add_action( "action_scheduler_unexpected_shutdown", [ __CLASS__, "resume_after_failed_step" ], 10, 1 );
         // A saved post's own links refresh in its background reindex job, so Orphans
         // and Inbound Counts follow a save without a full rebuild.
         add_action( Index_Builder::REINDEX_HOOK, [ __CLASS__, "refresh_links_for_post" ], 15, 1 );
@@ -128,38 +131,402 @@ class Cron {
         return ! ( is_array( $active ) && in_array( plugin_basename( JNK_LINKWEAVE_FILE ), $active, true ) );
     }
 
-    public const SCAN_NOW_HOOK      = "jnk_linkweave_scan_now";
+    public const SCAN_NOW_HOOK       = "jnk_linkweave_scan_now";
+    /** Pre-1.15 "a scan is queued" flag. Only deleted now; the scan state replaced it. */
     public const SCAN_PENDING_OPTION = "jnk_linkweave_broken_scan_pending";
+    /** The scan in progress: { started_at, step_at, graph, last_id, checked, broken, unreachable, total }. */
+    public const SCAN_STATE_OPTION   = "jnk_linkweave_broken_scan_state";
+    private const SCAN_LOCK_OPTION   = "jnk_linkweave_broken_scan_lock";
+    /** Seconds one background step may spend checking links. Far below the 300 s Action Scheduler limit. */
+    private const SCAN_STEP_SECONDS  = 20;
+    /** After this many requests in a row to the site itself got no answer, stop asking it. */
+    private const SELF_DOWN_AFTER = 3;
+    /** A background step that finds the scan busy tries again after this long. */
+    private const SCAN_BUSY_RETRY_SECONDS = 30;
+    /** A scan with no step for this long has stalled (its job died); a new one may replace it. */
+    private const SCAN_STALL_SECONDS = 10 * MINUTE_IN_SECONDS;
+
+    /** is_broken values. 2 is "did not answer": never shown as missing, never bulk-removed. */
+    public const LINK_OK          = 0;
+    public const LINK_BROKEN      = 1;
+    public const LINK_UNREACHABLE = 2;
 
     /**
-     * Queue an on-demand broken-link scan ("Scan now"). Before this, a user who
-     * fixed or added links had to wait up to a day for the report to catch up.
-     * Runs in the background when Action Scheduler is available, inline otherwise.
+     * Start an on-demand broken-link scan ("Check all links now").
      *
-     * @return bool True when queued, false when it ran inline.
+     * The scan used to be one background job that HEAD-checked every link in a row.
+     * On a site with ~1,100 links it ran past Action Scheduler's 300 s limit, was
+     * marked failed, never recorded a result, and the button looked as if it had
+     * worked (seen on a live site, 24 Oct 2026). It now runs in short steps: the
+     * open report page drives them (scan_step via REST) and a background job keeps
+     * going when the page is closed.
+     *
+     * @return bool Always true: the scan runs in steps, never inline here.
      */
     public static function queue_scan_now(): bool {
+        self::start_scan();
+        self::schedule_scan_step();
+        return true;
+    }
+
+    /** Begin a scan unless one is already making progress. Returns its state. */
+    public static function start_scan( bool $graph_done = false ): array {
+        $state = self::scan_state();
+        if ( $state && ! self::scan_stalled( $state ) ) {
+            return $state;
+        }
+        // A scan that stalled (its background job never came back) carries on from
+        // where it stopped, so "Check all links now" finishes it instead of
+        // starting 10,000 links again. One older than a day starts over.
+        if ( $state && time() - (int) $state["started_at"] < DAY_IN_SECONDS ) {
+            delete_option( self::SCAN_LOCK_OPTION );
+            self::save_scan_state( $state );
+            return self::scan_state();
+        }
+        delete_option( self::SCAN_PENDING_OPTION );
+        delete_option( self::SCAN_LOCK_OPTION );
+        $state = [
+            "started_at"  => time(),
+            "step_at"     => time(),
+            "graph"       => $graph_done,
+            "last_id"     => 0,
+            "checked"     => 0,
+            "broken"      => 0,
+            "unreachable" => 0,
+            "total"       => $graph_done ? self::count_links() : 0,
+        ];
+        update_option( self::SCAN_STATE_OPTION, $state, false );
+        return $state;
+    }
+
+    /**
+     * Queue the next background step (Action Scheduler when present, WP-Cron otherwise).
+     *
+     * Only a PENDING step counts as already queued. Called from inside the running
+     * step, as_next_scheduled_action() also sees that step itself (in progress) and
+     * returns true, so the scan stopped after one step once the page was closed.
+     */
+    public static function schedule_scan_step( int $delay = 0 ): void {
         if ( function_exists( "as_enqueue_async_action" ) ) {
-            update_option( self::SCAN_PENDING_OPTION, time(), false );
-            if ( ! function_exists( "as_next_scheduled_action" ) || false === as_next_scheduled_action( self::SCAN_NOW_HOOK, [], "jnk-linkweave" ) ) {
-                as_enqueue_async_action( self::SCAN_NOW_HOOK, [], "jnk-linkweave" );
+            $pending = function_exists( "as_get_scheduled_actions" )
+                ? as_get_scheduled_actions( [ "hook" => self::SCAN_NOW_HOOK, "group" => "jnk-linkweave", "status" => "pending", "per_page" => 1 ], "ids" )
+                : [];
+            if ( ! $pending ) {
+                if ( $delay > 0 && function_exists( "as_schedule_single_action" ) ) {
+                    as_schedule_single_action( time() + $delay, self::SCAN_NOW_HOOK, [], "jnk-linkweave" );
+                } else {
+                    as_enqueue_async_action( self::SCAN_NOW_HOOK, [], "jnk-linkweave" );
+                }
             }
+            return;
+        }
+        if ( ! wp_next_scheduled( self::SCAN_NOW_HOOK ) ) {
+            wp_schedule_single_event( time() + $delay, self::SCAN_NOW_HOOK );
+        }
+    }
+
+    /**
+     * Background job: one step, then queue the next while links are left.
+     *
+     * A step that finds another one running (the open report page, or a step
+     * whose PHP worker was killed and left its lock) tries again in a while, not
+     * at once: an immediate retry ran straight away, found the lock again, and
+     * made about 3,000 Scheduled Actions in two minutes (QA 25 Oct 2026).
+     */
+    public static function scan_now(): void {
+        /** Filter: jnk_linkweave_scan_step_seconds. How long one background step checks links (host time limits). */
+        $progress = self::scan_step( (float) apply_filters( "jnk_linkweave_scan_step_seconds", self::SCAN_STEP_SECONDS ) );
+        if ( self::scan_state() ) {
+            self::schedule_scan_step( empty( $progress["busy"] ) ? 0 : self::SCAN_BUSY_RETRY_SECONDS );
+        }
+    }
+
+    /**
+     * A background step that died (PHP worker killed, out of memory, an error)
+     * queued no successor, so the scan sat still until someone opened the report.
+     * Action Scheduler tells us when it gives up on a step; queue the next one.
+     *
+     * @param int $action_id The action Action Scheduler marked failed.
+     */
+    public static function resume_after_failed_step( $action_id ): void {
+        if ( ! self::scan_state() || ! class_exists( "ActionScheduler" ) ) {
+            return;
+        }
+        try {
+            $action = \ActionScheduler::store()->fetch_action( (int) $action_id );
+        } catch ( \Throwable $e ) {
+            return;
+        }
+        if ( $action && self::SCAN_NOW_HOOK === $action->get_hook() ) {
+            self::schedule_scan_step( self::SCAN_BUSY_RETRY_SECONDS );
+        }
+    }
+
+    /**
+     * Check links for up to $seconds, then save where the scan got to. A step
+     * that finds another step running returns straight away with "busy".
+     *
+     * @return array Progress (see scan_progress()) plus "busy".
+     */
+    public static function scan_step( float $seconds = self::SCAN_STEP_SECONDS ): array {
+        $state = self::scan_state();
+        if ( ! $state ) {
+            return self::scan_progress() + [ "busy" => false ];
+        }
+        // add_option() is atomic: only one request gets the lock. A lock older than
+        // two minutes belongs to a step that died.
+        if ( ! add_option( self::SCAN_LOCK_OPTION, (string) time(), "", false ) ) {
+            if ( time() - (int) get_option( self::SCAN_LOCK_OPTION, 0 ) < 2 * MINUTE_IN_SECONDS ) {
+                return self::scan_progress() + [ "busy" => true ];
+            }
+            update_option( self::SCAN_LOCK_OPTION, (string) time(), false );
+        }
+
+        global $wpdb;
+        $table = $wpdb->prefix . "jnk_linkweave_links";
+        $until = microtime( true ) + $seconds;
+        try {
+            if ( empty( $state["graph"] ) ) {
+                self::rebuild_links_graph();
+                $state            = self::scan_state() ?: $state;
+                $state["graph"]   = true;
+                $state["last_id"] = 0;
+                $state["total"]   = self::count_links();
+                self::save_scan_state( $state );
+            }
+            $done = false;
+            // At least one link per step, however long the graph rebuild took, so
+            // every step moves the scan forward.
+            do {
+                $rows = $wpdb->get_results( $wpdb->prepare(
+                    "SELECT id, source_post_id, target_post_id, target_url, is_broken FROM %i WHERE id > %d ORDER BY id ASC LIMIT 25",
+                    $table,
+                    (int) $state["last_id"]
+                ) );
+                if ( ! $rows ) {
+                    $done = true;
+                    break;
+                }
+                foreach ( $rows as $row ) {
+                    $status = self::scan_verdict( $row, $state );
+                    $wpdb->update(
+                        $table,
+                        [ "is_broken" => $status, "last_checked" => current_time( "mysql", true ) ],
+                        [ "id" => (int) $row->id ],
+                        [ "%d", "%s" ],
+                        [ "%d" ]
+                    );
+                    $state["last_id"] = (int) $row->id;
+                    $state["checked"]++;
+                    if ( self::LINK_BROKEN === $status ) {
+                        $state["broken"]++;
+                        do_action( "jnk_linkweave_broken_link_found", (int) $row->source_post_id, (string) $row->target_url );
+                    } elseif ( self::LINK_UNREACHABLE === $status ) {
+                        $state["unreachable"]++;
+                    }
+                    if ( microtime( true ) >= $until ) {
+                        break 2;
+                    }
+                }
+            } while ( microtime( true ) < $until );
+            if ( $done ) {
+                self::finish_scan( $state );
+            } else {
+                self::save_scan_state( $state );
+            }
+        } finally {
+            delete_option( self::SCAN_LOCK_OPTION );
+        }
+        return self::scan_progress() + [ "busy" => false ];
+    }
+
+    /** True while a scan has not finished and is still making progress. */
+    public static function scan_pending(): bool {
+        $state = self::scan_state();
+        return (bool) $state && ! self::scan_stalled( $state );
+    }
+
+    /**
+     * What the report shows about scanning: the scan in progress (if any), the
+     * last finished one, and how many links have never been checked at all.
+     */
+    public static function scan_progress(): array {
+        global $wpdb;
+        $table = $wpdb->prefix . "jnk_linkweave_links";
+        $state = self::scan_state();
+        $last  = get_option( "jnk_linkweave_last_broken_scan", [] );
+        return [
+            "running"       => (bool) $state && ! self::scan_stalled( $state ),
+            "stalled"       => (bool) $state && self::scan_stalled( $state ),
+            "checked"       => $state ? (int) $state["checked"] : 0,
+            "total"         => $state ? (int) $state["total"] : 0,
+            "started_at"    => $state ? gmdate( "Y-m-d H:i:s", (int) $state["started_at"] ) : null,
+            "last_scan"     => is_array( $last ) ? $last : [],
+            "links"         => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i", $table ) ),
+            "never_checked" => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i WHERE last_checked IS NULL", $table ) ),
+        ];
+    }
+
+    private static function scan_state(): array {
+        $state = get_option( self::SCAN_STATE_OPTION, [] );
+        return is_array( $state ) && isset( $state["started_at"] ) ? $state : [];
+    }
+
+    private static function save_scan_state( array $state ): void {
+        $state["step_at"] = time();
+        update_option( self::SCAN_STATE_OPTION, $state, false );
+    }
+
+    private static function scan_stalled( array $state ): bool {
+        return ( time() - (int) ( $state["step_at"] ?? 0 ) ) > self::SCAN_STALL_SECONDS;
+    }
+
+    private static function finish_scan( array $state ): void {
+        // Record when we last looked. Without it the report cannot tell "no broken
+        // links" from "this has never run", and both render as "Nothing to show."
+        update_option(
+            "jnk_linkweave_last_broken_scan",
+            [
+                "started_at"  => gmdate( "Y-m-d H:i:s", (int) $state["started_at"] ),
+                "finished_at" => current_time( "mysql", true ),
+                "checked"     => (int) $state["checked"],
+                "broken"      => (int) $state["broken"],
+                "unreachable" => (int) $state["unreachable"],
+            ],
+            false
+        );
+        delete_option( self::SCAN_STATE_OPTION );
+    }
+
+    private static function count_links(): int {
+        global $wpdb;
+        return (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i", $wpdb->prefix . "jnk_linkweave_links" ) );
+    }
+
+    /**
+     * One link's verdict. A link that resolves to a post on this site is judged by
+     * the post (published = fine) with no HTTP request: a loopback request to a
+     * heavy page used to time out and get the link reported as "Page missing".
+     */
+    public static function link_status( object $row ): int {
+        $target = (int) $row->target_post_id;
+        if ( $target > 0 ) {
+            return get_post( $target ) && self::is_public_target( $target ) ? self::LINK_OK : self::LINK_BROKEN;
+        }
+        $url = (string) $row->target_url;
+        if ( "" === $url ) {
+            return self::LINK_BROKEN;
+        }
+        return self::url_status( $url );
+    }
+
+    /**
+     * A scanned link's verdict, with what this scan already learnt.
+     *
+     * A link to this site that names no live post is first judged from the
+     * database (a draft, a trashed post, ?p= of a post that is gone). Only what
+     * the database cannot tell needs a request back to the site. On a host whose
+     * requests to itself fail, each of those took 25 s and ended "did not
+     * answer", so a scan of 7,000 links took hours and reported no missing pages
+     * (QA 25 Oct 2026). Once the site has not answered itself a few times in a
+     * row, the rest of the scan skips those requests. A link already known to be
+     * missing stays missing when the site cannot be asked. The same URL is asked
+     * once per scan.
+     *
+     * @param object $row   id, target_post_id, target_url, is_broken
+     * @param array  $state The scan state; counts "self_fail" in a row.
+     */
+    private static function scan_verdict( object $row, array &$state ): int {
+        $url = (string) $row->target_url;
+        if ( (int) $row->target_post_id > 0 || "" === $url ) {
+            return self::link_status( $row );
+        }
+        $local = self::local_status( $url );
+        if ( null !== $local ) {
+            return $local;
+        }
+        $own = self::is_own_site( $url );
+        if ( ! $own || (int) ( $state["self_fail"] ?? 0 ) < self::SELF_DOWN_AFTER ) {
+            global $wpdb;
+            $seen = $wpdb->get_var( $wpdb->prepare(
+                "SELECT is_broken FROM %i WHERE target_url = %s AND target_post_id = 0 AND id < %d AND last_checked >= %s LIMIT 1",
+                $wpdb->prefix . "jnk_linkweave_links",
+                $url,
+                (int) $row->id,
+                gmdate( "Y-m-d H:i:s", (int) $state["started_at"] )
+            ) );
+            if ( null !== $seen ) {
+                return (int) $seen;
+            }
+            $code = self::http_code( $url );
+            if ( ! $own ) {
+                return self::code_status( $code );
+            }
+            if ( 0 !== $code ) {
+                $state["self_fail"] = 0;
+                return self::code_status( $code );
+            }
+            $state["self_fail"] = (int) ( $state["self_fail"] ?? 0 ) + 1;
+        }
+        return self::LINK_BROKEN === (int) ( $row->is_broken ?? 0 ) ? self::LINK_BROKEN : self::LINK_UNREACHABLE;
+    }
+
+    /**
+     * Same-site URL that names no live post: what the database says, or null when
+     * only a request can tell (an archive, a file, another app on the domain).
+     */
+    private static function local_status( string $url ): ?int {
+        if ( ! self::is_own_site( $url ) ) {
+            return null;
+        }
+        $id = url_to_postid( $url );
+        if ( $id > 0 ) {
+            return self::is_public_target( $id ) ? self::LINK_OK : self::LINK_BROKEN;
+        }
+        return self::names_unpublished_post( $url ) ? self::LINK_BROKEN : null;
+    }
+
+    /** Same host AND port as the site (the graph ignores the port; requests do not). */
+    private static function is_own_site( string $url ): bool {
+        $home = wp_parse_url( home_url( "/" ) );
+        $link = wp_parse_url( $url );
+        if ( ! is_array( $home ) || ! is_array( $link ) ) {
+            return false;
+        }
+        if ( empty( $link["host"] ) ) {
             return true;
         }
-        self::scan_now();
-        return false;
+        return strtolower( (string) $link["host"] ) === strtolower( (string) ( $home["host"] ?? "" ) )
+            && (int) ( $link["port"] ?? 0 ) === (int) ( $home["port"] ?? 0 );
     }
 
-    public static function scan_now(): void {
-        self::rebuild_links_graph();
-        self::scan_broken_links();
-        delete_option( self::SCAN_PENDING_OPTION );
+    /**
+     * Ask a URL whether it is there. HEAD first; on no answer, a server error or a
+     * refused HEAD, try GET with a longer wait. Only a real "not found" style answer
+     * is broken. A timeout, 5xx, 401/403 or 429 is "did not answer": the page may
+     * well be there, so it is never called missing and never bulk-removed.
+     */
+    public static function url_status( string $url ): int {
+        return self::code_status( self::http_code( $url ) );
     }
 
-    /** True while a queued "Scan now" has not finished (stale after 10 minutes). */
-    public static function scan_pending(): bool {
-        $queued = (int) get_option( self::SCAN_PENDING_OPTION, 0 );
-        return $queued > 0 && ( time() - $queued ) < 10 * MINUTE_IN_SECONDS;
+    /** The answer's status code; 0 when nothing answered. */
+    private static function http_code( string $url ): int {
+        $args = [ "timeout" => 10, "redirection" => 3 ];
+        $resp = wp_remote_head( $url, $args );
+        $code = is_wp_error( $resp ) ? 0 : (int) wp_remote_retrieve_response_code( $resp );
+        if ( 0 === $code || $code >= 500 || in_array( $code, [ 401, 403, 405, 429 ], true ) ) {
+            $resp = wp_remote_get( $url, [ "timeout" => 15, "redirection" => 3, "limit_response_size" => 8192 ] );
+            $code = is_wp_error( $resp ) ? 0 : (int) wp_remote_retrieve_response_code( $resp );
+        }
+        return $code;
+    }
+
+    private static function code_status( int $code ): int {
+        if ( 0 === $code || $code >= 500 || in_array( $code, [ 401, 403, 429 ], true ) ) {
+            return self::LINK_UNREACHABLE;
+        }
+        return $code >= 400 ? self::LINK_BROKEN : self::LINK_OK;
     }
 
     public static function run_daily_scan(): void {
@@ -169,7 +536,10 @@ class Cron {
         self::rebuild_links_graph();
 
         if ( "never" !== $freq ) {
-            self::scan_broken_links();
+            // Same steps as "Check all links now": as far as one step gets here,
+            // the rest in background jobs.
+            self::start_scan( true );
+            self::scan_now();
         }
     }
 
@@ -209,6 +579,14 @@ class Cron {
         foreach ( $ids as $source_id ) {
             $written += self::write_links_for_post( (int) $source_id, $previous );
             clean_post_cache( $source_id );
+        }
+
+        // TRUNCATE restarts the row ids, so a scan in progress starts over rather
+        // than skip every row below the id it had reached.
+        $state = self::scan_state();
+        if ( $state && ! empty( $state["graph"] ) ) {
+            $state = array_merge( $state, [ "last_id" => 0, "checked" => 0, "broken" => 0, "unreachable" => 0, "total" => $written ] );
+            self::save_scan_state( $state );
         }
 
         self::bump_graph_version();
@@ -278,7 +656,10 @@ class Cron {
 
     /**
      * url_to_postid() does not resolve a pretty permalink of a draft. Does this
-     * same-site URL's last path segment name a post that is not live yet?
+     * same-site URL's last path segment name a post that is not live yet, or one
+     * in the trash? Trashing renames the slug to "<slug>__trashed", and WordPress
+     * then redirects the old address to a post with a similar name, so the scan
+     * called links to trashed posts fine (QA 25 Oct 2026).
      */
     private static function names_unpublished_post( string $url ): bool {
         $path = trim( (string) wp_parse_url( $url, PHP_URL_PATH ), "/" );
@@ -290,9 +671,9 @@ class Cron {
             return false;
         }
         $ids = get_posts( [
-            "name"             => $slug,
+            "post_name__in"    => [ $slug, $slug . "__trashed" ],
             "post_type"        => array_values( get_post_types( [ "public" => true ] ) ),
-            "post_status"      => [ "draft", "pending", "future", "private" ],
+            "post_status"      => [ "draft", "pending", "future", "private", "trash" ],
             "posts_per_page"   => 1,
             "fields"           => "ids",
             "no_found_rows"    => true,
@@ -548,55 +929,18 @@ class Cron {
     }
 
     /**
-     * HEAD-check every recorded internal link. Marks 404s as broken.
+     * Check every recorded link now, in this request (WP-CLI, tests). The web
+     * paths use start_scan() + scan_step() instead.
+     *
+     * @return int Number of broken links found.
      */
     public static function scan_broken_links(): int {
-        global $wpdb;
-        $table = $wpdb->prefix . "jnk_linkweave_links";
-        $rows  = $wpdb->get_results( $wpdb->prepare( "SELECT id, source_post_id, target_post_id, target_url FROM %i", $table ) );
-
-        $broken = 0;
-        foreach ( (array) $rows as $row ) {
-            // Resolved links are checked at their current permalink (it may have moved
-            // since the anchor was written); unresolved ones at the URL as authored.
-            $url = (int) $row->target_post_id > 0
-                ? get_permalink( (int) $row->target_post_id )
-                : (string) $row->target_url;
-
-            $is_break = ! $url;
-            if ( ! $is_break ) {
-                $resp = wp_remote_head( $url, [ "timeout" => 5, "redirection" => 3 ] );
-                $code = is_wp_error( $resp ) ? 0 : (int) wp_remote_retrieve_response_code( $resp );
-                $is_break = ( $code >= 400 || 0 === $code );
-            }
-            $wpdb->update(
-                $table,
-                [
-                    "is_broken"    => $is_break ? 1 : 0,
-                    "last_checked" => current_time( "mysql", true ),
-                ],
-                [ "id" => (int) $row->id ],
-                [ "%d", "%s" ],
-                [ "%d" ]
-            );
-            if ( $is_break ) {
-                $broken++;
-                do_action( "jnk_linkweave_broken_link_found", (int) $row->source_post_id, $url );
-            }
-        }
-
-        // Record when we last looked. Without it the report cannot tell "no broken
-        // links" from "this has never run", and both render as "Nothing to show."
-        update_option(
-            "jnk_linkweave_last_broken_scan",
-            [
-                "finished_at" => current_time( "mysql", true ),
-                "checked"     => count( (array) $rows ),
-                "broken"      => $broken,
-            ],
-            false
-        );
-
-        return $broken;
+        delete_option( self::SCAN_STATE_OPTION );
+        self::start_scan( true );
+        do {
+            $p = self::scan_step( 3600 );
+        } while ( $p["running"] && empty( $p["busy"] ) );
+        $last = get_option( "jnk_linkweave_last_broken_scan", [] );
+        return (int) ( is_array( $last ) ? ( $last["broken"] ?? 0 ) : 0 );
     }
 }

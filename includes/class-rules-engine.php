@@ -6,6 +6,9 @@ defined( "ABSPATH" ) || exit;
 
 class Rules_Engine {
 
+    /** Elements whose text never gets a link: links, code, headings, forms, scripts. */
+    public const PROTECTED_TAGS = "a|code|pre|h[1-6]|form|label|button|select|option|textarea|script|style";
+
     private const CACHE_KEY = "jnk_linkweave_active_rules";
     private const CACHE_TTL = HOUR_IN_SECONDS;
 
@@ -223,7 +226,9 @@ class Rules_Engine {
             $placeholders[ $key ] = $m[0];
             return $key;
         };
-        $protected = preg_replace_callback( "~<(a|code|pre|h[1-6])\\b[^>]*>.*?</\\1>~is", $protect, $content );
+        // Forms too: a link inside a label or an option took a visitor who tapped
+        // "Email" away from the form they were filling in (QA 25 Oct 2026).
+        $protected = preg_replace_callback( "~<(" . self::PROTECTED_TAGS . ")\\b[^>]*>.*?</\\1>~is", $protect, $content );
         // HTML comments (block delimiters carry JSON that the shortcode pattern
         // below would otherwise half-match).
         $protected = preg_replace_callback( "~<!--.*?-->~s", $protect, (string) $protected );

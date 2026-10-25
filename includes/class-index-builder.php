@@ -15,7 +15,33 @@ class Index_Builder {
         return $wpdb->prefix . "jnk_linkweave_index";
     }
 
+    /**
+     * What the index is built from. 2 = the title (counted twice) plus the body.
+     * Format 1 read the body only, so a post's own title said nothing about its
+     * topic and suggestions matched on whatever words the bodies shared.
+     */
+    public const INDEX_FORMAT        = 2;
+    public const INDEX_FORMAT_OPTION = "jnk_linkweave_index_format";
+
+    /** The text a post is indexed by: title twice, then the body. */
+    public static function index_text( \WP_Post $post, ?string $content = null ): string {
+        $title = wp_strip_all_tags( (string) $post->post_title );
+        return $title . "\n" . $title . "\n" . ( null === $content ? (string) $post->post_content : $content );
+    }
+
+    /** An index built in an older format is rebuilt once, in the background. */
+    public static function maybe_rebuild_for_format(): void {
+        if ( (int) get_option( self::INDEX_FORMAT_OPTION, 1 ) >= self::INDEX_FORMAT ) {
+            return;
+        }
+        update_option( self::INDEX_FORMAT_OPTION, self::INDEX_FORMAT, false );
+        if ( self::indexed_count() > 0 ) {
+            self::schedule_rebuild();
+        }
+    }
+
     public static function register_hooks(): void {
+        add_action( "admin_init", [ __CLASS__, "maybe_rebuild_for_format" ] );
         add_action( self::REINDEX_HOOK, [ __CLASS__, "index_post" ], 10, 1 );
         add_action( self::REBUILD_HOOK, [ __CLASS__, "rebuild" ], 10, 0 );
         // Refresh each rule's applied_count once the corpus is rebuilt (replaces
@@ -339,7 +365,7 @@ class Index_Builder {
         );
         $language = (string) ( $settings["language"] ?? "en" );
 
-        $built = self::vector_for_content( (string) $post->post_content, $language );
+        $built = self::vector_for_content( self::index_text( $post ), $language );
         if ( $built["words"] < $min_words ) {
             self::delete( $post_id );
             return false;
@@ -510,7 +536,7 @@ class Index_Builder {
             if ( ! $post ) {
                 continue;
             }
-            $tokens = Tokenizer::tokenize( (string) $post->post_content, $language );
+            $tokens = Tokenizer::tokenize( self::index_text( $post ), $language );
             if ( count( $tokens ) < $min_words ) {
                 // Too short to index — keep membership consistent with
                 // index_post() by dropping any stale row and excluding it from

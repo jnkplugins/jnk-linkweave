@@ -101,6 +101,14 @@
         }
         return past ? __( "just now", "jnk-linkweave" ) : __( "in a moment", "jnk-linkweave" );
     }
+    /** "%e0%a4%85..." reads as the Devanagari it is; anything that will not decode stays as it was. */
+    function readableUrl( value ) {
+        try {
+            return decodeURI( String( value || "" ) );
+        } catch ( e ) {
+            return String( value || "" );
+        }
+    }
     function fmtDate( value ) {
         if ( ! value ) { return "—"; }
         var s = String( value ).trim().replace( " ", "T" );
@@ -521,10 +529,10 @@
                     }
                     box.innerHTML = '<div class="jnk-opps">' + opps.map( ( o, i ) => {
                         const pct = Math.round( Math.max( 0, Math.min( 1, o.score || 0 ) ) * 100 );
-                        return `<label class="jnk-opp" data-source="${ escape( o.target_id ) }" data-rank="${ i }">`
+                        return `<label class="jnk-opp" data-source="${ escape( o.target_id ) }" data-rank="${ i }" data-score="${ escape( o.score || 0 ) }">`
                             + `<span class="jnk-opp-body"><b>${ escape( o.title ) }</b>`
                             + `<span class="jnk-opp-terms">${ ( o.matched_terms || [] ).map( ( t ) => `<span class="jnkui-pill">${ escape( t ) }</span>` ).join( "" ) }</span></span>`
-                            + `<span class="jnk-opp-score" title="${ escape( __( "How closely the two posts match", "jnk-linkweave" ) ) }"><span class="jnkui-bar"><i style="width:${ pct }%"></i></span></span>`
+                            + `<span class="jnk-opp-score" title="${ escape( __( "How closely the two posts match", "jnk-linkweave" ) ) }"><span class="jnkui-bar"><i style="width:${ pct }%"></i></span> <span class="jnkui-muted">${ pct }%</span></span>`
                             + ( o.edit_url ? `<a class="button button-small" href="${ escape( o.edit_url ) }">${ __( "Open", "jnk-linkweave" ) }</a>` : "" )
                             + `</label>`;
                     } ).join( "" ) + "</div>"
@@ -585,33 +593,58 @@
 
     const brokenMount = document.querySelector( '[data-mount="broken"]' );
     if ( brokenMount ) {
-        // "Scan now": re-check every internal link on demand instead of waiting
-        // for the daily cron. The scan runs in the background; poll until done.
+        // "Check all links now": the scan runs in short steps. While this page is
+        // open it drives the steps itself and shows how far it got; a background
+        // job carries on if the page is closed. It used to fire one background job
+        // and poll a flag that expired, so a scan that died looked finished.
         const scanBtn    = document.getElementById( "jnk-linkweave-scan-now" );
         const scanStatus = document.getElementById( "jnk-linkweave-scan-status" );
-        let scanPolls    = 0;
-        const pollScan   = () => {
-            api( "reports/broken-links" ).then( ( data ) => {
-                if ( data.scan_pending && scanPolls++ < 60 ) {
-                    setTimeout( pollScan, 3000 );
-                    return;
+        let driving      = false;
+        const showProgress = ( scan ) => {
+            const total = Number( scan.total || 0 );
+            const done  = Number( scan.checked || 0 );
+            scanStatus.innerHTML = '<span class="jnkui-spin"></span> ' + escape( total
+                /* translators: 1: links checked so far, 2: links in total. */
+                ? sprintf( __( "Checking links: %1$d of %2$d…", "jnk-linkweave" ), done, total )
+                : __( "Collecting your links…", "jnk-linkweave" ) )
+                + ( total ? ' <span class="jnkui-bar" style="display:inline-block;width:120px;vertical-align:middle"><i style="width:' + Math.round( done / total * 100 ) + '%"></i></span>' : "" );
+        };
+        const driveScan = async () => {
+            if ( driving ) { return; }
+            driving = true;
+            if ( scanBtn ) { scanBtn.disabled = true; }
+            try {
+                for ( ;; ) {
+                    const res  = await api( "reports/broken-links/scan/step", { method: "POST" } );
+                    const scan = res.scan || {};
+                    if ( ! scan.running ) {
+                        const last = scan.last_scan || {};
+                        scanStatus.textContent = last.finished_at
+                            /* translators: 1: links checked, 2: links to missing pages, 3: links that did not answer. */
+                            ? sprintf( __( "Done: %1$d links checked, %2$d to missing pages, %3$d did not answer.", "jnk-linkweave" ), Number( last.checked || 0 ), Number( last.broken || 0 ), Number( last.unreachable || 0 ) )
+                            : __( "The check stopped before it finished. Click the button to run it again.", "jnk-linkweave" );
+                        break;
+                    }
+                    showProgress( scan );
+                    if ( res.scan.busy ) {
+                        // A background step is running; wait for it rather than race it.
+                        await new Promise( ( r ) => setTimeout( r, 2000 ) );
+                    }
                 }
-                scanBtn.disabled = false;
-                scanStatus.textContent = data.scan_pending ? __( "Still checking. Reload in a minute to see the results.", "jnk-linkweave" ) : __( "All links checked.", "jnk-linkweave" );
-                renderBroken();
-            } ).catch( ( e ) => {
-                scanBtn.disabled = false;
+            } catch ( e ) {
                 scanStatus.textContent = e.message;
-            } );
+            }
+            driving = false;
+            if ( scanBtn ) { scanBtn.disabled = false; }
+            renderBroken();
         };
         if ( scanBtn ) {
             scanBtn.addEventListener( "click", async function () {
                 scanBtn.disabled = true;
-                scanStatus.innerHTML = '<span class="jnkui-spin"></span> ' + __( "Checking every link…", "jnk-linkweave" );
-                scanPolls = 0;
+                scanStatus.innerHTML = '<span class="jnkui-spin"></span> ' + __( "Collecting your links…", "jnk-linkweave" );
                 try {
                     await api( "reports/broken-links/scan", { method: "POST" } );
-                    pollScan();
+                    driveScan();
                 } catch ( e ) {
                     scanBtn.disabled = false;
                     scanStatus.textContent = e.message;
@@ -619,10 +652,35 @@
             } );
         }
 
+        // "Last full check: …, N links checked, M never checked", always on top,
+        // so an old result is never mistaken for a fresh one.
+        const scanSummary = ( scan ) => {
+            const last  = scan.last_scan || {};
+            const parts = [];
+            if ( last.finished_at ) {
+                /* translators: 1: date and time, 2: number of links checked. */
+                parts.push( sprintf( __( "Last full check: %1$s, %2$d links checked.", "jnk-linkweave" ), fmtDate( last.finished_at ), Number( last.checked || 0 ) ) );
+            } else {
+                parts.push( __( "No full check has finished yet.", "jnk-linkweave" ) );
+            }
+            if ( Number( scan.never_checked || 0 ) > 0 ) {
+                /* translators: %d: number of links never checked. */
+                parts.push( sprintf( _n( "%d link has never been checked.", "%d links have never been checked.", Number( scan.never_checked ), "jnk-linkweave" ), Number( scan.never_checked ) ) );
+            }
+            if ( scan.stalled ) {
+                parts.push( __( "The last check stopped part way. Click “Check all links now” to finish it.", "jnk-linkweave" ) );
+            }
+            return '<p class="jnkui-muted jnk-linkweave-scan-summary">' + escape( parts.join( " " ) ) + "</p>";
+        };
+
         const renderBroken = () => {
             brokenMount.innerHTML = '<div class="jnkui-empty"><span class="jnkui-spin"></span> ' + __( "Loading…", "jnk-linkweave" ) + "</div>";
             api( "reports/broken-links" ).then( ( data ) => {
-                const items = data.broken || [];
+                const items   = data.broken || [];
+                const summary = scanSummary( data.scan || { last_scan: data.last_scan } );
+                if ( data.scan && data.scan.running && ! driving ) {
+                    driveScan(); // a scan is under way: show it and help it along
+                }
                 if ( ! items.length ) {
                     // "Nothing to show." read identically whether every link was
                     // healthy or the scan had never run once. Say which it is.
@@ -636,6 +694,7 @@
                                 /* translators: %s: date and time of the last check. */
                                 : sprintf( __( "Last checked %s.", "jnk-linkweave" ), fmtDate( scan.finished_at ) ) ) + "</p></div>"
                         : '<div class="jnkui-empty"><h3>' + __( "Not checked yet", "jnk-linkweave" ) + "</h3><p>" + __( "Linkweave checks your links once a day. Click “Check all links now” to do it straight away.", "jnk-linkweave" ) + "</p></div>";
+                    brokenMount.insertAdjacentHTML( "afterbegin", summary );
                     return;
                 }
                 // Show titles, not raw post IDs — "429 → 440" told you nothing about
@@ -647,13 +706,15 @@
                         : escape( r.source_title );
                     return `<tr data-broken-id="${ escape( r.id ) }">`
                         + `<td>${ source }</td>`
-                        + `<td class="jnk-linkweave-target">${ escape( r.target_label ) }</td>`
+                        + `<td class="jnk-linkweave-target">${ escape( readableUrl( r.target_label ) ) }</td>`
                         + `<td>${ escape( r.anchor_text ) }</td>`
-                        + `<td><span class="jnk-linkweave-pill is-broken">${ __( "Page missing", "jnk-linkweave" ) }</span></td>`
+                        + ( Number( r.is_broken ) === 2
+                            ? `<td><span class="jnk-linkweave-pill is-unreachable" title="${ escape( __( "No answer in time, or the server returned an error. The page may be fine: open it to check. Remove all leaves these links alone.", "jnk-linkweave" ) ) }">${ __( "Did not answer", "jnk-linkweave" ) }</span></td>`
+                            : `<td><span class="jnk-linkweave-pill is-broken">${ __( "Page missing", "jnk-linkweave" ) }</span></td>` )
                         + `<td style="white-space:nowrap">${ escape( fmtDate( r.last_checked ) ) }</td>`
                         + `</tr>`;
                 } ).join( "" );
-                brokenMount.innerHTML =
+                brokenMount.innerHTML = summary +
                     '<table class="jnk-linkweave-table"><thead><tr><th>' + __( "Found in", "jnk-linkweave" ) + "</th><th>" + __( "Points at", "jnk-linkweave" ) + "</th><th>" + __( "Link text", "jnk-linkweave" ) + "</th><th>" + __( "Status", "jnk-linkweave" ) + "</th><th>" + __( "Checked", "jnk-linkweave" ) + "</th></tr></thead><tbody>" + rows + "</tbody></table>";
 
                 // Let the Pro bundle (if present) add one-click repair controls.
@@ -691,6 +752,9 @@
             if ( settingsForm.min_relevance_score ) {
                 body.min_relevance_score = parseFloat( settingsForm.min_relevance_score.value );
             }
+            if ( settingsForm.stopwords_custom ) {
+                body.stopwords_custom = settingsForm.stopwords_custom.value.split( /[,\n]+/ ).map( ( w ) => w.trim() ).filter( Boolean );
+            }
             // Premium builds add their own fields (LLM re-ranking, focus-keyword
             // boost) to the payload via registered filters — see admin-pro.js.
             cfg.settingsFilters.forEach( function ( fn ) {
@@ -703,7 +767,7 @@
                 status.textContent = __( "Settings saved.", "jnk-linkweave" );
                 flash(
                     settingsForm,
-                    __( "Settings saved.", "jnk-linkweave" ) + ( saved && saved.rebuild_queued ? " " + __( "The index is being rebuilt in the background to add the post types you ticked.", "jnk-linkweave" ) : "" )
+                    __( "Settings saved.", "jnk-linkweave" ) + ( saved && saved.rebuild_queued ? " " + __( "The index is being rebuilt in the background so the change reaches every post.", "jnk-linkweave" ) : "" )
                 );
                 // `response` and `status` let an extension add a warning about what
                 // was saved (e.g. a mode that needs a field left empty).

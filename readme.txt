@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.2
-Stable tag: 1.14.0
+Stable tag: 1.15.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -168,6 +168,16 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.15.0 =
+* Fixed: "Check all links now" on a big site ran past the 5 minute job limit and never saved a result. The check now runs in short steps with a progress bar, carries on in the background when you close the page, and the report says when the last full check ran and how many links it covered.
+* Fixed: a link that timed out or got a server error showed as "Page missing". It now shows as "Did not answer". Links to your own posts are checked against the post itself, without a web request.
+* Fixed: a check that stopped halfway carries on from where it stopped. A background step that crashes no longer leaves the check stuck or fills Tools > Scheduled Actions.
+* Fixed: on hosts where the site cannot reach itself, links to your own trashed or draft posts show as missing instead of "Did not answer", and the check no longer takes hours.
+* Fixed: post titles with "&" showed as "&#038;".
+* Improved: suggestions now use post titles, and words found in more than a third of your posts no longer count. New Settings box "Words to ignore". The index rebuilds once in the background after this update.
+* Fixed: auto-link rules no longer put links inside forms (labels, options, buttons).
+* Fixed: the "Points at" column on Broken links wraps instead of pushing the buttons off the screen.
 
 = 1.14.0 =
 * New: Tools > Site Health checks that JnK Linkweave's database tables exist. If the database refused one, it says which, with the database's own error, and JnK Linkweave's screens show the same notice.

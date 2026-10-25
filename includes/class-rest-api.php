@@ -102,6 +102,13 @@ class REST_API {
             "callback"            => [ $this, "scan_broken_links_now" ],
             "permission_callback" => [ $this, "perm_manage_options" ],
         ] );
+        // One step of a running scan, driven by the open report page so the check
+        // finishes even where background jobs are slow or WP-Cron is off.
+        register_rest_route( self::NAMESPACE_V1, "/reports/broken-links/scan/step", [
+            "methods"             => "POST",
+            "callback"            => [ $this, "scan_broken_links_step" ],
+            "permission_callback" => [ $this, "perm_manage_options" ],
+        ] );
         // Inbound-link opportunities for a post: which existing posts should link
         // to it. Read-only hint (free); surfaced in the editor sidebar.
         register_rest_route( self::NAMESPACE_V1, "/reports/inbound-opportunities/(?P<post_id>\\d+)", [
@@ -359,16 +366,31 @@ class REST_API {
     }
 
     public function scan_broken_links_now( \WP_REST_Request $r ): \WP_REST_Response {
-        $queued = Cron::queue_scan_now();
-        return new \WP_REST_Response( [ "queued" => $queued ], $queued ? 202 : 200 );
+        Cron::queue_scan_now();
+        return new \WP_REST_Response( [ "queued" => true, "scan" => Cron::scan_progress() ], 202 );
+    }
+
+    public function scan_broken_links_step( \WP_REST_Request $r ): \WP_REST_Response {
+        return new \WP_REST_Response( [ "scan" => Cron::scan_step( 15 ) ] );
+    }
+
+    /**
+     * A post title as plain text. get_the_title() runs wptexturize, which turns
+     * "&" into "&#038;"; the screens escape what they get, so the entity showed
+     * up as "Story &#038; Cast" (and "&amp;#038;" after a refresh).
+     *
+     * @param int|\WP_Post $post
+     */
+    public static function plain_title( $post ): string {
+        return trim( html_entity_decode( wp_strip_all_tags( (string) get_the_title( $post ) ), ENT_QUOTES | ENT_HTML5, "UTF-8" ) );
     }
 
     public function report_broken_links( \WP_REST_Request $r ): \WP_REST_Response {
         global $wpdb;
         $links = $wpdb->prefix . "jnk_linkweave_links";
         $rows  = $wpdb->get_results( $wpdb->prepare(
-            "SELECT id, source_post_id, target_post_id, target_url, anchor_text, last_checked
-             FROM %i WHERE is_broken = 1 ORDER BY last_checked DESC",
+            "SELECT id, source_post_id, target_post_id, target_url, anchor_text, is_broken, last_checked
+             FROM %i WHERE is_broken > 0 ORDER BY is_broken ASC, last_checked DESC",
             $links
         ) );
 
@@ -376,21 +398,22 @@ class REST_API {
         // source title, and give the target a usable label: its title where the post
         // still exists, otherwise the dead URL itself.
         foreach ( (array) $rows as $row ) {
-            $row->source_title = get_the_title( (int) $row->source_post_id ) ?: sprintf( "#%d", (int) $row->source_post_id );
+            $row->source_title = self::plain_title( (int) $row->source_post_id ) ?: sprintf( "#%d", (int) $row->source_post_id );
             $row->source_edit  = get_edit_post_link( (int) $row->source_post_id, "raw" );
             $row->target_label = (int) $row->target_post_id > 0
-                ? ( get_the_title( (int) $row->target_post_id ) ?: sprintf( "#%d", (int) $row->target_post_id ) )
+                ? ( self::plain_title( (int) $row->target_post_id ) ?: sprintf( "#%d", (int) $row->target_post_id ) )
                 : (string) $row->target_url;
         }
 
         // Report when the scan last ran so an empty list can say which of the two
         // things it means: nothing is broken, or nothing has been checked yet.
-        $scan = get_option( "jnk_linkweave_last_broken_scan", [] );
+        $scan = Cron::scan_progress();
 
         return new \WP_REST_Response( [
             "broken"       => $rows ?: [],
-            "last_scan"    => is_array( $scan ) ? $scan : [],
-            "scan_pending" => Cron::scan_pending(),
+            "last_scan"    => $scan["last_scan"],
+            "scan_pending" => $scan["running"],
+            "scan"         => $scan,
         ] );
     }
 
@@ -458,11 +481,17 @@ class REST_API {
         if ( array_key_exists( "language", $body ) ) {
             $opts["language"] = substr( sanitize_key( (string) $body["language"] ), 0, 10 );
         }
+        $rebuild = false;
         if ( array_key_exists( "stopwords_custom", $body ) ) {
-            $opts["stopwords_custom"] = array_values( array_map(
-                "sanitize_text_field",
-                array_slice( (array) $body["stopwords_custom"], 0, 500 )
-            ) );
+            $words = is_array( $body["stopwords_custom"] ) ? $body["stopwords_custom"] : preg_split( "/[,\n]+/", (string) $body["stopwords_custom"] );
+            $words = array_values( array_unique( array_filter( array_map(
+                static fn( $w ) => mb_strtolower( trim( sanitize_text_field( (string) $w ) ) ),
+                array_slice( (array) $words, 0, 500 )
+            ) ) ) );
+            // The index drops ignored words when it is built, so a change only
+            // shows after a rebuild; start one instead of leaving that to the user.
+            $rebuild = $words !== array_values( (array) ( $opts["stopwords_custom"] ?? [] ) );
+            $opts["stopwords_custom"] = $words;
         }
         if ( array_key_exists( "delete_data_on_uninstall", $body ) ) {
             $opts["delete_data_on_uninstall"] = ! empty( $body["delete_data_on_uninstall"] );
@@ -491,6 +520,10 @@ class REST_API {
                 Index_Builder::schedule_rebuild();
                 $rebuild_queued = true;
             }
+        }
+        if ( $rebuild && ! $rebuild_queued ) {
+            Index_Builder::schedule_rebuild();
+            $rebuild_queued = true;
         }
         // Ranking, thresholds and post types all change suggestion lists.
         Cron::bump_graph_version();

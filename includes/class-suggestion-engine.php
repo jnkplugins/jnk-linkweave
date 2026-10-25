@@ -81,7 +81,7 @@ class Suggestion_Engine {
             return null;
         }
         $min_words = (int) apply_filters( "jnk_linkweave_min_post_length", (int) ( $opts["min_post_length"] ?? 40 ) );
-        $built     = Index_Builder::vector_for_content( $content, (string) ( $opts["language"] ?? "en" ) );
+        $built     = Index_Builder::vector_for_content( Index_Builder::index_text( $post, $content ), (string) ( $opts["language"] ?? "en" ) );
         if ( $built["words"] < $min_words || ! $built["vector"] ) {
             return null;
         }
@@ -302,7 +302,7 @@ class Suggestion_Engine {
     private function cosine( array $a, array $b ): float {
         $dot = 0.0;
         foreach ( $a["vector"] as $term => $score ) {
-            if ( isset( $b["vector"][ $term ] ) ) {
+            if ( isset( $b["vector"][ $term ] ) && ! Bm25::is_common( (string) $term ) ) {
                 $dot += $score * $b["vector"][ $term ];
             }
         }
@@ -328,6 +328,9 @@ class Suggestion_Engine {
 
         $out = [];
         foreach ( array_keys( $shared ) as $stem ) {
+            if ( Bm25::is_common( (string) $stem ) ) {
+                continue; // in a third of the site's posts: says nothing about these two
+            }
             $word = (string) ( $surface[ $stem ] ?? $stem );
             // The label explains the match to a person, so skip words that explain
             // nothing ("two", "new", "use"). Matching itself is unchanged.
@@ -471,7 +474,7 @@ class Suggestion_Engine {
             }
             $out[] = [
                 "target_id"     => (int) $p->ID,
-                "title"         => get_the_title( $p ),
+                "title"         => REST_API::plain_title( $p ),
                 "url"           => get_permalink( $p ),
                 // Pass a literal ellipsis rather than letting wp_trim_words() use its
                 // default "&hellip;" — the editor sidebar renders this as React text,

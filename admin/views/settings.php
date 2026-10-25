@@ -6,6 +6,7 @@ $settings = $settings ?? [];
 $min_len  = (int)    ( $settings["min_post_length"] ?? 40 );
 $per_post  = max( 1, min( 50, (int) ( $settings["suggestions_per_post"] ?? 10 ) ) );
 $min_score = max( 0.0, min( 1.0, (float) ( $settings["min_relevance_score"] ?? 0.25 ) ) );
+$ignore    = implode( ", ", array_map( "strval", (array) ( $settings["stopwords_custom"] ?? [] ) ) );
 $auto     = ! empty( $settings["auto_index_on_save"] );
 $delete   = ! empty( $settings["delete_data_on_uninstall"] );
 $ranking  = ( ( $settings["ranking"] ?? "bm25" ) === "tfidf" ) ? "tfidf" : "bm25";
@@ -81,6 +82,13 @@ unset( $public_types["attachment"] ); // media has no linkable body content
                 <td>
                     <input id="jnk-linkweave-min-score" type="number" min="0" max="1" step="0.05" name="min_relevance_score" value="<?php echo esc_attr( (string) $min_score ); ?>">
                     <p class="description"><?php esc_html_e( "From 0 to 1. Lower shows more ideas, higher shows only very close matches. 0.25 is a good start.", "jnk-linkweave" ); ?></p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="jnk-linkweave-ignore-words"><?php esc_html_e( "Words to ignore", "jnk-linkweave" ); ?></label></th>
+                <td>
+                    <textarea id="jnk-linkweave-ignore-words" name="stopwords_custom" rows="3" class="large-text" placeholder="<?php esc_attr_e( "watch, online, free, review", "jnk-linkweave" ); ?>"><?php echo esc_textarea( $ignore ); ?></textarea>
+                    <p class="description"><?php esc_html_e( "Words your site uses in almost every post, so they say nothing about a topic. Separate them with commas. Words found in more than a third of your posts are already ignored. Saving a change rebuilds the index in the background.", "jnk-linkweave" ); ?></p>
                 </td>
             </tr>
             <?php
