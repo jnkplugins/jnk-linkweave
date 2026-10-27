@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.2
-Stable tag: 1.15.0
+Stable tag: 1.16.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -168,6 +168,14 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.16.0 =
+* Fixed: during a long check the Broken links page could stop at "Rate limit exceeded." and keep calling the server, which locked you out of Linkweave screens for a minute. It now waits and carries on.
+* Fixed: a check step that kept failing was retried every 30 seconds for ever. After 3 failures in a row the check stops and the page says why. "Check all links now" starts it again.
+* Fixed: after updating from 1.14, links that had only timed out could still show as "Page missing". Old verdicts for links to other sites show as "Did not answer" until the next check.
+* Fixed: auto-link rules skipped text after custom tags such as <form-row> and after an unclosed <label>.
+* Fixed: rules no longer cut a Hindi word (or any word with vowel signs) in half.
+* Fixed: "Words to ignore" now also drops other forms of a word ("watch" drops "watching"), and a two-word entry is saved as two words.
 
 = 1.15.0 =
 * Fixed: "Check all links now" on a big site ran past the 5 minute job limit and never saved a result. The check now runs in short steps with a progress bar, carries on in the background when you close the page, and the report says when the last full check ran and how many links it covered.

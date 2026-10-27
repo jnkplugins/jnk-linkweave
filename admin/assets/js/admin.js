@@ -47,7 +47,11 @@
         } ).then( async ( res ) => {
             const data = await res.json().catch( () => ( {} ) );
             if ( ! res.ok ) {
-                throw new Error( data.message || data.error || res.statusText );
+                const err = new Error( data.message || data.error || res.statusText );
+                // Callers that poll need the status and, after a 429, how long to wait.
+                err.status     = res.status;
+                err.retryAfter = Number( ( data.data && data.data.retry_after ) || res.headers.get( "Retry-After" ) || 0 );
+                throw err;
             }
             return data;
         } );
@@ -600,6 +604,12 @@
         const scanBtn    = document.getElementById( "jnk-linkweave-scan-now" );
         const scanStatus = document.getElementById( "jnk-linkweave-scan-status" );
         let driving      = false;
+        let following    = false;
+        const sleep      = ( ms ) => new Promise( ( r ) => setTimeout( r, ms ) );
+        // Requests in a row that may fail before the page stops driving the scan.
+        const MAX_STEP_ERRORS = 3;
+        // How often the page looks at a scan it no longer drives (read-only GET).
+        const FOLLOW_MS = 15000;
         const showProgress = ( scan ) => {
             const total = Number( scan.total || 0 );
             const done  = Number( scan.checked || 0 );
@@ -609,34 +619,109 @@
                 : __( "Collecting your links…", "jnk-linkweave" ) )
                 + ( total ? ' <span class="jnkui-bar" style="display:inline-block;width:120px;vertical-align:middle"><i style="width:' + Math.round( done / total * 100 ) + '%"></i></span>' : "" );
         };
+        // Why a scan ended, for the line next to the button and the summary.
+        const stoppedText = ( scan ) => {
+            const n = Number( scan.failed_steps || 0 );
+            return scan.stop_reason
+                /* translators: 1: number of failed attempts, 2: the error the host reported. */
+                ? sprintf( __( "The check stopped: a step failed %1$d times in a row (%2$s). Click “Check all links now” to start again.", "jnk-linkweave" ), n, scan.stop_reason )
+                /* translators: %d: number of failed attempts. */
+                : sprintf( __( "The check stopped: a step failed %d times in a row. Click “Check all links now” to start again.", "jnk-linkweave" ), n );
+        };
+        const showEnd = ( scan ) => {
+            const last = scan.last_scan || {};
+            if ( scan.stopped ) {
+                scanStatus.textContent = stoppedText( scan );
+            } else if ( ! scan.stalled && last.finished_at ) {
+                /* translators: 1: links checked, 2: links to missing pages, 3: links that did not answer. */
+                scanStatus.textContent = sprintf( __( "Done: %1$d links checked, %2$d to missing pages, %3$d did not answer.", "jnk-linkweave" ), Number( last.checked || 0 ), Number( last.broken || 0 ), Number( last.unreachable || 0 ) );
+            } else {
+                scanStatus.textContent = __( "The check stopped before it finished. Click the button to run it again.", "jnk-linkweave" );
+            }
+        };
+        // Watch a scan the page does not drive (the background job runs it) with
+        // the cheap GET, which never counts toward the rate limit, until it ends.
+        const followScan = async () => {
+            if ( following ) { return; }
+            following = true;
+            let lastChecked = -1;
+            let still       = 0;
+            for ( ;; ) {
+                await sleep( FOLLOW_MS );
+                if ( ! following ) {
+                    return; // the button started driving the scan again
+                }
+                let scan;
+                try {
+                    scan = ( await api( "reports/broken-links" ) ).scan || {};
+                } catch ( e ) {
+                    continue; // try again at the next look
+                }
+                if ( ! scan.running ) {
+                    showEnd( scan );
+                    break;
+                }
+                showProgress( scan );
+                // No background job is moving it (WP-Cron off, a queue that does
+                // not run): after two looks with no progress, drive it again.
+                const checked = Number( scan.checked || 0 );
+                still       = checked === lastChecked ? still + 1 : 0;
+                lastChecked = checked;
+                if ( still >= 2 ) {
+                    following = false;
+                    driveScan();
+                    return;
+                }
+            }
+            following = false;
+            renderBroken();
+        };
         const driveScan = async () => {
-            if ( driving ) { return; }
+            if ( driving || following ) { return; }
             driving = true;
             if ( scanBtn ) { scanBtn.disabled = true; }
-            try {
-                for ( ;; ) {
-                    const res  = await api( "reports/broken-links/scan/step", { method: "POST" } );
-                    const scan = res.scan || {};
-                    if ( ! scan.running ) {
-                        const last = scan.last_scan || {};
-                        scanStatus.textContent = last.finished_at
-                            /* translators: 1: links checked, 2: links to missing pages, 3: links that did not answer. */
-                            ? sprintf( __( "Done: %1$d links checked, %2$d to missing pages, %3$d did not answer.", "jnk-linkweave" ), Number( last.checked || 0 ), Number( last.broken || 0 ), Number( last.unreachable || 0 ) )
-                            : __( "The check stopped before it finished. Click the button to run it again.", "jnk-linkweave" );
+            let errors   = 0;
+            let finished = false;
+            for ( ;; ) {
+                let res;
+                try {
+                    res    = await api( "reports/broken-links/scan/step", { method: "POST" } );
+                    errors = 0;
+                } catch ( e ) {
+                    // Retrying every error at once hammered the site in a tight loop
+                    // and kept it rate-limited (QA 27 Oct 2026). Wait as long as the
+                    // server asks, back off, and give up driving after a few in a row.
+                    errors++;
+                    if ( errors >= MAX_STEP_ERRORS ) {
+                        scanStatus.textContent = sprintf(
+                            /* translators: %s: the error message from the site. */
+                            __( "This page could not go on with the check (%s). It carries on in the background; this line updates when it is done.", "jnk-linkweave" ),
+                            e.message
+                        );
                         break;
                     }
-                    showProgress( scan );
-                    if ( res.scan.busy ) {
-                        // A background step is running; wait for it rather than race it.
-                        await new Promise( ( r ) => setTimeout( r, 2000 ) );
-                    }
+                    await sleep( e.retryAfter > 0 ? e.retryAfter * 1000 : 5000 * errors );
+                    continue;
                 }
-            } catch ( e ) {
-                scanStatus.textContent = e.message;
+                const scan = res.scan || {};
+                if ( ! scan.running ) {
+                    showEnd( scan );
+                    finished = true;
+                    break;
+                }
+                showProgress( scan );
+                if ( scan.busy ) {
+                    // A background step is running; wait for it rather than race it.
+                    await sleep( 5000 );
+                }
             }
             driving = false;
             if ( scanBtn ) { scanBtn.disabled = false; }
-            renderBroken();
+            if ( finished ) {
+                renderBroken();
+            } else {
+                followScan();
+            }
         };
         if ( scanBtn ) {
             scanBtn.addEventListener( "click", async function () {
@@ -644,6 +729,7 @@
                 scanStatus.innerHTML = '<span class="jnkui-spin"></span> ' + __( "Collecting your links…", "jnk-linkweave" );
                 try {
                     await api( "reports/broken-links/scan", { method: "POST" } );
+                    following = false;
                     driveScan();
                 } catch ( e ) {
                     scanBtn.disabled = false;
@@ -667,7 +753,9 @@
                 /* translators: %d: number of links never checked. */
                 parts.push( sprintf( _n( "%d link has never been checked.", "%d links have never been checked.", Number( scan.never_checked ), "jnk-linkweave" ), Number( scan.never_checked ) ) );
             }
-            if ( scan.stalled ) {
+            if ( scan.stopped ) {
+                parts.push( stoppedText( scan ) );
+            } else if ( scan.stalled ) {
                 parts.push( __( "The last check stopped part way. Click “Check all links now” to finish it.", "jnk-linkweave" ) );
             }
             return '<p class="jnkui-muted jnk-linkweave-scan-summary">' + escape( parts.join( " " ) ) + "</p>";
@@ -678,7 +766,7 @@
             api( "reports/broken-links" ).then( ( data ) => {
                 const items   = data.broken || [];
                 const summary = scanSummary( data.scan || { last_scan: data.last_scan } );
-                if ( data.scan && data.scan.running && ! driving ) {
+                if ( data.scan && data.scan.running && ! driving && ! following ) {
                     driveScan(); // a scan is under way: show it and help it along
                 }
                 if ( ! items.length ) {

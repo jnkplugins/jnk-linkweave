@@ -34,6 +34,7 @@ class Cron {
         add_action( "wp_trash_post", [ __CLASS__, "forget_post_links" ] );
         add_action( "before_delete_post", [ __CLASS__, "forget_post_links" ] );
         add_action( "admin_init", [ __CLASS__, "maybe_purge_unlinkable_rows" ] );
+        add_action( "admin_init", [ __CLASS__, "maybe_relabel_old_verdicts" ] );
         add_action( "transition_post_status", static function ( $new_status, $old_status, $post ) {
             if ( "publish" === $old_status && "publish" !== $new_status && $post instanceof \WP_Post ) {
                 self::forget_post_links( $post->ID );
@@ -145,6 +146,8 @@ class Cron {
     private const SCAN_BUSY_RETRY_SECONDS = 30;
     /** A scan with no step for this long has stalled (its job died); a new one may replace it. */
     private const SCAN_STALL_SECONDS = 10 * MINUTE_IN_SECONDS;
+    /** Background steps that may fail in a row, without progress, before the scan stops. */
+    public const SCAN_MAX_FAILED_STEPS = 3;
 
     /** is_broken values. 2 is "did not answer": never shown as missing, never bulk-removed. */
     public const LINK_OK          = 0;
@@ -174,6 +177,11 @@ class Cron {
         $state = self::scan_state();
         if ( $state && ! self::scan_stalled( $state ) ) {
             return $state;
+        }
+        // A scan stopped after repeated failed steps starts over: resuming would
+        // walk straight back into the step that kept failing.
+        if ( ! empty( $state["stopped"] ) ) {
+            $state = [];
         }
         // A scan that stalled (its background job never came back) carries on from
         // where it stopped, so "Check all links now" finishes it instead of
@@ -257,9 +265,47 @@ class Cron {
         } catch ( \Throwable $e ) {
             return;
         }
-        if ( $action && self::SCAN_NOW_HOOK === $action->get_hook() ) {
-            self::schedule_scan_step( self::SCAN_BUSY_RETRY_SECONDS );
+        if ( ! $action || self::SCAN_NOW_HOOK !== $action->get_hook() ) {
+            return;
         }
+        // A step that dies on the same spot every time (one link that kills PHP,
+        // a host limit) was retried every 30 s forever: about 2,880 failed actions
+        // a day and no progress (QA 27 Oct 2026). Count failures that made no
+        // progress; one failure still resumes, the third in a row stops the scan.
+        $state = self::scan_state();
+        if ( ! empty( $state["stopped"] ) ) {
+            return;
+        }
+        $last_id = (int) $state["last_id"];
+        $fails   = ( isset( $state["fail_last_id"] ) && (int) $state["fail_last_id"] === $last_id ) ? (int) ( $state["fails"] ?? 0 ) + 1 : 1;
+        $state["fails"]        = $fails;
+        $state["fail_last_id"] = $last_id;
+        if ( $fails >= self::SCAN_MAX_FAILED_STEPS ) {
+            $state["stopped"]     = time();
+            $state["stop_reason"] = self::failed_step_reason( (int) $action_id );
+            // Not save_scan_state(): that marks a step as just done and would keep
+            // the stopped scan looking alive.
+            update_option( self::SCAN_STATE_OPTION, $state, false );
+            return;
+        }
+        update_option( self::SCAN_STATE_OPTION, $state, false );
+        self::schedule_scan_step( self::SCAN_BUSY_RETRY_SECONDS );
+    }
+
+    /** What Action Scheduler logged about a failed step, as one short line. */
+    private static function failed_step_reason( int $action_id ): string {
+        $reason = "";
+        try {
+            foreach ( (array) \ActionScheduler::logger()->get_logs( $action_id ) as $entry ) {
+                if ( is_object( $entry ) && method_exists( $entry, "get_message" ) ) {
+                    $reason = (string) $entry->get_message();
+                }
+            }
+        } catch ( \Throwable $e ) {
+            $reason = "";
+        }
+        $reason = trim( preg_replace( "/\\s+/", " ", wp_strip_all_tags( $reason ) ) );
+        return function_exists( "mb_substr" ) ? mb_substr( $reason, 0, 200 ) : substr( $reason, 0, 200 );
     }
 
     /**
@@ -270,7 +316,7 @@ class Cron {
      */
     public static function scan_step( float $seconds = self::SCAN_STEP_SECONDS ): array {
         $state = self::scan_state();
-        if ( ! $state ) {
+        if ( ! $state || ! empty( $state["stopped"] ) ) {
             return self::scan_progress() + [ "busy" => false ];
         }
         // add_option() is atomic: only one request gets the lock. A lock older than
@@ -361,6 +407,11 @@ class Cron {
             "checked"       => $state ? (int) $state["checked"] : 0,
             "total"         => $state ? (int) $state["total"] : 0,
             "started_at"    => $state ? gmdate( "Y-m-d H:i:s", (int) $state["started_at"] ) : null,
+            // Set when the scan stopped itself after steps kept failing; the
+            // report says so instead of "stopped part way, click to finish it".
+            "stopped"       => $state && ! empty( $state["stopped"] ),
+            "stop_reason"   => $state ? (string) ( $state["stop_reason"] ?? "" ) : "",
+            "failed_steps"  => $state ? (int) ( $state["fails"] ?? 0 ) : 0,
             "last_scan"     => is_array( $last ) ? $last : [],
             "links"         => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i", $table ) ),
             "never_checked" => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i WHERE last_checked IS NULL", $table ) ),
@@ -378,7 +429,7 @@ class Cron {
     }
 
     private static function scan_stalled( array $state ): bool {
-        return ( time() - (int) ( $state["step_at"] ?? 0 ) ) > self::SCAN_STALL_SECONDS;
+        return ! empty( $state["stopped"] ) || ( time() - (int) ( $state["step_at"] ?? 0 ) ) > self::SCAN_STALL_SECONDS;
     }
 
     private static function finish_scan( array $state ): void {
@@ -842,6 +893,46 @@ class Cron {
         }
         update_option( self::JUNK_PURGE_OPTION, time(), false );
         self::purge_unlinkable_rows();
+    }
+
+    /** One-time re-label of verdicts left by 1.14 (see maybe_relabel_old_verdicts()). */
+    public const OLD_VERDICTS_OPTION = "jnk_linkweave_verdicts_v115";
+
+    /**
+     * 1.14 asked every link with one 5 s HEAD and called a timeout, a server
+     * error or a 403 "missing". Those verdicts stayed after the update, so
+     * "Remove all links to missing pages" could unlink live pages, though 1.15
+     * promises links that did not answer are left alone (QA 27 Oct 2026). Once,
+     * links to other sites that are marked missing become "did not answer"
+     * until the next check judges them again. Links to this site keep their
+     * verdict: they are judged from the database.
+     */
+    public static function maybe_relabel_old_verdicts(): int {
+        if ( get_option( self::OLD_VERDICTS_OPTION ) ) {
+            return 0;
+        }
+        update_option( self::OLD_VERDICTS_OPTION, time(), false );
+        global $wpdb;
+        $table = $wpdb->prefix . "jnk_linkweave_links";
+        $rows  = $wpdb->get_results( $wpdb->prepare(
+            "SELECT id, target_url FROM %i WHERE is_broken = %d AND target_post_id = 0",
+            $table,
+            self::LINK_BROKEN
+        ) );
+        $ids = [];
+        foreach ( (array) $rows as $row ) {
+            $url = (string) $row->target_url;
+            if ( "" !== $url && ! self::is_own_site( $url ) ) {
+                $ids[] = (int) $row->id;
+            }
+        }
+        foreach ( array_chunk( $ids, 500 ) as $chunk ) {
+            $wpdb->query( $wpdb->prepare(
+                "UPDATE %i SET is_broken = %d WHERE id IN (" . implode( ",", array_fill( 0, count( $chunk ), "%d" ) ) . ")",
+                array_merge( [ $table, self::LINK_UNREACHABLE ], $chunk )
+            ) );
+        }
+        return count( $ids );
     }
 
     /** Parse a post's rendered content and insert its outgoing internal links. */

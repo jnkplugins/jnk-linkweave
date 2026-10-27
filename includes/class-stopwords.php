@@ -14,11 +14,7 @@ class Stopwords {
         }
 
         $base   = self::base_list( $language );
-        $custom = [];
-        $opts   = get_option( "jnk_linkweave_settings", [] );
-        if ( is_array( $opts ) && ! empty( $opts["stopwords_custom"] ) && is_array( $opts["stopwords_custom"] ) ) {
-            $custom = $opts["stopwords_custom"];
-        }
+        $custom = self::custom_words();
 
         $merged = array_merge( $base, $custom );
         $merged = apply_filters( "jnk_linkweave_stopwords", $merged, $language );
@@ -36,6 +32,62 @@ class Stopwords {
 
     public static function is_stopword( string $term, string $language = "en" ): bool {
         return isset( self::get( $language )[ $term ] );
+    }
+
+    /** @var array<string, array<string, true>> */
+    private static array $ignored_stems = [];
+
+    /**
+     * The owner's "Words to ignore", one word per entry. An entry with spaces
+     * ("watch online") is split: the index works on single words, so the whole
+     * entry never matched anything (QA 27 Oct 2026).
+     *
+     * @return string[]
+     */
+    public static function custom_words(): array {
+        $opts = get_option( "jnk_linkweave_settings", [] );
+        if ( ! is_array( $opts ) || empty( $opts["stopwords_custom"] ) || ! is_array( $opts["stopwords_custom"] ) ) {
+            return [];
+        }
+        $words = [];
+        foreach ( $opts["stopwords_custom"] as $entry ) {
+            foreach ( (array) preg_split( "/\\s+/u", mb_strtolower( trim( (string) $entry ) ), -1, PREG_SPLIT_NO_EMPTY ) as $word ) {
+                $words[] = $word;
+            }
+        }
+        return array_values( array_unique( $words ) );
+    }
+
+    /**
+     * Stems of the owner's ignored words. "watch" was dropped but "watching" and
+     * "watched" stayed, because the list was checked before stemming. The
+     * tokenizer also drops any word whose stem is listed here.
+     *
+     * @return array<string, true>
+     */
+    public static function ignored_stems( string $language = "en" ): array {
+        if ( isset( self::$ignored_stems[ $language ] ) ) {
+            return self::$ignored_stems[ $language ];
+        }
+        $stems = [];
+        foreach ( self::custom_words() as $word ) {
+            // The light stemmer does not always give a word and its plural one
+            // stem ("movie", "movies" -> "mov"), so take the stems of the usual
+            // endings too.
+            foreach ( [ "", "s", "es", "ing", "ed" ] as $ending ) {
+                $stem = Tokenizer::stem_word( $word . $ending, $language );
+                if ( "" !== $stem ) {
+                    $stems[ $stem ] = true;
+                }
+            }
+        }
+        return self::$ignored_stems[ $language ] = $stems;
+    }
+
+    /** Forget the per-request lists (after the settings change). */
+    public static function reset(): void {
+        self::$cache         = [];
+        self::$ignored_stems = [];
     }
 
     private static function base_list( string $language ): array {

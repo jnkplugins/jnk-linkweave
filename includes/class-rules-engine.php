@@ -9,6 +9,20 @@ class Rules_Engine {
     /** Elements whose text never gets a link: links, code, headings, forms, scripts. */
     public const PROTECTED_TAGS = "a|code|pre|h[1-6]|form|label|button|select|option|textarea|script|style";
 
+    /** Keyword edges for patterns with the u flag: no letter, mark or digit beside it. */
+    public const WORD_START = "(?<![\\p{L}\\p{M}\\p{N}])";
+    public const WORD_END   = "(?![\\p{L}\\p{M}\\p{N}])";
+
+    /**
+     * A whole protected element. The name must end at a space, ">" or "/":
+     * with \b, custom elements such as <form-row> or <label-chip> counted as
+     * <form> and <label> (QA 27 Oct 2026). The element may not contain another
+     * opening of the same tag, so an unclosed <label> no longer swallows the
+     * text up to a later </label>. Written as possessive runs: a lazy ".*?" with a
+     * look-ahead per character ran out of PCRE JIT stack on a 600 KB script.
+     */
+    public const PROTECTED_RE = "~<(" . self::PROTECTED_TAGS . ")(?=[\\s>/])[^>]*>(?:[^<]++|<(?!\\1(?=[\\s>/])|/\\1\\s*>))*+</\\1\\s*>~i";
+
     private const CACHE_KEY = "jnk_linkweave_active_rules";
     private const CACHE_TTL = HOUR_IN_SECONDS;
 
@@ -228,7 +242,11 @@ class Rules_Engine {
         };
         // Forms too: a link inside a label or an option took a visitor who tapped
         // "Email" away from the form they were filling in (QA 25 Oct 2026).
-        $protected = preg_replace_callback( "~<(" . self::PROTECTED_TAGS . ")\\b[^>]*>.*?</\\1>~is", $protect, $content );
+        $protected = preg_replace_callback( self::PROTECTED_RE, $protect, $content );
+        if ( null === $protected ) {
+            // PCRE gave up (a huge or odd post): add no links rather than lose the post.
+            return [ "content" => $content, "applied" => $applied ];
+        }
         // HTML comments (block delimiters carry JSON that the shortcode pattern
         // below would otherwise half-match).
         $protected = preg_replace_callback( "~<!--.*?-->~s", $protect, (string) $protected );
@@ -304,7 +322,11 @@ class Rules_Engine {
         }
         // Longest first, so "page caching plugin" wins over "page caching".
         usort( $keywords, static fn( $a, $b ) => mb_strlen( $b ) <=> mb_strlen( $a ) );
-        $pattern   = "/\\b(?:" . implode( "|", array_map( static fn( $k ) => preg_quote( $k, "/" ), $keywords ) ) . ")\\b/" . $flags;
+        // Whole words only. \b counts a combining mark (the vowel signs of
+        // Devanagari and other Indic scripts) as a word edge, so a rule cut
+        // "बिग बॉस 20 सीज़न" inside a word (QA 27 Oct 2026). Letters, marks and
+        // digits on either side mean "inside a word".
+        $pattern   = "/" . self::WORD_START . "(?:" . implode( "|", array_map( static fn( $k ) => preg_quote( $k, "/" ), $keywords ) ) . ")" . self::WORD_END . "/" . $flags;
         $remaining = $cap - ( $applied[ (int) $rule->id ] ?? 0 );
         if ( $remaining <= 0 ) {
             return $content;

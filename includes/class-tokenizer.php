@@ -22,7 +22,8 @@ class Tokenizer {
             $raw = [];
         }
 
-        $tokens = [];
+        $ignored = Stopwords::ignored_stems( $language );
+        $tokens  = [];
         foreach ( $raw as $token ) {
             $len = function_exists( "mb_strlen" ) ? mb_strlen( $token, "UTF-8" ) : strlen( $token );
             if ( $len < 3 || $len > 40 ) {
@@ -32,7 +33,7 @@ class Tokenizer {
                 continue;
             }
             $stem = self::stem( $token, $language );
-            if ( "" === $stem ) {
+            if ( "" === $stem || isset( $ignored[ $stem ] ) ) {
                 continue;
             }
             $tokens[] = $stem;
@@ -62,7 +63,8 @@ class Tokenizer {
             return [];
         }
 
-        $counts = [];
+        $ignored = Stopwords::ignored_stems( $language );
+        $counts  = [];
         foreach ( $raw as $token ) {
             $len = function_exists( "mb_strlen" ) ? mb_strlen( $token, "UTF-8" ) : strlen( $token );
             if ( $len < 3 || $len > 40 ) {
@@ -72,7 +74,7 @@ class Tokenizer {
                 continue;
             }
             $stem = self::stem( $token, $language );
-            if ( "" === $stem ) {
+            if ( "" === $stem || isset( $ignored[ $stem ] ) ) {
                 continue;
             }
             if ( ! isset( $counts[ $stem ] ) ) {
@@ -96,6 +98,12 @@ class Tokenizer {
         $content = strip_shortcodes( $content );
         $content = wp_strip_all_tags( $content, true );
         return html_entity_decode( $content, ENT_QUOTES | ENT_HTML5, "UTF-8" );
+    }
+
+    /** One word's stem, the way the index stores it. */
+    public static function stem_word( string $word, string $language = "en" ): string {
+        $word = function_exists( "mb_strtolower" ) ? mb_strtolower( trim( $word ), "UTF-8" ) : strtolower( trim( $word ) );
+        return "" === $word ? "" : self::stem( $word, $language );
     }
 
     /**

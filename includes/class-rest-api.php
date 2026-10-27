@@ -175,13 +175,35 @@ class REST_API {
         ) {
             return true;
         }
+        // The open Broken links page drives the scan one step after another. A big
+        // site needs hundreds of steps, so counting them stopped every long check
+        // with "Rate limit exceeded." (QA 27 Oct 2026). Each step holds the scan
+        // lock and does at most 15 s of work, so it cannot be used to flood.
+        if ( "POST" === $request->get_method()
+            && preg_match( "~/jnk-linkweave/v1/reports/broken-links/scan/step$~", (string) $request->get_route() )
+        ) {
+            return true;
+        }
         $user_id = get_current_user_id();
         $key     = "jnk_linkweave_rl_" . $user_id;
-        $count   = (int) get_transient( $key );
-        if ( $count >= self::RATE_LIMIT ) {
-            return new \WP_Error( "jnk_linkweave_rate_limit", "Rate limit exceeded.", [ "status" => 429 ] );
+        $now     = time();
+        $window  = get_transient( $key );
+        // A fixed one-minute window. Storing the bare count with set_transient()
+        // pushed the expiry back on every request, so a steady caller was never
+        // let back in. Keep when the window opened and let it end on time.
+        if ( ! is_array( $window ) || ! isset( $window["start"], $window["count"] ) || $now - (int) $window["start"] >= MINUTE_IN_SECONDS ) {
+            $window = [ "start" => $now, "count" => 0 ];
         }
-        set_transient( $key, $count + 1, MINUTE_IN_SECONDS );
+        $left = MINUTE_IN_SECONDS - ( $now - (int) $window["start"] );
+        if ( (int) $window["count"] >= self::RATE_LIMIT ) {
+            return new \WP_Error(
+                "jnk_linkweave_rate_limit",
+                "Rate limit exceeded.",
+                [ "status" => 429, "retry_after" => max( 1, $left ) ]
+            );
+        }
+        $window["count"] = (int) $window["count"] + 1;
+        set_transient( $key, $window, max( 1, $left ) );
         return true;
     }
 
@@ -484,6 +506,8 @@ class REST_API {
         $rebuild = false;
         if ( array_key_exists( "stopwords_custom", $body ) ) {
             $words = is_array( $body["stopwords_custom"] ) ? $body["stopwords_custom"] : preg_split( "/[,\n]+/", (string) $body["stopwords_custom"] );
+            // One word per entry: "watch online" is stored as "watch" and "online".
+            $words = preg_split( "/\\s+/u", implode( " ", array_map( "strval", (array) $words ) ), -1, PREG_SPLIT_NO_EMPTY );
             $words = array_values( array_unique( array_filter( array_map(
                 static fn( $w ) => mb_strtolower( trim( sanitize_text_field( (string) $w ) ) ),
                 array_slice( (array) $words, 0, 500 )
@@ -492,6 +516,7 @@ class REST_API {
             // shows after a rebuild; start one instead of leaving that to the user.
             $rebuild = $words !== array_values( (array) ( $opts["stopwords_custom"] ?? [] ) );
             $opts["stopwords_custom"] = $words;
+            Stopwords::reset();
         }
         if ( array_key_exists( "delete_data_on_uninstall", $body ) ) {
             $opts["delete_data_on_uninstall"] = ! empty( $body["delete_data_on_uninstall"] );
