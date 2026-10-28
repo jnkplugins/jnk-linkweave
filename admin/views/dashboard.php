@@ -10,7 +10,12 @@ $status   = \JnkLinkweave\Index_Builder::status();
 $total    = (int) $status["total"];
 $state    = (string) $status["state"];
 $running  = ! empty( $status["is_running"] );
-$indexed  = $running ? (int) $status["indexed"] : \JnkLinkweave\Index_Builder::indexed_count();
+// Rows really in the index, also during a rebuild: a rebuild replaces rows one
+// by one, so the old index keeps serving suggestions until it is done. Showing
+// the rebuild's own counter said "0 posts" and "reading for the first time" on a
+// site with 1,095 indexed posts (QA 28 Oct 2026).
+$indexed  = \JnkLinkweave\Index_Builder::indexed_count();
+$updating = $running && $indexed > 0;
 $read     = (int) $status["read"];
 // Nothing read yet (fresh install, or the first read still queued/running): the
 // link graph is empty too, so link counts would claim every post is an orphan.
@@ -54,7 +59,12 @@ UI::open(
 );
 ?>
 
-<?php if ( $indexed === 0 && $running ) : ?>
+<?php if ( $updating ) : ?>
+    <div class="jnkui-callout">
+        <p><strong><?php esc_html_e( "Linkweave is updating its index.", "jnk-linkweave" ); ?></strong>
+        <?php esc_html_e( "Suggestions keep working from the current index until the update is done. This page updates by itself.", "jnk-linkweave" ); ?></p>
+    </div>
+<?php elseif ( $indexed === 0 && $running ) : ?>
     <div class="jnkui-callout">
         <p><strong><?php esc_html_e( "Linkweave is reading your posts for the first time.", "jnk-linkweave" ); ?></strong>
         <?php esc_html_e( "This page updates by itself. If it still says Queued after a few seconds, click Run now.", "jnk-linkweave" ); ?></p>
@@ -212,7 +222,7 @@ UI::open(
                     <a href="<?php echo esc_url( (string) get_edit_post_link( (int) $t->post_id, "raw" ) ); ?>"><?php echo esc_html( get_the_title( (int) $t->post_id ) ?: sprintf( "#%d", (int) $t->post_id ) ); ?></a>
                     <span style="display:flex;align-items:center;gap:12px;flex:0 0 46%">
                         <span class="jnkui-bar" style="flex:1"><i style="width:<?php echo esc_attr( (string) round( (int) $t->n / $max * 100 ) ); ?>%"></i></span>
-                        <span class="jnkui-muted" style="min-width:64px;text-align:right"><?php printf(
+                        <span class="jnkui-muted" style="min-width:64px;text-align:end"><?php printf(
                             /* translators: %s: number of links. */
                             esc_html( _n( "%s link", "%s links", (int) $t->n, "jnk-linkweave" ) ),
                             esc_html( number_format_i18n( (int) $t->n ) )

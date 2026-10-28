@@ -162,6 +162,9 @@ final class Plugin {
                 [ "wp-components" ],
                 $asset["version"] ?? JNK_LINKWEAVE_VERSION
             );
+            // The build also writes index-rtl.css (sides flipped); WordPress loads
+            // it instead for right-to-left languages.
+            wp_style_add_data( "jnk-linkweave-editor", "rtl", "replace" );
         }
     }
 

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-10-27T09:45:49+00:00\n"
+"POT-Creation-Date: 2026-10-28T05:30:06+00:00\n"
 "PO-Revision-Date: 2026-10-10 16:38+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Spanish (Spain)\n"
@@ -264,7 +264,7 @@ msgstr "ya no está activa (reembolsada o cancelada)"
 
 #: pro/licensorpro-client/licensorpro-client.php:1786
 #: admin/assets/js/admin.js:357
-#: admin/assets/js/admin.js:806
+#: admin/assets/js/admin.js:809
 msgid "Status"
 msgstr "Estado"
 
@@ -478,7 +478,7 @@ msgid "Support"
 msgstr "Soporte"
 
 #: admin/class-admin.php:282
-#: admin/views/dashboard.php:48
+#: admin/views/dashboard.php:53
 msgid "Rebuild index"
 msgstr "Reconstruir índice"
 
@@ -540,7 +540,7 @@ msgid "%d out"
 msgstr "%d salientes"
 
 #: admin/class-ui.php:21
-#: admin/views/dashboard.php:51
+#: admin/views/dashboard.php:56
 msgid "Overview"
 msgstr "Resumen"
 
@@ -560,7 +560,7 @@ msgstr "Enlaces entrantes"
 
 #: admin/class-ui.php:25
 #: admin/views/broken.php:9
-#: admin/views/dashboard.php:103
+#: admin/views/dashboard.php:113
 msgid "Broken links"
 msgstr "Enlaces rotos"
 
@@ -616,225 +616,233 @@ msgstr "Comprobar todos los enlaces ahora"
 msgid "Links in your posts that lead to a page that no longer exists. Linkweave checks every day; you can also check right now."
 msgstr "Enlaces de tus entradas que llevan a una página que ya no existe. Linkweave los comprueba cada día; también puedes comprobarlos ahora mismo."
 
-#: admin/views/dashboard.php:47
+#: admin/views/dashboard.php:52
 #: admin/assets/js/admin.js:213
 msgid "Run now"
 msgstr "Ejecutar ahora"
 
-#: admin/views/dashboard.php:52
+#: admin/views/dashboard.php:57
 msgid "How your internal links are doing, and what to fix next."
 msgstr "Cómo van tus enlaces internos y qué arreglar a continuación."
 
-#: admin/views/dashboard.php:59
+#: admin/views/dashboard.php:64
+msgid "Linkweave is updating its index."
+msgstr "Linkweave está actualizando su índice."
+
+#: admin/views/dashboard.php:65
+msgid "Suggestions keep working from the current index until the update is done. This page updates by itself."
+msgstr "Las sugerencias siguen funcionando con el índice actual hasta que termine la actualización. Esta página se actualiza sola."
+
+#: admin/views/dashboard.php:69
 msgid "Linkweave is reading your posts for the first time."
 msgstr "Linkweave está leyendo tus entradas por primera vez."
 
-#: admin/views/dashboard.php:60
+#: admin/views/dashboard.php:70
 msgid "This page updates by itself. If it still says Queued after a few seconds, click Run now."
 msgstr "Esta página se actualiza sola. Si después de unos segundos sigue diciendo En cola, haz clic en Ejecutar ahora."
 
-#: admin/views/dashboard.php:64
+#: admin/views/dashboard.php:74
 msgid "The last read of your posts stopped before it finished."
 msgstr "La última lectura de tus entradas se detuvo antes de terminar."
 
-#: admin/views/dashboard.php:65
+#: admin/views/dashboard.php:75
 msgid "Nothing is lost. Click Run it again now, top right."
 msgstr "No se ha perdido nada. Haz clic en Volver a ejecutar ahora, arriba a la derecha."
 
-#: admin/views/dashboard.php:69
+#: admin/views/dashboard.php:79
 msgid "Start here: let Linkweave read your posts once."
 msgstr "Empieza aquí: deja que Linkweave lea tus entradas una vez."
 
-#: admin/views/dashboard.php:70
+#: admin/views/dashboard.php:80
 msgid "Linkweave suggests links by comparing your posts with each other. Click Rebuild index; it takes a minute or two on most sites and then keeps itself up to date as you publish."
 msgstr "Linkweave sugiere enlaces comparando tus entradas entre sí. Haz clic en Reconstruir índice; en la mayoría de los sitios tarda un minuto o dos y luego se mantiene al día a medida que publicas."
 
-#: admin/views/dashboard.php:76
+#: admin/views/dashboard.php:86
 msgid "Posts Linkweave knows"
 msgstr "Entradas que Linkweave conoce"
 
-#: admin/views/dashboard.php:80
+#: admin/views/dashboard.php:90
 #: admin/assets/js/admin.js:198
 msgid "Queued, waiting for WordPress to start it"
 msgstr "En cola, esperando a que WordPress la inicie"
 
 #. translators: 1: posts read so far, 2: total posts.
-#: admin/views/dashboard.php:84
+#: admin/views/dashboard.php:94
 #: admin/assets/js/admin.js:205
 #, php-format
 msgid "Reading posts %1$d of %2$d"
 msgstr "Leyendo entradas: %1$d de %2$d"
 
 #. translators: %s: time of the last full rebuild.
-#: admin/views/dashboard.php:91
+#: admin/views/dashboard.php:101
 #, php-format
 msgid "Last full read: %s"
 msgstr "Última lectura completa: %s"
 
-#: admin/views/dashboard.php:92
+#: admin/views/dashboard.php:102
 msgid "never"
 msgstr "nunca"
 
-#: admin/views/dashboard.php:98
+#: admin/views/dashboard.php:108
 #: admin/views/orphans.php:15
 msgid "Posts nothing links to"
 msgstr "Entradas a las que no enlaza nada"
 
-#: admin/views/dashboard.php:100
-#: admin/views/dashboard.php:105
-#: admin/views/dashboard.php:111
-#: admin/views/dashboard.php:127
-#: admin/views/dashboard.php:159
-#: admin/views/dashboard.php:204
+#: admin/views/dashboard.php:110
+#: admin/views/dashboard.php:115
+#: admin/views/dashboard.php:121
+#: admin/views/dashboard.php:137
+#: admin/views/dashboard.php:169
+#: admin/views/dashboard.php:214
 msgid "Counted after the first read"
 msgstr "Se cuenta tras la primera lectura"
 
-#: admin/views/dashboard.php:100
+#: admin/views/dashboard.php:110
 msgid "Readers and search engines struggle to find these"
 msgstr "A los lectores y a los buscadores les cuesta encontrarlas"
 
-#: admin/views/dashboard.php:100
+#: admin/views/dashboard.php:110
 msgid "Every post has at least one link in"
 msgstr "Cada entrada tiene al menos un enlace entrante"
 
-#: admin/views/dashboard.php:105
+#: admin/views/dashboard.php:115
 msgid "Links that lead to a missing page"
 msgstr "Enlaces que llevan a una página que no existe"
 
-#: admin/views/dashboard.php:105
+#: admin/views/dashboard.php:115
 msgid "No dead links found"
 msgstr "No se han encontrado enlaces rotos"
 
-#: admin/views/dashboard.php:108
+#: admin/views/dashboard.php:118
 msgid "Internal links"
 msgstr "Enlaces internos"
 
 #. translators: %s: number of active auto-link rules.
-#: admin/views/dashboard.php:113
+#: admin/views/dashboard.php:123
 #, php-format
 msgid "Plus %s auto-link rule"
 msgid_plural "Plus %s auto-link rules"
 msgstr[0] "Más %s regla de enlace automático"
 msgstr[1] "Más %s reglas de enlace automático"
 
-#: admin/views/dashboard.php:122
+#: admin/views/dashboard.php:132
 msgid "Link coverage"
 msgstr "Cobertura de enlaces"
 
-#: admin/views/dashboard.php:123
+#: admin/views/dashboard.php:133
 msgid "How many internal links point at each of your posts. Aim to move posts out of the red."
 msgstr "Cuántos enlaces internos apuntan a cada una de tus entradas. Intenta sacar las entradas de la zona roja."
 
-#: admin/views/dashboard.php:131
+#: admin/views/dashboard.php:141
 #: admin/assets/js/linkmap.js:27
 msgid "No links in"
 msgstr "Sin enlaces entrantes"
 
-#: admin/views/dashboard.php:132
+#: admin/views/dashboard.php:142
 #: admin/assets/js/linkmap.js:28
 msgid "1 to 2 links"
 msgstr "De 1 a 2 enlaces"
 
-#: admin/views/dashboard.php:133
+#: admin/views/dashboard.php:143
 #: admin/assets/js/linkmap.js:29
 msgid "3 to 5 links"
 msgstr "De 3 a 5 enlaces"
 
-#: admin/views/dashboard.php:134
+#: admin/views/dashboard.php:144
 #: admin/assets/js/linkmap.js:30
 msgid "6 or more"
 msgstr "6 o más"
 
-#: admin/views/dashboard.php:137
+#: admin/views/dashboard.php:147
 msgid "Share of posts by number of internal links pointing at them"
 msgstr "Porcentaje de entradas según los enlaces internos que reciben"
 
-#: admin/views/dashboard.php:154
+#: admin/views/dashboard.php:164
 msgid "Posts that need a link"
 msgstr "Entradas que necesitan un enlace"
 
-#: admin/views/dashboard.php:155
+#: admin/views/dashboard.php:165
 msgid "Open one and Linkweave shows which of your posts should link to it."
 msgstr "Abre una y Linkweave te muestra cuáles de tus entradas deberían enlazarla."
 
-#: admin/views/dashboard.php:156
+#: admin/views/dashboard.php:166
 msgid "See all"
 msgstr "Ver todo"
 
-#: admin/views/dashboard.php:161
+#: admin/views/dashboard.php:171
 msgid "Nothing to fix"
 msgstr "Nada que arreglar"
 
-#: admin/views/dashboard.php:161
+#: admin/views/dashboard.php:171
 msgid "Every post has at least one internal link pointing at it."
 msgstr "Cada entrada tiene al menos un enlace interno que apunta a ella."
 
-#: admin/views/dashboard.php:169
+#: admin/views/dashboard.php:179
 msgid "0 links in"
 msgstr "0 enlaces entrantes"
 
-#: admin/views/dashboard.php:185
+#: admin/views/dashboard.php:195
 msgid "Getting started"
 msgstr "Primeros pasos"
 
-#: admin/views/dashboard.php:186
+#: admin/views/dashboard.php:196
 msgid "Four steps to a well-linked site."
 msgstr "Cuatro pasos para un sitio bien enlazado."
 
-#: admin/views/dashboard.php:188
+#: admin/views/dashboard.php:198
 msgid "Let Linkweave read your posts"
 msgstr "Deja que Linkweave lea tus entradas"
 
-#: admin/views/dashboard.php:188
+#: admin/views/dashboard.php:198
 msgid "Rebuild index, top right."
 msgstr "Reconstruir índice, arriba a la derecha."
 
-#: admin/views/dashboard.php:189
+#: admin/views/dashboard.php:199
 msgid "Add links while you write"
 msgstr "Añade enlaces mientras escribes"
 
-#: admin/views/dashboard.php:189
+#: admin/views/dashboard.php:199
 msgid "Open any post: suggestions appear in the Linkweave sidebar."
 msgstr "Abre cualquier entrada: las sugerencias aparecen en la barra lateral de Linkweave."
 
-#: admin/views/dashboard.php:190
+#: admin/views/dashboard.php:200
 msgid "Add an auto-link rule"
 msgstr "Añade una regla de enlace automático"
 
-#: admin/views/dashboard.php:190
+#: admin/views/dashboard.php:200
 msgid "Link a phrase to a page everywhere it appears."
 msgstr "Enlaza una frase a una página allí donde aparezca."
 
-#: admin/views/dashboard.php:191
+#: admin/views/dashboard.php:201
 msgid "Give every post a link in"
 msgstr "Dale a cada entrada un enlace entrante"
 
-#: admin/views/dashboard.php:191
+#: admin/views/dashboard.php:201
 msgid "Work down the list on the left."
 msgstr "Ve recorriendo la lista de la izquierda."
 
-#: admin/views/dashboard.php:199
+#: admin/views/dashboard.php:209
 msgid "Your most linked-to posts"
 msgstr "Tus entradas más enlazadas"
 
-#: admin/views/dashboard.php:200
+#: admin/views/dashboard.php:210
 msgid "The pages your own site points to most. Search engines treat these as your most important pages."
 msgstr "Las páginas a las que más apunta tu propio sitio. Los buscadores las consideran tus páginas más importantes."
 
-#: admin/views/dashboard.php:201
+#: admin/views/dashboard.php:211
 msgid "All posts"
 msgstr "Todas las entradas"
 
-#: admin/views/dashboard.php:206
+#: admin/views/dashboard.php:216
 msgid "No internal links yet"
 msgstr "Aún no hay enlaces internos"
 
-#: admin/views/dashboard.php:206
+#: admin/views/dashboard.php:216
 msgid "Once your posts link to each other, the busiest pages show up here."
 msgstr "Cuando tus entradas se enlacen entre sí, aquí aparecerán las páginas con más enlaces."
 
 #. translators: %s: number of links.
-#: admin/views/dashboard.php:217
+#: admin/views/dashboard.php:227
 #, php-format
 msgid "%s link"
 msgid_plural "%s links"
@@ -1209,12 +1217,12 @@ msgid "A notice at the top of the screen takes you to the box, in Linkweave Sett
 msgstr "Un aviso en la parte superior de la pantalla te lleva al cuadro, en Ajustes de Linkweave, en Licencia. La clave está en el correo de tu compra."
 
 #. translators: %s: the database's error message
-#: includes/class-index-builder.php:269
+#: includes/class-index-builder.php:337
 #, php-format
 msgid "The index table could not be created, so nothing can be indexed. The database said: %s"
 msgstr "No se pudo crear la tabla del índice, así que no se puede indexar nada. La base de datos dijo: %s"
 
-#: includes/class-index-builder.php:270
+#: includes/class-index-builder.php:338
 msgid "no reason given"
 msgstr "sin motivo indicado"
 
@@ -1398,8 +1406,8 @@ msgid "No rules yet"
 msgstr "Aún no hay reglas"
 
 #: admin/assets/js/admin.js:358
-msgid "A rule links one phrase to one page everywhere it appears. Add your first one on the right."
-msgstr "Una regla enlaza una frase a una página allí donde aparezca. Añade la primera a la derecha."
+msgid "A rule links one phrase to one page everywhere it appears. Add your first one with the form."
+msgstr "Una regla enlaza una frase a una página allí donde aparezca. Añade la primera con el formulario."
 
 #: admin/assets/js/admin.js:360
 msgid "Add a rule"
@@ -1637,32 +1645,32 @@ msgstr "Sin respuesta"
 msgid "Page missing"
 msgstr "Página que falta"
 
-#: admin/assets/js/admin.js:806
+#: admin/assets/js/admin.js:809
 msgid "Found in"
 msgstr "Encontrado en"
 
-#: admin/assets/js/admin.js:806
+#: admin/assets/js/admin.js:809
 msgid "Points at"
 msgstr "Apunta a"
 
-#: admin/assets/js/admin.js:806
+#: admin/assets/js/admin.js:809
 msgid "Link text"
 msgstr "Texto del enlace"
 
-#: admin/assets/js/admin.js:806
+#: admin/assets/js/admin.js:809
 msgid "Checked"
 msgstr "Comprobado"
 
-#: admin/assets/js/admin.js:851
+#: admin/assets/js/admin.js:854
 msgid "Saving…"
 msgstr "Guardando…"
 
-#: admin/assets/js/admin.js:855
 #: admin/assets/js/admin.js:858
+#: admin/assets/js/admin.js:861
 msgid "Settings saved."
 msgstr "Ajustes guardados."
 
-#: admin/assets/js/admin.js:858
+#: admin/assets/js/admin.js:861
 msgid "The index is being rebuilt in the background so the change reaches every post."
 msgstr "El índice se está reconstruyendo en segundo plano para que el cambio llegue a todas las entradas."
 
@@ -1840,6 +1848,9 @@ msgstr "Crear el índice"
 #: editor/src/SuggestionList.jsx:296
 msgid "Already built it? Save this post, then refresh."
 msgstr "¿Ya lo creaste? Guarda esta entrada y luego actualiza."
+
+#~ msgid "A rule links one phrase to one page everywhere it appears. Add your first one on the right."
+#~ msgstr "Una regla enlaza una frase a una página allí donde aparezca. Añade la primera a la derecha."
 
 #~ msgid "Unlink every broken internal link? This edits the affected posts."
 #~ msgstr "¿Quitar todos los enlaces internos rotos? Esto edita las entradas afectadas."

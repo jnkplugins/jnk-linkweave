@@ -16,7 +16,7 @@
 .jnk-linkweave-wrap table.jnk-linkweave-table td {
     padding: 8px 12px;
     border-bottom: 1px solid #eee;
-    text-align: left;
+    text-align: start;
 }
 .jnk-linkweave-wrap .jnk-linkweave-empty {
     color: #777;
@@ -59,7 +59,7 @@
 .jnkui .jnk-hbar-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .jnkui .jnk-hbar { display: flex; align-items: center; gap: 10px; }
 .jnkui .jnk-hbar .jnkui-bar { flex: 1; height: 10px; }
-.jnkui .jnk-hbar b { min-width: 48px; text-align: right; color: var(--jnk-ink); font-variant-numeric: tabular-nums; }
+.jnkui .jnk-hbar b { min-width: 48px; text-align: end; color: var(--jnk-ink); font-variant-numeric: tabular-nums; }
 .jnkui .jnk-hbars > li[hidden] { display: none; }
 
 /* ---------- URL changer: "from → to" pair ---------- */
@@ -91,11 +91,11 @@
 .jnkui .jnk-map-tip strong { display: block; color: #fff; }
 .jnkui .jnk-map-help { margin: 0 0 12px; color: var(--jnk-ink-3); font-size: 13px; max-width: 760px; }
 .jnkui .jnk-matrix { border-collapse: separate; border-spacing: 3px; font-size: 12px; }
-.jnkui .jnk-matrix th { font-weight: 600; color: var(--jnk-ink-2); text-align: left; }
+.jnkui .jnk-matrix th { font-weight: 600; color: var(--jnk-ink-2); text-align: start; }
 .jnkui .jnk-matrix thead th { vertical-align: bottom; padding: 0 0 6px; }
 .jnkui .jnk-matrix thead th span { display: block; writing-mode: vertical-rl; transform: rotate(180deg); max-height: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0 auto; }
 .jnkui .jnk-matrix .jnk-matrix-corner { writing-mode: initial; color: var(--jnk-ink-3); font-weight: 500; white-space: nowrap; }
-.jnkui .jnk-matrix tbody th { padding-right: 12px; white-space: nowrap; max-width: 200px; overflow: hidden; text-overflow: ellipsis; }
+.jnkui .jnk-matrix tbody th { padding-inline-end: 12px; white-space: nowrap; max-width: 200px; overflow: hidden; text-overflow: ellipsis; }
 .jnkui .jnk-matrix td { width: 38px; height: 34px; text-align: center; font-weight: 700; border-radius: 6px; background: #f8fafc; }
 .jnkui .jnk-matrix td.is-self { box-shadow: inset 0 0 0 2px #0f172a22; }
 .jnkui .jnk-matrix td.jnk-matrix-total { background: none; color: var(--jnk-ink-2); width: 56px; }
@@ -104,3 +104,16 @@
 .jnkui .jnkui-seg-toggle .button { border: 0; background: none; box-shadow: none; min-height: 28px; }
 .jnkui .jnkui-seg-toggle .button.is-active { background: #fff; box-shadow: 0 1px 2px rgba(15,23,42,.12); color: var(--jnk-ink); }
 @media (max-width: 782px) { .jnkui .jnk-map-row { grid-template-columns: 1fr; gap: 6px; } .jnkui .jnk-map { padding: 4px 14px 16px; } }
+
+/* Phones. Nothing may be wider than the screen: in Arabic and Hebrew a page
+   that overflows opens scrolled to blank space, with the title off screen. */
+.jnkui .jnk-rules-grid { grid-template-columns: 1.7fr 1fr; align-items: start; }
+@media (max-width: 1100px) { .jnkui .jnk-rules-grid { grid-template-columns: minmax(0, 1fr); } }
+.jnkui .jnk-rules-grid .jnkui-card-body { grid-template-columns: minmax(0, 1fr); }
+.jnkui .jnk-rules-grid .jnkui-field { grid-template-columns: minmax(0, 1fr); }
+.jnkui .jnk-rules-grid .jnkui-field input { min-width: 0; max-width: 100%; }
+@media (max-width: 782px) {
+    .jnkui .jnkui-card-head { flex-wrap: wrap; }
+    .jnkui .jnk-orphan-main { flex-wrap: wrap; }
+    .jnkui .jnk-orphan-actions { flex: 1 1 auto; flex-wrap: wrap; }
+}

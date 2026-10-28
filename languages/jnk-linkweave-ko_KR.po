@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-10-27T09:45:49+00:00\n"
+"POT-Creation-Date: 2026-10-28T05:30:06+00:00\n"
 "PO-Revision-Date: 2026-10-10 16:38+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Korean\n"
@@ -264,7 +264,7 @@ msgstr "더 이상 활성 상태가 아님(환불 또는 취소됨)"
 
 #: pro/licensorpro-client/licensorpro-client.php:1786
 #: admin/assets/js/admin.js:357
-#: admin/assets/js/admin.js:806
+#: admin/assets/js/admin.js:809
 msgid "Status"
 msgstr "상태"
 
@@ -477,7 +477,7 @@ msgid "Support"
 msgstr "지원"
 
 #: admin/class-admin.php:282
-#: admin/views/dashboard.php:48
+#: admin/views/dashboard.php:53
 msgid "Rebuild index"
 msgstr "색인 다시 만들기"
 
@@ -536,7 +536,7 @@ msgid "%d out"
 msgstr "나감 %d"
 
 #: admin/class-ui.php:21
-#: admin/views/dashboard.php:51
+#: admin/views/dashboard.php:56
 msgid "Overview"
 msgstr "개요"
 
@@ -556,7 +556,7 @@ msgstr "들어오는 링크"
 
 #: admin/class-ui.php:25
 #: admin/views/broken.php:9
-#: admin/views/dashboard.php:103
+#: admin/views/dashboard.php:113
 msgid "Broken links"
 msgstr "깨진 링크"
 
@@ -612,224 +612,232 @@ msgstr "지금 모든 링크 확인"
 msgid "Links in your posts that lead to a page that no longer exists. Linkweave checks every day; you can also check right now."
 msgstr "글에 있는 링크 중 더 이상 존재하지 않는 페이지로 연결되는 링크입니다. Linkweave가 매일 확인하며, 지금 바로 확인할 수도 있습니다."
 
-#: admin/views/dashboard.php:47
+#: admin/views/dashboard.php:52
 #: admin/assets/js/admin.js:213
 msgid "Run now"
 msgstr "지금 실행"
 
-#: admin/views/dashboard.php:52
+#: admin/views/dashboard.php:57
 msgid "How your internal links are doing, and what to fix next."
 msgstr "내부 링크 현황과 다음에 고칠 것을 보여 줍니다."
 
-#: admin/views/dashboard.php:59
+#: admin/views/dashboard.php:64
+msgid "Linkweave is updating its index."
+msgstr "Linkweave가 색인을 업데이트하고 있습니다."
+
+#: admin/views/dashboard.php:65
+msgid "Suggestions keep working from the current index until the update is done. This page updates by itself."
+msgstr "업데이트가 끝날 때까지 추천은 현재 색인으로 계속 작동합니다. 이 페이지는 자동으로 갱신됩니다."
+
+#: admin/views/dashboard.php:69
 msgid "Linkweave is reading your posts for the first time."
 msgstr "Linkweave가 처음으로 글을 읽고 있습니다."
 
-#: admin/views/dashboard.php:60
+#: admin/views/dashboard.php:70
 msgid "This page updates by itself. If it still says Queued after a few seconds, click Run now."
 msgstr "이 페이지는 자동으로 업데이트됩니다. 몇 초 뒤에도 대기 중이라고 나오면 지금 실행을 클릭하세요."
 
-#: admin/views/dashboard.php:64
+#: admin/views/dashboard.php:74
 msgid "The last read of your posts stopped before it finished."
 msgstr "마지막 글 읽기가 끝나기 전에 멈췄습니다."
 
-#: admin/views/dashboard.php:65
+#: admin/views/dashboard.php:75
 msgid "Nothing is lost. Click Run it again now, top right."
 msgstr "잃은 것은 없습니다. 오른쪽 위의 지금 다시 실행을 클릭하세요."
 
-#: admin/views/dashboard.php:69
+#: admin/views/dashboard.php:79
 msgid "Start here: let Linkweave read your posts once."
 msgstr "여기서 시작하세요: Linkweave가 글을 한 번 읽게 하세요."
 
-#: admin/views/dashboard.php:70
+#: admin/views/dashboard.php:80
 msgid "Linkweave suggests links by comparing your posts with each other. Click Rebuild index; it takes a minute or two on most sites and then keeps itself up to date as you publish."
 msgstr "Linkweave는 글끼리 비교해서 링크를 제안합니다. 색인 다시 만들기를 클릭하세요. 대부분의 사이트에서 1~2분이면 끝나고, 그 뒤로는 글을 발행할 때마다 자동으로 최신 상태를 유지합니다."
 
-#: admin/views/dashboard.php:76
+#: admin/views/dashboard.php:86
 msgid "Posts Linkweave knows"
 msgstr "Linkweave가 아는 글"
 
-#: admin/views/dashboard.php:80
+#: admin/views/dashboard.php:90
 #: admin/assets/js/admin.js:198
 msgid "Queued, waiting for WordPress to start it"
 msgstr "대기 중, WordPress가 시작하기를 기다리는 중"
 
 #. translators: 1: posts read so far, 2: total posts.
-#: admin/views/dashboard.php:84
+#: admin/views/dashboard.php:94
 #: admin/assets/js/admin.js:205
 #, php-format
 msgid "Reading posts %1$d of %2$d"
 msgstr "글 읽는 중: %2$d개 중 %1$d개"
 
 #. translators: %s: time of the last full rebuild.
-#: admin/views/dashboard.php:91
+#: admin/views/dashboard.php:101
 #, php-format
 msgid "Last full read: %s"
 msgstr "마지막 전체 읽기: %s"
 
-#: admin/views/dashboard.php:92
+#: admin/views/dashboard.php:102
 msgid "never"
 msgstr "아직 없음"
 
-#: admin/views/dashboard.php:98
+#: admin/views/dashboard.php:108
 #: admin/views/orphans.php:15
 msgid "Posts nothing links to"
 msgstr "아무 링크도 받지 않는 글"
 
-#: admin/views/dashboard.php:100
-#: admin/views/dashboard.php:105
-#: admin/views/dashboard.php:111
-#: admin/views/dashboard.php:127
-#: admin/views/dashboard.php:159
-#: admin/views/dashboard.php:204
+#: admin/views/dashboard.php:110
+#: admin/views/dashboard.php:115
+#: admin/views/dashboard.php:121
+#: admin/views/dashboard.php:137
+#: admin/views/dashboard.php:169
+#: admin/views/dashboard.php:214
 msgid "Counted after the first read"
 msgstr "첫 읽기가 끝나면 집계됩니다"
 
-#: admin/views/dashboard.php:100
+#: admin/views/dashboard.php:110
 msgid "Readers and search engines struggle to find these"
 msgstr "독자와 검색엔진이 찾기 어려운 글입니다"
 
-#: admin/views/dashboard.php:100
+#: admin/views/dashboard.php:110
 msgid "Every post has at least one link in"
 msgstr "모든 글에 들어오는 링크가 하나 이상 있습니다"
 
-#: admin/views/dashboard.php:105
+#: admin/views/dashboard.php:115
 msgid "Links that lead to a missing page"
 msgstr "없는 페이지로 연결되는 링크"
 
-#: admin/views/dashboard.php:105
+#: admin/views/dashboard.php:115
 msgid "No dead links found"
 msgstr "깨진 링크가 없습니다"
 
-#: admin/views/dashboard.php:108
+#: admin/views/dashboard.php:118
 msgid "Internal links"
 msgstr "내부 링크"
 
 #. translators: %s: number of active auto-link rules.
-#: admin/views/dashboard.php:113
+#: admin/views/dashboard.php:123
 #, php-format
 msgid "Plus %s auto-link rule"
 msgid_plural "Plus %s auto-link rules"
 msgstr[0] "+ 자동 링크 규칙 %s개"
 
-#: admin/views/dashboard.php:122
+#: admin/views/dashboard.php:132
 msgid "Link coverage"
 msgstr "링크 분포"
 
-#: admin/views/dashboard.php:123
+#: admin/views/dashboard.php:133
 msgid "How many internal links point at each of your posts. Aim to move posts out of the red."
 msgstr "각 글을 가리키는 내부 링크 수입니다. 빨간색 구간의 글을 줄여 보세요."
 
-#: admin/views/dashboard.php:131
+#: admin/views/dashboard.php:141
 #: admin/assets/js/linkmap.js:27
 msgid "No links in"
 msgstr "들어오는 링크 없음"
 
-#: admin/views/dashboard.php:132
+#: admin/views/dashboard.php:142
 #: admin/assets/js/linkmap.js:28
 msgid "1 to 2 links"
 msgstr "링크 1~2개"
 
-#: admin/views/dashboard.php:133
+#: admin/views/dashboard.php:143
 #: admin/assets/js/linkmap.js:29
 msgid "3 to 5 links"
 msgstr "링크 3~5개"
 
-#: admin/views/dashboard.php:134
+#: admin/views/dashboard.php:144
 #: admin/assets/js/linkmap.js:30
 msgid "6 or more"
 msgstr "6개 이상"
 
-#: admin/views/dashboard.php:137
+#: admin/views/dashboard.php:147
 msgid "Share of posts by number of internal links pointing at them"
 msgstr "받는 내부 링크 수에 따른 글 비율"
 
-#: admin/views/dashboard.php:154
+#: admin/views/dashboard.php:164
 msgid "Posts that need a link"
 msgstr "링크가 필요한 글"
 
-#: admin/views/dashboard.php:155
+#: admin/views/dashboard.php:165
 msgid "Open one and Linkweave shows which of your posts should link to it."
 msgstr "글을 열면 어떤 글에서 링크하면 좋을지 Linkweave가 보여 줍니다."
 
-#: admin/views/dashboard.php:156
+#: admin/views/dashboard.php:166
 msgid "See all"
 msgstr "모두 보기"
 
-#: admin/views/dashboard.php:161
+#: admin/views/dashboard.php:171
 msgid "Nothing to fix"
 msgstr "고칠 것이 없습니다"
 
-#: admin/views/dashboard.php:161
+#: admin/views/dashboard.php:171
 msgid "Every post has at least one internal link pointing at it."
 msgstr "모든 글에 내부 링크가 하나 이상 연결되어 있습니다."
 
-#: admin/views/dashboard.php:169
+#: admin/views/dashboard.php:179
 msgid "0 links in"
 msgstr "들어오는 링크 0개"
 
-#: admin/views/dashboard.php:185
+#: admin/views/dashboard.php:195
 msgid "Getting started"
 msgstr "시작하기"
 
-#: admin/views/dashboard.php:186
+#: admin/views/dashboard.php:196
 msgid "Four steps to a well-linked site."
 msgstr "링크가 잘 연결된 사이트를 위한 4단계입니다."
 
-#: admin/views/dashboard.php:188
+#: admin/views/dashboard.php:198
 msgid "Let Linkweave read your posts"
 msgstr "Linkweave가 글을 읽게 하기"
 
-#: admin/views/dashboard.php:188
+#: admin/views/dashboard.php:198
 msgid "Rebuild index, top right."
 msgstr "오른쪽 위의 색인 다시 만들기를 누르세요."
 
-#: admin/views/dashboard.php:189
+#: admin/views/dashboard.php:199
 msgid "Add links while you write"
 msgstr "글을 쓰면서 링크 추가하기"
 
-#: admin/views/dashboard.php:189
+#: admin/views/dashboard.php:199
 msgid "Open any post: suggestions appear in the Linkweave sidebar."
 msgstr "아무 글이나 여세요. Linkweave 사이드바에 제안이 나타납니다."
 
-#: admin/views/dashboard.php:190
+#: admin/views/dashboard.php:200
 msgid "Add an auto-link rule"
 msgstr "자동 링크 규칙 추가하기"
 
-#: admin/views/dashboard.php:190
+#: admin/views/dashboard.php:200
 msgid "Link a phrase to a page everywhere it appears."
 msgstr "어떤 문구가 나오는 모든 곳에서 그 문구를 한 페이지로 링크합니다."
 
-#: admin/views/dashboard.php:191
+#: admin/views/dashboard.php:201
 msgid "Give every post a link in"
 msgstr "모든 글에 들어오는 링크 만들기"
 
-#: admin/views/dashboard.php:191
+#: admin/views/dashboard.php:201
 msgid "Work down the list on the left."
 msgstr "왼쪽 목록을 차례로 처리하세요."
 
-#: admin/views/dashboard.php:199
+#: admin/views/dashboard.php:209
 msgid "Your most linked-to posts"
 msgstr "가장 많이 링크된 글"
 
-#: admin/views/dashboard.php:200
+#: admin/views/dashboard.php:210
 msgid "The pages your own site points to most. Search engines treat these as your most important pages."
 msgstr "내 사이트가 가장 많이 가리키는 페이지입니다. 검색엔진은 이 페이지들을 가장 중요한 페이지로 봅니다."
 
-#: admin/views/dashboard.php:201
+#: admin/views/dashboard.php:211
 msgid "All posts"
 msgstr "모든 글"
 
-#: admin/views/dashboard.php:206
+#: admin/views/dashboard.php:216
 msgid "No internal links yet"
 msgstr "아직 내부 링크가 없습니다"
 
-#: admin/views/dashboard.php:206
+#: admin/views/dashboard.php:216
 msgid "Once your posts link to each other, the busiest pages show up here."
 msgstr "글끼리 링크하기 시작하면 링크가 가장 많은 페이지가 여기에 나타납니다."
 
 #. translators: %s: number of links.
-#: admin/views/dashboard.php:217
+#: admin/views/dashboard.php:227
 #, php-format
 msgid "%s link"
 msgid_plural "%s links"
@@ -1203,12 +1211,12 @@ msgid "A notice at the top of the screen takes you to the box, in Linkweave Sett
 msgstr "화면 상단의 알림을 누르면 Linkweave 설정의 라이선스 항목에 있는 입력란으로 이동합니다. 키는 구매 확인 이메일에 있습니다."
 
 #. translators: %s: the database's error message
-#: includes/class-index-builder.php:269
+#: includes/class-index-builder.php:337
 #, php-format
 msgid "The index table could not be created, so nothing can be indexed. The database said: %s"
 msgstr "색인 테이블을 만들지 못해 아무것도 색인할 수 없습니다. 데이터베이스 메시지: %s"
 
-#: includes/class-index-builder.php:270
+#: includes/class-index-builder.php:338
 msgid "no reason given"
 msgstr "이유가 표시되지 않음"
 
@@ -1392,8 +1400,8 @@ msgid "No rules yet"
 msgstr "아직 규칙이 없습니다"
 
 #: admin/assets/js/admin.js:358
-msgid "A rule links one phrase to one page everywhere it appears. Add your first one on the right."
-msgstr "규칙은 한 문구를 그 문구가 나오는 모든 곳에서 한 페이지로 링크합니다. 오른쪽에서 첫 규칙을 추가하세요."
+msgid "A rule links one phrase to one page everywhere it appears. Add your first one with the form."
+msgstr "규칙은 한 문구를 그 문구가 나오는 모든 곳에서 한 페이지로 링크합니다. 양식에서 첫 규칙을 추가하세요."
 
 #: admin/assets/js/admin.js:360
 msgid "Add a rule"
@@ -1626,32 +1634,32 @@ msgstr "응답 없음"
 msgid "Page missing"
 msgstr "페이지 없음"
 
-#: admin/assets/js/admin.js:806
+#: admin/assets/js/admin.js:809
 msgid "Found in"
 msgstr "발견 위치"
 
-#: admin/assets/js/admin.js:806
+#: admin/assets/js/admin.js:809
 msgid "Points at"
 msgstr "연결 대상"
 
-#: admin/assets/js/admin.js:806
+#: admin/assets/js/admin.js:809
 msgid "Link text"
 msgstr "링크 텍스트"
 
-#: admin/assets/js/admin.js:806
+#: admin/assets/js/admin.js:809
 msgid "Checked"
 msgstr "확인 시각"
 
-#: admin/assets/js/admin.js:851
+#: admin/assets/js/admin.js:854
 msgid "Saving…"
 msgstr "저장하는 중…"
 
-#: admin/assets/js/admin.js:855
 #: admin/assets/js/admin.js:858
+#: admin/assets/js/admin.js:861
 msgid "Settings saved."
 msgstr "설정을 저장했습니다."
 
-#: admin/assets/js/admin.js:858
+#: admin/assets/js/admin.js:861
 msgid "The index is being rebuilt in the background so the change reaches every post."
 msgstr "변경 사항이 모든 글에 반영되도록 백그라운드에서 색인을 다시 만들고 있습니다."
 
@@ -1826,6 +1834,9 @@ msgstr "색인 만들기"
 #: editor/src/SuggestionList.jsx:296
 msgid "Already built it? Save this post, then refresh."
 msgstr "이미 만드셨나요? 이 글을 저장한 다음 새로 고치세요."
+
+#~ msgid "A rule links one phrase to one page everywhere it appears. Add your first one on the right."
+#~ msgstr "규칙은 한 문구를 그 문구가 나오는 모든 곳에서 한 페이지로 링크합니다. 오른쪽에서 첫 규칙을 추가하세요."
 
 #~ msgid "Unlink every broken internal link? This edits the affected posts."
 #~ msgstr "깨진 내부 링크를 모두 해제할까요? 해당 글이 수정됩니다."

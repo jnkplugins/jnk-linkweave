@@ -72,8 +72,16 @@ class Bm25 {
     /**
      * Score a candidate document against a source post's term set.
      *
-     * @param array<string,mixed> $source_terms presence set of the source's terms
-     *        (keys used; values ignored) — standard BM25 counts each query term once.
+     * Each source term counts in proportion to how much the source uses it
+     * (its stored tf-idf weight over its IDF, i.e. its share of the source's
+     * words). Counting every source term once let a word from a single link
+     * or passing mention weigh as much as the post's subject: a post that
+     * names "Mahabharat" 17 times and "Kalki" once in a link got nine Kalki
+     * posts, and an English post with one Hindi link got Hindi posts
+     * (QA 28 Oct 2026). On the deep-QA site this raised top-10 suggestions
+     * about the same show from 15% to 75% for English posts.
+     *
+     * @param array<string,float> $source_terms source's stored tf-idf vector
      * @param array<string,float>  $cand_vector  candidate's stored tf-idf vector
      * @param int                  $cand_words   candidate's word_count (|D|)
      */
@@ -102,7 +110,12 @@ class Bm25 {
             if ( $f <= 0 ) {
                 continue;
             }
-            $score += $idf * ( $f * ( self::K1 + 1 ) ) / ( $f + self::K1 * $len_norm );
+            // How much of the source is this term (its tf share).
+            $query_weight = (float) $source_terms[ $term ] / $idf;
+            if ( $query_weight <= 0 ) {
+                continue;
+            }
+            $score += $query_weight * $idf * ( $f * ( self::K1 + 1 ) ) / ( $f + self::K1 * $len_norm );
         }
         return $score;
     }

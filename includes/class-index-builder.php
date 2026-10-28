@@ -19,25 +19,93 @@ class Index_Builder {
      * What the index is built from. 2 = the title (counted twice) plus the body.
      * Format 1 read the body only, so a post's own title said nothing about its
      * topic and suggestions matched on whatever words the bodies shared.
+     * 3 = Chinese, Japanese and Korean text in two-character pieces, and Hindi
+     * and other Indic words kept whole with their vowel signs, plus Hindi
+     * stopwords and stemming (see Tokenizer); link text left out of the body.
+     * A site with none of that script and no links keeps its index.
      */
-    public const INDEX_FORMAT        = 2;
+    public const INDEX_FORMAT        = 3;
     public const INDEX_FORMAT_OPTION = "jnk_linkweave_index_format";
 
-    /** The text a post is indexed by: title twice, then the body. */
+    /**
+     * The text a post is indexed by: title twice, then the body without the
+     * text of its links. Link text names the page it points at, not this post:
+     * an English post with one link titled in Hindi was matched to Hindi posts
+     * on the words of that title (QA 28 Oct 2026).
+     */
     public static function index_text( \WP_Post $post, ?string $content = null ): string {
         $title = wp_strip_all_tags( (string) $post->post_title );
-        return $title . "\n" . $title . "\n" . ( null === $content ? (string) $post->post_content : $content );
+        $body  = null === $content ? (string) $post->post_content : $content;
+        if ( false !== stripos( $body, "<a" ) ) {
+            $body = (string) preg_replace( "~<a\\b[^>]*>.*?</a\\s*>~is", " ", $body );
+        }
+        return $title . "\n" . $title . "\n" . $body;
     }
 
-    /** An index built in an older format is rebuilt once, in the background. */
+    /**
+     * An index built in an older format is rebuilt once, in the background. Going
+     * from 2 to 3 changes nothing for text without Chinese, Japanese, Korean or
+     * Indic script and without links, so that step rebuilds only when there is some.
+     */
     public static function maybe_rebuild_for_format(): void {
-        if ( (int) get_option( self::INDEX_FORMAT_OPTION, 1 ) >= self::INDEX_FORMAT ) {
+        $stored = (int) get_option( self::INDEX_FORMAT_OPTION, 1 );
+        if ( $stored >= self::INDEX_FORMAT ) {
             return;
         }
         update_option( self::INDEX_FORMAT_OPTION, self::INDEX_FORMAT, false );
-        if ( self::indexed_count() > 0 ) {
+        if ( ( $stored < 2 && self::indexed_count() > 0 ) || self::site_needs_format_3() || self::site_has_links() ) {
             self::schedule_rebuild();
         }
+    }
+
+    /** Does any indexed published post contain a link? One indexed lookup. */
+    public static function site_has_links(): bool {
+        global $wpdb;
+        $settings   = get_option( "jnk_linkweave_settings", [] );
+        $post_types = array_values( array_filter( array_map( "sanitize_key", (array) apply_filters(
+            "jnk_linkweave_suggestion_post_types",
+            $settings["post_types"] ?? [ "post", "page" ]
+        ) ) ) );
+        if ( ! $post_types ) {
+            return false;
+        }
+        $in = implode( ",", array_fill( 0, count( $post_types ), "%s" ) );
+        return (bool) $wpdb->get_var( $wpdb->prepare(
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- IN() list built from %s placeholders.
+            "SELECT 1 FROM %i WHERE post_status = 'publish' AND post_type IN ($in) AND post_content LIKE %s LIMIT 1",
+            array_merge( [ $wpdb->posts ], $post_types, [ "%<a %" ] )
+        ) );
+    }
+
+    /**
+     * Does the site write in Chinese, Japanese, Korean, Hindi or another Indic
+     * language? Cheap checks only: the site language, the words of the last
+     * full index, and the latest posts.
+     */
+    public static function site_needs_format_3(): bool {
+        if ( preg_match( "/^(ko|ja|zh|hi|mr|ne|bn|as|pa|gu|or|ta|te|kn|ml|si|th|lo|km|my|bo)(_|$)/", (string) get_locale() ) ) {
+            return true;
+        }
+        $idf = get_option( "jnk_linkweave_idf", [] );
+        if ( is_array( $idf ) && $idf && Tokenizer::is_cjk_or_indic( implode( " ", array_keys( $idf ) ) ) ) {
+            return true;
+        }
+        global $wpdb;
+        $settings   = get_option( "jnk_linkweave_settings", [] );
+        $post_types = array_values( array_filter( array_map( "sanitize_key", (array) apply_filters(
+            "jnk_linkweave_suggestion_post_types",
+            $settings["post_types"] ?? [ "post", "page" ]
+        ) ) ) );
+        if ( ! $post_types ) {
+            return false;
+        }
+        $in    = implode( ",", array_fill( 0, count( $post_types ), "%s" ) );
+        $texts = $wpdb->get_col( $wpdb->prepare(
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- IN() list built from %s placeholders.
+            "SELECT CONCAT(post_title, ' ', LEFT(post_content, 2000)) FROM %i WHERE post_status = 'publish' AND post_type IN ($in) ORDER BY ID DESC LIMIT 50",
+            array_merge( [ $wpdb->posts ], $post_types )
+        ) );
+        return Tokenizer::is_cjk_or_indic( implode( " ", (array) $texts ) );
     }
 
     public static function register_hooks(): void {
@@ -366,7 +434,7 @@ class Index_Builder {
         $language = (string) ( $settings["language"] ?? "en" );
 
         $built = self::vector_for_content( self::index_text( $post ), $language );
-        if ( $built["words"] < $min_words ) {
+        if ( $built["indexable"] < $min_words ) {
             self::delete( $post_id );
             return false;
         }
@@ -397,7 +465,10 @@ class Index_Builder {
      * rebuild. index_post() stores it; the suggestion engine also uses it for
      * drafts, which are not in the index until they are published.
      *
-     * @return array{vector: array<string,float>, norm: float, words: int}
+     * "words" is the token count the vector is normalised by (BM25 needs it);
+     * "indexable" is the word count the minimum post length is checked against.
+     *
+     * @return array{vector: array<string,float>, norm: float, words: int, indexable: int}
      */
     public static function vector_for_content( string $content, string $language = "en" ): array {
         $tokens = Tokenizer::tokenize( $content, $language );
@@ -409,7 +480,12 @@ class Index_Builder {
         }
         arsort( $vector );
         $vector = array_slice( $vector, 0, self::TOP_TERMS, true );
-        return [ "vector" => $vector, "norm" => self::l2_norm( $vector ), "words" => count( $tokens ) ];
+        return [
+            "vector"    => $vector,
+            "norm"      => self::l2_norm( $vector ),
+            "words"     => count( $tokens ),
+            "indexable" => Tokenizer::word_count( $tokens ),
+        ];
     }
 
     public static function delete( int $post_id ): void {
@@ -537,7 +613,7 @@ class Index_Builder {
                 continue;
             }
             $tokens = Tokenizer::tokenize( self::index_text( $post ), $language );
-            if ( count( $tokens ) < $min_words ) {
+            if ( Tokenizer::word_count( $tokens ) < $min_words ) {
                 // Too short to index — keep membership consistent with
                 // index_post() by dropping any stale row and excluding it from
                 // the corpus statistics and vector writes.

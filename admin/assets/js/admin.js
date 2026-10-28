@@ -349,13 +349,13 @@
                     <td><a href="${ escape( r.target_url ) }" target="_blank" rel="noopener">${ escape( r.target_url.replace( /^https?:\/\/[^/]+/, "" ) || r.target_url ) }</a></td>
                     <td>${ flag( r.paused_needs_pro ) ? `<span class="jnkui-pill is-warn" title="${ escape( __( "Its settings are kept. It runs again when the Pro version is back.", "jnk-linkweave" ) ) }">${ __( "Paused", "jnk-linkweave" ) }</span>` : flag( r.is_active ) ? `<span class="jnkui-pill is-ok">${ __( "On", "jnk-linkweave" ) }</span>` : `<span class="jnkui-pill">${ __( "Paused", "jnk-linkweave" ) }</span>` }</td>
                     <td class="is-num">${ flag( r.paused_needs_pro ) ? 0 : ( r.applied_count || 0 ) }</td>
-                    <td style="text-align:right;white-space:nowrap"><button class="button button-small" data-action="edit-rule">${ __( "Edit", "jnk-linkweave" ) }</button> <button class="button button-small is-danger" data-action="delete-rule">${ __( "Delete", "jnk-linkweave" ) }</button></td>
+                    <td style="text-align:end;white-space:nowrap"><button class="button button-small" data-action="edit-rule">${ __( "Edit", "jnk-linkweave" ) }</button> <button class="button button-small is-danger" data-action="delete-rule">${ __( "Delete", "jnk-linkweave" ) }</button></td>
                 </tr>` ).join( "" );
             rulesMount.innerHTML = `
-                <div class="jnkui-grid-2" style="grid-template-columns:1.7fr 1fr;align-items:start">
+                <div class="jnkui-grid-2 jnk-rules-grid">
                 <div class="jnkui-table-wrap"><table class="jnk-linkweave-table">
                     <thead><tr><th>${ __( "Phrase", "jnk-linkweave" ) }</th><th>${ __( "Links to", "jnk-linkweave" ) }</th><th>${ __( "Status", "jnk-linkweave" ) }</th><th class="is-num"><span title="${ escape( __( "Links this rule adds across your published posts right now. Mentions already inside a link, a heading or code, and mentions on the target page itself, are skipped, so 0 can be correct.", "jnk-linkweave" ) ) }">${ __( "Links added", "jnk-linkweave" ) }</span></th><th></th></tr></thead>
-                    <tbody>${ rows || `<tr><td colspan="5"><div class="jnkui-empty" style="border:0"><h3>${ __( "No rules yet", "jnk-linkweave" ) }</h3><p>${ __( "A rule links one phrase to one page everywhere it appears. Add your first one on the right.", "jnk-linkweave" ) }</p></div></td></tr>` }</tbody>
+                    <tbody>${ rows || `<tr><td colspan="5"><div class="jnkui-empty" style="border:0"><h3>${ __( "No rules yet", "jnk-linkweave" ) }</h3><p>${ __( "A rule links one phrase to one page everywhere it appears. Add your first one with the form.", "jnk-linkweave" ) }</p></div></td></tr>` }</tbody>
                 </table></div>
                 <div class="jnkui-card"><div class="jnkui-card-head"><div><h2>${ __( "Add a rule", "jnk-linkweave" ) }</h2><p>${ __( "Linkweave links this phrase wherever it appears in your posts.", "jnk-linkweave" ) }</p></div></div>
                 <form id="jnk-linkweave-add-rule" class="jnkui-card-body" onsubmit="return false;" style="display:grid;gap:14px">
@@ -367,7 +367,7 @@
                         <label><input type="checkbox" name="open_in_new_tab" value="1"> ${ __( "Open in a new tab", "jnk-linkweave" ) }</label>
                         <label title="${ escape( __( "Tells search engines not to pass ranking credit through this link", "jnk-linkweave" ) ) }"><input type="checkbox" name="nofollow" value="1"> nofollow</label>
                     </div>
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px">
                         <label class="jnkui-field"><span>${ __( "Most per post", "jnk-linkweave" ) }</span><input type="number" name="max_per_post" value="1" min="1"></label>
                         <label class="jnkui-field"><span>${ __( "Most across the site", "jnk-linkweave" ) }</span><input type="number" name="max_per_site" value="0" min="0" title="${ escape( __( "0 means no limit", "jnk-linkweave" ) ) }"></label>
                     </div>
@@ -404,9 +404,9 @@
                                 </p>
                                 <p>
                                     <label><input type="checkbox" name="case_sensitive" ${ flag( r.case_sensitive ) ? "checked" : "" }> ${ __( "Match capital letters", "jnk-linkweave" ) }</label>
-                                    <label style="margin-left:12px;"><input type="checkbox" name="open_in_new_tab" ${ flag( r.open_in_new_tab ) ? "checked" : "" }> ${ __( "Open in a new tab", "jnk-linkweave" ) }</label>
-                                    <label style="margin-left:12px;"><input type="checkbox" name="nofollow" ${ flag( r.nofollow ) ? "checked" : "" }> nofollow</label>
-                                    <label style="margin-left:12px;"><input type="checkbox" name="is_active" ${ flag( r.is_active ) ? "checked" : "" }> ${ __( "On", "jnk-linkweave" ) }</label>
+                                    <label style="margin-inline-start:12px;"><input type="checkbox" name="open_in_new_tab" ${ flag( r.open_in_new_tab ) ? "checked" : "" }> ${ __( "Open in a new tab", "jnk-linkweave" ) }</label>
+                                    <label style="margin-inline-start:12px;"><input type="checkbox" name="nofollow" ${ flag( r.nofollow ) ? "checked" : "" }> nofollow</label>
+                                    <label style="margin-inline-start:12px;"><input type="checkbox" name="is_active" ${ flag( r.is_active ) ? "checked" : "" }> ${ __( "On", "jnk-linkweave" ) }</label>
                                 </p>
                                 <p>
                                     ${ __( "Most per post", "jnk-linkweave" ) } <input type="number" name="max_per_post" value="${ parseInt( r.max_per_post || 1, 10 ) }" min="1" style="width:60px;">
@@ -802,8 +802,11 @@
                         + `<td style="white-space:nowrap">${ escape( fmtDate( r.last_checked ) ) }</td>`
                         + `</tr>`;
                 } ).join( "" );
+                // In a scroll box of its own: on a phone the wide table pushed the
+                // whole page sideways, and in Arabic or Hebrew the page opened on
+                // blank space with the title off screen.
                 brokenMount.innerHTML = summary +
-                    '<table class="jnk-linkweave-table"><thead><tr><th>' + __( "Found in", "jnk-linkweave" ) + "</th><th>" + __( "Points at", "jnk-linkweave" ) + "</th><th>" + __( "Link text", "jnk-linkweave" ) + "</th><th>" + __( "Status", "jnk-linkweave" ) + "</th><th>" + __( "Checked", "jnk-linkweave" ) + "</th></tr></thead><tbody>" + rows + "</tbody></table>";
+                    '<div class="jnkui-table-wrap"><table class="jnk-linkweave-table"><thead><tr><th>' + __( "Found in", "jnk-linkweave" ) + "</th><th>" + __( "Points at", "jnk-linkweave" ) + "</th><th>" + __( "Link text", "jnk-linkweave" ) + "</th><th>" + __( "Status", "jnk-linkweave" ) + "</th><th>" + __( "Checked", "jnk-linkweave" ) + "</th></tr></thead><tbody>" + rows + "</tbody></table></div>";
 
                 // Let the Pro bundle (if present) add one-click repair controls.
                 document.dispatchEvent( new CustomEvent( "jnk_linkweave:broken-rendered", {

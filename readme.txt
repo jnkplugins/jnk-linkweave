@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.2
-Stable tag: 1.16.0
+Stable tag: 1.17.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -168,6 +168,19 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.17.0 =
+* Fixed: Korean, Japanese and Chinese posts now get related-post suggestions. Two-syllable Korean words count, and Japanese or Chinese posts of normal length are no longer "too short to index".
+* Fixed: Hindi posts now get related-post suggestions. Words are no longer cut apart at their vowel signs, common words like है and में are ignored, and other forms of a word match.
+* Fixed: auto-link rules and suggested links now work on a word followed by a Korean or Japanese ending (링크를, 内部リンクを) and inside unspaced Chinese or Japanese text.
+* Fixed: a heading and the paragraph after it no longer run together into one word when posts are indexed.
+* Fixed: shared words in suggestions read as whole words in Korean, Japanese, Chinese and Hindi.
+* Fixed: Linkweave screens no longer scroll sideways in Arabic and Hebrew, and tables, menus and the editor sidebar line up right to left.
+* Fixed: on a phone the Broken links, Anchor text, rules and Orphans pages fit the screen. In Arabic or Hebrew the Broken links page used to open on blank space.
+* Changed: suggestions now follow what a post is about. A word it uses once, or the text of a link to another post, no longer decides the list. On our mixed English and Hindi test site, suggestions about the same show went from about 1 in 7 to 4 in 5.
+* Fixed: Hindi words such as आपने no longer show as shared words.
+* Fixed: while the index updates, the Overview keeps showing your indexed posts instead of "reading your posts for the first time" with 0 posts.
+* Note: after the update Linkweave rebuilds its index once in the background (about 3 seconds per 1,000 posts on our test site). Suggestions keep working from the old index until it is done.
 
 = 1.16.0 =
 * Fixed: during a long check the Broken links page could stop at "Rate limit exceeded." and keep calling the server, which locked you out of Linkweave screens for a minute. It now waits and carries on.

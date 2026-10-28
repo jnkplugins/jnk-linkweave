@@ -9,9 +9,14 @@ class Rules_Engine {
     /** Elements whose text never gets a link: links, code, headings, forms, scripts. */
     public const PROTECTED_TAGS = "a|code|pre|h[1-6]|form|label|button|select|option|textarea|script|style";
 
-    /** Keyword edges for patterns with the u flag: no letter, mark or digit beside it. */
-    public const WORD_START = "(?<![\\p{L}\\p{M}\\p{N}])";
-    public const WORD_END   = "(?![\\p{L}\\p{M}\\p{N}])";
+    /**
+     * Keyword edges for patterns with the u flag: no letter, mark or digit beside
+     * it. Chinese, Japanese and Korean characters do not count: those languages
+     * write words without spaces or with endings attached (내부 링크를,
+     * 内部リンクを設置, WordPressのプラグイン), so a rule never fired there.
+     */
+    public const WORD_START = "(?<!(?![" . Tokenizer::CJK_CLASS . "])[\\p{L}\\p{M}\\p{N}])";
+    public const WORD_END   = "(?!(?![" . Tokenizer::CJK_CLASS . "])[\\p{L}\\p{M}\\p{N}])";
 
     /**
      * A whole protected element. The name must end at a space, ">" or "/":

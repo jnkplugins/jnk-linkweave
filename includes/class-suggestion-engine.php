@@ -82,7 +82,7 @@ class Suggestion_Engine {
         }
         $min_words = (int) apply_filters( "jnk_linkweave_min_post_length", (int) ( $opts["min_post_length"] ?? 40 ) );
         $built     = Index_Builder::vector_for_content( Index_Builder::index_text( $post, $content ), (string) ( $opts["language"] ?? "en" ) );
-        if ( $built["words"] < $min_words || ! $built["vector"] ) {
+        if ( $built["indexable"] < $min_words || ! $built["vector"] ) {
             return null;
         }
         return [
@@ -131,10 +131,11 @@ class Suggestion_Engine {
         }
 
         // Stem => the word the author actually wrote, so shared terms are readable.
-        $surface = Tokenizer::surface_forms(
-            $content,
-            (string) ( $opts["language"] ?? "en" )
-        );
+        // The title is indexed too, so it is read too: a word only in the title
+        // ("ओटीटी") was shown as its stem ("ओटीट").
+        $label_text = Index_Builder::index_text( $post, $content );
+        $surface    = Tokenizer::surface_forms( $label_text, (string) ( $opts["language"] ?? "en" ) );
+        $cjk_runs   = Tokenizer::cjk_runs( $label_text );
 
         $scored = [];
         foreach ( $base as $b ) {
@@ -153,7 +154,7 @@ class Suggestion_Engine {
             $scored[] = [
                 "target_id"     => (int) $row["post_id"],
                 "score"         => $score,
-                "matched_terms" => $this->matched_terms( $source["vector"], $row["vector"], 5, $surface ),
+                "matched_terms" => $this->matched_terms( $source["vector"], $row["vector"], 5, $surface, $cjk_runs ),
             ];
         }
 
@@ -247,10 +248,10 @@ class Suggestion_Engine {
 
         // Stems ("cach", "redi") read like a rendering fault; show the words the
         // author actually wrote, as the suggestions panel already does.
-        $surface = Tokenizer::surface_forms(
-            (string) get_post_field( "post_content", $post_id ),
-            (string) ( $opts["language"] ?? "en" )
-        );
+        $target_post    = get_post( $post_id );
+        $target_content = $target_post ? Index_Builder::index_text( $target_post ) : "";
+        $surface        = Tokenizer::surface_forms( $target_content, (string) ( $opts["language"] ?? "en" ) );
+        $cjk_runs       = Tokenizer::cjk_runs( $target_content );
 
         $scored = [];
         foreach ( $base as $b ) {
@@ -260,7 +261,7 @@ class Suggestion_Engine {
             $scored[] = [
                 "target_id"     => (int) $b["row"]["post_id"], // the would-be *source*
                 "score"         => $b["score"],
-                "matched_terms" => $this->matched_terms( $target["vector"], $b["row"]["vector"], 5, $surface ),
+                "matched_terms" => $this->matched_terms( $target["vector"], $b["row"]["vector"], 5, $surface, $cjk_runs ),
             ];
         }
         usort( $scored, static fn( $a, $b ) => $b["score"] <=> $a["score"] );
@@ -316,8 +317,12 @@ class Suggestion_Engine {
      * $surface maps stem => the word that produced it in the source post. Matching
      * still happens on stems; only the label changes, so "dissolv" reads as
      * "dissolved" and "ran" as "range".
+     *
+     * Chinese, Japanese and Korean text is matched in two-character pieces; a
+     * label joins the shared pieces back into the stretch of the source text
+     * they came from ("내부" + "부링" + "링크" -> "내부링크"), using $cjk_runs.
      */
-    private function matched_terms( array $a, array $b, int $limit = 5, array $surface = [] ): array {
+    private function matched_terms( array $a, array $b, int $limit = 5, array $surface = [], array $cjk_runs = [] ): array {
         $shared = [];
         foreach ( $a as $term => $score ) {
             if ( isset( $b[ $term ] ) ) {
@@ -326,10 +331,24 @@ class Suggestion_Engine {
         }
         arsort( $shared );
 
-        $out = [];
+        $out    = [];
+        $labels = null;
         foreach ( array_keys( $shared ) as $stem ) {
             if ( Bm25::is_common( (string) $stem ) ) {
                 continue; // in a third of the site's posts: says nothing about these two
+            }
+            if ( Tokenizer::is_cjk( (string) $stem ) ) {
+                if ( null === $labels ) {
+                    $labels = Tokenizer::cjk_labels( $cjk_runs, $shared );
+                }
+                $word = (string) ( $labels[ $stem ] ?? $stem );
+                if ( mb_strlen( $word ) >= 2 && ! in_array( $word, $out, true ) ) {
+                    $out[] = $word;
+                }
+                if ( count( $out ) >= $limit ) {
+                    break;
+                }
+                continue;
             }
             $word = (string) ( $surface[ $stem ] ?? $stem );
             // The label explains the match to a person, so skip words that explain
@@ -585,7 +604,7 @@ class Suggestion_Engine {
         }
 
         $tokens        = Tokenizer::tokenize( wp_strip_all_tags( (string) $post->post_content ), (string) ( $opts["language"] ?? "en" ) );
-        $out["words"]  = count( $tokens );
+        $out["words"]  = Tokenizer::word_count( $tokens );
 
         // Drafts, pending and scheduled posts are indexed when they are published, so
         // "normally picked up within a minute" was untrue for them.

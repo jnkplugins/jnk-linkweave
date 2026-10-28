@@ -81,6 +81,20 @@ const STOPWORDS = new Set(
 	).split( ' ' )
 );
 
+/**
+ * Chinese, Japanese and Korean characters. These languages attach particles
+ * and endings to a word or use no spaces at all, so a neighbouring character
+ * from them is not a word edge, and each one counts twice towards the minimum
+ * phrase length ("주식 투자" is a real five-character phrase).
+ */
+const CJK =
+	'\\p{Script=Han}\\p{Script=Hiragana}\\p{Script=Katakana}\\p{Script=Hangul}\\u3005\\u3006\\u30FC';
+const CJK_CHAR = new RegExp( `[${ CJK }]`, 'gu' );
+
+function phraseWeight( phrase ) {
+	return phrase.length + ( phrase.match( CJK_CHAR ) || [] ).length;
+}
+
 function escapeHtml( s ) {
 	return String( s )
 		.replace( /&/g, '&amp;' )
@@ -125,7 +139,7 @@ export function titlePhrases( title ) {
 					}
 					const phrase = slice.join( ' ' );
 					if (
-						phrase.length >= 6 &&
+						phraseWeight( phrase ) >= 6 &&
 						! found.has( phrase.toLowerCase() )
 					) {
 						found.set( phrase.toLowerCase(), { phrase, n } );
@@ -153,13 +167,13 @@ function findPhraseRange( value, suggestion ) {
 			.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' )
 			.replace( /\s+/g, '\\s+' );
 		const re = new RegExp(
-			`(^|[^\\p{L}\\p{N}])(${ escaped })(?=$|[^\\p{L}\\p{N}])`,
+			`(?<!(?![${ CJK }])[\\p{L}\\p{N}])(${ escaped })(?!(?![${ CJK }])[\\p{L}\\p{N}])`,
 			'giu'
 		);
 		let m;
 		while ( ( m = re.exec( text ) ) !== null ) {
-			const start = m.index + m[ 1 ].length;
-			const end = start + m[ 2 ].length;
+			const start = m.index;
+			const end = start + m[ 1 ].length;
 			let clean = true;
 			for ( let i = start; i < end; i++ ) {
 				if (

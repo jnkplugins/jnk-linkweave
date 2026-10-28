@@ -22,7 +22,7 @@ unset( $public_types["attachment"] ); // media has no linkable body content
 ?>
     <?php if ( has_action( "jnk_linkweave_settings_after" ) ) : ?>
         <?php // The license card sits under the settings; the same jump link as in every JnK plugin. ?>
-        <p style="margin:0 0 8px;text-align:right"><a href="#lp-jnk-linkweave-license"><?php esc_html_e( "License", "jnk-linkweave" ); ?> &darr;</a></p>
+        <p style="margin:0 0 8px;text-align:end"><a href="#lp-jnk-linkweave-license"><?php esc_html_e( "License", "jnk-linkweave" ); ?> &darr;</a></p>
     <?php endif; ?>
     <form id="jnk-linkweave-settings-form" onsubmit="return false;">
         <h2 class="jnkui-section-title"><?php esc_html_e( "What Linkweave reads", "jnk-linkweave" ); ?></h2>
@@ -34,7 +34,7 @@ unset( $public_types["attachment"] ); // media has no linkable body content
                 <td>
                     <fieldset id="jnk-linkweave-post-types">
                         <?php foreach ( $public_types as $type ) : ?>
-                            <label style="margin-right:14px;">
+                            <label style="margin-inline-end:14px;">
                                 <input type="checkbox" name="post_types[]" value="<?php echo esc_attr( $type->name ); ?>" <?php checked( in_array( $type->name, $selected_types, true ) ); ?>>
                                 <?php echo esc_html( $type->labels->name ?: $type->name ); ?>
                             </label>

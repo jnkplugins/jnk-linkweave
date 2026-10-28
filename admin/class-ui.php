@@ -86,7 +86,7 @@ class UI {
             . "<b>" . esc_html__( "Linkweave", "jnk-linkweave" ) . "</b>"
             . '<span class="jnkui-ver">' . esc_html( "v" . JNK_LINKWEAVE_VERSION ) . "</span>"
             // Says Pro is on, rather than leaving people to infer it from tabs that unlock.
-            . ( \JnkLinkweave\Rules_Engine::is_pro() ? '<span class="jnkui-pro-badge" style="margin-left:6px;padding:1px 7px;border-radius:999px;background:#4f46e5;color:#fff;font-size:11px;font-weight:600;letter-spacing:.02em;vertical-align:middle">Pro</span>' : "" )
+            . ( \JnkLinkweave\Rules_Engine::is_pro() ? '<span class="jnkui-pro-badge" style="margin-inline-start:6px;padding:1px 7px;border-radius:999px;background:#4f46e5;color:#fff;font-size:11px;font-weight:600;letter-spacing:.02em;vertical-align:middle">Pro</span>' : "" )
             . "</a>";
 
         echo '<nav class="jnkui-tabs" aria-label="' . esc_attr__( "Linkweave sections", "jnk-linkweave" ) . '">';
