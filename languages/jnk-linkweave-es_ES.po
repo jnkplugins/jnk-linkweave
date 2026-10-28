@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-10-28T12:12:12+00:00\n"
+"POT-Creation-Date: 2026-10-28T12:57:05+00:00\n"
 "PO-Revision-Date: 2026-10-10 16:38+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Spanish (Spain)\n"
@@ -150,7 +150,7 @@ msgid "Skip and deactivate"
 msgstr "Omitir y desactivar"
 
 #: pro/licensorpro-client/licensorpro-client.php:1245
-#: admin/assets/js/admin.js:418
+#: admin/assets/js/admin.js:419
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -263,8 +263,8 @@ msgid "no longer active (refunded or cancelled)"
 msgstr "ya no está activa (reembolsada o cancelada)"
 
 #: pro/licensorpro-client/licensorpro-client.php:1786
-#: admin/assets/js/admin.js:357
-#: admin/assets/js/admin.js:809
+#: admin/assets/js/admin.js:358
+#: admin/assets/js/admin.js:810
 msgid "Status"
 msgstr "Estado"
 
@@ -518,7 +518,7 @@ msgstr[1] "%d enlaces internos apuntan aquí"
 
 #. translators: %d: number of links in.
 #: admin/class-posts-column.php:79
-#: admin/assets/js/admin.js:576
+#: admin/assets/js/admin.js:577
 #, php-format
 msgid "%d in"
 msgid_plural "%d in"
@@ -617,7 +617,7 @@ msgid "Links in your posts that lead to a page that no longer exists. Linkweave 
 msgstr "Enlaces de tus entradas que llevan a una página que ya no existe. Linkweave los comprueba cada día; también puedes comprobarlos ahora mismo."
 
 #: admin/views/dashboard.php:52
-#: admin/assets/js/admin.js:213
+#: admin/assets/js/admin.js:214
 msgid "Run now"
 msgstr "Ejecutar ahora"
 
@@ -662,13 +662,13 @@ msgid "Posts Linkweave knows"
 msgstr "Entradas que Linkweave conoce"
 
 #: admin/views/dashboard.php:90
-#: admin/assets/js/admin.js:198
+#: admin/assets/js/admin.js:199
 msgid "Queued, waiting for WordPress to start it"
 msgstr "En cola, esperando a que WordPress la inicie"
 
 #. translators: 1: posts read so far, 2: total posts.
 #: admin/views/dashboard.php:94
-#: admin/assets/js/admin.js:205
+#: admin/assets/js/admin.js:206
 #, php-format
 msgid "Reading posts %1$d of %2$d"
 msgstr "Leyendo entradas: %1$d de %2$d"
@@ -842,6 +842,7 @@ msgid "Once your posts link to each other, the busiest pages show up here."
 msgstr "Cuando tus entradas se enlacen entre sí, aquí aparecerán las páginas con más enlaces."
 
 #. translators: %s: number of links.
+#. translators: %s: how many links with these words point to this page.
 #: admin/views/dashboard.php:227
 #, php-format
 msgid "%s link"
@@ -1300,29 +1301,29 @@ msgstr "Relacionada"
 msgid "Loosely related"
 msgstr "Poco relacionada"
 
-#: admin/assets/js/admin.js:583
+#: admin/assets/js/admin.js:584
 msgid "Filter by title…"
 msgstr "Filtrar por título…"
 
-#: admin/assets/js/admin.js:583
+#: admin/assets/js/admin.js:584
 msgid "Filter by title"
 msgstr "Filtrar por título"
 
 #: admin/assets/js/admin.js:76
-#: admin/assets/js/admin.js:502
-#: admin/assets/js/admin.js:573
+#: admin/assets/js/admin.js:503
+#: admin/assets/js/admin.js:574
 msgid "View"
 msgstr "Ver"
 
-#: admin/assets/js/admin.js:342
-#: admin/assets/js/admin.js:479
-#: admin/assets/js/admin.js:559
-#: admin/assets/js/admin.js:765
+#: admin/assets/js/admin.js:343
+#: admin/assets/js/admin.js:480
+#: admin/assets/js/admin.js:560
+#: admin/assets/js/admin.js:766
 msgid "Loading…"
 msgstr "Cargando…"
 
 #: admin/assets/js/admin.js:73
-#: admin/assets/js/admin.js:352
+#: admin/assets/js/admin.js:353
 msgid "Edit"
 msgstr "Editar"
 
@@ -1335,342 +1336,342 @@ msgid "in a moment"
 msgstr "en un momento"
 
 #. translators: 1: posts saved so far, 2: total posts.
-#: admin/assets/js/admin.js:202
+#: admin/assets/js/admin.js:203
 msgid "Saving what it learned: %1$d of %2$d"
 msgstr "Guardando lo aprendido: %1$d de %2$d"
 
-#: admin/assets/js/admin.js:233
+#: admin/assets/js/admin.js:234
 msgid "The last read stopped before it finished."
 msgstr "La última lectura se detuvo antes de terminar."
 
-#: admin/assets/js/admin.js:234
+#: admin/assets/js/admin.js:235
 msgid "The last read failed."
 msgstr "La última lectura falló."
 
-#: admin/assets/js/admin.js:235
-#: admin/assets/js/admin.js:291
-#: admin/assets/js/admin.js:307
+#: admin/assets/js/admin.js:236
+#: admin/assets/js/admin.js:292
+#: admin/assets/js/admin.js:308
 msgid "Run it again now"
 msgstr "Volver a ejecutar ahora"
 
-#: admin/assets/js/admin.js:348
+#: admin/assets/js/admin.js:349
 msgid "Created by the link map. Clearing the map removes it; rules you wrote are never touched."
 msgstr "La creó el mapa de enlaces. Al borrar el mapa se elimina; las reglas que escribiste tú nunca se tocan."
 
-#: admin/assets/js/admin.js:348
+#: admin/assets/js/admin.js:349
 msgid "from link map"
 msgstr "del mapa de enlaces"
 
-#: admin/assets/js/admin.js:348
+#: admin/assets/js/admin.js:349
 msgid "This rule uses Pro options and is paused on the free version."
 msgstr "Esta regla usa opciones Pro y está en pausa en la versión gratuita."
 
-#: admin/assets/js/admin.js:350
+#: admin/assets/js/admin.js:351
 msgid "Its settings are kept. It runs again when the Pro version is back."
 msgstr "Sus ajustes se conservan. Vuelve a funcionar cuando vuelva la versión Pro."
 
-#: admin/assets/js/admin.js:350
+#: admin/assets/js/admin.js:351
 msgid "Paused"
 msgstr "En pausa"
 
-#: admin/assets/js/admin.js:350
-#: admin/assets/js/admin.js:365
-#: admin/assets/js/admin.js:409
+#: admin/assets/js/admin.js:351
+#: admin/assets/js/admin.js:366
+#: admin/assets/js/admin.js:410
 msgid "On"
 msgstr "Activada"
 
-#: admin/assets/js/admin.js:352
+#: admin/assets/js/admin.js:353
 msgid "Delete"
 msgstr "Borrar"
 
-#: admin/assets/js/admin.js:357
-#: admin/assets/js/admin.js:362
+#: admin/assets/js/admin.js:358
+#: admin/assets/js/admin.js:363
 msgid "Phrase"
 msgstr "Frase"
 
-#: admin/assets/js/admin.js:357
-#: admin/assets/js/admin.js:363
+#: admin/assets/js/admin.js:358
+#: admin/assets/js/admin.js:364
 msgid "Links to"
 msgstr "Enlaza a"
 
-#: admin/assets/js/admin.js:357
+#: admin/assets/js/admin.js:358
 msgid "Links this rule adds across your published posts right now. Mentions already inside a link, a heading or code, and mentions on the target page itself, are skipped, so 0 can be correct."
 msgstr "Enlaces que esta regla añade ahora mismo en tus entradas publicadas. Se omiten las menciones que ya están dentro de un enlace, un encabezado o código, y las de la propia página de destino, así que 0 puede ser correcto."
 
-#: admin/assets/js/admin.js:357
+#: admin/assets/js/admin.js:358
 msgid "Links added"
 msgstr "Enlaces añadidos"
 
-#: admin/assets/js/admin.js:358
+#: admin/assets/js/admin.js:359
 msgid "No rules yet"
 msgstr "Aún no hay reglas"
 
-#: admin/assets/js/admin.js:358
+#: admin/assets/js/admin.js:359
 msgid "A rule links one phrase to one page everywhere it appears. Add your first one with the form."
 msgstr "Una regla enlaza una frase a una página allí donde aparezca. Añade la primera con el formulario."
 
-#: admin/assets/js/admin.js:360
+#: admin/assets/js/admin.js:361
 msgid "Add a rule"
 msgstr "Añadir una regla"
 
-#: admin/assets/js/admin.js:360
+#: admin/assets/js/admin.js:361
 msgid "Linkweave links this phrase wherever it appears in your posts."
 msgstr "Linkweave enlaza esta frase allí donde aparezca en tus entradas."
 
-#: admin/assets/js/admin.js:362
+#: admin/assets/js/admin.js:363
 msgid "e.g. internal linking"
 msgstr "p. ej., enlazado interno"
 
-#: admin/assets/js/admin.js:366
-#: admin/assets/js/admin.js:406
+#: admin/assets/js/admin.js:367
+#: admin/assets/js/admin.js:407
 msgid "Match capital letters"
 msgstr "Distinguir mayúsculas"
 
-#: admin/assets/js/admin.js:367
-#: admin/assets/js/admin.js:407
+#: admin/assets/js/admin.js:368
+#: admin/assets/js/admin.js:408
 msgid "Open in a new tab"
 msgstr "Abrir en una pestaña nueva"
 
-#: admin/assets/js/admin.js:368
+#: admin/assets/js/admin.js:369
 msgid "Tells search engines not to pass ranking credit through this link"
 msgstr "Indica a los buscadores que no transmitan valor de posicionamiento a través de este enlace"
 
-#: admin/assets/js/admin.js:371
-#: admin/assets/js/admin.js:412
+#: admin/assets/js/admin.js:372
+#: admin/assets/js/admin.js:413
 msgid "Most per post"
 msgstr "Máximo por entrada"
 
-#: admin/assets/js/admin.js:372
-#: admin/assets/js/admin.js:413
+#: admin/assets/js/admin.js:373
+#: admin/assets/js/admin.js:414
 msgid "Most across the site"
 msgstr "Máximo en todo el sitio"
 
-#: admin/assets/js/admin.js:372
-#: admin/assets/js/admin.js:413
+#: admin/assets/js/admin.js:373
+#: admin/assets/js/admin.js:414
 msgid "0 means no limit"
 msgstr "0 significa sin límite"
 
-#: admin/assets/js/admin.js:375
+#: admin/assets/js/admin.js:376
 msgid "Add rule"
 msgstr "Añadir regla"
 
-#: admin/assets/js/admin.js:382
+#: admin/assets/js/admin.js:383
 msgid "Delete this rule?"
 msgstr "¿Borrar esta regla?"
 
-#: admin/assets/js/admin.js:386
+#: admin/assets/js/admin.js:387
 msgid "Rule deleted."
 msgstr "Regla borrada."
 
-#: admin/assets/js/admin.js:417
+#: admin/assets/js/admin.js:418
 msgid "Save"
 msgstr "Guardar"
 
-#: admin/assets/js/admin.js:439
+#: admin/assets/js/admin.js:440
 msgid "Rule saved."
 msgstr "Regla guardada."
 
-#: admin/assets/js/admin.js:465
+#: admin/assets/js/admin.js:466
 msgid "Rule added."
 msgstr "Regla añadida."
 
-#: admin/assets/js/admin.js:486
+#: admin/assets/js/admin.js:487
 msgid "No orphan posts"
 msgstr "No hay entradas huérfanas"
 
 #. translators: 1: opening link tag to the Overview screen, 2: closing link tag.
-#: admin/assets/js/admin.js:489
+#: admin/assets/js/admin.js:490
 msgid "Every published post has at least one internal link pointing at it. If you have not built the index yet, %1$sdo that on the Overview%2$s first."
 msgstr "Cada entrada publicada tiene al menos un enlace interno que apunta a ella. Si aún no has creado el índice, %1$shazlo primero en el Resumen%2$s."
 
-#: admin/assets/js/admin.js:497
+#: admin/assets/js/admin.js:498
 msgid "%d post needs a link"
 msgid_plural "%d posts need a link"
 msgstr[0] "%d entrada necesita un enlace"
 msgstr[1] "%d entradas necesitan un enlace"
 
-#: admin/assets/js/admin.js:498
+#: admin/assets/js/admin.js:499
 msgid "Linkweave compares each one with the rest of your site and lists the posts that talk about the same thing."
 msgstr "Linkweave compara cada una con el resto de tu sitio y muestra las entradas que tratan el mismo tema."
 
-#: admin/assets/js/admin.js:504
+#: admin/assets/js/admin.js:505
 msgid "Shorter than the minimum length in Settings, so it is never suggested as a link target."
 msgstr "Es más corta que el mínimo de los ajustes, así que nunca se sugiere como destino de un enlace."
 
-#: admin/assets/js/admin.js:504
+#: admin/assets/js/admin.js:505
 msgid "Too short to suggest"
 msgstr "Demasiado corta para sugerirla"
 
-#: admin/assets/js/admin.js:505
-#: admin/assets/js/admin.js:522
+#: admin/assets/js/admin.js:506
+#: admin/assets/js/admin.js:523
 msgid "Find posts that could link here"
 msgstr "Buscar entradas que podrían enlazar aquí"
 
-#: admin/assets/js/admin.js:522
+#: admin/assets/js/admin.js:523
 msgid "Hide"
 msgstr "Ocultar"
 
-#: admin/assets/js/admin.js:525
+#: admin/assets/js/admin.js:526
 msgid "Looking through your posts…"
 msgstr "Revisando tus entradas…"
 
-#: admin/assets/js/admin.js:531
+#: admin/assets/js/admin.js:532
 msgid "No close matches yet. Write a related post and link it here, or add an auto-link rule for this page."
 msgstr "Aún no hay coincidencias cercanas. Escribe una entrada relacionada y enlázala aquí, o añade una regla de enlace automático para esta página."
 
-#: admin/assets/js/admin.js:539
+#: admin/assets/js/admin.js:540
 msgid "How closely the two posts match"
 msgstr "Lo parecidas que son las dos entradas"
 
-#: admin/assets/js/admin.js:540
+#: admin/assets/js/admin.js:541
 msgid "Open"
 msgstr "Abrir"
 
-#: admin/assets/js/admin.js:543
+#: admin/assets/js/admin.js:544
 msgid "Open a post and add the link in the editor."
 msgstr "Abre una entrada y añade el enlace en el editor."
 
-#: admin/assets/js/admin.js:544
+#: admin/assets/js/admin.js:545
 msgid "Pro adds the links for you"
 msgstr "Pro añade los enlaces por ti"
 
-#: admin/assets/js/admin.js:563
+#: admin/assets/js/admin.js:564
 msgid "Nothing to show yet"
 msgstr "Aún no hay nada que mostrar"
 
-#: admin/assets/js/admin.js:563
+#: admin/assets/js/admin.js:564
 msgid "Build the index on the Overview and the counts appear here."
 msgstr "Crea el índice en el Resumen y los recuentos aparecerán aquí."
 
 #. translators: %d: number of posts.
-#: admin/assets/js/admin.js:580
+#: admin/assets/js/admin.js:581
 #: admin/assets/js/linkmap.js:35
 msgid "%d post"
 msgid_plural "%d posts"
 msgstr[0] "%d entrada"
 msgstr[1] "%d entradas"
 
-#: admin/assets/js/admin.js:582
+#: admin/assets/js/admin.js:583
 msgid "%d with no links in, shown in red."
 msgid_plural "%d with no links in, shown in red."
 msgstr[0] "%d sin enlaces entrantes, en rojo."
 msgstr[1] "%d sin enlaces entrantes, en rojo."
 
-#: admin/assets/js/admin.js:582
+#: admin/assets/js/admin.js:583
 msgid "Every post has at least one link in."
 msgstr "Cada entrada tiene al menos un enlace entrante."
 
-#: admin/assets/js/admin.js:618
+#: admin/assets/js/admin.js:619
 msgid "Checking links: %1$d of %2$d…"
 msgstr "Comprobando enlaces: %1$d de %2$d…"
 
-#: admin/assets/js/admin.js:619
-#: admin/assets/js/admin.js:729
+#: admin/assets/js/admin.js:620
+#: admin/assets/js/admin.js:730
 msgid "Collecting your links…"
 msgstr "Reuniendo tus enlaces…"
 
-#: admin/assets/js/admin.js:627
+#: admin/assets/js/admin.js:628
 msgid "The check stopped: a step failed %1$d times in a row (%2$s). Click “Check all links now” to start again."
 msgstr "La comprobación se detuvo: un paso falló %1$d veces seguidas (%2$s). Haz clic en “Comprobar todos los enlaces ahora” para empezar de nuevo."
 
-#: admin/assets/js/admin.js:629
+#: admin/assets/js/admin.js:630
 msgid "The check stopped: a step failed %d times in a row. Click “Check all links now” to start again."
 msgstr "La comprobación se detuvo: un paso falló %d veces seguidas. Haz clic en “Comprobar todos los enlaces ahora” para empezar de nuevo."
 
 #. translators: 1: links checked, 2: links to missing pages, 3: links that did not answer.
-#: admin/assets/js/admin.js:637
+#: admin/assets/js/admin.js:638
 msgid "Done: %1$d links checked, %2$d to missing pages, %3$d did not answer."
 msgstr "Listo: %1$d enlaces comprobados, %2$d a páginas que no existen, %3$d sin respuesta."
 
-#: admin/assets/js/admin.js:639
+#: admin/assets/js/admin.js:640
 msgid "The check stopped before it finished. Click the button to run it again."
 msgstr "La comprobación se detuvo antes de terminar. Haz clic en el botón para volver a ejecutarla."
 
 #. translators: %s: the error message from the site.
-#: admin/assets/js/admin.js:698
+#: admin/assets/js/admin.js:699
 msgid "This page could not go on with the check (%s). It carries on in the background; this line updates when it is done."
 msgstr "Esta página no pudo seguir con la comprobación (%s). Continúa en segundo plano; esta línea se actualiza cuando termine."
 
 #. translators: 1: date and time, 2: number of links checked.
-#: admin/assets/js/admin.js:748
+#: admin/assets/js/admin.js:749
 msgid "Last full check: %1$s, %2$d links checked."
 msgstr "Última comprobación completa: %1$s, %2$d enlaces comprobados."
 
-#: admin/assets/js/admin.js:750
+#: admin/assets/js/admin.js:751
 msgid "No full check has finished yet."
 msgstr "Todavía no ha terminado ninguna comprobación completa."
 
 #. translators: %d: number of links never checked.
-#: admin/assets/js/admin.js:754
+#: admin/assets/js/admin.js:755
 msgid "%d link has never been checked."
 msgid_plural "%d links have never been checked."
 msgstr[0] "%d enlace no se ha comprobado nunca."
 msgstr[1] "%d enlaces no se han comprobado nunca."
 
-#: admin/assets/js/admin.js:759
+#: admin/assets/js/admin.js:760
 msgid "The last check stopped part way. Click “Check all links now” to finish it."
 msgstr "La última comprobación se quedó a medias. Haz clic en “Comprobar todos los enlaces ahora” para terminarla."
 
-#: admin/assets/js/admin.js:778
+#: admin/assets/js/admin.js:779
 msgid "No broken links"
 msgstr "No hay enlaces rotos"
 
-#: admin/assets/js/admin.js:781
+#: admin/assets/js/admin.js:782
 msgid "Last checked %1$s, %2$d link in total."
 msgid_plural "Last checked %1$s, %2$d links in total."
 msgstr[0] "Última comprobación: %1$s, %2$d enlace en total."
 msgstr[1] "Última comprobación: %1$s, %2$d enlaces en total."
 
-#: admin/assets/js/admin.js:783
+#: admin/assets/js/admin.js:784
 msgid "Last checked %s."
 msgstr "Última comprobación: %s."
 
-#: admin/assets/js/admin.js:784
+#: admin/assets/js/admin.js:785
 msgid "Not checked yet"
 msgstr "Aún no se ha comprobado"
 
-#: admin/assets/js/admin.js:784
+#: admin/assets/js/admin.js:785
 msgid "Linkweave checks your links once a day. Click “Check all links now” to do it straight away."
 msgstr "Linkweave comprueba tus enlaces una vez al día. Haz clic en «Comprobar todos los enlaces ahora» para hacerlo ya."
 
-#: admin/assets/js/admin.js:800
+#: admin/assets/js/admin.js:801
 msgid "No answer in time, or the server returned an error. The page may be fine: open it to check. Remove all leaves these links alone."
 msgstr "No respondió a tiempo o el servidor devolvió un error. Puede que la página esté bien: ábrela para comprobarlo. El botón de quitar todos no toca estos enlaces."
 
-#: admin/assets/js/admin.js:800
+#: admin/assets/js/admin.js:801
 msgid "Did not answer"
 msgstr "Sin respuesta"
 
-#: admin/assets/js/admin.js:801
+#: admin/assets/js/admin.js:802
 msgid "Page missing"
 msgstr "Página que falta"
 
-#: admin/assets/js/admin.js:809
+#: admin/assets/js/admin.js:810
 msgid "Found in"
 msgstr "Encontrado en"
 
-#: admin/assets/js/admin.js:809
+#: admin/assets/js/admin.js:810
 msgid "Points at"
 msgstr "Apunta a"
 
-#: admin/assets/js/admin.js:809
+#: admin/assets/js/admin.js:810
 msgid "Link text"
 msgstr "Texto del enlace"
 
-#: admin/assets/js/admin.js:809
+#: admin/assets/js/admin.js:810
 msgid "Checked"
 msgstr "Comprobado"
 
-#: admin/assets/js/admin.js:854
+#: admin/assets/js/admin.js:855
 msgid "Saving…"
 msgstr "Guardando…"
 
-#: admin/assets/js/admin.js:858
-#: admin/assets/js/admin.js:861
+#: admin/assets/js/admin.js:859
+#: admin/assets/js/admin.js:862
 msgid "Settings saved."
 msgstr "Ajustes guardados."
 
-#: admin/assets/js/admin.js:861
+#: admin/assets/js/admin.js:862
 msgid "The index is being rebuilt in the background so the change reaches every post."
 msgstr "El índice se está reconstruyendo en segundo plano para que el cambio llegue a todas las entradas."
 

@@ -135,7 +135,7 @@
      * script. To keep all premium behaviour out of the free wordpress.org build,
      * this file exposes its request helpers and a couple of generic seams instead
      * of carrying any Pro-gated code:
-     *   - cfg.api / cfg.escape / cfg.fmtDate: reused so Pro never re-implements them.
+     *   - cfg.api / cfg.escape / cfg.fmtDate / cfg.readableUrl: reused so Pro never re-implements them.
      *   - cfg.settingsFilters: callbacks that may add fields to the settings body
      *     before it is saved (Pro appends its LLM / keyword-boost fields here).
      *   - DOM events "jnk_linkweave:broken-rendered" and
@@ -145,6 +145,7 @@
     cfg.api           = api;
     cfg.escape        = escape;
     cfg.fmtDate       = fmtDate;
+    cfg.readableUrl   = readableUrl;
     cfg.settingsFilters = cfg.settingsFilters || [];
     // Callbacks (body, form) that may add fields to a rule before it is saved, and
     // the "jnk_linkweave:rule-form" / "jnk_linkweave:rules-rendered" events, let an
@@ -346,7 +347,7 @@
             const rows = ( data.rules || [] ).map( ( r ) => `
                 <tr data-id="${ escape( r.id ) }">
                     <td><b>${ escape( r.keyword ) }</b>${ flag( r.is_generated ) ? ` <span class="jnkui-pill is-info" title="${ escape( __( "Created by the link map. Clearing the map removes it; rules you wrote are never touched.", "jnk-linkweave" ) ) }">${ __( "from link map", "jnk-linkweave" ) }</span>` : "" }${ flag( r.paused_needs_pro ) ? `<div class="jnkui-muted" style="margin-top:4px">${ __( "This rule uses Pro options and is paused on the free version.", "jnk-linkweave" ) }</div>` : "" }</td>
-                    <td><a href="${ escape( r.target_url ) }" target="_blank" rel="noopener">${ escape( r.target_url.replace( /^https?:\/\/[^/]+/, "" ) || r.target_url ) }</a></td>
+                    <td><a href="${ escape( r.target_url ) }" target="_blank" rel="noopener">${ escape( readableUrl( r.target_url.replace( /^https?:\/\/[^/]+/, "" ) || r.target_url ) ) }</a></td>
                     <td>${ flag( r.paused_needs_pro ) ? `<span class="jnkui-pill is-warn" title="${ escape( __( "Its settings are kept. It runs again when the Pro version is back.", "jnk-linkweave" ) ) }">${ __( "Paused", "jnk-linkweave" ) }</span>` : flag( r.is_active ) ? `<span class="jnkui-pill is-ok">${ __( "On", "jnk-linkweave" ) }</span>` : `<span class="jnkui-pill">${ __( "Paused", "jnk-linkweave" ) }</span>` }</td>
                     <td class="is-num">${ flag( r.paused_needs_pro ) ? 0 : ( r.applied_count || 0 ) }</td>
                     <td style="text-align:end;white-space:nowrap"><button class="button button-small" data-action="edit-rule">${ __( "Edit", "jnk-linkweave" ) }</button> <button class="button button-small is-danger" data-action="delete-rule">${ __( "Delete", "jnk-linkweave" ) }</button></td>
