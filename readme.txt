@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.2
-Stable tag: 1.17.0
+Stable tag: 1.18.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -168,6 +168,11 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.18.0 =
+* Faster: saving a post no longer recounts every auto-link rule. Each save cost about 3 seconds of background work on a site with many rules, now about 0.05 seconds, plus one shared recount a minute later.
+* Faster: the rule recount skips rules a post never mentions.
+* Fixed: Hindi "Words to ignore" match either spelling of a nukta letter such as ज़.
 
 = 1.17.0 =
 * Fixed: Korean, Japanese and Chinese posts now get related-post suggestions. Two-syllable Korean words count, and Japanese or Chinese posts of normal length are no longer "too short to index".

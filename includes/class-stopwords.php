@@ -99,7 +99,11 @@ class Stopwords {
         }
         $words = [];
         foreach ( $opts["stopwords_custom"] as $entry ) {
-            foreach ( (array) preg_split( "/\\s+/u", mb_strtolower( trim( (string) $entry ) ), -1, PREG_SPLIT_NO_EMPTY ) as $word ) {
+            // Same Unicode spelling as the tokenizer gives the text: a Hindi word
+            // typed with ज़ as one character never matched text that has ज plus
+            // a nukta (QA 28 Oct 2026). Lists saved before this are covered too.
+            $entry = Tokenizer::unify_spelling( mb_strtolower( trim( (string) $entry ) ) );
+            foreach ( (array) preg_split( "/\\s+/u", $entry, -1, PREG_SPLIT_NO_EMPTY ) as $word ) {
                 $words[] = $word;
             }
         }

@@ -205,9 +205,12 @@ class Rules_Engine {
      *                                  the rule's max_per_site budget. Rules absent
      *                                  from the map have no site budget.
      * @param bool           $fire      Fire jnk_linkweave_rule_applied (render only).
+     * @param array<int,array{0:string[],1:string[]}>|null $phrases Rule id => [ phrases, case-folded
+     *                                  phrases ], from rule_phrases(). The recount works them out
+     *                                  once for the whole walk instead of once per post.
      * @return array{content:string,applied:array<int,int>}
      */
-    public static function link_content( string $content, array $rules, int $post_id, array $site_caps = [], bool $fire = false ): array {
+    public static function link_content( string $content, array $rules, int $post_id, array $site_caps = [], bool $fire = false, ?array $phrases = null ): array {
         $applied = [];
         if ( "" === $content || empty( $rules ) || self::post_opted_out( $post_id ) ) {
             return [ "content" => $content, "applied" => $applied ];
@@ -266,8 +269,19 @@ class Rules_Engine {
         // itself. Resolve the current permalink once and skip those rules.
         $self_url = $post_id > 0 ? self::normalize_url( (string) get_permalink( $post_id ) ) : "";
 
+        // Case-folded copy of the text, to skip rules whose words are not in this
+        // post at all before building their pattern. A link map has hundreds of
+        // rules and a post mentions a few of them, so the Applied recount ran
+        // hundreds of patterns per post and every post save cost 3 s of
+        // background work on a 1,100-post site (QA 27 Oct 2026).
+        $folded = self::fold( $protected );
+
         foreach ( $rules as $rule ) {
-            $id = (int) $rule->id;
+            $id       = (int) $rule->id;
+            [ $keywords, $folded_keywords ] = $phrases[ $id ] ?? self::rule_phrases( [ $rule ] )[ $id ];
+            if ( ! $keywords || ! self::mentions_any( $folded, $folded_keywords ) ) {
+                continue;
+            }
             if ( "" !== $self_url && self::normalize_url( (string) $rule->target_url ) === $self_url ) {
                 continue;
             }
@@ -287,7 +301,7 @@ class Rules_Engine {
             if ( "" !== $target_key && isset( $linked[ $target_key ] ) ) {
                 continue;
             }
-            $protected = self::replace_matches( $protected, $rule, $cap, $applied, $post_id, $placeholders, $fire );
+            $protected = self::replace_matches( $protected, $rule, $keywords, $cap, $applied, $post_id, $placeholders, $fire );
             if ( "" !== $target_key && ( $applied[ $id ] ?? 0 ) > 0 ) {
                 $linked[ $target_key ] = true;
             }
@@ -304,13 +318,11 @@ class Rules_Engine {
     }
 
     /**
-     * @param array<string,string> $placeholders Protected-fragment map (passed by
-     *        reference). Each anchor this method inserts is itself stashed as a
-     *        placeholder so that later rules in the same pass cannot match inside an
-     *        anchor we just created.
+     * Phrases a rule links, longest first.
+     *
+     * @return string[]
      */
-    private static function replace_matches( string $content, object $rule, int $cap, array &$applied, int $post_id, array &$placeholders, bool $fire ): string {
-        $flags = ! empty( $rule->case_sensitive ) ? "u" : "iu";
+    private static function rule_keywords( object $rule ): array {
         /**
          * Phrases a rule links. One per rule by default; an extension may add
          * other spellings or synonyms. The rule's caps cover all of them together.
@@ -318,10 +330,57 @@ class Rules_Engine {
          * @param string[] $keywords Phrases, the rule's own keyword first.
          * @param object   $rule     The rule row.
          */
-        $keywords = array_values( array_unique( array_filter( array_map(
+        return array_values( array_unique( array_filter( array_map(
             static fn( $k ) => trim( (string) $k ),
             (array) apply_filters( "jnk_linkweave_rule_keywords", [ (string) $rule->keyword ], $rule )
-        ) ) ) );
+        ), static fn( $k ) => "" !== $k ) ) );
+    }
+
+    /**
+     * Each rule's phrases and their case-folded forms, for link_content().
+     *
+     * @param object[] $rules
+     * @return array<int,array{0:string[],1:string[]}>
+     */
+    public static function rule_phrases( array $rules ): array {
+        $out = [];
+        foreach ( $rules as $rule ) {
+            $keywords                 = self::rule_keywords( $rule );
+            $out[ (int) $rule->id ] = [ $keywords, array_map( [ self::class, "fold" ], $keywords ) ];
+        }
+        return $out;
+    }
+
+    /** Simple Unicode case folding, the same folding a /iu pattern matches with. */
+    private static function fold( string $text ): string {
+        return function_exists( "mb_convert_case" ) ? mb_convert_case( $text, MB_CASE_FOLD_SIMPLE, "UTF-8" ) : strtolower( $text );
+    }
+
+    /**
+     * Could any of these phrases match in this text? A cheap substring test that
+     * may say yes when the pattern later finds no whole-word match, but never says
+     * no when the pattern would match.
+     *
+     * @param string[] $folded_keywords Case-folded phrases.
+     */
+    private static function mentions_any( string $folded, array $folded_keywords ): bool {
+        foreach ( $folded_keywords as $keyword ) {
+            if ( "" !== $keyword && false !== strpos( $folded, $keyword ) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param string[]             $keywords     The rule's phrases (rule_keywords()).
+     * @param array<string,string> $placeholders Protected-fragment map (passed by
+     *        reference). Each anchor this method inserts is itself stashed as a
+     *        placeholder so that later rules in the same pass cannot match inside an
+     *        anchor we just created.
+     */
+    private static function replace_matches( string $content, object $rule, array $keywords, int $cap, array &$applied, int $post_id, array &$placeholders, bool $fire ): string {
+        $flags = ! empty( $rule->case_sensitive ) ? "u" : "iu";
         if ( ! $keywords ) {
             return $content;
         }
@@ -444,6 +503,7 @@ class Rules_Engine {
         }
 
         if ( ! empty( $active ) ) {
+            $phrases = self::rule_phrases( $active );
             // Oldest first, so a new post never takes the budget from an old one that
             // already shows the link.
             $posts = $wpdb->get_results( $wpdb->prepare(
@@ -457,7 +517,7 @@ class Rules_Engine {
                 if ( "" === $content ) {
                     continue;
                 }
-                $result = self::link_content( $content, $active, (int) $post->ID, $remaining, false );
+                $result = self::link_content( $content, $active, (int) $post->ID, $remaining, false, $phrases );
                 foreach ( $result["applied"] as $rule_id => $n ) {
                     $totals[ $rule_id ] = ( $totals[ $rule_id ] ?? 0 ) + $n;
                     if ( isset( $remaining[ $rule_id ] ) ) {
@@ -482,6 +542,94 @@ class Rules_Engine {
     public static function register_recount_hooks(): void {
         add_action( self::RECOUNT_HOOK, [ self::class, "recompute_applied_counts" ], 10, 0 );
         add_action( "transition_post_status", [ self::class, "schedule_recount_on_transition" ], 10, 3 );
+        add_action( "post_updated", [ self::class, "schedule_recount_on_update" ], 10, 3 );
+        add_action( "set_object_terms", [ self::class, "schedule_recount_on_terms" ], 10, 6 );
+        foreach ( [ "added_post_meta", "updated_post_meta", "deleted_post_meta" ] as $meta_hook ) {
+            add_action( $meta_hook, [ self::class, "schedule_recount_on_meta" ], 10, 3 );
+        }
+    }
+
+    /** Is this post one whose content the recount reads? */
+    private static function counts_for_rules( $post ): bool {
+        if ( ! $post instanceof \WP_Post || wp_is_post_revision( $post ) || wp_is_post_autosave( $post ) ) {
+            return false;
+        }
+        $settings   = (array) get_option( "jnk_linkweave_settings", [] );
+        $post_types = ! empty( $settings["post_types"] ) && is_array( $settings["post_types"] )
+            ? array_map( "sanitize_key", $settings["post_types"] )
+            : [ "post", "page" ];
+        return in_array( $post->post_type, $post_types, true );
+    }
+
+    /**
+     * Queue one recount a minute from now, unless one is already queued. Every
+     * change in that minute shares the one walk.
+     */
+    public static function schedule_recount(): void {
+        if ( empty( ( new self() )->get_active_rules() ) ) {
+            return;
+        }
+        if ( ! wp_next_scheduled( self::RECOUNT_HOOK ) ) {
+            wp_schedule_single_event( time() + MINUTE_IN_SECONDS, self::RECOUNT_HOOK );
+        }
+    }
+
+    /**
+     * A published post saved again: only worth a recount when something the
+     * linking pass reads changed (its text, its date, which orders the "Max per
+     * site" shares, or its address, which decides the self-link skip). Saving a
+     * post unchanged, or changing only its title or excerpt, used to queue the
+     * full walk too.
+     *
+     * @param int      $post_id     Post id.
+     * @param \WP_Post $post_after  The post as saved.
+     * @param \WP_Post $post_before The post before the save.
+     */
+    public static function schedule_recount_on_update( $post_id, $post_after, $post_before ): void {
+        if ( ! $post_after instanceof \WP_Post || ! $post_before instanceof \WP_Post ) {
+            return;
+        }
+        if ( "publish" !== $post_after->post_status || "publish" !== $post_before->post_status ) {
+            return; // A status change: schedule_recount_on_transition() has it.
+        }
+        if ( ! self::counts_for_rules( $post_after ) && ! self::counts_for_rules( $post_before ) ) {
+            return;
+        }
+        foreach ( [ "post_content", "post_date", "post_name", "post_type", "post_parent" ] as $field ) {
+            if ( (string) $post_after->$field !== (string) $post_before->$field ) {
+                self::schedule_recount();
+                return;
+            }
+        }
+    }
+
+    /**
+     * Categories of a published post changed: rules limited to some categories
+     * may now link there, or stop.
+     */
+    public static function schedule_recount_on_terms( $object_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids ): void {
+        $new = array_map( "intval", (array) $tt_ids );
+        $old = array_map( "intval", (array) $old_tt_ids );
+        sort( $new );
+        sort( $old );
+        if ( $new === $old ) {
+            return;
+        }
+        $post = get_post( (int) $object_id );
+        if ( $post && "publish" === $post->post_status && self::counts_for_rules( $post ) ) {
+            self::schedule_recount();
+        }
+    }
+
+    /** The owner switched auto-links off or on for a published post. */
+    public static function schedule_recount_on_meta( $meta_id, $object_id, $meta_key ): void {
+        if ( self::OPT_OUT_META !== $meta_key ) {
+            return;
+        }
+        $post = get_post( (int) $object_id );
+        if ( $post && "publish" === $post->post_status && self::counts_for_rules( $post ) ) {
+            self::schedule_recount();
+        }
     }
 
     /**
@@ -498,27 +646,23 @@ class Rules_Engine {
         if ( "publish" !== $new_status && "publish" !== $old_status ) {
             return;
         }
-        if ( ! $post instanceof \WP_Post || wp_is_post_revision( $post ) || wp_is_post_autosave( $post ) ) {
+        if ( "publish" === $new_status && "publish" === $old_status ) {
+            return; // Saved again while live: schedule_recount_on_update() decides.
+        }
+        if ( ! self::counts_for_rules( $post ) ) {
             return;
         }
-        $settings   = (array) get_option( "jnk_linkweave_settings", [] );
-        $post_types = ! empty( $settings["post_types"] ) && is_array( $settings["post_types"] )
-            ? array_map( "sanitize_key", $settings["post_types"] )
-            : [ "post", "page" ];
-        if ( ! in_array( $post->post_type, $post_types, true ) ) {
-            return;
-        }
-        if ( empty( ( new self() )->get_active_rules() ) ) {
-            return;
-        }
-        if ( ! wp_next_scheduled( self::RECOUNT_HOOK ) ) {
-            wp_schedule_single_event( time() + MINUTE_IN_SECONDS, self::RECOUNT_HOOK );
-        }
+        self::schedule_recount();
     }
 
     /**
      * After a single post is reindexed, a site budget may have room for it. Only
      * worth the full walk when some active rule actually has a budget.
+     *
+     * No longer hooked to every reindex: with a link map every rule has a budget,
+     * so each post save ran the full walk (3 s on a 1,100-post site) and "Remove
+     * all" queued hundreds of them. The queued recount gives a new post its share
+     * a minute later instead.
      */
     public static function maybe_recompute_for_site_caps(): void {
         foreach ( ( new self() )->get_active_rules() as $rule ) {

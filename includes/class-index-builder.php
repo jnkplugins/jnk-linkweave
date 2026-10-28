@@ -116,8 +116,8 @@ class Index_Builder {
         // the old per-render counter). Rule CRUD recomputes on its own.
         add_action( "jnk_linkweave_index_complete", [ Rules_Engine::class, "recompute_applied_counts" ], 10, 0 );
         // A "Max per site" budget is shared out per post; a newly published post
-        // needs its share worked out, or it would never receive the link.
-        add_action( self::REINDEX_HOOK, [ Rules_Engine::class, "maybe_recompute_for_site_caps" ], 20, 0 );
+        // gets its share from the recount that publishing queues (one walk per
+        // minute of edits, not one per saved post).
         Rules_Engine::register_recount_hooks();
     }
 
@@ -155,6 +155,18 @@ class Index_Builder {
             return;
         }
         if ( function_exists( "as_enqueue_async_action" ) ) {
+            // A job for this post that has not started yet reads the post when it
+            // runs, so it covers this save too. (One that is running may have read
+            // the old text already, so that one does not count.)
+            if ( function_exists( "as_get_scheduled_actions" ) && did_action( "action_scheduler_init" ) ) {
+                $waiting = as_get_scheduled_actions(
+                    [ "hook" => self::REINDEX_HOOK, "args" => [ $post_id ], "group" => "jnk-linkweave", "status" => \ActionScheduler_Store::STATUS_PENDING, "per_page" => 1 ],
+                    "ids"
+                );
+                if ( $waiting ) {
+                    return;
+                }
+            }
             as_enqueue_async_action( self::REINDEX_HOOK, [ $post_id ], "jnk-linkweave" );
             return;
         }

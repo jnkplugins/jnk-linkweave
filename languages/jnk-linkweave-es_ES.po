@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-10-28T05:30:06+00:00\n"
+"POT-Creation-Date: 2026-10-28T12:12:12+00:00\n"
 "PO-Revision-Date: 2026-10-10 16:38+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Spanish (Spain)\n"
@@ -1217,12 +1217,12 @@ msgid "A notice at the top of the screen takes you to the box, in Linkweave Sett
 msgstr "Un aviso en la parte superior de la pantalla te lleva al cuadro, en Ajustes de Linkweave, en Licencia. La clave está en el correo de tu compra."
 
 #. translators: %s: the database's error message
-#: includes/class-index-builder.php:337
+#: includes/class-index-builder.php:349
 #, php-format
 msgid "The index table could not be created, so nothing can be indexed. The database said: %s"
 msgstr "No se pudo crear la tabla del índice, así que no se puede indexar nada. La base de datos dijo: %s"
 
-#: includes/class-index-builder.php:338
+#: includes/class-index-builder.php:350
 msgid "no reason given"
 msgstr "sin motivo indicado"
 

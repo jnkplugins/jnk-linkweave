@@ -168,6 +168,8 @@ a.jnkui-stat:hover { border-color: color-mix(in srgb, var(--jnk-brand) 35%, var(
 .jnkui table.jnkui-table td, .jnkui table.jnk-linkweave-table td, .jnkui table.widefat td {
 	padding: 12px 16px; border-bottom: 1px solid var(--jnk-line-2); vertical-align: middle; color: var(--jnk-ink-2);
 }
+/* Tables whose rows can grow tall (a long list in one cell): every cell starts at the top. */
+.jnkui table.jnkui-table.is-top td { vertical-align: top; }
 .jnkui table.jnkui-table tbody tr:last-child td, .jnkui table.jnk-linkweave-table tbody tr:last-child td { border-bottom: 0; }
 .jnkui table.jnkui-table tbody tr:hover td, .jnkui table.jnk-linkweave-table tbody tr:hover td { background: #fafbff; }
 .jnkui table a { color: var(--jnk-ink); font-weight: 600; text-decoration: none; }

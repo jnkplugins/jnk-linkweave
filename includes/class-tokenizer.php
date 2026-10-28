@@ -303,12 +303,23 @@ class Tokenizer {
         }
         $content = wp_strip_all_tags( $content, true );
         $content = html_entity_decode( $content, ENT_QUOTES | ENT_HTML5, "UTF-8" );
-        // One spelling for letters that Unicode can write two ways (ज़ as one
-        // code point or as ज plus a nukta), so both forms are the same word.
-        if ( class_exists( "Normalizer" ) && preg_match( "/[" . self::INDIC_CLASS . "]/u", $content ) ) {
-            $content = (string) \Normalizer::normalize( $content, \Normalizer::FORM_C );
+        return self::unify_spelling( $content );
+    }
+
+    /**
+     * One spelling for letters that Unicode can write two ways (ज़ as one code
+     * point or as ज plus a nukta), so both forms are the same word. Anything
+     * compared with tokenized text (the owner's "Words to ignore") goes through
+     * this too.
+     */
+    public static function unify_spelling( string $text ): string {
+        if ( class_exists( "Normalizer" ) && preg_match( "/[" . self::INDIC_CLASS . "]/u", $text ) ) {
+            $normal = \Normalizer::normalize( $text, \Normalizer::FORM_C );
+            if ( is_string( $normal ) ) {
+                return $normal;
+            }
         }
-        return $content;
+        return $text;
     }
 
     /**

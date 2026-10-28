@@ -509,7 +509,7 @@ class REST_API {
             // One word per entry: "watch online" is stored as "watch" and "online".
             $words = preg_split( "/\\s+/u", implode( " ", array_map( "strval", (array) $words ) ), -1, PREG_SPLIT_NO_EMPTY );
             $words = array_values( array_unique( array_filter( array_map(
-                static fn( $w ) => mb_strtolower( trim( sanitize_text_field( (string) $w ) ) ),
+                static fn( $w ) => Tokenizer::unify_spelling( mb_strtolower( trim( sanitize_text_field( (string) $w ) ) ) ),
                 array_slice( (array) $words, 0, 500 )
             ) ) ) );
             // The index drops ignored words when it is built, so a change only
