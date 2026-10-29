@@ -1,0 +1,1872 @@
+# Translation of JnK Linkweave into Hindi.
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: JnK Linkweave 1.18.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
+"POT-Creation-Date: 2026-10-29T03:09:11+00:00\n"
+"PO-Revision-Date: 2026-10-29 12:00+0000\n"
+"Last-Translator: JnK Plugins\n"
+"Language-Team: Hindi\n"
+"Language: hi_IN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: jnk-linkweave\n"
+"X-Generator: WP-CLI 2.12.0\n"
+
+#: pro/licensorpro-client/licensorpro-client.php:750
+msgid "Manage license"
+msgstr "लाइसेंस प्रबंधित करें"
+
+#: pro/licensorpro-client/licensorpro-client.php:753
+#: admin/class-admin.php:221
+msgid "Renew license"
+msgstr "लाइसेंस रिन्यू करें"
+
+#: pro/licensorpro-client/licensorpro-client.php:754
+#: admin/class-admin.php:220
+msgid "Activate license"
+msgstr "लाइसेंस सक्रिय करें"
+
+#. translators: %s: plugin name
+#: pro/licensorpro-client/licensorpro-client.php:781
+#, php-format
+msgid "<strong>%s Pro is on.</strong> Thank you! Every Pro tool is switched on for this site, and updates come to your dashboard."
+msgstr "<strong>%s Pro चालू है।</strong> धन्यवाद! इस साइट पर हर Pro टूल चालू है, और अपडेट आपके डैशबोर्ड में आते हैं।"
+
+#. translators: %s: plugin name
+#: pro/licensorpro-client/licensorpro-client.php:830
+#, php-format
+msgid "<strong>%s Pro is installed, but no Pro license is active on this site.</strong> Enter your license key to switch on the Pro tools."
+msgstr "<strong>%s Pro इंस्टॉल है, लेकिन इस साइट पर कोई Pro लाइसेंस सक्रिय नहीं है।</strong> Pro टूल चालू करने के लिए अपनी लाइसेंस Key डालें।"
+
+#: pro/licensorpro-client/licensorpro-client.php:836
+msgid "Enter license key"
+msgstr "लाइसेंस Key डालें"
+
+#: pro/licensorpro-client/licensorpro-client.php:839
+msgid "Find your key in your account"
+msgstr "अपनी Key अपने अकाउंट में देखें"
+
+#: pro/licensorpro-client/licensorpro-client.php:865
+msgid "Renew your license"
+msgstr "अपना लाइसेंस रिन्यू करें"
+
+#. translators: 1: plugin name, 2: expiry date, 3: lock date, 4: days left
+#: pro/licensorpro-client/licensorpro-client.php:871
+#, php-format
+msgid "<strong>Your %1$s Pro license expired on %2$s.</strong> Pro keeps working as normal until %3$s (%4$d days left). Updates, including security fixes, and email support have stopped. After %3$s, everything you already set up keeps working and your visitors won't notice a thing, but the Pro tools in your dashboard will lock."
+msgstr "<strong>आपका %1$s Pro लाइसेंस %2$s को समाप्त हो गया।</strong> Pro %3$s तक पहले की तरह काम करता रहेगा (%4$d दिन बाकी)। अपडेट, जिनमें सुरक्षा सुधार भी शामिल हैं, और ईमेल सहायता बंद हो गई है। %3$s के बाद, आपने जो कुछ सेट किया है वह काम करता रहेगा और आपके विज़िटर को कुछ पता नहीं चलेगा, लेकिन आपके डैशबोर्ड के Pro टूल लॉक हो जाएँगे।"
+
+#. translators: 1: plugin name, 2: expiry date
+#: pro/licensorpro-client/licensorpro-client.php:881
+#, php-format
+msgid "<strong>%1$s Pro tools are locked because your license expired on %2$s.</strong> Your site, and everything visitors see, still works. Renew to unlock the Pro tools and get updates, including security fixes, again."
+msgstr "<strong>%1$s Pro टूल लॉक हैं क्योंकि आपका लाइसेंस %2$s को समाप्त हो गया।</strong> आपकी साइट, और विज़िटर को दिखने वाली हर चीज़, अब भी काम करती है। Pro टूल अनलॉक करने और फिर से अपडेट (सुरक्षा सुधार समेत) पाने के लिए रिन्यू करें।"
+
+#. translators: %s: plugin name
+#: pro/licensorpro-client/licensorpro-client.php:889
+#, php-format
+msgid "<strong>This site is no longer activated on your %s Pro license.</strong> The Pro tools in your dashboard are locked until you activate it again. Everything visitors see keeps working."
+msgstr "<strong>यह साइट अब आपके %s Pro लाइसेंस पर सक्रिय नहीं है।</strong> जब तक आप इसे फिर से सक्रिय नहीं करते, आपके डैशबोर्ड के Pro टूल लॉक रहेंगे। विज़िटर को दिखने वाली हर चीज़ काम करती रहेगी।"
+
+#. translators: %s: plugin name
+#: pro/licensorpro-client/licensorpro-client.php:896
+#, php-format
+msgid "<strong>Your %s Pro license is no longer active.</strong> It was refunded or cancelled, so the Pro tools in your dashboard are locked and updates have stopped. Everything visitors see keeps working."
+msgstr "<strong>आपका %s Pro लाइसेंस अब सक्रिय नहीं है।</strong> इसका पैसा लौटाया गया या इसे रद्द किया गया, इसलिए आपके डैशबोर्ड के Pro टूल लॉक हैं और अपडेट बंद हो गए हैं। विज़िटर को दिखने वाली हर चीज़ काम करती रहेगी।"
+
+#: pro/licensorpro-client/licensorpro-client.php:998
+msgid "Please enter a license key."
+msgstr "कृपया लाइसेंस Key डालें।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1010
+#: pro/licensorpro-client/licensorpro-client.php:1069
+msgid "License response failed signature verification."
+msgstr "लाइसेंस सर्वर के जवाब का सिग्नेचर सत्यापित नहीं हुआ।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1052
+msgid "No license key set."
+msgstr "कोई लाइसेंस Key सेट नहीं है।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1184
+msgid "Only deactivating temporarily"
+msgstr "बस कुछ समय के लिए बंद कर रहा/रही हूँ"
+
+#: pro/licensorpro-client/licensorpro-client.php:1185
+msgid "I could not work out how to use it"
+msgstr "मुझे समझ नहीं आया कि इसे कैसे इस्तेमाल करें"
+
+#: pro/licensorpro-client/licensorpro-client.php:1186
+msgid "It is missing a feature I need"
+msgstr "इसमें वह सुविधा नहीं है जो मुझे चाहिए"
+
+#: pro/licensorpro-client/licensorpro-client.php:1187
+msgid "It did not work"
+msgstr "यह काम नहीं किया"
+
+#: pro/licensorpro-client/licensorpro-client.php:1188
+msgid "It broke something on my site"
+msgstr "इससे मेरी साइट पर कुछ खराब हो गया"
+
+#: pro/licensorpro-client/licensorpro-client.php:1189
+msgid "I found a better plugin"
+msgstr "मुझे इससे बेहतर प्लगइन मिल गया"
+
+#: pro/licensorpro-client/licensorpro-client.php:1190
+msgid "I no longer need it"
+msgstr "अब मुझे इसकी ज़रूरत नहीं है"
+
+#: pro/licensorpro-client/licensorpro-client.php:1191
+msgid "Something else"
+msgstr "कुछ और"
+
+#. translators: %s: plugin name.
+#: pro/licensorpro-client/licensorpro-client.php:1218
+#, php-format
+msgid "Before you turn %s off"
+msgstr "%s बंद करने से पहले"
+
+#: pro/licensorpro-client/licensorpro-client.php:1222
+msgid "If you have a moment, what went wrong? It is the only way we hear about it."
+msgstr "अगर आपके पास एक पल हो, तो बताएँ क्या गड़बड़ हुई? हमें इसके बारे में जानने का यही एकमात्र तरीका है।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1233
+msgid "Anything else? (optional)"
+msgstr "कुछ और? (वैकल्पिक)"
+
+#: pro/licensorpro-client/licensorpro-client.php:1235
+msgid "Sends your answer, the plugin version and your site address. Nothing else, and nothing from your site content."
+msgstr "आपका जवाब, प्लगइन का वर्शन और आपकी साइट का पता भेजता है। इसके अलावा कुछ नहीं, और आपकी साइट की सामग्री से कुछ भी नहीं।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1239
+msgid "Send and deactivate"
+msgstr "भेजें और निष्क्रिय करें"
+
+#: pro/licensorpro-client/licensorpro-client.php:1242
+msgid "Skip and deactivate"
+msgstr "छोड़ें और निष्क्रिय करें"
+
+#: pro/licensorpro-client/licensorpro-client.php:1245
+#: admin/assets/js/admin.js:419
+msgid "Cancel"
+msgstr "रद्द करें"
+
+#: pro/licensorpro-client/licensorpro-client.php:1366
+#: pro/licensorpro-client/licensorpro-client.php:1382
+msgid "API URL not configured."
+msgstr "API URL कॉन्फ़िगर नहीं है।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1401
+msgid "Unexpected response from license server."
+msgstr "लाइसेंस सर्वर से अनपेक्षित जवाब मिला।"
+
+#. translators: %s: human-readable time difference, e.g. "3 months".
+#: pro/licensorpro-client/licensorpro-client.php:1699
+#: includes/class-dates.php:34
+#, php-format
+msgid "in %s"
+msgstr "%s में"
+
+#. translators: %s: human-readable time difference, e.g. "13 days".
+#: pro/licensorpro-client/licensorpro-client.php:1700
+#: includes/class-dates.php:36
+#, php-format
+msgid "%s ago"
+msgstr "%s पहले"
+
+#: pro/licensorpro-client/licensorpro-client.php:1725
+#, php-format
+msgid "%s License"
+msgstr "%s लाइसेंस"
+
+#: pro/licensorpro-client/licensorpro-client.php:1735
+msgid "This site was deactivated, so its seat is free for another site. Enter the key again here to switch the Pro tools back on."
+msgstr "इस साइट को निष्क्रिय कर दिया गया, इसलिए इसकी सीट किसी दूसरी साइट के लिए खाली है। Pro टूल फिर से चालू करने के लिए यहाँ Key दोबारा डालें।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1745
+#: pro/licensorpro-client/licensorpro-client.php:1776
+#: pro/licensorpro-client/licensorpro-client.php:1833
+msgid "License key"
+msgstr "लाइसेंस Key"
+
+#: pro/licensorpro-client/licensorpro-client.php:1746
+msgid "Type"
+msgstr "प्रकार"
+
+#: pro/licensorpro-client/licensorpro-client.php:1748
+msgid "Free license: updates of the free version only. It does not switch on Pro."
+msgstr "Free लाइसेंस: सिर्फ़ Free वर्शन के अपडेट। इससे Pro चालू नहीं होता।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1749
+msgid "Free license: updates arrive in your dashboard like any other plugin."
+msgstr "Free लाइसेंस: अपडेट किसी भी दूसरे प्लगइन की तरह आपके डैशबोर्ड में आते हैं।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1751
+#: pro/licensorpro-client/licensorpro-client.php:1801
+msgid "Last checked"
+msgstr "पिछली जाँच"
+
+#: pro/licensorpro-client/licensorpro-client.php:1755
+#: pro/licensorpro-client/licensorpro-client.php:1807
+msgid "Check for updates now"
+msgstr "अभी अपडेट जाँचें"
+
+#: pro/licensorpro-client/licensorpro-client.php:1758
+msgid "Bought Pro?"
+msgstr "Pro खरीदा है?"
+
+#: pro/licensorpro-client/licensorpro-client.php:1759
+msgid "Enter your Pro license key and Pro is installed over this version. Everything you set up stays."
+msgstr "अपनी Pro लाइसेंस Key डालें और Pro इस वर्शन के ऊपर इंस्टॉल हो जाएगा। आपने जो कुछ सेट किया है, वह बना रहेगा।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1761
+msgid "Pro license key"
+msgstr "Pro लाइसेंस Key"
+
+#: pro/licensorpro-client/licensorpro-client.php:1764
+#: pro/licensorpro-client/licensorpro-client.php:1814
+msgid "Install Pro now"
+msgstr "अभी Pro इंस्टॉल करें"
+
+#: pro/licensorpro-client/licensorpro-client.php:1766
+msgid "Rather do it by hand? Download the Pro zip from your account and upload it over this plugin."
+msgstr "खुद करना चाहते हैं? अपने अकाउंट से Pro zip डाउनलोड करें और इसे इस प्लगइन के ऊपर अपलोड करें।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1767
+#: pro/licensorpro-client/licensorpro-client.php:1841
+msgid "Go to your account"
+msgstr "अपने अकाउंट पर जाएँ"
+
+#: pro/licensorpro-client/licensorpro-client.php:1778
+msgid "active"
+msgstr "सक्रिय"
+
+#. translators: %s: date the Pro tools lock
+#: pro/licensorpro-client/licensorpro-client.php:1780
+#, php-format
+msgid "expired, Pro tools stay on until %s"
+msgstr "समाप्त, Pro टूल %s तक चालू रहेंगे"
+
+#: pro/licensorpro-client/licensorpro-client.php:1781
+msgid "expired, Pro tools locked"
+msgstr "समाप्त, Pro टूल लॉक हैं"
+
+#: pro/licensorpro-client/licensorpro-client.php:1783
+msgid "this site is not activated"
+msgstr "यह साइट सक्रिय नहीं है"
+
+#: pro/licensorpro-client/licensorpro-client.php:1784
+msgid "no longer active (refunded or cancelled)"
+msgstr "अब सक्रिय नहीं (पैसा लौटाया गया या रद्द)"
+
+#: pro/licensorpro-client/licensorpro-client.php:1786
+#: admin/assets/js/admin.js:358
+#: admin/assets/js/admin.js:810
+msgid "Status"
+msgstr "स्थिति"
+
+#: pro/licensorpro-client/licensorpro-client.php:1788
+msgid "Renew"
+msgstr "रिन्यू करें"
+
+#: pro/licensorpro-client/licensorpro-client.php:1792
+msgid "Offline mode"
+msgstr "ऑफ़लाइन मोड"
+
+#: pro/licensorpro-client/licensorpro-client.php:1794
+#, php-format
+msgid "cached license valid until %s"
+msgstr "कैश किया गया लाइसेंस %s तक मान्य"
+
+#: pro/licensorpro-client/licensorpro-client.php:1798
+msgid "Update channel"
+msgstr "अपडेट चैनल"
+
+#: pro/licensorpro-client/licensorpro-client.php:1799
+msgid "Site limit"
+msgstr "साइट सीमा"
+
+#: pro/licensorpro-client/licensorpro-client.php:1800
+msgid "Expires"
+msgstr "समाप्त होता है"
+
+#: pro/licensorpro-client/licensorpro-client.php:1800
+msgid "Never"
+msgstr "कभी नहीं"
+
+#: pro/licensorpro-client/licensorpro-client.php:1805
+msgid "Deactivate this site"
+msgstr "इस साइट को निष्क्रिय करें"
+
+#: pro/licensorpro-client/licensorpro-client.php:1812
+msgid "This is the free version, running on your Pro license."
+msgstr "यह Free वर्शन है, जो आपके Pro लाइसेंस पर चल रहा है।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1829
+msgid "Have a Pro license key? Enter it here to switch on the Pro tools. It replaces the free license on this site."
+msgstr "क्या आपके पास Pro लाइसेंस Key है? Pro टूल चालू करने के लिए उसे यहाँ डालें। यह इस साइट के Free लाइसेंस की जगह ले लेगी।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1830
+msgid "Enter your license key to activate this site."
+msgstr "इस साइट को सक्रिय करने के लिए अपनी लाइसेंस Key डालें।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1837
+msgid "Activate"
+msgstr "सक्रिय करें"
+
+#: pro/licensorpro-client/licensorpro-client.php:1840
+msgid "Your key is in your purchase email and in your account."
+msgstr "आपकी Key आपके खरीद वाले ईमेल में और आपके अकाउंट में है।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1848
+msgid "Need a hand?"
+msgstr "मदद चाहिए?"
+
+#: pro/licensorpro-client/licensorpro-client.php:1849
+msgid "Contact support"
+msgstr "सहायता से संपर्क करें"
+
+#: pro/licensorpro-client/licensorpro-client.php:2054
+msgid "Only someone who may install plugins on this site can install Pro."
+msgstr "Pro सिर्फ़ वही इंस्टॉल कर सकता है जिसे इस साइट पर प्लगइन इंस्टॉल करने की अनुमति है।"
+
+#: pro/licensorpro-client/licensorpro-client.php:2067
+msgid "That is a free license key, so it keeps this free version updated. Pro needs the key from your purchase email."
+msgstr "यह Free लाइसेंस Key है, इसलिए यह इस Free वर्शन को अपडेट रखती है। Pro के लिए आपके खरीद वाले ईमेल की Key चाहिए।"
+
+#. translators: %s: URL of the customer account
+#: pro/licensorpro-client/licensorpro-client.php:2072
+#, php-format
+msgid "Your key is active. Download the Pro zip from your account (%s) and upload it over this plugin instead."
+msgstr "आपकी Key सक्रिय है। इसके बजाय अपने अकाउंट (%s) से Pro zip डाउनलोड करें और इसे इस प्लगइन के ऊपर अपलोड करें।"
+
+#: pro/licensorpro-client/licensorpro-client.php:2076
+msgid "This site does not allow installing plugins from the dashboard."
+msgstr "यह साइट डैशबोर्ड से प्लगइन इंस्टॉल करने की अनुमति नहीं देती।"
+
+#: pro/licensorpro-client/licensorpro-client.php:2080
+msgid "The Pro download could not be fetched for this key."
+msgstr "इस Key के लिए Pro डाउनलोड नहीं मिल सका।"
+
+#: pro/licensorpro-client/licensorpro-client.php:2088
+msgid "This site asks for FTP details to install plugins."
+msgstr "प्लगइन इंस्टॉल करने के लिए यह साइट FTP विवरण माँगती है।"
+
+#: pro/licensorpro-client/licensorpro-client.php:2123
+msgid "Installing Pro did not finish."
+msgstr "Pro इंस्टॉल करना पूरा नहीं हुआ।"
+
+#. translators: %s: plugin name
+#: pro/licensorpro-client/licensorpro-client.php:2128
+#, php-format
+msgid "%s Pro is installed and your license is active. Reloading…"
+msgstr "%s Pro इंस्टॉल है और आपका लाइसेंस सक्रिय है। फिर से लोड हो रहा है…"
+
+#: pro/licensorpro-client/licensorpro-client.php:2138
+msgid "License activated."
+msgstr "लाइसेंस सक्रिय हो गया।"
+
+#: pro/licensorpro-client/licensorpro-client.php:2150
+msgid "Site deactivated."
+msgstr "साइट निष्क्रिय हो गई।"
+
+#: pro/licensorpro-client/licensorpro-client.php:2161
+msgid "License is valid. Update info refreshed."
+msgstr "लाइसेंस मान्य है। अपडेट जानकारी ताज़ा की गई।"
+
+#: pro/licensorpro-client/licensorpro-client.php:2168
+msgid "Permission denied."
+msgstr "अनुमति नहीं है।"
+
+#. Plugin Name of the plugin
+#: jnk-linkweave.php
+#: editor/src/index.js:20
+#: editor/src/index.js:24
+msgid "JnK Linkweave"
+msgstr "JnK Linkweave"
+
+#. Plugin URI of the plugin
+#: jnk-linkweave.php
+msgid "https://jnkplugins.com/jnk-linkweave/"
+msgstr "https://jnkplugins.com/jnk-linkweave/"
+
+#. Description of the plugin
+#: jnk-linkweave.php
+msgid "Affordable, server-side internal linking for WordPress — suggestions, auto-linking rules, and orphan &amp; broken-link reports."
+msgstr "WordPress के लिए किफ़ायती, सर्वर-साइड आंतरिक लिंकिंग — सुझाव, ऑटो-लिंक नियम, और अनाथ पेज &amp; टूटे लिंक की रिपोर्ट।"
+
+#. Author of the plugin
+#: jnk-linkweave.php
+msgid "JnK Plugins"
+msgstr "JnK Plugins"
+
+#. Author URI of the plugin
+#: jnk-linkweave.php
+msgid "https://jnkplugins.com"
+msgstr "https://jnkplugins.com"
+
+#: admin/class-admin.php:30
+msgid "JnK Linkweave database tables"
+msgstr "JnK Linkweave डेटाबेस टेबल"
+
+#: admin/class-admin.php:46
+msgid "JnK Linkweave is missing database tables"
+msgstr "JnK Linkweave की डेटाबेस टेबल गायब हैं"
+
+#: admin/class-admin.php:49
+msgid "Link suggestions and the reports cannot work without these tables. Send this list to support (jnkplugins.com/contact):"
+msgstr "इन टेबल के बिना लिंक सुझाव और रिपोर्ट काम नहीं कर सकते। यह सूची सहायता टीम को भेजें (jnkplugins.com/contact):"
+
+#: admin/class-admin.php:58
+msgid "JnK Linkweave Pro data is ready"
+msgstr "JnK Linkweave Pro डेटा तैयार है"
+
+#: admin/class-admin.php:58
+msgid "JnK Linkweave database tables are ready"
+msgstr "JnK Linkweave डेटाबेस टेबल तैयार हैं"
+
+#. translators: %d: number of database tables
+#: admin/class-admin.php:63
+#, php-format
+msgid "The %d table JnK Linkweave needs is in the database."
+msgid_plural "All %d tables JnK Linkweave needs are in the database."
+msgstr[0] "JnK Linkweave को जिस %d टेबल की ज़रूरत है, वह डेटाबेस में है।"
+msgstr[1] "JnK Linkweave को जिन %d टेबल की ज़रूरत है, वे सभी डेटाबेस में हैं।"
+
+#: admin/class-admin.php:87
+msgid "JnK Linkweave could not create its database tables."
+msgstr "JnK Linkweave अपनी डेटाबेस टेबल नहीं बना सका।"
+
+#: admin/class-admin.php:88
+msgid "Link suggestions and the reports need them. Send the details below to support (jnkplugins.com/contact) and we will sort it out with you."
+msgstr "लिंक सुझावों और रिपोर्ट को इनकी ज़रूरत है। नीचे दिया गया विवरण सहायता टीम को भेजें (jnkplugins.com/contact) और हम आपके साथ मिलकर इसे ठीक कर देंगे।"
+
+#: admin/class-admin.php:131
+msgid "This is JnK Linkweave Pro, but no license is active on this site, so the Pro features are switched off: the URL Changer, link click analytics, Search Console targeting, the auto-link map, the Anchor Text and Links per post reports, broken-link repair, related posts, link preview cards, bulk link insertion, the link check before you publish, extra rule options, cross-site linking, AI re-ranking, AI assistant access and the CSV exports."
+msgstr "यह JnK Linkweave Pro है, लेकिन इस साइट पर कोई लाइसेंस सक्रिय नहीं है, इसलिए Pro सुविधाएँ बंद हैं: URL चेंजर, लिंक क्लिक एनालिटिक्स, Search Console टारगेटिंग, ऑटो-लिंक मैप, एंकर टेक्स्ट और हर पोस्ट के लिंक की रिपोर्ट, टूटे लिंक की मरम्मत, संबंधित पोस्ट, लिंक प्रीव्यू कार्ड, एक साथ कई लिंक जोड़ना, प्रकाशित करने से पहले लिंक जाँच, नियमों के अतिरिक्त विकल्प, क्रॉस-साइट लिंकिंग, AI री-रैंकिंग, AI असिस्टेंट एक्सेस और CSV एक्सपोर्ट।"
+
+#: admin/class-admin.php:133
+#: admin/views/upgrade.php:74
+msgid "Enter your license key"
+msgstr "अपनी लाइसेंस Key डालें"
+
+#: admin/class-admin.php:143
+#: admin/class-ui.php:105
+#: admin/views/settings.php:19
+msgid "Settings"
+msgstr "सेटिंग्स"
+
+#: admin/class-admin.php:150
+#: admin/class-admin.php:232
+#: admin/class-admin.php:233
+msgid "Upgrade to Pro"
+msgstr "Pro में अपग्रेड करें"
+
+#: admin/class-admin.php:168
+msgid "View details"
+msgstr "विवरण देखें"
+
+#: admin/class-admin.php:172
+msgid "Docs"
+msgstr "दस्तावेज़"
+
+#: admin/class-admin.php:174
+msgid "Support"
+msgstr "सहायता"
+
+#: admin/class-admin.php:282
+#: admin/views/dashboard.php:53
+msgid "Rebuild index"
+msgstr "इंडेक्स फिर से बनाएँ"
+
+#: admin/class-admin.php:283
+msgid "Reading your posts…"
+msgstr "आपकी पोस्ट पढ़ी जा रही हैं…"
+
+#: admin/class-admin.php:284
+msgid "Done"
+msgstr "हो गया"
+
+#. translators: %d: number of posts read.
+#: admin/class-admin.php:286
+#, php-format
+msgid "Last full read: just now (%d posts)"
+msgstr "पिछली पूरी रीडिंग: अभी-अभी (%d पोस्ट)"
+
+#: admin/class-posts-column.php:37
+msgid "Internal links: how many of your posts link here, and how many links this post sends out"
+msgstr "आंतरिक लिंक: आपकी कितनी पोस्ट यहाँ लिंक करती हैं, और यह पोस्ट कितने लिंक बाहर भेजती है"
+
+#: admin/class-posts-column.php:38
+msgid "Links in / out"
+msgstr "अंदर / बाहर लिंक"
+
+#: admin/class-posts-column.php:58
+msgid "Counted once published"
+msgstr "प्रकाशित होने के बाद गिना जाता है"
+
+#. translators: %d: number of internal links pointing at this post.
+#: admin/class-posts-column.php:74
+#, php-format
+msgid "%d internal link points here"
+msgid_plural "%d internal links point here"
+msgstr[0] "%d आंतरिक लिंक यहाँ आता है"
+msgstr[1] "%d आंतरिक लिंक यहाँ आते हैं"
+
+#. translators: %d: number of links in.
+#: admin/class-posts-column.php:79
+#: admin/assets/js/admin.js:577
+#, php-format, js-format
+msgid "%d in"
+msgid_plural "%d in"
+msgstr[0] "%d अंदर"
+msgstr[1] "%d अंदर"
+
+#. translators: %d: number of internal links in this post.
+#: admin/class-posts-column.php:84
+#, php-format
+msgid "This post links to %d of your posts"
+msgid_plural "This post links to %d of your posts"
+msgstr[0] "यह पोस्ट आपकी %d पोस्ट को लिंक करती है"
+msgstr[1] "यह पोस्ट आपकी %d पोस्ट को लिंक करती है"
+
+#. translators: %d: number of links out.
+#: admin/class-posts-column.php:89
+#, php-format
+msgid "%d out"
+msgstr "%d बाहर"
+
+#: admin/class-ui.php:21
+#: admin/views/dashboard.php:56
+msgid "Overview"
+msgstr "सारांश"
+
+#: admin/class-ui.php:22
+#: admin/views/rules.php:11
+msgid "Auto-link rules"
+msgstr "ऑटो-लिंक नियम"
+
+#: admin/class-ui.php:23
+msgid "Orphans"
+msgstr "अनाथ पेज"
+
+#: admin/class-ui.php:24
+#: admin/views/inbound.php:6
+msgid "Inbound links"
+msgstr "आने वाले लिंक"
+
+#: admin/class-ui.php:25
+#: admin/views/broken.php:9
+#: admin/views/dashboard.php:113
+msgid "Broken links"
+msgstr "टूटे लिंक"
+
+#: admin/class-ui.php:26
+msgid "Link clicks"
+msgstr "लिंक क्लिक"
+
+#: admin/class-ui.php:33
+msgid "URL changer"
+msgstr "URL चेंजर"
+
+#: admin/class-ui.php:34
+msgid "Search Console"
+msgstr "Search Console"
+
+#: admin/class-ui.php:35
+msgid "Anchor text"
+msgstr "एंकर टेक्स्ट"
+
+#: admin/class-ui.php:36
+msgid "Link map"
+msgstr "लिंक मैप"
+
+#: admin/class-ui.php:37
+msgid "Links per post"
+msgstr "हर पोस्ट के लिंक"
+
+#: admin/class-ui.php:69
+msgid "Pro"
+msgstr "Pro"
+
+#: admin/class-ui.php:86
+msgid "Linkweave"
+msgstr "Linkweave"
+
+#: admin/class-ui.php:92
+msgid "Linkweave sections"
+msgstr "Linkweave के सेक्शन"
+
+#: admin/class-ui.php:97
+msgid "More tools"
+msgstr "और टूल"
+
+#: admin/class-ui.php:104
+msgid "Help"
+msgstr "सहायता"
+
+#: admin/views/broken.php:6
+msgid "Check all links now"
+msgstr "अभी सभी लिंक जाँचें"
+
+#: admin/views/broken.php:10
+msgid "Links in your posts that lead to a page that no longer exists. Linkweave checks every day; you can also check right now."
+msgstr "आपकी पोस्ट के वे लिंक जो ऐसे पेज पर ले जाते हैं जो अब मौजूद नहीं है। Linkweave हर दिन जाँच करता है; आप अभी भी जाँच कर सकते हैं।"
+
+#: admin/views/dashboard.php:52
+#: admin/assets/js/admin.js:214
+msgid "Run now"
+msgstr "अभी चलाएँ"
+
+#: admin/views/dashboard.php:57
+msgid "How your internal links are doing, and what to fix next."
+msgstr "आपके आंतरिक लिंक कैसे चल रहे हैं, और आगे क्या ठीक करना है।"
+
+#: admin/views/dashboard.php:64
+msgid "Linkweave is updating its index."
+msgstr "Linkweave अपना इंडेक्स अपडेट कर रहा है।"
+
+#: admin/views/dashboard.php:65
+msgid "Suggestions keep working from the current index until the update is done. This page updates by itself."
+msgstr "अपडेट पूरा होने तक सुझाव मौजूदा इंडेक्स से काम करते रहेंगे। यह पेज अपने आप अपडेट होता है।"
+
+#: admin/views/dashboard.php:69
+msgid "Linkweave is reading your posts for the first time."
+msgstr "Linkweave पहली बार आपकी पोस्ट पढ़ रहा है।"
+
+#: admin/views/dashboard.php:70
+msgid "This page updates by itself. If it still says Queued after a few seconds, click Run now."
+msgstr "यह पेज अपने आप अपडेट होता है। अगर कुछ सेकंड बाद भी कतार में लिखा दिखे, तो अभी चलाएँ पर क्लिक करें।"
+
+#: admin/views/dashboard.php:74
+msgid "The last read of your posts stopped before it finished."
+msgstr "आपकी पोस्ट की पिछली रीडिंग पूरी होने से पहले रुक गई।"
+
+#: admin/views/dashboard.php:75
+msgid "Nothing is lost. Click Run it again now, top right."
+msgstr "कुछ भी खोया नहीं है। ऊपर दाईं ओर, इसे अभी फिर चलाएँ पर क्लिक करें।"
+
+#: admin/views/dashboard.php:79
+msgid "Start here: let Linkweave read your posts once."
+msgstr "यहाँ से शुरू करें: Linkweave को एक बार अपनी पोस्ट पढ़ने दें।"
+
+#: admin/views/dashboard.php:80
+msgid "Linkweave suggests links by comparing your posts with each other. Click Rebuild index; it takes a minute or two on most sites and then keeps itself up to date as you publish."
+msgstr "Linkweave आपकी पोस्ट की आपस में तुलना करके लिंक सुझाता है। इंडेक्स फिर से बनाएँ पर क्लिक करें; ज़्यादातर साइटों पर इसमें एक-दो मिनट लगते हैं और फिर आपके प्रकाशित करते रहने पर यह खुद को अपडेट रखता है।"
+
+#: admin/views/dashboard.php:86
+msgid "Posts Linkweave knows"
+msgstr "Linkweave जिन पोस्ट को जानता है"
+
+#: admin/views/dashboard.php:90
+#: admin/assets/js/admin.js:199
+msgid "Queued, waiting for WordPress to start it"
+msgstr "कतार में, WordPress के शुरू करने का इंतज़ार"
+
+#. translators: 1: posts read so far, 2: total posts.
+#: admin/views/dashboard.php:94
+#: admin/assets/js/admin.js:206
+#, php-format, js-format
+msgid "Reading posts %1$d of %2$d"
+msgstr "पोस्ट पढ़ी जा रही हैं: %2$d में से %1$d"
+
+#. translators: %s: time of the last full rebuild.
+#: admin/views/dashboard.php:101
+#, php-format
+msgid "Last full read: %s"
+msgstr "पिछली पूरी रीडिंग: %s"
+
+#: admin/views/dashboard.php:102
+msgid "never"
+msgstr "कभी नहीं"
+
+#: admin/views/dashboard.php:108
+#: admin/views/orphans.php:15
+msgid "Posts nothing links to"
+msgstr "वे पोस्ट जिन्हें कोई लिंक नहीं करता"
+
+#: admin/views/dashboard.php:110
+#: admin/views/dashboard.php:115
+#: admin/views/dashboard.php:121
+#: admin/views/dashboard.php:137
+#: admin/views/dashboard.php:169
+#: admin/views/dashboard.php:214
+msgid "Counted after the first read"
+msgstr "पहली रीडिंग के बाद गिना जाता है"
+
+#: admin/views/dashboard.php:110
+msgid "Readers and search engines struggle to find these"
+msgstr "पाठकों और सर्च इंजन को इन्हें ढूँढने में मुश्किल होती है"
+
+#: admin/views/dashboard.php:110
+msgid "Every post has at least one link in"
+msgstr "हर पोस्ट पर कम से कम एक लिंक आता है"
+
+#: admin/views/dashboard.php:115
+msgid "Links that lead to a missing page"
+msgstr "वे लिंक जो गायब पेज पर ले जाते हैं"
+
+#: admin/views/dashboard.php:115
+msgid "No dead links found"
+msgstr "कोई टूटा लिंक नहीं मिला"
+
+#: admin/views/dashboard.php:118
+msgid "Internal links"
+msgstr "आंतरिक लिंक"
+
+#. translators: %s: number of active auto-link rules.
+#: admin/views/dashboard.php:123
+#, php-format
+msgid "Plus %s auto-link rule"
+msgid_plural "Plus %s auto-link rules"
+msgstr[0] "साथ में %s ऑटो-लिंक नियम"
+msgstr[1] "साथ में %s ऑटो-लिंक नियम"
+
+#: admin/views/dashboard.php:132
+msgid "Link coverage"
+msgstr "लिंक कवरेज"
+
+#: admin/views/dashboard.php:133
+msgid "How many internal links point at each of your posts. Aim to move posts out of the red."
+msgstr "आपकी हर पोस्ट पर कितने आंतरिक लिंक आते हैं। कोशिश करें कि पोस्ट लाल हिस्से से बाहर आएँ।"
+
+#: admin/views/dashboard.php:141
+#: admin/assets/js/linkmap.js:27
+msgid "No links in"
+msgstr "कोई लिंक नहीं आता"
+
+#: admin/views/dashboard.php:142
+#: admin/assets/js/linkmap.js:28
+msgid "1 to 2 links"
+msgstr "1 से 2 लिंक"
+
+#: admin/views/dashboard.php:143
+#: admin/assets/js/linkmap.js:29
+msgid "3 to 5 links"
+msgstr "3 से 5 लिंक"
+
+#: admin/views/dashboard.php:144
+#: admin/assets/js/linkmap.js:30
+msgid "6 or more"
+msgstr "6 या ज़्यादा"
+
+#: admin/views/dashboard.php:147
+msgid "Share of posts by number of internal links pointing at them"
+msgstr "आने वाले आंतरिक लिंक की संख्या के हिसाब से पोस्ट का हिस्सा"
+
+#: admin/views/dashboard.php:164
+msgid "Posts that need a link"
+msgstr "जिन पोस्ट को लिंक चाहिए"
+
+#: admin/views/dashboard.php:165
+msgid "Open one and Linkweave shows which of your posts should link to it."
+msgstr "किसी एक को खोलें और Linkweave दिखाएगा कि आपकी कौन-सी पोस्ट उसे लिंक करें।"
+
+#: admin/views/dashboard.php:166
+msgid "See all"
+msgstr "सभी देखें"
+
+#: admin/views/dashboard.php:171
+msgid "Nothing to fix"
+msgstr "ठीक करने को कुछ नहीं"
+
+#: admin/views/dashboard.php:171
+msgid "Every post has at least one internal link pointing at it."
+msgstr "हर पोस्ट पर कम से कम एक आंतरिक लिंक आता है।"
+
+#: admin/views/dashboard.php:179
+msgid "0 links in"
+msgstr "0 लिंक आते हैं"
+
+#: admin/views/dashboard.php:195
+msgid "Getting started"
+msgstr "शुरुआत करें"
+
+#: admin/views/dashboard.php:196
+msgid "Four steps to a well-linked site."
+msgstr "अच्छी तरह लिंक की गई साइट के लिए चार कदम।"
+
+#: admin/views/dashboard.php:198
+msgid "Let Linkweave read your posts"
+msgstr "Linkweave को अपनी पोस्ट पढ़ने दें"
+
+#: admin/views/dashboard.php:198
+msgid "Rebuild index, top right."
+msgstr "ऊपर दाईं ओर, इंडेक्स फिर से बनाएँ।"
+
+#: admin/views/dashboard.php:199
+msgid "Add links while you write"
+msgstr "लिखते समय लिंक जोड़ें"
+
+#: admin/views/dashboard.php:199
+msgid "Open any post: suggestions appear in the Linkweave sidebar."
+msgstr "कोई भी पोस्ट खोलें: सुझाव Linkweave साइडबार में दिखते हैं।"
+
+#: admin/views/dashboard.php:200
+msgid "Add an auto-link rule"
+msgstr "ऑटो-लिंक नियम जोड़ें"
+
+#: admin/views/dashboard.php:200
+msgid "Link a phrase to a page everywhere it appears."
+msgstr "किसी वाक्यांश को, वह जहाँ भी आए, एक पेज से लिंक करें।"
+
+#: admin/views/dashboard.php:201
+msgid "Give every post a link in"
+msgstr "हर पोस्ट पर एक लिंक लाएँ"
+
+#: admin/views/dashboard.php:201
+msgid "Work down the list on the left."
+msgstr "बाईं ओर की सूची में एक-एक करके आगे बढ़ें।"
+
+#: admin/views/dashboard.php:209
+msgid "Your most linked-to posts"
+msgstr "आपकी सबसे ज़्यादा लिंक की गई पोस्ट"
+
+#: admin/views/dashboard.php:210
+msgid "The pages your own site points to most. Search engines treat these as your most important pages."
+msgstr "वे पेज जिन्हें आपकी अपनी साइट सबसे ज़्यादा लिंक करती है। सर्च इंजन इन्हें आपके सबसे महत्वपूर्ण पेज मानते हैं।"
+
+#: admin/views/dashboard.php:211
+msgid "All posts"
+msgstr "सभी पोस्ट"
+
+#: admin/views/dashboard.php:216
+msgid "No internal links yet"
+msgstr "अभी तक कोई आंतरिक लिंक नहीं"
+
+#: admin/views/dashboard.php:216
+msgid "Once your posts link to each other, the busiest pages show up here."
+msgstr "जब आपकी पोस्ट एक-दूसरे को लिंक करने लगेंगी, तो सबसे व्यस्त पेज यहाँ दिखेंगे।"
+
+#. translators: %s: number of links.
+#. translators: %s: how many links with these words point to this page.
+#: admin/views/dashboard.php:227
+#, php-format
+msgid "%s link"
+msgid_plural "%s links"
+msgstr[0] "%s लिंक"
+msgstr[1] "%s लिंक"
+
+#: admin/views/inbound.php:7
+msgid "How many of your own posts link to each page. The pages at the top are the ones your site treats as most important."
+msgstr "आपकी अपनी कितनी पोस्ट हर पेज को लिंक करती हैं। सबसे ऊपर वाले पेज वे हैं जिन्हें आपकी साइट सबसे महत्वपूर्ण मानती है।"
+
+#: admin/views/inbound.php:51
+msgid "No category"
+msgstr "कोई श्रेणी नहीं"
+
+#: admin/views/inbound.php:60
+msgid "Other topics"
+msgstr "अन्य विषय"
+
+#: admin/views/inbound.php:101
+msgid "Your link map"
+msgstr "आपका लिंक मैप"
+
+#: admin/views/inbound.php:102
+msgid "Every square is one post, grouped by topic. The colour shows how many of your posts link to it. Hover for the title, click to open it."
+msgstr "हर वर्ग एक पोस्ट है, विषय के हिसाब से समूह में। रंग बताता है कि आपकी कितनी पोस्ट उसे लिंक करती हैं। शीर्षक देखने के लिए माउस ले जाएँ, खोलने के लिए क्लिक करें।"
+
+#: admin/views/inbound.php:105
+msgid "Posts"
+msgstr "पोस्ट"
+
+#: admin/views/inbound.php:106
+msgid "Topics"
+msgstr "विषय"
+
+#: admin/views/inbound.php:117
+msgid "Only links saved in your posts count here. Links added on the fly by auto-link rules are not stored. New links are counted within a minute of saving a post."
+msgstr "यहाँ सिर्फ़ आपकी पोस्ट में सेव किए गए लिंक गिने जाते हैं। ऑटो-लिंक नियमों से तुरंत जोड़े गए लिंक सेव नहीं किए जाते। पोस्ट सेव करने के एक मिनट के भीतर नए लिंक गिन लिए जाते हैं।"
+
+#: admin/views/orphans.php:16
+msgid "Published posts with no internal links pointing at them. Pick one to see which of your posts should link to it."
+msgstr "प्रकाशित पोस्ट जिन पर कोई आंतरिक लिंक नहीं आता। कोई एक चुनें और देखें कि आपकी कौन-सी पोस्ट उसे लिंक करें।"
+
+#: admin/views/orphans.php:22
+msgid "Only links saved in your posts count here. Links added on the fly by auto-link rules are not stored, so a post that only gets those can still show up. New links are picked up within a minute of saving a post."
+msgstr "यहाँ सिर्फ़ आपकी पोस्ट में सेव किए गए लिंक गिने जाते हैं। ऑटो-लिंक नियमों से तुरंत जोड़े गए लिंक सेव नहीं किए जाते, इसलिए जिस पोस्ट पर सिर्फ़ वही लिंक आते हैं, वह भी यहाँ दिख सकती है। पोस्ट सेव करने के एक मिनट के भीतर नए लिंक पकड़ लिए जाते हैं।"
+
+#: admin/views/rules.php:12
+msgid "Pick a word or phrase and the page it should link to. Linkweave adds the link wherever that phrase appears, without changing your saved posts."
+msgstr "कोई शब्द या वाक्यांश और वह पेज चुनें जिससे उसे लिंक होना है। Linkweave आपकी सेव की गई पोस्ट बदले बिना, वह वाक्यांश जहाँ भी आए, वहाँ लिंक जोड़ देता है।"
+
+#. translators: 1: opening link tag, 2: closing link tag.
+#: admin/views/rules.php:26
+#, php-format
+msgid "Need to change a URL across every post at once, with one-click undo? %1$sSee what Pro adds%2$s."
+msgstr "क्या हर पोस्ट में एक साथ कोई URL बदलना है, एक क्लिक में वापस लेने की सुविधा के साथ? %1$sदेखें Pro क्या जोड़ता है%2$s।"
+
+#: admin/views/settings.php:20
+msgid "Choose what Linkweave reads and how picky its suggestions are."
+msgstr "चुनें कि Linkweave क्या पढ़े और उसके सुझाव कितने चुनिंदा हों।"
+
+#: admin/views/settings.php:25
+msgid "License"
+msgstr "लाइसेंस"
+
+#: admin/views/settings.php:28
+msgid "What Linkweave reads"
+msgstr "Linkweave क्या पढ़ता है"
+
+#: admin/views/settings.php:29
+msgid "Which content is used for suggestions and reports."
+msgstr "सुझावों और रिपोर्ट के लिए कौन-सी सामग्री इस्तेमाल होती है।"
+
+#: admin/views/settings.php:33
+msgid "Post types"
+msgstr "पोस्ट प्रकार"
+
+#: admin/views/settings.php:43
+msgid "The kinds of content Linkweave reads and suggests links to. Posts and Pages by default. Changes take effect straight away; adding a type reads those posts in the background."
+msgstr "वे सामग्री प्रकार जिन्हें Linkweave पढ़ता है और जिनके लिए लिंक सुझाता है। डिफ़ॉल्ट रूप से पोस्ट और पेज। बदलाव तुरंत लागू होते हैं; कोई प्रकार जोड़ने पर उसकी पोस्ट बैकग्राउंड में पढ़ी जाती हैं।"
+
+#: admin/views/settings.php:47
+msgid "Shortest post to suggest"
+msgstr "सुझाव के लिए सबसे छोटी पोस्ट"
+
+#: admin/views/settings.php:50
+msgid "Very short posts are left out of suggestions. Small words like “the” and “a” are not counted, so 40 here is roughly an 80 to 100 word post."
+msgstr "बहुत छोटी पोस्ट सुझावों से बाहर रखी जाती हैं। “के” और “है” जैसे छोटे शब्द नहीं गिने जाते, इसलिए यहाँ 40 का मतलब लगभग 80 से 100 शब्दों की पोस्ट है।"
+
+#: admin/views/settings.php:54
+msgid "Keep up to date"
+msgstr "अप टू डेट रखें"
+
+#: admin/views/settings.php:55
+msgid "Re-read a post every time it is saved"
+msgstr "हर बार सेव करने पर पोस्ट दोबारा पढ़ें"
+
+#: admin/views/settings.php:59
+msgid "Suggestions"
+msgstr "सुझाव"
+
+#: admin/views/settings.php:60
+msgid "How link ideas are picked and shown in the editor."
+msgstr "एडिटर में लिंक के आइडिया कैसे चुने और दिखाए जाते हैं।"
+
+#: admin/views/settings.php:64
+msgid "How posts are matched"
+msgstr "पोस्ट का मिलान कैसे होता है"
+
+#: admin/views/settings.php:67
+msgid "Smart match (recommended)"
+msgstr "स्मार्ट मिलान (अनुशंसित)"
+
+#: admin/views/settings.php:68
+msgid "Classic match"
+msgstr "क्लासिक मिलान"
+
+#: admin/views/settings.php:70
+msgid "Smart match is not fooled by a word repeated many times or by very long posts, so its suggestions are usually sharper. You can switch at any time."
+msgstr "स्मार्ट मिलान किसी शब्द के बार-बार दोहराए जाने या बहुत लंबी पोस्ट से धोखा नहीं खाता, इसलिए इसके सुझाव आम तौर पर ज़्यादा सटीक होते हैं। आप कभी भी बदल सकते हैं।"
+
+#: admin/views/settings.php:74
+msgid "Suggestions per post"
+msgstr "हर पोस्ट के लिए सुझाव"
+
+#: admin/views/settings.php:77
+msgid "How many link ideas the editor sidebar shows for each post (1 to 50)."
+msgstr "एडिटर साइडबार हर पोस्ट के लिए लिंक के कितने आइडिया दिखाए (1 से 50)।"
+
+#: admin/views/settings.php:81
+msgid "How close a match must be"
+msgstr "मिलान कितना करीबी होना चाहिए"
+
+#: admin/views/settings.php:84
+msgid "From 0 to 1. Lower shows more ideas, higher shows only very close matches. 0.25 is a good start."
+msgstr "0 से 1 तक। कम मान ज़्यादा आइडिया दिखाता है, ज़्यादा मान सिर्फ़ बहुत करीबी मिलान दिखाता है। 0.25 से शुरू करना अच्छा है।"
+
+#: admin/views/settings.php:88
+msgid "Words to ignore"
+msgstr "अनदेखे शब्द"
+
+#: admin/views/settings.php:90
+msgid "watch, online, free, review"
+msgstr "देखें, ऑनलाइन, फ्री, रिव्यू"
+
+#: admin/views/settings.php:91
+msgid "Words your site uses in almost every post, so they say nothing about a topic. Separate them with commas. Words found in more than a third of your posts are already ignored. Saving a change rebuilds the index in the background."
+msgstr "वे शब्द जो आपकी साइट लगभग हर पोस्ट में इस्तेमाल करती है, इसलिए वे किसी विषय के बारे में कुछ नहीं बताते। इन्हें कॉमा से अलग करें। जो शब्द आपकी एक-तिहाई से ज़्यादा पोस्ट में मिलते हैं, उन्हें पहले से अनदेखा किया जाता है। बदलाव सेव करने पर इंडेक्स बैकग्राउंड में फिर से बनता है।"
+
+#: admin/views/settings.php:103
+msgid "If you remove the plugin"
+msgstr "अगर आप प्लगइन हटाते हैं"
+
+#: admin/views/settings.php:104
+msgid "Your data is kept unless you say otherwise."
+msgstr "जब तक आप न कहें, आपका डेटा रखा जाता है।"
+
+#: admin/views/settings.php:108
+msgid "When you delete the plugin"
+msgstr "जब आप प्लगइन हटाते हैं"
+
+#: admin/views/settings.php:110
+msgid "Also delete Linkweave's data (rules, reports and settings)"
+msgstr "Linkweave का डेटा भी हटाएँ (नियम, रिपोर्ट और सेटिंग्स)"
+
+#: admin/views/settings.php:111
+msgid "Off by default, so nothing is lost if you deactivate the plugin, delete it, or a Pro license runs out."
+msgstr "डिफ़ॉल्ट रूप से बंद, ताकि प्लगइन निष्क्रिय करने, हटाने या Pro लाइसेंस खत्म होने पर कुछ न खोए।"
+
+#: admin/views/settings.php:117
+msgid "Save settings"
+msgstr "सेटिंग्स सहेजें"
+
+#: admin/views/upgrade.php:15
+msgid "You do not have permission to access this page."
+msgstr "आपको इस पेज को खोलने की अनुमति नहीं है।"
+
+#: admin/views/upgrade.php:28
+msgid "One-click auto-link map"
+msgstr "एक क्लिक में ऑटो-लिंक मैप"
+
+#: admin/views/upgrade.php:28
+msgid "Turn your topical clusters into auto-link rules in one click, keyed on phrases your other posts already use."
+msgstr "अपने विषय-समूहों को एक क्लिक में ऑटो-लिंक नियमों में बदलें, उन वाक्यांशों के आधार पर जो आपकी दूसरी पोस्ट पहले से इस्तेमाल करती हैं।"
+
+#: admin/views/upgrade.php:29
+msgid "Add links in bulk"
+msgstr "एक साथ कई लिंक जोड़ें"
+
+#: admin/views/upgrade.php:29
+msgid "Pick several related posts and add a link from each of them to the page you are working on, in one click."
+msgstr "कई संबंधित पोस्ट चुनें और एक क्लिक में हर एक से उस पेज पर लिंक जोड़ें जिस पर आप काम कर रहे हैं।"
+
+#: admin/views/upgrade.php:30
+msgid "Bulk review & approve"
+msgstr "एक साथ समीक्षा और मंज़ूरी"
+
+#: admin/views/upgrade.php:30
+msgid "Tick several editor suggestions and insert them all at once."
+msgstr "एडिटर के कई सुझावों पर टिक करें और सभी को एक साथ जोड़ें।"
+
+#: admin/views/upgrade.php:31
+msgid "Internal-link click analytics"
+msgstr "आंतरिक लिंक क्लिक एनालिटिक्स"
+
+#: admin/views/upgrade.php:31
+msgid "See which internal links visitors actually follow, tracked on your own server."
+msgstr "देखें कि विज़िटर असल में कौन-से आंतरिक लिंक खोलते हैं, आपके अपने सर्वर पर ट्रैक किया गया।"
+
+#: admin/views/upgrade.php:32
+msgid "Search Console targeting"
+msgstr "Search Console टारगेटिंग"
+
+#: admin/views/upgrade.php:32
+msgid "Import your Search Console Queries export to steer suggestions toward pages that earn clicks."
+msgstr "अपना Search Console Queries एक्सपोर्ट इंपोर्ट करें, ताकि सुझाव उन पेजों की ओर जाएँ जिन्हें क्लिक मिलते हैं।"
+
+#: admin/views/upgrade.php:33
+msgid "Focus-keyword boost"
+msgstr "फ़ोकस-कीवर्ड बूस्ट"
+
+#: admin/views/upgrade.php:33
+msgid "Rank suggestions using the Yoast or Rank Math focus keyphrases you already set."
+msgstr "Yoast या Rank Math में आपके पहले से सेट फ़ोकस कीफ़्रेज़ से सुझावों की रैंकिंग करें।"
+
+#: admin/views/upgrade.php:34
+msgid "Broken-link repair"
+msgstr "टूटे लिंक की मरम्मत"
+
+#: admin/views/upgrade.php:34
+msgid "Unlink or re-point the dead links the free report finds, one at a time or all at once."
+msgstr "Free रिपोर्ट में मिले टूटे लिंक हटाएँ या उन्हें नई जगह पॉइंट करें, एक-एक करके या सभी एक साथ।"
+
+#: admin/views/upgrade.php:35
+msgid "Bulk URL changer + rollback"
+msgstr "बल्क URL चेंजर + रोलबैक"
+
+#: admin/views/upgrade.php:35
+msgid "Find-and-replace a URL across your whole site, with one-click rollback of any batch."
+msgstr "अपनी पूरी साइट में किसी URL को खोजें और बदलें, किसी भी बैच को एक क्लिक में वापस लेने की सुविधा के साथ।"
+
+#: admin/views/upgrade.php:36
+msgid "Link check before you publish"
+msgstr "प्रकाशित करने से पहले लिंक जाँच"
+
+#: admin/views/upgrade.php:36
+msgid "When you click Publish, see how many internal links the post has and add a good match in one click."
+msgstr "प्रकाशित करें पर क्लिक करते ही देखें कि पोस्ट में कितने आंतरिक लिंक हैं और एक क्लिक में एक अच्छा मिलान जोड़ें।"
+
+#: admin/views/upgrade.php:37
+msgid "Dead-end report"
+msgstr "डेड-एंड रिपोर्ट"
+
+#: admin/views/upgrade.php:37
+msgid "Find posts that link to none of your other posts, with links in and out for every post and a CSV export."
+msgstr "वे पोस्ट ढूँढें जो आपकी किसी दूसरी पोस्ट को लिंक नहीं करतीं, हर पोस्ट के अंदर और बाहर के लिंक और CSV एक्सपोर्ट के साथ।"
+
+#: admin/views/upgrade.php:38
+msgid "More from each rule"
+msgstr "हर नियम से ज़्यादा"
+
+#: admin/views/upgrade.php:38
+msgid "Other words for the same link, limit a rule to some post types or categories, mark paid links as sponsored, switch rules off for one post, and import or export rules as CSV."
+msgstr "एक ही लिंक के लिए दूसरे शब्द, किसी नियम को कुछ पोस्ट प्रकारों या श्रेणियों तक सीमित करें, पेड लिंक को sponsored चिह्नित करें, किसी एक पोस्ट के लिए नियम बंद करें, और नियमों को CSV के रूप में इंपोर्ट या एक्सपोर्ट करें।"
+
+#: admin/views/upgrade.php:39
+msgid "AI assistants (read only)"
+msgstr "AI असिस्टेंट (सिर्फ़ पढ़ने के लिए)"
+
+#: admin/views/upgrade.php:39
+msgid "Let AI tools that use the WordPress Abilities API read your orphan posts, link counts and suggestions. Needs WordPress 6.9 or newer."
+msgstr "WordPress Abilities API इस्तेमाल करने वाले AI टूल को आपकी अनाथ पोस्ट, लिंक की गिनती और सुझाव पढ़ने दें। WordPress 6.9 या नया वर्शन चाहिए।"
+
+#: admin/views/upgrade.php:40
+msgid "Anchor text report"
+msgstr "एंकर टेक्स्ट रिपोर्ट"
+
+#: admin/views/upgrade.php:40
+msgid "See every anchor you use, where it points, and which ones are over-used."
+msgstr "आपका इस्तेमाल किया हर एंकर, वह कहाँ पॉइंट करता है, और कौन-से ज़रूरत से ज़्यादा इस्तेमाल हुए हैं, देखें।"
+
+#: admin/views/upgrade.php:41
+msgid "Related posts"
+msgstr "संबंधित पोस्ट"
+
+#: admin/views/upgrade.php:41
+msgid "A “Read more” list of related posts for readers, added with a shortcode."
+msgstr "पाठकों के लिए संबंधित पोस्ट की “और पढ़ें” सूची, शॉर्टकोड से जोड़ी जाती है।"
+
+#: admin/views/upgrade.php:42
+msgid "Link preview cards"
+msgstr "लिंक प्रीव्यू कार्ड"
+
+#: admin/views/upgrade.php:42
+msgid "Optional hover cards with title, image and excerpt on internal links."
+msgstr "आंतरिक लिंक पर माउस ले जाने पर शीर्षक, इमेज और अंश वाले वैकल्पिक कार्ड।"
+
+#: admin/views/upgrade.php:43
+msgid "CSV export"
+msgstr "CSV एक्सपोर्ट"
+
+#: admin/views/upgrade.php:43
+msgid "Export the orphan-page and anchor-text reports to CSV."
+msgstr "अनाथ पेज और एंकर टेक्स्ट रिपोर्ट को CSV में एक्सपोर्ट करें।"
+
+#: admin/views/upgrade.php:44
+msgid "Cross-site linking"
+msgstr "क्रॉस-साइट लिंकिंग"
+
+#: admin/views/upgrade.php:44
+msgid "Suggest links between the sites on your license, right in the editor. Works on every plan."
+msgstr "अपने लाइसेंस की साइटों के बीच लिंक सुझाएँ, सीधे एडिटर में। हर प्लान पर काम करता है।"
+
+#: admin/views/upgrade.php:45
+msgid "AI second opinion"
+msgstr "AI की दूसरी राय"
+
+#: admin/views/upgrade.php:45
+msgid "Let AI re-order the suggestions using your own OpenAI or Anthropic key. You pay them directly; we never charge per use."
+msgstr "अपनी OpenAI या Anthropic Key से AI को सुझावों का क्रम बदलने दें। आप उन्हें सीधे भुगतान करते हैं; हम हर इस्तेमाल का कभी शुल्क नहीं लेते।"
+
+#: admin/views/upgrade.php:50
+msgid "Linkweave Pro"
+msgstr "Linkweave Pro"
+
+#: admin/views/upgrade.php:51
+msgid "You are using the free version: unlimited auto-link rules, suggestions in the editor, and the orphan and broken-link reports. Pro adds the tools that do the work for you."
+msgstr "आप Free वर्शन इस्तेमाल कर रहे हैं: असीमित ऑटो-लिंक नियम, एडिटर में सुझाव, और अनाथ पेज व टूटे लिंक की रिपोर्ट। Pro वे टूल जोड़ता है जो आपके लिए काम करते हैं।"
+
+#: admin/views/upgrade.php:52
+msgid "See Pro plans"
+msgstr "Pro प्लान देखें"
+
+#: admin/views/upgrade.php:56
+msgid "Upgrading keeps everything."
+msgstr "अपग्रेड करने पर सब कुछ बना रहता है।"
+
+#: admin/views/upgrade.php:57
+msgid "Install Pro over this version: same rules, same reports, nothing to set up again."
+msgstr "Pro को इस वर्शन के ऊपर इंस्टॉल करें: वही नियम, वही रिपोर्ट, कुछ भी दोबारा सेट नहीं करना।"
+
+#: admin/views/upgrade.php:68
+msgid "Already bought Pro?"
+msgstr "Pro पहले ही खरीद लिया है?"
+
+#: admin/views/upgrade.php:69
+msgid "Fastest: paste your Pro license key in Linkweave Settings, under License, and click Install Pro now. Pro is installed over this version for you. Or do it by hand:"
+msgstr "सबसे तेज़: अपनी Pro लाइसेंस Key Linkweave सेटिंग्स में, लाइसेंस के नीचे पेस्ट करें, और अभी Pro इंस्टॉल करें पर क्लिक करें। Pro आपके लिए इस वर्शन के ऊपर इंस्टॉल हो जाता है। या इसे खुद करें:"
+
+#: admin/views/upgrade.php:69
+msgid "Open the License box"
+msgstr "लाइसेंस बॉक्स खोलें"
+
+#: admin/views/upgrade.php:71
+#: admin/views/upgrade.php:72
+msgid "Download the Pro zip"
+msgstr "Pro zip डाउनलोड करें"
+
+#: admin/views/upgrade.php:71
+msgid "From your account on jnkplugins.com, under your license."
+msgstr "jnkplugins.com पर अपने अकाउंट से, अपने लाइसेंस के नीचे।"
+
+#: admin/views/upgrade.php:73
+msgid "Upload it over this one"
+msgstr "इसे इसके ऊपर अपलोड करें"
+
+#: admin/views/upgrade.php:73
+msgid "Plugins, Add New, Upload Plugin. WordPress shows this copy as JnK Linkweave and the upload as JnK Linkweave Pro. Choose “Replace current with uploaded”."
+msgstr "प्लगिन्स, Add Plugin, प्लगिन अपलोड करे। WordPress इस कॉपी को JnK Linkweave और अपलोड को JnK Linkweave Pro के रूप में दिखाता है। “वर्तमान को अपलोड के साथ बदलें” चुनें।"
+
+#: admin/views/upgrade.php:74
+msgid "A notice at the top of the screen takes you to the box, in Linkweave Settings under License. The key is in your purchase email."
+msgstr "स्क्रीन के ऊपर एक सूचना आपको बॉक्स तक ले जाती है, Linkweave सेटिंग्स में लाइसेंस के नीचे। Key आपके खरीद वाले ईमेल में है।"
+
+#. translators: %s: the database's error message
+#: includes/class-index-builder.php:349
+#, php-format
+msgid "The index table could not be created, so nothing can be indexed. The database said: %s"
+msgstr "इंडेक्स टेबल नहीं बन सकी, इसलिए कुछ भी इंडेक्स नहीं हो सकता। डेटाबेस ने कहा: %s"
+
+#: includes/class-index-builder.php:350
+msgid "no reason given"
+msgstr "कोई कारण नहीं बताया गया"
+
+#: includes/class-plugin.php:109
+msgid "Insert a JnK Linkweave suggestion"
+msgstr "JnK Linkweave का सुझाव जोड़ें"
+
+#: includes/class-plugin.php:110
+msgid "JnK Linkweave suggestions"
+msgstr "JnK Linkweave सुझाव"
+
+#: includes/class-plugin.php:111
+msgid "Close"
+msgstr "बंद करें"
+
+#: includes/class-plugin.php:112
+msgid "No suggestions for this post yet."
+msgstr "इस पोस्ट के लिए अभी कोई सुझाव नहीं।"
+
+#: includes/class-plugin.php:113
+msgid "Save the post once before requesting suggestions."
+msgstr "सुझाव माँगने से पहले पोस्ट को एक बार सहेजें।"
+
+#: includes/class-plugin.php:114
+msgid "Insert"
+msgstr "जोड़ें"
+
+#: includes/class-plugin.php:115
+msgid "The link goes on a matching phrase already in your text when there is one; otherwise at the cursor. Select words first to link those instead."
+msgstr "अगर आपके टेक्स्ट में मिलता-जुलता वाक्यांश पहले से है, तो लिंक उसी पर लगता है; नहीं तो कर्सर की जगह पर। किसी और शब्द को लिंक करना हो तो पहले उसे चुनें।"
+
+#: includes/class-plugin.php:117
+msgid "Suggestions appear once this post is published: drafts are not indexed yet. Publish it, wait a moment, then click the button again."
+msgstr "यह पोस्ट प्रकाशित होने के बाद सुझाव दिखेंगे: ड्राफ़्ट अभी इंडेक्स नहीं होते। इसे प्रकाशित करें, थोड़ा रुकें, फिर बटन पर दोबारा क्लिक करें।"
+
+#: includes/class-plugin.php:118
+msgid "This post has not been indexed yet. It is normally picked up within a minute of saving; try again shortly, or rebuild the index from the JnK Linkweave dashboard."
+msgstr "यह पोस्ट अभी इंडेक्स नहीं हुई है। आम तौर पर सेव करने के एक मिनट के भीतर यह पकड़ ली जाती है; थोड़ी देर में फिर कोशिश करें, या JnK Linkweave डैशबोर्ड से इंडेक्स फिर से बनाएँ।"
+
+#. translators: 1: indexable word count of this post, 2: configured minimum.
+#: includes/class-plugin.php:120
+#, php-format
+msgid "This post is too short to index, so it has no suggestions yet. It has %1$d indexable words and the minimum is %2$d (common words like \"the\" are not counted)."
+msgstr "यह पोस्ट इंडेक्स करने के लिए बहुत छोटी है, इसलिए अभी इसके कोई सुझाव नहीं हैं। इसमें %1$d इंडेक्स योग्य शब्द हैं और न्यूनतम %2$d है (\"the\" जैसे आम शब्द नहीं गिने जाते)।"
+
+#: includes/class-plugin.php:121
+msgid "This post type is not being indexed. You can add it under Post types in JnK Linkweave → Settings."
+msgstr "यह पोस्ट प्रकार इंडेक्स नहीं हो रहा है। आप इसे JnK Linkweave → सेटिंग्स में पोस्ट प्रकार के नीचे जोड़ सकते हैं।"
+
+#: includes/class-plugin.php:122
+msgid "No related posts cleared the relevance threshold for this one. Lowering Minimum relevance in Settings will surface weaker matches."
+msgstr "इस पोस्ट के लिए कोई भी संबंधित पोस्ट प्रासंगिकता की सीमा पार नहीं कर पाई। सेटिंग्स में “मिलान कितना करीबी होना चाहिए” कम करने से कमज़ोर मिलान भी दिखेंगे।"
+
+#: includes/class-plugin.php:123
+msgid "The index has not been built yet. Build it once from JnK Linkweave → Dashboard → Rebuild index."
+msgstr "इंडेक्स अभी तक नहीं बना है। इसे एक बार JnK Linkweave → डैशबोर्ड → इंडेक्स फिर से बनाएँ से बनाएँ।"
+
+#: includes/class-plugin.php:126
+#: editor/src/strength.js:16
+msgid "Very close match"
+msgstr "बहुत करीबी मिलान"
+
+#: includes/class-plugin.php:127
+#: editor/src/strength.js:19
+msgid "Close match"
+msgstr "करीबी मिलान"
+
+#: includes/class-plugin.php:128
+#: editor/src/strength.js:22
+msgid "Related"
+msgstr "संबंधित"
+
+#: includes/class-plugin.php:129
+#: editor/src/strength.js:24
+msgid "Loosely related"
+msgstr "थोड़ा संबंधित"
+
+#: admin/assets/js/admin.js:584
+msgid "Filter by title…"
+msgstr "शीर्षक से फ़िल्टर करें…"
+
+#: admin/assets/js/admin.js:584
+msgid "Filter by title"
+msgstr "शीर्षक से फ़िल्टर करें"
+
+#: admin/assets/js/admin.js:76
+#: admin/assets/js/admin.js:503
+#: admin/assets/js/admin.js:574
+msgid "View"
+msgstr "देखें"
+
+#: admin/assets/js/admin.js:343
+#: admin/assets/js/admin.js:480
+#: admin/assets/js/admin.js:560
+#: admin/assets/js/admin.js:766
+msgid "Loading…"
+msgstr "लोड हो रहा है…"
+
+#: admin/assets/js/admin.js:73
+#: admin/assets/js/admin.js:353
+msgid "Edit"
+msgstr "संपादित करें"
+
+#: admin/assets/js/admin.js:106
+msgid "just now"
+msgstr "अभी-अभी"
+
+#: admin/assets/js/admin.js:106
+msgid "in a moment"
+msgstr "थोड़ी देर में"
+
+#. translators: 1: posts saved so far, 2: total posts.
+#: admin/assets/js/admin.js:203
+#, js-format
+msgid "Saving what it learned: %1$d of %2$d"
+msgstr "जो सीखा उसे सेव किया जा रहा है: %2$d में से %1$d"
+
+#: admin/assets/js/admin.js:234
+msgid "The last read stopped before it finished."
+msgstr "पिछली रीडिंग पूरी होने से पहले रुक गई।"
+
+#: admin/assets/js/admin.js:235
+msgid "The last read failed."
+msgstr "पिछली रीडिंग विफल रही।"
+
+#: admin/assets/js/admin.js:236
+#: admin/assets/js/admin.js:292
+#: admin/assets/js/admin.js:308
+msgid "Run it again now"
+msgstr "इसे अभी फिर चलाएँ"
+
+#: admin/assets/js/admin.js:349
+msgid "Created by the link map. Clearing the map removes it; rules you wrote are never touched."
+msgstr "लिंक मैप से बनाया गया। मैप साफ़ करने पर यह हट जाता है; आपके लिखे नियमों को कभी नहीं छुआ जाता।"
+
+#: admin/assets/js/admin.js:349
+msgid "from link map"
+msgstr "लिंक मैप से"
+
+#: admin/assets/js/admin.js:349
+msgid "This rule uses Pro options and is paused on the free version."
+msgstr "यह नियम Pro विकल्पों का इस्तेमाल करता है और Free वर्शन पर रुका हुआ है।"
+
+#: admin/assets/js/admin.js:351
+msgid "Its settings are kept. It runs again when the Pro version is back."
+msgstr "इसकी सेटिंग्स रखी गई हैं। Pro वर्शन वापस आने पर यह फिर चलेगा।"
+
+#: admin/assets/js/admin.js:351
+msgid "Paused"
+msgstr "रुका हुआ"
+
+#: admin/assets/js/admin.js:351
+#: admin/assets/js/admin.js:366
+#: admin/assets/js/admin.js:410
+msgid "On"
+msgstr "चालू"
+
+#: admin/assets/js/admin.js:353
+msgid "Delete"
+msgstr "हटाएँ"
+
+#: admin/assets/js/admin.js:358
+#: admin/assets/js/admin.js:363
+msgid "Phrase"
+msgstr "वाक्यांश"
+
+#: admin/assets/js/admin.js:358
+#: admin/assets/js/admin.js:364
+msgid "Links to"
+msgstr "किससे लिंक होता है"
+
+#: admin/assets/js/admin.js:358
+msgid "Links this rule adds across your published posts right now. Mentions already inside a link, a heading or code, and mentions on the target page itself, are skipped, so 0 can be correct."
+msgstr "यह नियम अभी आपकी प्रकाशित पोस्ट में कितने लिंक जोड़ता है। जो ज़िक्र पहले से किसी लिंक, हेडिंग या कोड के अंदर हैं, और टारगेट पेज पर ही आने वाले ज़िक्र, छोड़ दिए जाते हैं, इसलिए 0 भी सही हो सकता है।"
+
+#: admin/assets/js/admin.js:358
+msgid "Links added"
+msgstr "जोड़े गए लिंक"
+
+#: admin/assets/js/admin.js:359
+msgid "No rules yet"
+msgstr "अभी तक कोई नियम नहीं"
+
+#: admin/assets/js/admin.js:359
+msgid "A rule links one phrase to one page everywhere it appears. Add your first one with the form."
+msgstr "एक नियम किसी एक वाक्यांश को, वह जहाँ भी आए, एक पेज से लिंक करता है। फ़ॉर्म से अपना पहला नियम जोड़ें।"
+
+#: admin/assets/js/admin.js:361
+msgid "Add a rule"
+msgstr "नियम जोड़ें"
+
+#: admin/assets/js/admin.js:361
+msgid "Linkweave links this phrase wherever it appears in your posts."
+msgstr "Linkweave यह वाक्यांश आपकी पोस्ट में जहाँ भी आए, उसे लिंक करता है।"
+
+#: admin/assets/js/admin.js:363
+msgid "e.g. internal linking"
+msgstr "जैसे आंतरिक लिंकिंग"
+
+#: admin/assets/js/admin.js:367
+#: admin/assets/js/admin.js:407
+msgid "Match capital letters"
+msgstr "बड़े-छोटे अक्षर मिलाएँ"
+
+#: admin/assets/js/admin.js:368
+#: admin/assets/js/admin.js:408
+msgid "Open in a new tab"
+msgstr "नए टैब में खोलें"
+
+#: admin/assets/js/admin.js:369
+msgid "Tells search engines not to pass ranking credit through this link"
+msgstr "सर्च इंजन को बताता है कि इस लिंक से रैंकिंग का श्रेय आगे न दें"
+
+#: admin/assets/js/admin.js:372
+#: admin/assets/js/admin.js:413
+msgid "Most per post"
+msgstr "हर पोस्ट में अधिकतम"
+
+#: admin/assets/js/admin.js:373
+#: admin/assets/js/admin.js:414
+msgid "Most across the site"
+msgstr "पूरी साइट में अधिकतम"
+
+#: admin/assets/js/admin.js:373
+#: admin/assets/js/admin.js:414
+msgid "0 means no limit"
+msgstr "0 का मतलब कोई सीमा नहीं"
+
+#: admin/assets/js/admin.js:376
+msgid "Add rule"
+msgstr "नियम जोड़ें"
+
+#: admin/assets/js/admin.js:383
+msgid "Delete this rule?"
+msgstr "यह नियम हटाएँ?"
+
+#: admin/assets/js/admin.js:387
+msgid "Rule deleted."
+msgstr "नियम हटा दिया गया।"
+
+#: admin/assets/js/admin.js:418
+msgid "Save"
+msgstr "सहेजें"
+
+#: admin/assets/js/admin.js:440
+msgid "Rule saved."
+msgstr "नियम सेव किया गया।"
+
+#: admin/assets/js/admin.js:466
+msgid "Rule added."
+msgstr "नियम जोड़ा गया।"
+
+#: admin/assets/js/admin.js:487
+msgid "No orphan posts"
+msgstr "कोई अनाथ पोस्ट नहीं"
+
+#. translators: 1: opening link tag to the Overview screen, 2: closing link tag.
+#: admin/assets/js/admin.js:490
+#, js-format
+msgid "Every published post has at least one internal link pointing at it. If you have not built the index yet, %1$sdo that on the Overview%2$s first."
+msgstr "हर प्रकाशित पोस्ट पर कम से कम एक आंतरिक लिंक आता है। अगर आपने अभी तक इंडेक्स नहीं बनाया है, तो पहले %1$sसारांश पेज पर बनाएँ%2$s।"
+
+#: admin/assets/js/admin.js:498
+#, js-format
+msgid "%d post needs a link"
+msgid_plural "%d posts need a link"
+msgstr[0] "%d पोस्ट को लिंक चाहिए"
+msgstr[1] "%d पोस्ट को लिंक चाहिए"
+
+#: admin/assets/js/admin.js:499
+msgid "Linkweave compares each one with the rest of your site and lists the posts that talk about the same thing."
+msgstr "Linkweave हर एक की तुलना आपकी बाकी साइट से करता है और उन पोस्ट की सूची देता है जो उसी विषय पर बात करती हैं।"
+
+#: admin/assets/js/admin.js:505
+msgid "Shorter than the minimum length in Settings, so it is never suggested as a link target."
+msgstr "सेटिंग्स में दी गई न्यूनतम लंबाई से छोटी है, इसलिए इसे कभी लिंक टारगेट के रूप में नहीं सुझाया जाता।"
+
+#: admin/assets/js/admin.js:505
+msgid "Too short to suggest"
+msgstr "सुझाने के लिए बहुत छोटी"
+
+#: admin/assets/js/admin.js:506
+#: admin/assets/js/admin.js:523
+msgid "Find posts that could link here"
+msgstr "वे पोस्ट ढूँढें जो यहाँ लिंक कर सकती हैं"
+
+#: admin/assets/js/admin.js:523
+msgid "Hide"
+msgstr "छिपाएँ"
+
+#: admin/assets/js/admin.js:526
+msgid "Looking through your posts…"
+msgstr "आपकी पोस्ट देखी जा रही हैं…"
+
+#: admin/assets/js/admin.js:532
+msgid "No close matches yet. Write a related post and link it here, or add an auto-link rule for this page."
+msgstr "अभी कोई करीबी मिलान नहीं। कोई संबंधित पोस्ट लिखें और उसे यहाँ लिंक करें, या इस पेज के लिए ऑटो-लिंक नियम जोड़ें।"
+
+#: admin/assets/js/admin.js:540
+msgid "How closely the two posts match"
+msgstr "दोनों पोस्ट कितनी करीब से मेल खाती हैं"
+
+#: admin/assets/js/admin.js:541
+msgid "Open"
+msgstr "खोलें"
+
+#: admin/assets/js/admin.js:544
+msgid "Open a post and add the link in the editor."
+msgstr "कोई पोस्ट खोलें और एडिटर में लिंक जोड़ें।"
+
+#: admin/assets/js/admin.js:545
+msgid "Pro adds the links for you"
+msgstr "Pro आपके लिए लिंक जोड़ता है"
+
+#: admin/assets/js/admin.js:564
+msgid "Nothing to show yet"
+msgstr "अभी दिखाने को कुछ नहीं"
+
+#: admin/assets/js/admin.js:564
+msgid "Build the index on the Overview and the counts appear here."
+msgstr "सारांश पेज पर इंडेक्स बनाएँ और गिनती यहाँ दिखेगी।"
+
+#. translators: %d: number of posts.
+#: admin/assets/js/admin.js:581
+#: admin/assets/js/linkmap.js:35
+#, js-format
+msgid "%d post"
+msgid_plural "%d posts"
+msgstr[0] "%d पोस्ट"
+msgstr[1] "%d पोस्ट"
+
+#: admin/assets/js/admin.js:583
+#, js-format
+msgid "%d with no links in, shown in red."
+msgid_plural "%d with no links in, shown in red."
+msgstr[0] "%d पर कोई लिंक नहीं आता, लाल रंग में दिखाई गई।"
+msgstr[1] "%d पर कोई लिंक नहीं आता, लाल रंग में दिखाई गई हैं।"
+
+#: admin/assets/js/admin.js:583
+msgid "Every post has at least one link in."
+msgstr "हर पोस्ट पर कम से कम एक लिंक आता है।"
+
+#: admin/assets/js/admin.js:619
+#, js-format
+msgid "Checking links: %1$d of %2$d…"
+msgstr "लिंक जाँचे जा रहे हैं: %2$d में से %1$d…"
+
+#: admin/assets/js/admin.js:620
+#: admin/assets/js/admin.js:730
+msgid "Collecting your links…"
+msgstr "आपके लिंक इकट्ठे किए जा रहे हैं…"
+
+#: admin/assets/js/admin.js:628
+#, js-format
+msgid "The check stopped: a step failed %1$d times in a row (%2$s). Click “Check all links now” to start again."
+msgstr "जाँच रुक गई: एक चरण लगातार %1$d बार विफल रहा (%2$s)। फिर से शुरू करने के लिए “अभी सभी लिंक जाँचें” पर क्लिक करें।"
+
+#: admin/assets/js/admin.js:630
+#, js-format
+msgid "The check stopped: a step failed %d times in a row. Click “Check all links now” to start again."
+msgstr "जाँच रुक गई: एक चरण लगातार %d बार विफल रहा। फिर से शुरू करने के लिए “अभी सभी लिंक जाँचें” पर क्लिक करें।"
+
+#. translators: 1: links checked, 2: links to missing pages, 3: links that did not answer.
+#: admin/assets/js/admin.js:638
+#, js-format
+msgid "Done: %1$d links checked, %2$d to missing pages, %3$d did not answer."
+msgstr "हो गया: %1$d लिंक जाँचे गए, %2$d गायब पेजों पर, %3$d ने जवाब नहीं दिया।"
+
+#: admin/assets/js/admin.js:640
+msgid "The check stopped before it finished. Click the button to run it again."
+msgstr "जाँच पूरी होने से पहले रुक गई। इसे फिर से चलाने के लिए बटन पर क्लिक करें।"
+
+#. translators: %s: the error message from the site.
+#: admin/assets/js/admin.js:699
+#, js-format
+msgid "This page could not go on with the check (%s). It carries on in the background; this line updates when it is done."
+msgstr "यह पेज जाँच जारी नहीं रख सका (%s)। यह बैकग्राउंड में चलती रहती है; पूरा होने पर यह पंक्ति अपडेट हो जाएगी।"
+
+#. translators: 1: date and time, 2: number of links checked.
+#: admin/assets/js/admin.js:749
+#, js-format
+msgid "Last full check: %1$s, %2$d links checked."
+msgstr "पिछली पूरी जाँच: %1$s, %2$d लिंक जाँचे गए।"
+
+#: admin/assets/js/admin.js:751
+msgid "No full check has finished yet."
+msgstr "अभी तक कोई पूरी जाँच खत्म नहीं हुई है।"
+
+#. translators: %d: number of links never checked.
+#: admin/assets/js/admin.js:755
+#, js-format
+msgid "%d link has never been checked."
+msgid_plural "%d links have never been checked."
+msgstr[0] "%d लिंक की कभी जाँच नहीं हुई।"
+msgstr[1] "%d लिंक की कभी जाँच नहीं हुई।"
+
+#: admin/assets/js/admin.js:760
+msgid "The last check stopped part way. Click “Check all links now” to finish it."
+msgstr "पिछली जाँच बीच में रुक गई। इसे पूरा करने के लिए “अभी सभी लिंक जाँचें” पर क्लिक करें।"
+
+#: admin/assets/js/admin.js:779
+msgid "No broken links"
+msgstr "कोई टूटा लिंक नहीं"
+
+#: admin/assets/js/admin.js:782
+#, js-format
+msgid "Last checked %1$s, %2$d link in total."
+msgid_plural "Last checked %1$s, %2$d links in total."
+msgstr[0] "पिछली जाँच %1$s, कुल %2$d लिंक।"
+msgstr[1] "पिछली जाँच %1$s, कुल %2$d लिंक।"
+
+#: admin/assets/js/admin.js:784
+#, js-format
+msgid "Last checked %s."
+msgstr "पिछली जाँच %s।"
+
+#: admin/assets/js/admin.js:785
+msgid "Not checked yet"
+msgstr "अभी तक जाँच नहीं हुई"
+
+#: admin/assets/js/admin.js:785
+msgid "Linkweave checks your links once a day. Click “Check all links now” to do it straight away."
+msgstr "Linkweave दिन में एक बार आपके लिंक जाँचता है। इसे तुरंत करने के लिए “अभी सभी लिंक जाँचें” पर क्लिक करें।"
+
+#: admin/assets/js/admin.js:801
+msgid "No answer in time, or the server returned an error. The page may be fine: open it to check. Remove all leaves these links alone."
+msgstr "समय पर कोई जवाब नहीं मिला, या सर्वर ने त्रुटि लौटाई। हो सकता है पेज ठीक हो: जाँचने के लिए उसे खोलें। “गायब पेजों के सभी लिंक हटाएँ” इन लिंक को नहीं छूता।"
+
+#: admin/assets/js/admin.js:801
+msgid "Did not answer"
+msgstr "जवाब नहीं दिया"
+
+#: admin/assets/js/admin.js:802
+msgid "Page missing"
+msgstr "पेज गायब"
+
+#: admin/assets/js/admin.js:810
+msgid "Found in"
+msgstr "कहाँ मिला"
+
+#: admin/assets/js/admin.js:810
+msgid "Points at"
+msgstr "किस पर पॉइंट करता है"
+
+#: admin/assets/js/admin.js:810
+msgid "Link text"
+msgstr "लिंक टेक्स्ट"
+
+#: admin/assets/js/admin.js:810
+msgid "Checked"
+msgstr "जाँचा गया"
+
+#: admin/assets/js/admin.js:855
+msgid "Saving…"
+msgstr "सेव किया जा रहा है…"
+
+#: admin/assets/js/admin.js:859
+#: admin/assets/js/admin.js:862
+msgid "Settings saved."
+msgstr "सेटिंग्स सेव की गईं।"
+
+#: admin/assets/js/admin.js:862
+msgid "The index is being rebuilt in the background so the change reaches every post."
+msgstr "इंडेक्स बैकग्राउंड में फिर से बनाया जा रहा है, ताकि बदलाव हर पोस्ट तक पहुँचे।"
+
+#. translators: %d: number of internal links pointing at a post.
+#: admin/assets/js/linkmap.js:37
+#, js-format
+msgid "%d link in"
+msgid_plural "%d links in"
+msgstr[0] "%d लिंक आता है"
+msgstr[1] "%d लिंक आते हैं"
+
+#. translators: %d: number of links.
+#: admin/assets/js/linkmap.js:39
+#, js-format
+msgid "%d link"
+msgid_plural "%d links"
+msgstr[0] "%d लिंक"
+msgstr[1] "%d लिंक"
+
+#: admin/assets/js/linkmap.js:52
+#, js-format
+msgid "%d with no links in"
+msgid_plural "%d with no links in"
+msgstr[0] "%d पर कोई लिंक नहीं आता"
+msgstr[1] "%d पर कोई लिंक नहीं आता"
+
+#: admin/assets/js/linkmap.js:62
+msgid "Nothing links here yet"
+msgstr "अभी तक यहाँ कुछ भी लिंक नहीं करता"
+
+#: admin/assets/js/linkmap.js:94
+msgid "Read across a row: how many links that topic's posts send to each topic. The shaded diagonal is links inside the same topic. A row of empty cells is a topic that never links out."
+msgstr "एक पंक्ति में पढ़ें: उस विषय की पोस्ट हर विषय को कितने लिंक भेजती हैं। रंगीन तिरछी रेखा एक ही विषय के अंदर के लिंक हैं। खाली सेल वाली पंक्ति ऐसा विषय है जो कभी बाहर लिंक नहीं करता।"
+
+#: admin/assets/js/linkmap.js:95
+msgid "From ↓"
+msgstr "किस विषय से ↓"
+
+#: admin/assets/js/linkmap.js:95
+msgid "To →"
+msgstr "किस विषय को →"
+
+#: admin/assets/js/linkmap.js:96
+msgid "Total out"
+msgstr "कुल बाहर"
+
+#: admin/assets/js/linkmap.js:105
+msgid "None"
+msgstr "कोई नहीं"
+
+#: admin/assets/js/linkmap.js:125
+msgid "Which topics link to which. Topics that link to each other help readers move around your site."
+msgstr "कौन-से विषय किन विषयों को लिंक करते हैं। एक-दूसरे को लिंक करने वाले विषय पाठकों को आपकी साइट पर घूमने में मदद करते हैं।"
+
+#: editor/src/InboundOpportunities.jsx:19
+msgid "Drafts are not indexed yet. Once this post is published, related posts that should link here show up within a minute or so."
+msgstr "ड्राफ़्ट अभी इंडेक्स नहीं होते। यह पोस्ट प्रकाशित होने के बाद, जिन संबंधित पोस्ट को यहाँ लिंक करना चाहिए वे लगभग एक मिनट में दिखने लगेंगी।"
+
+#: editor/src/InboundOpportunities.jsx:24
+msgid "This post has not been indexed yet. It is normally picked up within a minute of saving; this list refreshes on its own."
+msgstr "यह पोस्ट अभी इंडेक्स नहीं हुई है। आम तौर पर सेव करने के एक मिनट के भीतर यह पकड़ ली जाती है; यह सूची अपने आप रीफ़्रेश होती है।"
+
+#: editor/src/InboundOpportunities.jsx:29
+msgid "This post is too short to index, so no related posts can be found for it."
+msgstr "यह पोस्ट इंडेक्स करने के लिए बहुत छोटी है, इसलिए इसके लिए कोई संबंधित पोस्ट नहीं मिल सकती।"
+
+#: editor/src/InboundOpportunities.jsx:34
+msgid "This post type is not being indexed (see Post types in Settings)."
+msgstr "यह पोस्ट प्रकार इंडेक्स नहीं हो रहा है (सेटिंग्स में पोस्ट प्रकार देखें)।"
+
+#: editor/src/InboundOpportunities.jsx:39
+msgid "The index has not been built yet (JnK Linkweave → Dashboard → Rebuild index)."
+msgstr "इंडेक्स अभी तक नहीं बना है (JnK Linkweave → डैशबोर्ड → इंडेक्स फिर से बनाएँ)।"
+
+#: editor/src/InboundOpportunities.jsx:44
+msgid "No inbound opportunities found yet: every closely related post already links here, or none is related closely enough."
+msgstr "अभी तक आने वाले लिंक का कोई मौका नहीं मिला: हर करीबी संबंधित पोस्ट पहले से यहाँ लिंक करती है, या कोई भी पर्याप्त रूप से संबंधित नहीं है।"
+
+#: editor/src/InboundOpportunities.jsx:92
+msgid "Posts that should link here"
+msgstr "वे पोस्ट जिन्हें यहाँ लिंक करना चाहिए"
+
+#: editor/src/InboundOpportunities.jsx:94
+msgid "Topically related posts that don’t yet link to this one. Open one to add the link."
+msgstr "विषय से जुड़ी वे पोस्ट जो अभी तक इसे लिंक नहीं करतीं। लिंक जोड़ने के लिए किसी एक को खोलें।"
+
+#. translators: %s: raw relevance score.
+#: editor/src/InboundOpportunities.jsx:126
+#, js-format
+msgid "Relevance %s"
+msgstr "प्रासंगिकता %s"
+
+#. translators: %s: comma-separated list of shared words.
+#: editor/src/InboundOpportunities.jsx:137
+#: editor/src/SuggestionItem.jsx:44
+#, js-format
+msgid "Both mention: %s"
+msgstr "दोनों में ज़िक्र: %s"
+
+#: editor/src/InboundOpportunities.jsx:150
+#: editor/src/SuggestionList.jsx:143
+#: editor/src/SuggestionList.jsx:232
+#: editor/src/SuggestionList.jsx:248
+#: editor/src/SuggestionList.jsx:271
+#: editor/src/SuggestionList.jsx:302
+msgid "Refresh"
+msgstr "रीफ़्रेश करें"
+
+#: editor/src/Sidebar.jsx:26
+msgid "Suggested links"
+msgstr "सुझाए गए लिंक"
+
+#: editor/src/Sidebar.jsx:29
+msgid "Posts that cover the same topic. Click into a paragraph, then insert a link."
+msgstr "उसी विषय पर लिखी पोस्ट। किसी पैराग्राफ़ में क्लिक करें, फिर लिंक जोड़ें।"
+
+#. translators: 1: plain-language strength, 2: raw relevance score.
+#: editor/src/SuggestionItem.jsx:8
+#, js-format
+msgid "%1$s — relevance %2$s. Higher means more topic words in common."
+msgstr "%1$s — प्रासंगिकता %2$s। ज़्यादा का मतलब है विषय के ज़्यादा शब्द एक जैसे।"
+
+#: editor/src/SuggestionItem.jsx:54
+msgid "Insert link"
+msgstr "लिंक जोड़ें"
+
+#: editor/src/SuggestionList.jsx:51
+msgid "Click into the paragraph you want the link in, then insert."
+msgstr "जिस पैराग्राफ़ में लिंक चाहिए उसमें क्लिक करें, फिर जोड़ें।"
+
+#: editor/src/SuggestionList.jsx:75
+msgid "That block cannot hold a link. Select a paragraph or list item and try again."
+msgstr "उस ब्लॉक में लिंक नहीं लग सकता। कोई पैराग्राफ़ या सूची आइटम चुनें और फिर कोशिश करें।"
+
+#. translators: 1: indexable word count of this post, 2: configured minimum.
+#: editor/src/SuggestionList.jsx:171
+#, js-format
+msgid "This post is too short to index, so it has no suggestions yet. It has %1$d indexable words and the minimum is %2$d — that is counted after common words like \"the\" and \"a\" are removed, so it is roughly half the visible word count."
+msgstr "यह पोस्ट इंडेक्स करने के लिए बहुत छोटी है, इसलिए अभी इसके कोई सुझाव नहीं हैं। इसमें %1$d इंडेक्स योग्य शब्द हैं और न्यूनतम %2$d है — यह \"the\" और \"a\" जैसे आम शब्द हटाने के बाद गिना जाता है, इसलिए यह दिखने वाले शब्दों का लगभग आधा होता है।"
+
+#: editor/src/SuggestionList.jsx:180
+msgid "Add a few more paragraphs, or lower the minimum in Settings."
+msgstr "कुछ और पैराग्राफ़ जोड़ें, या सेटिंग्स में न्यूनतम सीमा कम करें।"
+
+#: editor/src/SuggestionList.jsx:190
+#: editor/src/SuggestionList.jsx:210
+msgid "Open settings"
+msgstr "सेटिंग्स खोलें"
+
+#: editor/src/SuggestionList.jsx:200
+msgid "This post type is not being indexed, so there is nothing to suggest here. You can add it under Post types in Settings."
+msgstr "यह पोस्ट प्रकार इंडेक्स नहीं हो रहा है, इसलिए यहाँ सुझाने को कुछ नहीं है। आप इसे सेटिंग्स में पोस्ट प्रकार के नीचे जोड़ सकते हैं।"
+
+#: editor/src/SuggestionList.jsx:220
+msgid "No related posts cleared the relevance threshold for this one. That usually means it covers a topic nothing else on the site touches yet."
+msgstr "इस पोस्ट के लिए कोई भी संबंधित पोस्ट प्रासंगिकता की सीमा पार नहीं कर पाई। आम तौर पर इसका मतलब है कि यह ऐसे विषय पर है जिसे साइट पर अभी तक कुछ और नहीं छूता।"
+
+#: editor/src/SuggestionList.jsx:226
+msgid "Lowering the minimum relevance score in Settings will surface weaker matches."
+msgstr "सेटिंग्स में न्यूनतम प्रासंगिकता स्कोर कम करने से कमज़ोर मिलान भी दिखेंगे।"
+
+#: editor/src/SuggestionList.jsx:242
+msgid "Suggestions appear once this post is published: drafts are not indexed yet. After publishing, this panel fills in within a minute or so."
+msgstr "यह पोस्ट प्रकाशित होने के बाद सुझाव दिखेंगे: ड्राफ़्ट अभी इंडेक्स नहीं होते। प्रकाशित करने के बाद यह पैनल लगभग एक मिनट में भर जाएगा।"
+
+#: editor/src/SuggestionList.jsx:258
+msgid "This post has not been indexed yet. It is normally picked up within a minute of saving; a rebuild will catch it immediately."
+msgstr "यह पोस्ट अभी इंडेक्स नहीं हुई है। आम तौर पर सेव करने के एक मिनट के भीतर यह पकड़ ली जाती है; इंडेक्स फिर से बनाने पर यह तुरंत आ जाएगी।"
+
+#: editor/src/SuggestionList.jsx:268
+msgid "Rebuild the index"
+msgstr "इंडेक्स फिर से बनाएँ"
+
+#: editor/src/SuggestionList.jsx:281
+msgid "No suggestions yet. Linkweave ranks suggestions against an index of your existing posts, so that index has to be built once before it can suggest anything."
+msgstr "अभी कोई सुझाव नहीं। Linkweave आपकी मौजूदा पोस्ट के इंडेक्स के आधार पर सुझावों को रैंक करता है, इसलिए कुछ भी सुझाने से पहले वह इंडेक्स एक बार बनाना ज़रूरी है।"
+
+#: editor/src/SuggestionList.jsx:292
+msgid "Build the index"
+msgstr "इंडेक्स बनाएँ"
+
+#: editor/src/SuggestionList.jsx:296
+msgid "Already built it? Save this post, then refresh."
+msgstr "पहले ही बना लिया? यह पोस्ट सहेजें, फिर रीफ़्रेश करें।"

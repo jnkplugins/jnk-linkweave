@@ -406,6 +406,9 @@ class Cron {
             "stalled"       => (bool) $state && self::scan_stalled( $state ),
             "checked"       => $state ? (int) $state["checked"] : 0,
             "total"         => $state ? (int) $state["total"] : 0,
+            // False while the scan re-reads every post's links: the links table is
+            // part-empty then, so reports built on it are incomplete.
+            "graph_done"    => ! $state || ! empty( $state["graph"] ),
             "started_at"    => $state ? gmdate( "Y-m-d H:i:s", (int) $state["started_at"] ) : null,
             // Set when the scan stopped itself after steps kept failing; the
             // report says so instead of "stopped part way, click to finish it".

@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.2
-Stable tag: 1.18.1
+Stable tag: 1.19.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -168,6 +168,9 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.19.0 =
+* New: Hindi translation.
 
 = 1.18.1 =
 * Fixed: Auto-link rules show non-Latin target addresses as readable text instead of %e0%a4 codes.
