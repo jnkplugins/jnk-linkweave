@@ -609,7 +609,7 @@ class Cron {
         $settings   = get_option( "jnk_linkweave_settings", [] );
         $post_types = (array) apply_filters(
             "jnk_linkweave_suggestion_post_types",
-            $settings["post_types"] ?? [ "post", "page" ]
+            Index_Builder::base_post_types( (array) $settings )
         );
 
         $ids = get_posts( [
@@ -670,7 +670,7 @@ class Cron {
 
         $post       = get_post( $post_id );
         $settings   = get_option( "jnk_linkweave_settings", [] );
-        $post_types = (array) apply_filters( "jnk_linkweave_suggestion_post_types", $settings["post_types"] ?? [ "post", "page" ] );
+        $post_types = (array) apply_filters( "jnk_linkweave_suggestion_post_types", Index_Builder::base_post_types( (array) $settings ) );
         $written    = 0;
         if ( $post && "publish" === $post->post_status && in_array( $post->post_type, $post_types, true ) ) {
             $written = self::write_links_for_post( $post_id, $previous );

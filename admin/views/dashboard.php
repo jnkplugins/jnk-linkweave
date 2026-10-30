@@ -23,7 +23,11 @@ $not_read = 0 === $indexed;
 
 global $wpdb;
 $links_table = $wpdb->prefix . "jnk_linkweave_links";
+// Orphans leave out posts that auto-link rules link to; those are counted apart,
+// the same split the Orphans screen shows.
 $orphans     = \JnkLinkweave\REST_API::orphan_rows();
+$rule_only   = count( \JnkLinkweave\REST_API::rule_only_rows() );
+$rule_in     = \JnkLinkweave\Rules_Engine::rule_inbound_counts();
 $broken      = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i WHERE is_broken = 1", $links_table ) );
 $link_total  = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i WHERE target_post_id > 0", $links_table ) );
 $rules       = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i WHERE is_active = 1", $wpdb->prefix . "jnk_linkweave_rules" ) );
@@ -34,18 +38,23 @@ $top_linked  = $wpdb->get_results( $wpdb->prepare(
 // Link coverage: how many published posts receive 0, 1-2, 3-5 and 6+ internal links.
 $types_in    = \JnkLinkweave\REST_API::report_post_types();
 $coverage    = [ 0 => 0, 1 => 0, 3 => 0, 6 => 0 ];
-$inbound_all = $wpdb->get_col( $wpdb->prepare(
+$inbound_all = $wpdb->get_results( $wpdb->prepare(
     // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- IN() list built from %s placeholders.
-    "SELECT COUNT(l.id) FROM {$wpdb->posts} p LEFT JOIN %i l ON l.target_post_id = p.ID
+    "SELECT p.ID AS id, COUNT(l.id) AS n FROM {$wpdb->posts} p LEFT JOIN %i l ON l.target_post_id = p.ID
      WHERE p.post_status = 'publish' AND p.post_type IN (" . implode( ",", array_fill( 0, count( $types_in ), "%s" ) ) . ")
      GROUP BY p.ID",
     array_merge( [ $links_table ], $types_in )
 ) );
-foreach ( $inbound_all as $n ) {
-    $n = (int) $n;
+foreach ( (array) $inbound_all as $row ) {
+    // Saved links plus auto-link rule links, so "No links in" matches the orphan count.
+    $n = (int) $row->n + (int) ( $rule_in[ (int) $row->id ] ?? 0 );
     $coverage[ $n >= 6 ? 6 : ( $n >= 3 ? 3 : ( $n >= 1 ? 1 : 0 ) ) ]++;
 }
 $coverage_total = max( 1, array_sum( $coverage ) );
+// Published posts the index leaves out because they are too short to compare.
+// Orphans and coverage count every published post, so without saying so the
+// two cards disagreed (184 known, 190 nothing links to, on a shop).
+$too_short = $not_read || $running ? 0 : max( 0, count( $inbound_all ) - $indexed );
 $page = static fn( string $suffix ): string => admin_url( "admin.php?page=jnk-linkweave" . $suffix );
 
 $actions = '<span id="jnk-linkweave-rebuild-status" class="jnkui-muted" role="status" aria-live="polite"></span>'
@@ -103,11 +112,25 @@ UI::open(
                 ); ?>
             <?php endif; ?>
         </div>
+        <?php if ( $too_short > 0 ) : ?>
+            <div class="jnkui-stat-foot" id="jnk-linkweave-too-short"><?php printf(
+                /* translators: %s: number of published posts left out of the index. */
+                esc_html( _n( "Plus %s published post too short to compare (counted in the other reports)", "Plus %s published posts too short to compare (counted in the other reports)", $too_short, "jnk-linkweave" ) ),
+                esc_html( number_format_i18n( $too_short ) )
+            ); ?></div>
+        <?php endif; ?>
     </div>
     <a class="jnkui-stat" href="<?php echo esc_url( $page( "-orphans" ) ); ?>">
         <div class="jnkui-stat-label"><span class="jnkui-dot <?php echo $not_read ? "is-brand" : ( $orphans ? "is-warn" : "is-ok" ); ?>"></span><?php esc_html_e( "Posts nothing links to", "jnk-linkweave" ); ?></div>
         <div class="jnkui-stat-value"><?php echo $not_read ? "&ndash;" : esc_html( number_format_i18n( count( $orphans ) ) ); ?></div>
         <div class="jnkui-stat-foot"><?php echo $not_read ? esc_html__( "Counted after the first read", "jnk-linkweave" ) : ( $orphans ? esc_html__( "Readers and search engines struggle to find these", "jnk-linkweave" ) : esc_html__( "Every post has at least one link in", "jnk-linkweave" ) ); ?></div>
+        <?php if ( ! $not_read && $rule_only > 0 ) : ?>
+            <div class="jnkui-stat-foot" id="jnk-linkweave-rule-only"><?php printf(
+                /* translators: %s: number of posts whose only inbound links come from auto-link rules. */
+                esc_html( _n( "Plus %s post linked only by auto-link rules", "Plus %s posts linked only by auto-link rules", $rule_only, "jnk-linkweave" ) ),
+                esc_html( number_format_i18n( $rule_only ) )
+            ); ?></div>
+        <?php endif; ?>
     </a>
     <a class="jnkui-stat" href="<?php echo esc_url( $page( "-broken" ) ); ?>">
         <div class="jnkui-stat-label"><span class="jnkui-dot <?php echo $not_read ? "is-brand" : ( $broken ? "is-bad" : "is-ok" ); ?>"></span><?php esc_html_e( "Broken links", "jnk-linkweave" ); ?></div>
@@ -193,9 +216,12 @@ UI::open(
             do_action( "jnk_linkweave_dashboard_side_card" );
         else : ?>
             <div class="jnkui-card-head"><div><h2><?php esc_html_e( "Getting started", "jnk-linkweave" ); ?></h2>
-            <p><?php esc_html_e( "Four steps to a well-linked site.", "jnk-linkweave" ); ?></p></div></div>
+            <?php // Once the first read is done, "Rebuild index" is not a step any more: it read as a chore to repeat. ?>
+            <p><?php echo $indexed > 0 ? esc_html__( "Three more steps to a well-linked site.", "jnk-linkweave" ) : esc_html__( "Four steps to a well-linked site.", "jnk-linkweave" ); ?></p></div></div>
             <ol class="jnkui-steps">
-                <li class="<?php echo $indexed > 0 ? "is-done" : ""; ?>"><strong><?php esc_html_e( "Let Linkweave read your posts", "jnk-linkweave" ); ?></strong><?php esc_html_e( "Rebuild index, top right.", "jnk-linkweave" ); ?></li>
+                <?php if ( 0 === $indexed ) : ?>
+                <li><strong><?php esc_html_e( "Let Linkweave read your posts", "jnk-linkweave" ); ?></strong><?php esc_html_e( "Rebuild index, top right.", "jnk-linkweave" ); ?></li>
+                <?php endif; ?>
                 <li class="<?php echo $link_total > 0 ? "is-done" : ""; ?>"><strong><?php esc_html_e( "Add links while you write", "jnk-linkweave" ); ?></strong><?php esc_html_e( "Open any post: suggestions appear in the Linkweave sidebar.", "jnk-linkweave" ); ?></li>
                 <li class="<?php echo $rules > 0 ? "is-done" : ""; ?>"><strong><?php esc_html_e( "Add an auto-link rule", "jnk-linkweave" ); ?></strong><?php esc_html_e( "Link a phrase to a page everywhere it appears.", "jnk-linkweave" ); ?></li>
                 <li class="<?php echo ! $orphans && $indexed > 0 ? "is-done" : ""; ?>"><strong><?php esc_html_e( "Give every post a link in", "jnk-linkweave" ); ?></strong><?php esc_html_e( "Work down the list on the left.", "jnk-linkweave" ); ?></li>

@@ -169,7 +169,7 @@ function EmptyState( { reason, onRefresh } ) {
 					{ sprintf(
 						/* translators: 1: indexable word count of this post, 2: configured minimum. */
 						__(
-							'This post is too short to index, so it has no suggestions yet. It has %1$d indexable words and the minimum is %2$d — that is counted after common words like "the" and "a" are removed, so it is roughly half the visible word count.',
+							'This post is too short to index, so it has no suggestions yet. It has %1$d indexable words and the minimum is %2$d. Small, common words are not counted, so that is roughly half the visible word count.',
 							'jnk-linkweave'
 						),
 						reason.words,

@@ -18,6 +18,8 @@ final class Plugin {
 
         Index_Builder::register_hooks();
         Cron::register_hooks();
+        // New, changed or removed auto-link rules empty the page cache.
+        Page_Cache::register_hooks();
 
         add_action( "save_post", [ $this, "reindex_post_on_save" ], 20, 3 );
         add_action( "wp_trash_post", [ Index_Builder::class, "delete" ] );
@@ -42,6 +44,8 @@ final class Plugin {
             add_action( "admin_init", [ "JnkLinkweave_Activator", "maybe_upgrade" ] );
             // The first index after activation (only while the index is empty).
             add_action( "admin_init", [ Index_Builder::class, "maybe_start_first_index" ], 20 );
+            // WooCommerce products join the default post types; read them once.
+            add_action( "admin_init", [ Index_Builder::class, "maybe_index_new_default_types" ], 21 );
             ( new \JnkLinkweave\Admin\Admin() )->register_hooks();
         }
     }
@@ -117,7 +121,7 @@ final class Plugin {
                     "not_published" => __( "Suggestions appear once this post is published: drafts are not indexed yet. Publish it, wait a moment, then click the button again.", "jnk-linkweave" ),
                     "not_indexed"   => __( "This post has not been indexed yet. It is normally picked up within a minute of saving; try again shortly, or rebuild the index from the JnK Linkweave dashboard.", "jnk-linkweave" ),
                     /* translators: 1: indexable word count of this post, 2: configured minimum. */
-                    "too_short"     => __( "This post is too short to index, so it has no suggestions yet. It has %1\$d indexable words and the minimum is %2\$d (common words like \"the\" are not counted).", "jnk-linkweave" ),
+                    "too_short"     => __( "This post is too short to index, so it has no suggestions yet. It has %1\$d indexable words and the minimum is %2\$d (small, common words are not counted).", "jnk-linkweave" ),
                     "type_excluded" => __( "This post type is not being indexed. You can add it under Post types in JnK Linkweave → Settings.", "jnk-linkweave" ),
                     "no_matches"    => __( "No related posts cleared the relevance threshold for this one. Lowering Minimum relevance in Settings will surface weaker matches.", "jnk-linkweave" ),
                     "index_empty"   => __( "The index has not been built yet. Build it once from JnK Linkweave → Dashboard → Rebuild index.", "jnk-linkweave" ),
@@ -135,6 +139,11 @@ final class Plugin {
             "window.JnkLinkweaveTinyMCE = " . wp_json_encode( $payload ) . ";",
             "before"
         );
+        // The same suggestions from the Code (Text) tab's toolbar, which the
+        // TinyMCE button never reached. Classic editor screens only.
+        if ( ! ( method_exists( $screen, "is_block_editor" ) && $screen->is_block_editor() ) ) {
+            wp_enqueue_script( "jnk-linkweave-quicktags", JNK_LINKWEAVE_URL . "editor/quicktags.js", [ "quicktags", "jnk-linkweave-tinymce-cfg" ], JNK_LINKWEAVE_VERSION, true );
+        }
     }
 
     public function enqueue_editor_assets(): void {

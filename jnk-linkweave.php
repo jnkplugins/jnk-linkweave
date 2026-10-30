@@ -4,7 +4,7 @@
  * Plugin URI:        https://jnkplugins.com/jnk-linkweave/
  * Update URI:        https://api.jnkplugins.com/
  * Description:       Affordable, server-side internal linking for WordPress — suggestions, auto-linking rules, and orphan &amp; broken-link reports.
- * Version:           1.19.0
+ * Version:           1.20.0
  * Requires at least: 6.8
  * Requires PHP:      8.2
  * Author:            JnK Plugins
@@ -17,7 +17,7 @@
 
 defined( "ABSPATH" ) || exit;
 
-define( "JNK_LINKWEAVE_VERSION", "1.19.0" );
+define( "JNK_LINKWEAVE_VERSION", "1.20.0" );
 define( "JNK_LINKWEAVE_FILE",    __FILE__ );
 define( "JNK_LINKWEAVE_PATH",    plugin_dir_path( __FILE__ ) );
 define( "JNK_LINKWEAVE_URL",     plugin_dir_url( __FILE__ ) );
@@ -71,7 +71,7 @@ if ( file_exists( JNK_LINKWEAVE_PATH . "pro/bootstrap.php" ) ) {
     require_once JNK_LINKWEAVE_PATH . "pro/bootstrap.php";
 }
 
-register_activation_hook(   __FILE__, [ "JnkLinkweave_Activator",   "activate"   ] );
+register_activation_hook(   __FILE__, [ "JnkLinkweave_Activator",   "on_activate" ] );
 register_deactivation_hook( __FILE__, [ "JnkLinkweave_Deactivator", "deactivate" ] );
 
 add_action( "plugins_loaded", static function () {

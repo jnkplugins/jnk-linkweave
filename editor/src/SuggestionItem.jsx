@@ -9,7 +9,7 @@ export default function SuggestionItem( { suggestion, onInsert } ) {
 			'%1$s — relevance %2$s. Higher means more topic words in common.',
 			'jnk-linkweave'
 		),
-		strength( suggestion.score ),
+		strength( suggestion.score, suggestion.matched_terms ),
 		suggestion.score.toFixed( 2 )
 	);
 
@@ -28,7 +28,7 @@ export default function SuggestionItem( { suggestion, onInsert } ) {
 					title={ label }
 					aria-label={ label }
 				>
-					{ strength( suggestion.score ) }
+					{ strength( suggestion.score, suggestion.matched_terms ) }
 				</span>
 			</div>
 			{ suggestion.excerpt && (

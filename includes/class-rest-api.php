@@ -294,9 +294,24 @@ class REST_API {
         return new \WP_REST_Response( ( new Rules_Engine() )->list_rules( $page, $per_page ) );
     }
 
+    /** 400 when "Links to" is not a web address or a path on this site. */
+    private static function bad_target( array $body ): ?\WP_REST_Response {
+        if ( ! array_key_exists( "target_url", $body ) || Rules_Engine::is_valid_target( (string) $body["target_url"] ) ) {
+            return null;
+        }
+        return new \WP_REST_Response( [
+            "code"    => "jnk_linkweave_bad_target",
+            "message" => __( "\"Links to\" needs a web address (https://…) or a path on this site (/…). To link to a post, find it by title under the box.", "jnk-linkweave" ),
+        ], 400 );
+    }
+
     public function create_rule( \WP_REST_Request $r ): \WP_REST_Response {
+        $body = (array) $r->get_json_params();
+        if ( $bad = self::bad_target( $body ) ) {
+            return $bad;
+        }
         // Free tier creates unlimited auto-linking rules — no cap.
-        $id = ( new Rules_Engine() )->create( (array) $r->get_json_params() );
+        $id = ( new Rules_Engine() )->create( $body );
         return new \WP_REST_Response( [ "id" => $id ], 201 );
     }
 
@@ -308,7 +323,11 @@ class REST_API {
     }
 
     public function update_rule( \WP_REST_Request $r ): \WP_REST_Response {
-        $ok = ( new Rules_Engine() )->update( (int) $r["id"], (array) $r->get_json_params() );
+        $body = (array) $r->get_json_params();
+        if ( $bad = self::bad_target( $body ) ) {
+            return $bad;
+        }
+        $ok = ( new Rules_Engine() )->update( (int) $r["id"], $body );
         return new \WP_REST_Response( [ "updated" => $ok ] );
     }
 
@@ -320,9 +339,41 @@ class REST_API {
     /** Post types the reports cover: the ones the index is configured for. */
     public static function report_post_types(): array {
         $settings = get_option( "jnk_linkweave_settings", [] );
-        $types    = (array) apply_filters( "jnk_linkweave_suggestion_post_types", $settings["post_types"] ?? [ "post", "page" ] );
+        $types    = (array) apply_filters( "jnk_linkweave_suggestion_post_types", Index_Builder::base_post_types( (array) $settings ) );
         $types    = array_values( array_filter( array_map( "sanitize_key", $types ) ) );
         return $types ?: [ "post", "page" ];
+    }
+
+    /**
+     * Published posts of the indexed post types that nothing links to: no saved
+     * inbound link and no link from an active auto-link rule.
+     *
+     * Rules used to be ignored, so a post an auto-link rule linked to on every
+     * page was still listed as an orphan (QA 30 Oct 2026, 58 of 58 on a site with
+     * 15 rules and a link map). Those posts are in rule_only_rows() now.
+     *
+     * @return object[] post_id, post_title, post_type, indexed
+     */
+    public static function orphan_rows(): array {
+        $rule_in = Rules_Engine::rule_inbound_counts();
+        return array_values( array_filter( self::unlinked_rows(), static fn( $row ) => ! isset( $rule_in[ $row->post_id ] ) ) );
+    }
+
+    /**
+     * Posts with no saved inbound link that get links only from auto-link rules.
+     *
+     * @return object[] post_id, post_title, post_type, indexed, rule_links
+     */
+    public static function rule_only_rows(): array {
+        $rule_in = Rules_Engine::rule_inbound_counts();
+        $out     = [];
+        foreach ( self::unlinked_rows() as $row ) {
+            if ( isset( $rule_in[ $row->post_id ] ) ) {
+                $row->rule_links = (int) $rule_in[ $row->post_id ];
+                $out[]           = $row;
+            }
+        }
+        return $out;
     }
 
     /**
@@ -335,7 +386,7 @@ class REST_API {
      *
      * @return object[] post_id, post_title, post_type, indexed
      */
-    public static function orphan_rows(): array {
+    private static function unlinked_rows(): array {
         global $wpdb;
         $types = self::report_post_types();
         $in    = implode( ",", array_fill( 0, count( $types ), "%s" ) );
@@ -362,12 +413,20 @@ class REST_API {
         foreach ( $rows as $row ) {
             $row->edit_url = (string) get_edit_post_link( (int) $row->post_id, "raw" );
             $row->view_url = (string) get_permalink( (int) $row->post_id );
+            // The type's name in the site language ("글", "Entrada"), not its slug.
+            if ( isset( $row->post_type ) ) {
+                $type                 = get_post_type_object( (string) $row->post_type );
+                $row->post_type_label = $type ? (string) $type->labels->singular_name : (string) $row->post_type;
+            }
         }
         return $rows;
     }
 
     public function report_orphans( \WP_REST_Request $r ) {
-        return new \WP_REST_Response( [ "orphans" => self::with_post_links( self::orphan_rows() ) ] );
+        return new \WP_REST_Response( [
+            "orphans"   => self::with_post_links( self::orphan_rows() ),
+            "rule_only" => self::with_post_links( self::rule_only_rows() ),
+        ] );
     }
 
     public function report_inbound_counts( \WP_REST_Request $r ): \WP_REST_Response {
@@ -460,6 +519,8 @@ class REST_API {
 
     public function get_settings( \WP_REST_Request $r ): \WP_REST_Response {
         $opts = get_option( "jnk_linkweave_settings", [] );
+        // The types in use, products included on a shop that never chose.
+        $opts["post_types"] = Index_Builder::base_post_types( (array) $opts );
         // Never expose the encrypted API key blob. The Pro module adds the
         // "is a key set" flag (and any other premium-only fields) via this filter;
         // free core never references the LLM adapter.
@@ -476,10 +537,20 @@ class REST_API {
         $allowed_post_types  = (array) apply_filters( "jnk_linkweave_allowed_post_types", get_post_types( [ "public" => true ] ) );
 
         if ( array_key_exists( "post_types", $body ) ) {
+            $before_default     = Index_Builder::base_post_types( (array) $opts );
             $opts["post_types"] = array_values( array_intersect(
                 array_map( "sanitize_key", (array) $body["post_types"] ),
                 $allowed_post_types
             ) );
+            // A list that differs from what the screen showed is the owner's own
+            // choice and is kept from now on, even when WooCommerce comes or goes.
+            $a = $opts["post_types"];
+            $b = $before_default;
+            sort( $a );
+            sort( $b );
+            if ( $a !== $b ) {
+                $opts[ Index_Builder::TYPES_CHOSEN_KEY ] = true;
+            }
         }
         if ( array_key_exists( "min_post_length", $body ) ) {
             $opts["min_post_length"] = max( 0, (int) $body["min_post_length"] );
@@ -509,7 +580,7 @@ class REST_API {
             // One word per entry: "watch online" is stored as "watch" and "online".
             $words = preg_split( "/\\s+/u", implode( " ", array_map( "strval", (array) $words ) ), -1, PREG_SPLIT_NO_EMPTY );
             $words = array_values( array_unique( array_filter( array_map(
-                static fn( $w ) => Tokenizer::unify_spelling( mb_strtolower( trim( sanitize_text_field( (string) $w ) ) ) ),
+                static fn( $w ) => Tokenizer::lower( Tokenizer::unify_spelling( trim( sanitize_text_field( (string) $w ) ) ) ),
                 array_slice( (array) $words, 0, 500 )
             ) ) ) );
             // The index drops ignored words when it is built, so a change only
@@ -532,7 +603,7 @@ class REST_API {
             return new \WP_REST_Response( [ "error" => "API key changes require HTTPS." ], 400 );
         }
 
-        $before_types = (array) ( get_option( "jnk_linkweave_settings", [] )["post_types"] ?? [ "post", "page" ] );
+        $before_types = Index_Builder::base_post_types();
         update_option( "jnk_linkweave_settings", $opts );
 
         // Unticked post types leave the index immediately, not at the next rebuild.

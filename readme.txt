@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.2
-Stable tag: 1.19.0
+Stable tag: 1.20.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -168,6 +168,25 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.20.0 =
+* Fixed: the licence box shows its status, update channel and dates in your site language.
+* Fixed: View details on the Plugins screen opens the plugin details, as for the other JnK plugins.
+* Fixed: a word typed in an auto-link rule's "Links to" box was saved as a broken web address and linked on every page. It now needs a web address or a path on this site.
+* New: Thai, Lao, Khmer and Myanmar text is cut into words, so these sites get suggestions and auto-links. Sites with Thai, Turkish, Vietnamese, Persian or Arabic text, or text pasted from a Mac, re-read their posts once after the update.
+* New: better matching for Turkish (İ/ı), Vietnamese (two-letter syllables, text pasted from a Mac), Persian (ی/ي, ک/ك, ZWNJ, common words) and Arabic (the article "ال", common words).
+* New: suggestions come from every post type you index, so posts are offered the products and pages they talk about, and a post that names another page by its full title ranks it higher.
+* New: with WooCommerce active, products are read and suggested by default.
+* New: pick an auto-link rule's target by searching post titles.
+* New: link suggestions from the classic editor's Code tab.
+* New: changing an auto-link rule empties the page cache of WP Super Cache, W3 Total Cache, WP Rocket, LiteSpeed Cache and WP Fastest Cache.
+* New: Arabic translation (review pending).
+* New: after activation the Plugins screen says "JnK Linkweave is ready. Start here", once.
+* Fixed: on Korean sites the menu was English, "Insert link" added one-word titles at the end of the paragraph, shared words showed particles and word pieces, and a rule aimed at a Korean address linked its own page.
+* Fixed: auto-link rules match the usual spellings of a keyword.
+* Fixed: Overview counts agree, the start guide drops "Rebuild index" after the first read, and times show in your site's time zone.
+* Fixed: a post that auto-link rules link to is no longer called an orphan; the Orphans screen lists those posts apart with their rule link count, and the Overview agrees.
+* Fixed: post addresses read left to right on Arabic screens.
 
 = 1.19.0 =
 * New: Hindi translation.

@@ -19,6 +19,7 @@ class JnkLinkweave_Deactivator {
         // back (Cron::guard_action_scheduler_queue / strip_queue_after_deactivation),
         // and the shutdown pass removes anything written back during this request.
         update_option( "jnk_linkweave_deactivated_at", time(), false );
+        delete_option( "jnk_linkweave_ready_notice" );
         wp_unschedule_hook( "action_scheduler_run_queue" );
         add_action( "shutdown", static function () {
             wp_unschedule_hook( "action_scheduler_run_queue" );

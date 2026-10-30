@@ -15,8 +15,40 @@ class Rules_Engine {
      * write words without spaces or with endings attached (내부 링크를,
      * 内部リンクを設置, WordPressのプラグイン), so a rule never fired there.
      */
-    public const WORD_START = "(?<!(?![" . Tokenizer::CJK_CLASS . "])[\\p{L}\\p{M}\\p{N}])";
-    public const WORD_END   = "(?!(?![" . Tokenizer::CJK_CLASS . "])[\\p{L}\\p{M}\\p{N}])";
+    public const WORD_START = "(?<!(?![" . Tokenizer::CJK_CLASS . Tokenizer::SEA_CLASS . "])[\\p{L}\\p{M}\\p{N}])";
+    public const WORD_END   = "(?!(?![" . Tokenizer::CJK_CLASS . Tokenizer::SEA_CLASS . "])[\\p{L}\\p{M}\\p{N}])";
+
+    /**
+     * Thai, Lao, Khmer and Myanmar letters do not end a word either (WORD_START,
+     * WORD_END let them through), since those languages write no spaces: a Thai
+     * rule only ever fired next to a space (QA 29 Oct 2026). Where a match meets
+     * such a letter, ICU's word breaker must agree that a word ends there, so
+     * "ตา" (eye) links in "ปวดตามาก" but not inside "ตาราง" (table). Without intl
+     * the old rule stands: no link next to those letters.
+     */
+    public static function at_word_edges( string $subject, int $start, int $end ): bool {
+        $sea    = Tokenizer::SEA_CLASS;
+        $before = mb_strcut( $subject, max( 0, $start - 240 ), $start - max( 0, $start - 240 ), "UTF-8" );
+        $after  = mb_strcut( $subject, $end, 240, "UTF-8" );
+        $match  = substr( $subject, $start, $end - $start );
+        $left   = preg_match( "/[{$sea}]+$/u", $before, $l ) ? $l[0] : "";
+        $right  = preg_match( "/^[{$sea}]+/u", $after, $r ) ? $r[0] : "";
+        // Only an edge with these letters on both sides needs the word breaker.
+        $check_start = "" !== $left && 1 === preg_match( "/^[{$sea}]/u", $match );
+        $check_end   = "" !== $right && 1 === preg_match( "/[{$sea}]$/u", $match );
+        if ( ! $check_start && ! $check_end ) {
+            return true;
+        }
+        static $breaker = null;
+        if ( null === $breaker ) {
+            $breaker = Tokenizer::can_segment_sea() ? ( \IntlBreakIterator::createWordInstance( "th" ) ?: false ) : false;
+        }
+        if ( ! $breaker || ! $breaker->setText( $left . $match . $right ) ) {
+            return false;
+        }
+        return ( ! $check_start || $breaker->isBoundary( strlen( $left ) ) )
+            && ( ! $check_end || $breaker->isBoundary( strlen( $left ) + strlen( $match ) ) );
+    }
 
     /**
      * A whole protected element. The name must end at a space, ">" or "/":
@@ -37,6 +69,13 @@ class Rules_Engine {
      * recompute_applied_counts(), read at render time.
      */
     public const SITE_ALLOCATION_OPTION = "jnk_linkweave_rule_site_allocation";
+
+    /**
+     * Option caching which post each rule links to: rule id => [ target url, post id ].
+     * Resolving a permalink costs a few queries, so it is done once per rule (by the
+     * recount, or the first report that needs it) and redone only when the URL changes.
+     */
+    public const TARGETS_OPTION = "jnk_linkweave_rule_targets";
 
     /** Per-request copy of the allocation option. */
     private static ?array $allocation = null;
@@ -113,7 +152,7 @@ class Rules_Engine {
     /**
      * Reduce a URL to a form two spellings of the same page share, so a rule
      * target can be compared against a permalink. Ignores scheme, a leading
-     * "www.", host case, the trailing slash, and any fragment. Query strings are
+     * "www.", host case, percent-encoding, the trailing slash, and any fragment. Query strings are
      * kept: "?p=2" and "?p=3" are different pages.
      *
      * Returns "" for anything unparseable, and callers must treat "" as
@@ -132,8 +171,11 @@ class Rules_Engine {
         if ( str_starts_with( $host, "www." ) ) {
             $host = substr( $host, 4 );
         }
-        $path  = isset( $parts["path"] ) ? rtrim( $parts["path"], "/" ) : "";
-        $query = isset( $parts["query"] ) && "" !== $parts["query"] ? "?" . $parts["query"] : "";
+        // A page with a Korean or Thai address is written percent-encoded by
+        // WordPress ("/%ec%9d%b8…/") and as plain letters when pasted from the
+        // address bar ("/인플레이션/"); decode so both spellings are one page.
+        $path  = isset( $parts["path"] ) ? rtrim( rawurldecode( $parts["path"] ), "/" ) : "";
+        $query = isset( $parts["query"] ) && "" !== $parts["query"] ? "?" . rawurldecode( $parts["query"] ) : "";
 
         return $host . $path . $query;
     }
@@ -346,14 +388,55 @@ class Rules_Engine {
         $out = [];
         foreach ( $rules as $rule ) {
             $keywords                 = self::rule_keywords( $rule );
-            $out[ (int) $rule->id ] = [ $keywords, array_map( [ self::class, "fold" ], $keywords ) ];
+            $out[ (int) $rule->id ] = [ $keywords, array_map( [ self::class, "fold_keyword" ], $keywords ) ];
         }
         return $out;
     }
 
-    /** Simple Unicode case folding, the same folding a /iu pattern matches with. */
+    /**
+     * Case folding for the cheap "could this match" test, with the spelling
+     * variants keyword_regex() accepts made equal: NFC, Turkish İ/ı/I as i,
+     * Arabic ي/ك as Persian ی/ک.
+     */
     private static function fold( string $text ): string {
-        return function_exists( "mb_convert_case" ) ? mb_convert_case( $text, MB_CASE_FOLD_SIMPLE, "UTF-8" ) : strtolower( $text );
+        $text = Tokenizer::unify_spelling( $text );
+        $text = function_exists( "mb_convert_case" ) ? mb_convert_case( $text, MB_CASE_FOLD_SIMPLE, "UTF-8" ) : strtolower( $text );
+        return strtr( $text, [ "i\u{0307}" => "i", "İ" => "i", "ı" => "i", "ي" => "ی", "ك" => "ک" ] );
+    }
+
+    /** A folded keyword for mentions_any(): its longest part between ZWNJs, which keyword_regex() lets be a space or nothing. */
+    private static function fold_keyword( string $keyword ): string {
+        $parts = explode( "\u{200C}", self::fold( $keyword ) );
+        usort( $parts, static fn( $a, $b ) => strlen( $b ) <=> strlen( $a ) );
+        return (string) $parts[0];
+    }
+
+    /**
+     * The pattern for one keyword (no edges): its usual spellings match too.
+     * A rule typed "istanbul" never linked "İstanbul", the way most Turkish text
+     * writes it; one typed on a Mac (NFD) never linked text typed elsewhere;
+     * "کتاب" missed "كتاب" typed on an Arabic keyboard; "قورمه‌سبزی" (with a
+     * zero-width non-joiner) missed "قورمه سبزی" (QA 29 Oct 2026).
+     */
+    public static function keyword_regex( string $keyword, bool $case_insensitive = true ): string {
+        $forms = [ $keyword ];
+        if ( class_exists( "Normalizer" ) && preg_match( "/[^\\x00-\\x7F]/", $keyword ) ) {
+            foreach ( [ \Normalizer::FORM_C, \Normalizer::FORM_D ] as $form ) {
+                $normal = \Normalizer::normalize( $keyword, $form );
+                if ( is_string( $normal ) ) {
+                    $forms[] = $normal;
+                }
+            }
+        }
+        $map = [ "ی" => "[یي]", "ي" => "[یي]", "ک" => "[کك]", "ك" => "[کك]", "\u{200C}" => "[\\x{200C} ]?" ];
+        if ( $case_insensitive ) {
+            $map += [ "i" => "[iİı]", "I" => "[iİı]", "İ" => "[iİı]", "ı" => "[iİı]" ];
+        }
+        $out = [];
+        foreach ( array_unique( $forms ) as $form ) {
+            $out[] = strtr( preg_quote( $form, "/" ), $map );
+        }
+        return implode( "|", array_unique( $out ) );
     }
 
     /**
@@ -390,13 +473,20 @@ class Rules_Engine {
         // Devanagari and other Indic scripts) as a word edge, so a rule cut
         // "बिग बॉस 20 सीज़न" inside a word (QA 27 Oct 2026). Letters, marks and
         // digits on either side mean "inside a word".
-        $pattern   = "/" . self::WORD_START . "(?:" . implode( "|", array_map( static fn( $k ) => preg_quote( $k, "/" ), $keywords ) ) . ")" . self::WORD_END . "/" . $flags;
+        $ci        = "iu" === $flags;
+        $pattern   = "/" . self::WORD_START . "(?:" . implode( "|", array_map( static fn( $k ) => self::keyword_regex( $k, $ci ), $keywords ) ) . ")" . self::WORD_END . "/" . $flags;
         $remaining = $cap - ( $applied[ (int) $rule->id ] ?? 0 );
         if ( $remaining <= 0 ) {
             return $content;
         }
 
-        $result = preg_replace_callback( $pattern, static function ( $m ) use ( $rule, &$applied, $post_id, &$placeholders, $fire ) {
+        $done   = 0;
+        $result = preg_replace_callback( $pattern, static function ( $m ) use ( $rule, &$applied, $post_id, &$placeholders, $fire, $content, $remaining, &$done ) {
+            [ $text, $offset ] = $m[0];
+            if ( $done >= $remaining || ! self::at_word_edges( $content, (int) $offset, (int) $offset + strlen( $text ) ) ) {
+                return $text;
+            }
+            $done++;
             $applied[ (int) $rule->id ] = ( $applied[ (int) $rule->id ] ?? 0 ) + 1;
             if ( $fire ) {
                 do_action( "jnk_linkweave_rule_applied", (int) $rule->id, $post_id );
@@ -424,13 +514,13 @@ class Rules_Engine {
                 esc_url( $rule->target_url ),
                 $target_attr,
                 $rel_attr,
-                esc_html( $m[0] )
+                esc_html( $text )
             );
 
             $key                  = "%%AUTOLINK_PROTECT_" . count( $placeholders ) . "%%";
             $placeholders[ $key ] = $anchor;
             return $key;
-        }, $content, $remaining );
+        }, $content, -1, $count, PREG_OFFSET_CAPTURE );
 
         return null === $result ? $content : $result;
     }
@@ -486,8 +576,8 @@ class Rules_Engine {
         $active = self::limit_rules( array_values( array_filter( (array) $all, static fn( $r ) => ! empty( $r->is_active ) ) ) );
 
         $settings   = (array) get_option( "jnk_linkweave_settings", [] );
-        $post_types = ! empty( $settings["post_types"] ) && is_array( $settings["post_types"] )
-            ? array_map( "sanitize_key", $settings["post_types"] )
+        $post_types = Index_Builder::base_post_types( $settings )
+            ? array_map( "sanitize_key", Index_Builder::base_post_types( $settings ) )
             : [ "post", "page" ];
         $in = implode( ",", array_fill( 0, count( $post_types ), "%s" ) );
 
@@ -534,6 +624,77 @@ class Rules_Engine {
 
         update_option( self::SITE_ALLOCATION_OPTION, $alloc, false );
         self::flush_cache();
+        // Resolve the targets now, in the background job, so the reports never do.
+        self::rule_inbound_counts();
+    }
+
+    /**
+     * Links each post receives from auto-link rules: post id => links.
+     *
+     * Reuses the Applied count the recount already worked out (the links a rule
+     * really adds to published posts), so a rule that matches nothing gives
+     * nothing, and a paused or switched-off rule gives nothing. Only rules whose
+     * target is a post on this site count. One small query over the rules table
+     * plus a cached URL lookup per rule, so it stays cheap on large sites.
+     *
+     * @return array<int,int>
+     */
+    public static function rule_inbound_counts(): array {
+        global $wpdb;
+        $rows = $wpdb->get_results( $wpdb->prepare(
+            "SELECT id, target_url, applied_count FROM %i WHERE is_active = 1 AND applied_count > 0 ORDER BY id ASC",
+            self::table()
+        ) );
+        $rows = self::limit_rules( self::drop_paused( (array) $rows ) );
+        if ( ! $rows ) {
+            return [];
+        }
+        $stored  = get_option( self::TARGETS_OPTION, [] );
+        $stored  = is_array( $stored ) ? $stored : [];
+        $targets = [];
+        $changed = false;
+        $out     = [];
+        foreach ( $rows as $rule ) {
+            $id  = (int) $rule->id;
+            $url = (string) $rule->target_url;
+            if ( isset( $stored[ $id ] ) && is_array( $stored[ $id ] ) && ( $stored[ $id ][0] ?? null ) === $url ) {
+                $post_id = (int) ( $stored[ $id ][1] ?? 0 );
+            } else {
+                $post_id = self::target_post_id( $url );
+                $changed = true;
+            }
+            $targets[ $id ] = [ $url, $post_id ];
+            if ( $post_id > 0 ) {
+                $out[ $post_id ] = ( $out[ $post_id ] ?? 0 ) + (int) $rule->applied_count;
+            }
+        }
+        if ( $changed || count( $targets ) !== count( $stored ) ) {
+            update_option( self::TARGETS_OPTION, $targets, false );
+        }
+        return $out;
+    }
+
+    /** The post on this site a rule target names, or 0 (another site, an archive). */
+    private static function target_post_id( string $url ): int {
+        $id = self::shortlink_post_id( $url );
+        if ( $id > 0 ) {
+            return $id;
+        }
+        $url = trim( $url );
+        if ( str_starts_with( $url, "/" ) && ! str_starts_with( $url, "//" ) ) {
+            $url = untrailingslashit( home_url() ) . $url;
+        }
+        $id = (int) url_to_postid( $url );
+        if ( $id <= 0 ) {
+            // A Korean or Thai address pasted from the address bar is plain letters;
+            // WordPress stores the slug percent-encoded.
+            $parts = wp_parse_url( $url );
+            if ( is_array( $parts ) && ! empty( $parts["path"] ) && rawurldecode( $parts["path"] ) === $parts["path"] && preg_match( "/[^\\x00-\\x7f]/", $parts["path"] ) ) {
+                $enc = implode( "/", array_map( static fn( $s ) => strtolower( rawurlencode( $s ) ), explode( "/", $parts["path"] ) ) );
+                $id  = (int) url_to_postid( str_replace( $parts["path"], $enc, $url ) );
+            }
+        }
+        return $id;
     }
 
     /** Debounced full recount after published content changes. */
@@ -555,8 +716,8 @@ class Rules_Engine {
             return false;
         }
         $settings   = (array) get_option( "jnk_linkweave_settings", [] );
-        $post_types = ! empty( $settings["post_types"] ) && is_array( $settings["post_types"] )
-            ? array_map( "sanitize_key", $settings["post_types"] )
+        $post_types = Index_Builder::base_post_types( $settings )
+            ? array_map( "sanitize_key", Index_Builder::base_post_types( $settings ) )
             : [ "post", "page" ];
         return in_array( $post->post_type, $post_types, true );
     }
@@ -770,6 +931,25 @@ class Rules_Engine {
         $out->paused_needs_pro = isset( $out->id ) && self::is_paused_without_pro( (int) $out->id );
         /** Lets an extension add its own fields to a rule in REST responses. */
         return (object) apply_filters( "jnk_linkweave_rule_row", $out );
+    }
+
+    /**
+     * A rule's "Links to" must be a web address or a path on this site. Typing a
+     * product name there saved an active rule linking to "http://Heritage Seed"
+     * on every page (final persona run, 30 Oct 2026).
+     */
+    public static function is_valid_target( string $url ): bool {
+        $url = trim( $url );
+        if ( "" === $url || preg_match( "/\\s/u", $url ) ) {
+            return false;
+        }
+        if ( "/" === $url[0] ) {
+            return 0 !== strpos( $url, "//" );
+        }
+        $parts = wp_parse_url( $url );
+        return is_array( $parts )
+            && in_array( strtolower( (string) ( $parts["scheme"] ?? "" ) ), [ "http", "https" ], true )
+            && "" !== (string) ( $parts["host"] ?? "" );
     }
 
     private function sanitize( array $data ): array {

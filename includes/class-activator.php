@@ -3,6 +3,30 @@ defined( "ABSPATH" ) || exit;
 
 class JnkLinkweave_Activator {
 
+    /** Option: show "JnK Linkweave is ready. Start here" on the Plugins screen. */
+    public const READY_NOTICE_OPTION = "jnk_linkweave_ready_notice";
+
+    /**
+     * The activation hook. Sets up the tables and settings, and, for a single
+     * activation from the Plugins screen (not bulk, not network-wide), asks the
+     * Plugins screen to point at the first screen once. No redirect: the owner
+     * stays where they were.
+     *
+     * @param bool $network_wide
+     */
+    public static function on_activate( $network_wide = false ): void {
+        self::activate();
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read only, WordPress checked the nonce for this activation.
+        $action = isset( $_REQUEST["action"] ) ? sanitize_key( wp_unslash( $_REQUEST["action"] ) ) : "";
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- as above.
+        $action2 = isset( $_REQUEST["action2"] ) ? sanitize_key( wp_unslash( $_REQUEST["action2"] ) ) : "";
+        $bulk    = in_array( "activate-selected", [ $action, $action2 ], true );
+        if ( $network_wide || $bulk || ( defined( "WP_CLI" ) && WP_CLI ) ) {
+            return;
+        }
+        update_option( self::READY_NOTICE_OPTION, 1 );
+    }
+
     public static function activate(): void {
         global $wpdb;
         require_once ABSPATH . "wp-admin/includes/upgrade.php";

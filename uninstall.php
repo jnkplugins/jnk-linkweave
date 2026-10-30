@@ -25,6 +25,7 @@ foreach ( $jnk_linkweave_tables as $jnk_linkweave_t ) {
 // Remove options.
 delete_option( "jnk_linkweave_settings" );
 delete_option( "jnk_linkweave_version" );
+delete_option( "jnk_linkweave_ready_notice" );
 delete_option( "jnk_linkweave_index_status" );
 delete_option( "jnk_linkweave_idf" );
 delete_option( "jnk_linkweave_rules_needing_pro" );

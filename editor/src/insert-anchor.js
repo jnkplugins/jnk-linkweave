@@ -115,7 +115,8 @@ function decodeEntities( s ) {
 /**
  * Phrases from a title that could already be in the writer's sentence, most
  * specific first: runs of 2–4 words from each part of the title (split at a colon
- * or dash), never starting or ending on a stop-word.
+ * or dash), never starting or ending on a stop-word, then a part that is a
+ * single word.
  *
  * @param {string} title Suggestion title.
  * @return {string[]} Candidate phrases.
@@ -145,6 +146,21 @@ export function titlePhrases( title ) {
 						found.set( phrase.toLowerCase(), { phrase, n } );
 					}
 				}
+			}
+			// A one-word title ("한국은행", "환율", "Espresso") is the name of the
+			// page: link that word where the writer used it. Without this every
+			// one-word title was appended to the end of the paragraph, which on a
+			// Korean blog was nearly every suggestion.
+			if (
+				words.length === 1 &&
+				phraseWeight( words[ 0 ] ) >= 4 &&
+				! STOPWORDS.has( words[ 0 ].toLowerCase() ) &&
+				! found.has( words[ 0 ].toLowerCase() )
+			) {
+				found.set( words[ 0 ].toLowerCase(), {
+					phrase: words[ 0 ],
+					n: 1,
+				} );
 			}
 		} );
 	return [ ...found.values() ]

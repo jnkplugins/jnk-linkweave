@@ -127,7 +127,7 @@ export default function InboundOpportunities() {
 										o.score.toFixed( 2 )
 									) }
 								>
-									{ strength( o.score ) }
+									{ strength( o.score, o.matched_terms ) }
 								</span>
 							</div>
 							{ o.matched_terms && o.matched_terms.length > 0 && (

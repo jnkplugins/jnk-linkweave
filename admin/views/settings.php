@@ -10,7 +10,7 @@ $ignore    = implode( ", ", array_map( "strval", (array) ( $settings["stopwords_
 $auto     = ! empty( $settings["auto_index_on_save"] );
 $delete   = ! empty( $settings["delete_data_on_uninstall"] );
 $ranking  = ( ( $settings["ranking"] ?? "bm25" ) === "tfidf" ) ? "tfidf" : "bm25";
-$selected_types = (array) ( $settings["post_types"] ?? [ "post", "page" ] );
+$selected_types = \JnkLinkweave\Index_Builder::base_post_types( (array) $settings );
 $public_types   = get_post_types( [ "public" => true ], "objects" );
 unset( $public_types["attachment"] ); // media has no linkable body content
 ?>
@@ -40,14 +40,14 @@ unset( $public_types["attachment"] ); // media has no linkable body content
                             </label>
                         <?php endforeach; ?>
                     </fieldset>
-                    <p class="description"><?php esc_html_e( "The kinds of content Linkweave reads and suggests links to. Posts and Pages by default. Changes take effect straight away; adding a type reads those posts in the background.", "jnk-linkweave" ); ?></p>
+                    <p class="description"><?php esc_html_e( "The kinds of content Linkweave reads and suggests links to. Posts and Pages by default, and Products when WooCommerce is active. Changes take effect straight away; adding a type reads those posts in the background.", "jnk-linkweave" ); ?></p>
                 </td>
             </tr>
             <tr>
                 <th scope="row"><label for="jnk-linkweave-min-len"><?php esc_html_e( "Shortest post to suggest", "jnk-linkweave" ); ?></label></th>
                 <td>
                     <input id="jnk-linkweave-min-len" type="number" min="1" name="min_post_length" value="<?php echo esc_attr( (string) $min_len ); ?>">
-                    <p class="description"><?php esc_html_e( "Very short posts are left out of suggestions. Small words like “the” and “a” are not counted, so 40 here is roughly an 80 to 100 word post.", "jnk-linkweave" ); ?></p>
+                    <p class="description"><?php esc_html_e( "Very short posts are left out of suggestions. Small, common words (such as articles and conjunctions) are not counted, so 40 here is roughly an 80 to 100 word post.", "jnk-linkweave" ); ?></p>
                 </td>
             </tr>
             <tr>

@@ -78,9 +78,10 @@
     }
 
     /** Relevance in words, as in the block editor sidebar (raw figure on hover). */
-    function strength( score ) {
+    function strength( score, terms ) {
         const labels = i18n.strength || [ "Very close match", "Close match", "Related", "Loosely related" ];
-        if ( score >= 0.85 ) {
+        // One shared word is never a very close match (editor/src/strength.js).
+        if ( score >= 0.85 && ! ( Array.isArray( terms ) && terms.length < 2 ) ) {
             return labels[ 0 ];
         }
         if ( score >= 0.6 ) {
@@ -115,7 +116,25 @@
         ).split( " " )
     );
 
-    /** Title phrases of 2–4 words, most specific first (same rules as the block editor). */
+    /**
+     * Chinese, Japanese and Korean letters. These languages glue particles to a
+     * word ("한국은행의") or use no spaces, so a neighbouring one is not a word
+     * edge, and each counts twice towards a phrase's length (same as the block editor).
+     */
+    const CJK = "\\p{Script=Han}\\p{Script=Hiragana}\\p{Script=Katakana}\\p{Script=Hangul}\\u3005\\u3006\\u30FC";
+    const CJK_CHAR = new RegExp( "[" + CJK + "]", "gu" );
+
+    function phraseWeight( phrase ) {
+        return phrase.length + ( phrase.match( CJK_CHAR ) || [] ).length;
+    }
+
+    /** Whole-word pattern for a phrase; CJK letters next to it do not count as the same word. */
+    function phrasePattern( phrase ) {
+        const escaped = phrase.replace( /[.*+?^${}()|[\]\\]/g, "\\$&" ).replace( /\s+/g, "\\s+" );
+        return new RegExp( "(^|[^\\p{L}\\p{N}]|[" + CJK + "])(" + escaped + ")(?=$|[^\\p{L}\\p{N}]|[" + CJK + "])", "iu" );
+    }
+
+    /** Title phrases of 2–4 words, then a one-word title, most specific first (same rules as the block editor). */
     function titlePhrases( title ) {
         const found = new Map();
         decodeEntities( title )
@@ -129,10 +148,14 @@
                             continue;
                         }
                         const phrase = slice.join( " " );
-                        if ( phrase.length >= 6 && ! found.has( phrase.toLowerCase() ) ) {
+                        if ( phraseWeight( phrase ) >= 6 && ! found.has( phrase.toLowerCase() ) ) {
                             found.set( phrase.toLowerCase(), { phrase, n } );
                         }
                     }
+                }
+                // A one-word title ("한국은행", "Espresso") is the page's name: link it where it is used.
+                if ( words.length === 1 && phraseWeight( words[ 0 ] ) >= 4 && ! STOPWORDS.has( words[ 0 ].toLowerCase() ) && ! found.has( words[ 0 ].toLowerCase() ) ) {
+                    found.set( words[ 0 ].toLowerCase(), { phrase: words[ 0 ], n: 1 } );
                 }
             } );
         return [ ...found.values() ]
@@ -176,8 +199,7 @@
         }
 
         for ( const phrase of titlePhrases( title ) ) {
-            const escaped = phrase.replace( /[.*+?^${}()|[\]\\]/g, "\\$&" ).replace( /\s+/g, "\\s+" );
-            const re = new RegExp( "(^|[^\\p{L}\\p{N}])(" + escaped + ")(?=$|[^\\p{L}\\p{N}])", "iu" );
+            const re = phrasePattern( phrase );
             for ( const node of texts ) {
                 const m = re.exec( node.nodeValue );
                 if ( ! m ) {
@@ -208,6 +230,9 @@
         return false;
     }
 
+    // The Code (Text) tab's button (editor/quicktags.js) places links with the same rules.
+    window.JnkLinkweavePhrases = { titlePhrases: titlePhrases, phrasePattern: phrasePattern, readableTitle: readableTitle };
+
     tinymce.PluginManager.add( "jnk-linkweave", function ( editor ) {
         editor.addButton( "jnk-linkweave", {
             text: "JnK Linkweave",
@@ -237,7 +262,7 @@
                         suggestions.map( ( s ) =>
                             '<div style="border-bottom:1px solid #eee;padding:6px 0;display:flex;justify-content:space-between;align-items:center;gap:8px">' +
                             '<span style="white-space:normal"><strong>' + escape( decodeEntities( s.title ) ) + "</strong> " +
-                            '<small title="' + escape( "Relevance " + Number( s.score ).toFixed( 2 ) ) + '">(' + escape( strength( Number( s.score ) ) ) + ")</small></span>" +
+                            '<small title="' + escape( "Relevance " + Number( s.score ).toFixed( 2 ) ) + '">(' + escape( strength( Number( s.score ), s.matched_terms ) ) + ")</small></span>" +
                             '<button type="button" class="button button-primary jnk-linkweave-pick" data-url="' + escape( s.url ) + '" data-title="' + escape( s.title ) + '" data-id="' + escape( s.target_id ) + '">' + escape( i18n.insert || "Insert" ) + "</button>" +
                             "</div>"
                         ).join( "" ) +

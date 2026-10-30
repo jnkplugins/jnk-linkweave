@@ -19,6 +19,6 @@ UI::open(
 ?>
 <div id="jnk-linkweave-orphans-app" data-mount="orphans"></div>
 <p class="description" style="margin-top:16px">
-    <?php esc_html_e( "Only links saved in your posts count here. Links added on the fly by auto-link rules are not stored, so a post that only gets those can still show up. New links are picked up within a minute of saving a post.", "jnk-linkweave" ); ?>
+    <?php esc_html_e( "Links saved in your posts count here, and so do the links your active auto-link rules add on the live site. Posts that get only rule links are listed apart. New links are picked up within a minute of saving a post.", "jnk-linkweave" ); ?>
 </p>
 <?php UI::close(); ?>

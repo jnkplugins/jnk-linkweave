@@ -8,6 +8,12 @@ class Suggestion_Engine {
 
     private const ORPHAN_BOOST       = 0.10;
     private const ALREADY_LINKED_PEN = 0.50;
+    /**
+     * The post names the candidate by its full title ("Lavender Soap Dish").
+     * Base relevance is scaled to at most 1, so a named page goes above pages
+     * that only share words, unless the post already links to it.
+     */
+    private const TITLE_MENTION_BOOST = 1.0;
 
     public function get_suggestions( int $post_id, array $args = [] ): array {
         $opts     = get_option( "jnk_linkweave_settings", [] );
@@ -76,7 +82,7 @@ class Suggestion_Engine {
      */
     private function draft_source( \WP_Post $post, string $content ): ?array {
         $opts       = get_option( "jnk_linkweave_settings", [] );
-        $post_types = (array) apply_filters( "jnk_linkweave_suggestion_post_types", $opts["post_types"] ?? [ "post", "page" ] );
+        $post_types = (array) apply_filters( "jnk_linkweave_suggestion_post_types", Index_Builder::base_post_types( (array) $opts ) );
         if ( ! in_array( $post->post_type, $post_types, true ) || 0 === Index_Builder::indexed_count() ) {
             return null;
         }
@@ -137,12 +143,17 @@ class Suggestion_Engine {
         $surface    = Tokenizer::surface_forms( $label_text, (string) ( $opts["language"] ?? "en" ) );
         $cjk_runs   = Tokenizer::cjk_runs( $label_text );
 
+        $mentioned = $this->titles_mentioned( $content, array_map( static fn( $b ) => (int) $b["row"]["post_id"], $base ) );
+
         $scored = [];
         foreach ( $base as $b ) {
             $row   = $b["row"];
             $score = $b["score"];
             if ( isset( $orphan_ids[ $row["post_id"] ] ) ) {
                 $score += self::ORPHAN_BOOST;
+            }
+            if ( isset( $mentioned[ $row["post_id"] ] ) && ! isset( $linked_target[ $row["post_id"] ] ) ) {
+                $score += self::TITLE_MENTION_BOOST;
             }
             if ( isset( $linked_target[ $row["post_id"] ] ) ) {
                 $score -= self::ALREADY_LINKED_PEN;
@@ -341,6 +352,11 @@ class Suggestion_Engine {
                 if ( null === $labels ) {
                     $labels = Tokenizer::cjk_labels( $cjk_runs, $shared );
                 }
+                // A Korean piece with no whole word behind it ("레이" of 인플레이션)
+                // is left out of the label; it still counted in the match.
+                if ( ! isset( $labels[ $stem ] ) && 1 === preg_match( "/\\p{Hangul}/u", (string) $stem ) ) {
+                    continue;
+                }
                 $word = (string) ( $labels[ $stem ] ?? $stem );
                 if ( mb_strlen( $word ) >= 2 && ! in_array( $word, $out, true ) ) {
                     $out[] = $word;
@@ -417,15 +433,131 @@ class Suggestion_Engine {
         ];
     }
 
-    private function fetch_candidates( int $exclude_id, string $post_type ): array {
+    /**
+     * Candidates whose whole title the post already uses, as whole words.
+     *
+     * Word overlap alone favours long posts that share everyday vocabulary, so
+     * a short product page lost to every other Journal post even where the post
+     * names it ("Lavender Soap Dish"): no product reached the top ten of any of
+     * 30 Journal posts on shop-elementor (persona run 29 Oct 2026). A post
+     * naming another page is the strongest sign it should link there.
+     *
+     * A title with one meaningful word ("Contact", "Services", "Contact us")
+     * is also an everyday word: "use the contact page" put the Contact page
+     * in the top four of 8 of the 30 Journal posts, and "contact your doctor"
+     * or "our products" would do the same anywhere. In a script with capital
+     * letters such a title counts only as written (capitalised like a name)
+     * and not where a sentence starts: "we watched Pathaan" names the film,
+     * "Contact your doctor" names nothing. The front page, the posts page, the
+     * privacy policy and the shop's own pages (cart, checkout...) never count.
+     * Words end at letters, digits and combining marks, so a Hindi title is
+     * not found inside a longer word ("राजस्थान" in "राजस्थानी").
+     *
+     * @param int[] $ids
+     * @return array<int,true>
+     */
+    private function titles_mentioned( string $content, array $ids ): array {
+        global $wpdb;
+        $ids = array_values( array_diff( $ids, array_keys( self::utility_page_ids() ) ) );
+        if ( ! $ids ) {
+            return [];
+        }
+        $body = Index_Builder::index_text( new \WP_Post( (object) [ "post_title" => "" ] ), $content );
+        // The end of a block or a line break ends a sentence, like a full stop.
+        $body = (string) preg_replace( "~</(?:p|h[1-6]|li|dt|dd|div|td|th|blockquote|figcaption|pre)\\s*>|<br\\s*/?>~i", "\$0\n", $body );
+        $raw  = html_entity_decode( wp_strip_all_tags( $body ), ENT_QUOTES, "UTF-8" );
+        $raw  = trim( (string) preg_replace( [ "/[^\\S\\n]+/u", "/ ?\\n[\\s]*/u" ], [ " ", "\n" ], $raw ) );
+        if ( "" === $raw ) {
+            return [];
+        }
+        $text   = Tokenizer::lower( $raw );
+        $lang   = (string) ( get_option( "jnk_linkweave_settings", [] )["language"] ?? "en" );
+        $titles = $wpdb->get_results(
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- IN() list built from %d placeholders.
+            $wpdb->prepare( "SELECT ID, post_title FROM {$wpdb->posts} WHERE ID IN (" . implode( ",", array_fill( 0, count( $ids ), "%d" ) ) . ")", $ids ),
+            ARRAY_A
+        );
+        $cjk    = "\\p{Han}\\p{Hiragana}\\p{Katakana}\\p{Hangul}";
+        $before = "(?:(?<![\\p{L}\\p{M}\\p{N}])|(?<=[$cjk]))";
+        $after  = "(?=$|[^\\p{L}\\p{M}\\p{N}]|[$cjk])";
+        $out    = [];
+        foreach ( (array) $titles as $t ) {
+            $as_written = trim( (string) preg_replace( "/\\s+/u", " ", html_entity_decode( wp_strip_all_tags( (string) $t["post_title"] ), ENT_QUOTES, "UTF-8" ) ) );
+            $title      = Tokenizer::lower( $as_written );
+            $words      = preg_split( "/\\s+/u", $title, -1, PREG_SPLIT_NO_EMPTY );
+            // Long enough to mean something: two words, or one long or CJK name.
+            $weight = mb_strlen( $title ) + (int) preg_match_all( "/[$cjk]/u", $title );
+            if ( ! $words || $weight < ( count( $words ) > 1 ? 6 : 5 ) ) {
+                continue;
+            }
+            // Not counted: function words, and Latin words or numbers under three
+            // characters ("us" in "Contact us", "2" in "Stree 2").
+            $meaningful = array_filter( $words, static fn( $w ) => ! Stopwords::is_stopword( $w, $lang ) && ! Stopwords::is_stopword( $w )
+                && ! ( mb_strlen( $w ) < 3 && preg_match( "/^[\\p{Latin}\\p{N}]+$/u", $w ) ) );
+            if ( ! $meaningful || false === mb_strpos( $text, $title ) ) {
+                continue;
+            }
+            $phrase = str_replace( " ", "\\s+", preg_quote( $as_written, "/" ) );
+            if ( 1 === count( $meaningful ) && mb_strtoupper( $as_written ) !== mb_strtolower( $as_written ) ) {
+                if ( $this->named_mid_sentence( "/$before$phrase$after/u", $raw ) ) {
+                    $out[ (int) $t["ID"] ] = true;
+                }
+                continue;
+            }
+            $pattern = "/$before" . str_replace( " ", "\\s+", preg_quote( $title, "/" ) ) . "$after/u";
+            if ( preg_match( $pattern, $text ) ) {
+                $out[ (int) $t["ID"] ] = true;
+            }
+        }
+        return $out;
+    }
+
+    /** Is $pattern found in $text somewhere other than at the start of a sentence? */
+    private function named_mid_sentence( string $pattern, string $text ): bool {
+        if ( ! preg_match_all( $pattern, $text, $m, PREG_OFFSET_CAPTURE ) ) {
+            return false;
+        }
+        foreach ( $m[0] as $hit ) {
+            $lead = substr( $text, 0, (int) $hit[1] );
+            if ( ! preg_match( "/(?:^|[.!?…:;。！？।\\n])[\\s\"'“‘(\\[«¡¿*–—-]*$/u", $lead ) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Pages every site has that a post mentioning them is not about: the front
+     * page, the posts page, the privacy policy and WooCommerce's own pages.
+     *
+     * @return array<int,true>
+     */
+    private static function utility_page_ids(): array {
+        $ids = [ (int) get_option( "page_on_front" ), (int) get_option( "page_for_posts" ), (int) get_option( "wp_page_for_privacy_policy" ) ];
+        if ( function_exists( "wc_get_page_id" ) ) {
+            foreach ( [ "shop", "cart", "checkout", "myaccount", "terms" ] as $page ) {
+                $ids[] = (int) wc_get_page_id( $page );
+            }
+        }
+        $ids = (array) apply_filters( "jnk_linkweave_title_mention_skip_ids", array_values( array_filter( $ids, static fn( $id ) => $id > 0 ) ) );
+        return array_fill_keys( array_map( "intval", $ids ), true );
+    }
+
+    /**
+     * Every other indexed post, whatever its type. Candidates used to be limited
+     * to the source's own type, so on a shop a Journal post was never offered
+     * the products it talks about, and a page never a post (persona run 29 Oct
+     * 2026; the spec says all candidates). The index only holds the post types
+     * chosen in Settings, so that choice still decides what can be suggested.
+     */
+    private function fetch_candidates( int $exclude_id, string $post_type = "" ): array {
         global $wpdb;
         $table = Index_Builder::table();
         $rows  = $wpdb->get_results(
             $wpdb->prepare(
-                "SELECT post_id, `vector`, vector_norm, word_count FROM %i WHERE post_id != %d AND post_type = %s",
+                "SELECT post_id, `vector`, vector_norm, word_count FROM %i WHERE post_id != %d",
                 $table,
-                $exclude_id,
-                $post_type
+                $exclude_id
             ),
             ARRAY_A
         );
@@ -499,7 +631,9 @@ class Suggestion_Engine {
                 // default "&hellip;" — the editor sidebar renders this as React text,
                 // which never decodes HTML entities, so the default leaks the raw
                 // "&hellip;" into the UI.
-                "excerpt"       => wp_trim_words( wp_strip_all_tags( $p->post_excerpt ?: $p->post_content ), 30, '…' ),
+                // Entities decoded too: the block editor saves "&" as "&amp;", and
+                // the sidebar showed "&#x27;배당금&#x27;" and "R&amp;D" as written.
+                "excerpt"       => wp_trim_words( html_entity_decode( wp_strip_all_tags( $p->post_excerpt ?: $p->post_content ), ENT_QUOTES | ENT_HTML5, "UTF-8" ), 30, '…' ),
                 "score"         => round( (float) $s["score"], 4 ),
                 "matched_terms" => $s["matched_terms"] ?? [],
             ];
@@ -596,7 +730,7 @@ class Suggestion_Engine {
 
         $post_types = (array) apply_filters(
             "jnk_linkweave_suggestion_post_types",
-            $opts["post_types"] ?? [ "post", "page" ]
+            Index_Builder::base_post_types( (array) $opts )
         );
         if ( ! in_array( $post->post_type, $post_types, true ) ) {
             $out["code"] = "type_excluded";

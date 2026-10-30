@@ -18,6 +18,8 @@ class Admin {
         add_filter( "plugin_row_meta", [ $this, "plugin_row_meta" ], 99, 2 );
         add_action( "admin_notices", [ $this, "unlicensed_pro_notice" ] );
         add_action( "admin_notices", [ $this, "schema_problem_notice" ] );
+        add_action( "admin_notices", [ $this, "ready_notice" ] );
+        add_action( "wp_ajax_jnk_linkweave_dismiss_ready", [ $this, "dismiss_ready_notice" ] );
         add_filter( "site_status_tests", [ $this, "site_status_tests" ] );
         // "Links in / out" column on the Posts list (free).
         Posts_Column::register();
@@ -91,6 +93,51 @@ class Admin {
     }
 
     /**
+     * "JnK Linkweave is ready. Start here" on the Plugins screen, once, after the
+     * plugin is activated on its own (not in a bulk or network activation).
+     * Strangers activated it and then did not know where it lived (persona runs
+     * 29 Oct 2026). No redirect. Gone once the link is clicked, the notice is
+     * dismissed, or the Overview is opened any other way.
+     */
+    public function ready_notice(): void {
+        if ( ! get_option( \JnkLinkweave_Activator::READY_NOTICE_OPTION ) || ! current_user_can( "manage_options" ) ) {
+            return;
+        }
+        $screen = function_exists( "get_current_screen" ) ? get_current_screen() : null;
+        if ( ! $screen || "plugins" !== $screen->id ) {
+            return;
+        }
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read only: WordPress's own "activated several plugins" flag.
+        if ( isset( $_GET["activate-multi"] ) ) {
+            delete_option( \JnkLinkweave_Activator::READY_NOTICE_OPTION );
+            return;
+        }
+        printf(
+            '<div class="notice notice-success is-dismissible jnk-linkweave-ready-notice"><p><strong>%s</strong> <a href="%s">%s</a></p></div>',
+            /* translators: %s: plugin name. */
+            esc_html( sprintf( __( "%s is ready.", "jnk-linkweave" ), "JnK Linkweave" ) ),
+            esc_url( admin_url( "admin.php?page=" . self::MENU_SLUG ) ),
+            esc_html__( "Start here", "jnk-linkweave" )
+        );
+        // WordPress adds the dismiss button; tell the server when it is used.
+        printf(
+            "<script>document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('.jnk-linkweave-ready-notice .notice-dismiss')){var b=new FormData();b.append('action','jnk_linkweave_dismiss_ready');b.append('_ajax_nonce',%s);fetch(%s,{method:'POST',credentials:'same-origin',body:b});}});</script>",
+            wp_json_encode( wp_create_nonce( "jnk_linkweave_dismiss_ready" ) ),
+            wp_json_encode( admin_url( "admin-ajax.php" ) )
+        );
+    }
+
+    /** AJAX: the ready notice was dismissed. */
+    public function dismiss_ready_notice(): void {
+        check_ajax_referer( "jnk_linkweave_dismiss_ready" );
+        if ( ! current_user_can( "manage_options" ) ) {
+            wp_send_json_error( null, 403 );
+        }
+        delete_option( \JnkLinkweave_Activator::READY_NOTICE_OPTION );
+        wp_send_json_success();
+    }
+
+    /**
      * Tell someone running the Pro build with no license what to do about it.
      *
      * Until a key is entered the Pro build is indistinguishable from the free one —
@@ -153,19 +200,24 @@ class Admin {
     }
 
     /**
-     * Row meta on the Plugins screen: View details, Docs + Support, all on our own
-     * site. WordPress's "View details" opens the wordpress.org listing for this
-     * slug, and that listing is closed, so it showed a "closed" error; the old
-     * Support link went to that listing's forum.
+     * Row meta on the Plugins screen: Docs + Support on our own site.
+     *
+     * With the licensing client loaded (the Free and Pro builds), WordPress's
+     * "View details" popup is answered by our server, like Trinity Forms and
+     * EntryVault, so it is left alone (it used to be swapped for the docs page;
+     * owner report, 30 Oct 2026). Without the client (the wordpress.org build) it
+     * would open the closed wordpress.org listing, so it points to our site.
      */
     public function plugin_row_meta( array $meta, string $file ): array {
         if ( plugin_basename( JNK_LINKWEAVE_FILE ) !== $file ) {
             return $meta;
         }
-        foreach ( $meta as $i => $item ) {
-            if ( false !== strpos( (string) $item, "tab=plugin-information" ) ) {
-                $meta[ $i ] = '<a href="https://jnkplugins.com/jnk-linkweave/" target="_blank" rel="noopener">'
-                    . esc_html__( "View details", "jnk-linkweave" ) . "</a>";
+        if ( empty( $GLOBALS["jnk_linkweave_license_client"] ) ) {
+            foreach ( $meta as $i => $item ) {
+                if ( false !== strpos( (string) $item, "tab=plugin-information" ) ) {
+                    $meta[ $i ] = '<a href="https://jnkplugins.com/jnk-linkweave/" target="_blank" rel="noopener">'
+                        . esc_html__( "View details", "jnk-linkweave" ) . "</a>";
+                }
             }
         }
         $meta[] = '<a href="https://jnkplugins.com/jnk-linkweave/" target="_blank" rel="noopener">'
@@ -195,12 +247,19 @@ class Admin {
             // are array keys, and a duplicate silently overwrites the other menu.
             27
         );
-        add_submenu_page( self::MENU_SLUG, "Dashboard",      "Dashboard",      $cap, self::MENU_SLUG,                 [ $this, "render_dashboard" ] );
-        add_submenu_page( self::MENU_SLUG, "Rules",          "Rules",          $cap, self::MENU_SLUG . "-rules",      [ $this, "render_rules" ] );
-        add_submenu_page( self::MENU_SLUG, "Orphans",        "Orphans",        $cap, self::MENU_SLUG . "-orphans",    [ $this, "render_orphans" ] );
-        add_submenu_page( self::MENU_SLUG, "Inbound Counts", "Inbound Counts", $cap, self::MENU_SLUG . "-inbound",    [ $this, "render_inbound" ] );
-        add_submenu_page( self::MENU_SLUG, "Broken Links",   "Broken Links",   $cap, self::MENU_SLUG . "-broken",     [ $this, "render_broken" ] );
-        add_submenu_page( self::MENU_SLUG, "Settings",       "Settings",       $cap, self::MENU_SLUG . "-settings",   [ $this, "render_settings" ] );
+        // Same names as the tabs on each screen, so they are translated too (the
+        // menu stayed English on a Korean site while every screen was Korean).
+        $pages = [
+            ""          => [ __( "Overview", "jnk-linkweave" ),        "render_dashboard" ],
+            "-rules"    => [ __( "Auto-link rules", "jnk-linkweave" ), "render_rules" ],
+            "-orphans"  => [ __( "Orphans", "jnk-linkweave" ),         "render_orphans" ],
+            "-inbound"  => [ __( "Inbound links", "jnk-linkweave" ),   "render_inbound" ],
+            "-broken"   => [ __( "Broken links", "jnk-linkweave" ),    "render_broken" ],
+            "-settings" => [ __( "Settings", "jnk-linkweave" ),        "render_settings" ],
+        ];
+        foreach ( $pages as $suffix => [ $label, $render ] ) {
+            add_submenu_page( self::MENU_SLUG, $label, $label, $cap, self::MENU_SLUG . $suffix, [ $this, $render ] );
+        }
 
         // Premium submenus (the bulk URL Changer) register here from pro/; the free
         // build adds nothing further.
@@ -278,6 +337,9 @@ class Admin {
             "restUrl"   => esc_url_raw( rest_url( "jnk-linkweave/v1/" ) ),
             "nonce"     => wp_create_nonce( "wp_rest" ),
             "isPro"     => Rules_Engine::is_pro(),
+            // Times on these screens in the site's zone, like the Overview.
+            "siteTz"     => wp_timezone_string(),
+            "siteOffset" => (int) wp_timezone()->getOffset( new \DateTimeImmutable( "now" ) ),
             "i18n"      => [
                 "rebuild"  => __( "Rebuild index", "jnk-linkweave" ),
                 "running"  => __( "Reading your posts…", "jnk-linkweave" ),
@@ -289,6 +351,8 @@ class Admin {
     }
 
     public function render_dashboard(): void {
+        // The first screen: the "ready, start here" notice has done its job.
+        delete_option( \JnkLinkweave_Activator::READY_NOTICE_OPTION );
         $status = get_option( "jnk_linkweave_index_status", [] );
         include JNK_LINKWEAVE_PATH . "admin/views/dashboard.php";
     }

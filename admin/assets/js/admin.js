@@ -105,6 +105,75 @@
         }
         return past ? __( "just now", "jnk-linkweave" ) : __( "in a moment", "jnk-linkweave" );
     }
+    /**
+     * "Find a post" under a rule's "Links to" box: type part of a title, pick
+     * the post, and its address goes in the box. Pasting a URL still works.
+     * Uses WordPress's own search endpoint (every public post type in REST,
+     * WooCommerce products included).
+     */
+    function attachPostPicker( form ) {
+        const url = form && form.querySelector( 'input[name="target_url"]' );
+        if ( ! url || form.querySelector( ".jnk-linkweave-post-picker" ) || ! window.wp || ! wp.apiFetch ) {
+            return;
+        }
+        const box = document.createElement( "div" );
+        box.className = "jnk-linkweave-post-picker";
+        box.innerHTML = `<input type="search" class="jnk-linkweave-post-search" placeholder="${ escape( __( "or find a post by title", "jnk-linkweave" ) ) }" aria-label="${ escape( __( "Find a post by title", "jnk-linkweave" ) ) }" autocomplete="off">`
+            + '<ul class="jnk-linkweave-post-results" role="listbox" hidden></ul>';
+        ( url.closest( "label" ) || url ).insertAdjacentElement( "afterend", box );
+        const input = box.querySelector( "input" );
+        const list  = box.querySelector( "ul" );
+        let timer = null;
+        let seq = 0;
+        const close = () => { list.hidden = true; list.innerHTML = ""; };
+        input.addEventListener( "keydown", ( e ) => {
+            if ( "Enter" === e.key ) {
+                e.preventDefault();
+                const first = list.querySelector( "button" );
+                if ( first ) {
+                    first.click();
+                }
+            } else if ( "Escape" === e.key ) {
+                close();
+            }
+        } );
+        input.addEventListener( "input", () => {
+            clearTimeout( timer );
+            const q = input.value.trim();
+            if ( q.length < 2 ) {
+                close();
+                return;
+            }
+            timer = setTimeout( async () => {
+                const mine = ++seq;
+                let hits = [];
+                try {
+                    hits = await wp.apiFetch( { path: "/wp/v2/search?type=post&subtype=any&per_page=8&_fields=id,title,url,subtype&search=" + encodeURIComponent( q ) } );
+                } catch ( e ) {
+                    hits = [];
+                }
+                if ( mine !== seq ) {
+                    return;
+                }
+                list.innerHTML = hits.length
+                    ? hits.map( ( h ) => `<li><button type="button" class="button-link" data-url="${ escape( h.url ) }">${ escape( h.title || ( "#" + h.id ) ) } <span class="jnkui-muted">${ urlHtml( String( h.url ).replace( /^https?:\/\/[^/]+/, "" ) ) }</span></button></li>` ).join( "" )
+                    : `<li class="jnkui-muted">${ escape( __( "No posts match.", "jnk-linkweave" ) ) }</li>`;
+                list.hidden = false;
+            }, 250 );
+        } );
+        list.addEventListener( "click", ( e ) => {
+            const b = e.target.closest( "button[data-url]" );
+            if ( ! b ) {
+                return;
+            }
+            url.value = b.dataset.url;
+            url.dispatchEvent( new Event( "input", { bubbles: true } ) );
+            input.value = "";
+            close();
+            url.focus();
+        } );
+    }
+
     /** "%e0%a4%85..." reads as the Devanagari it is; anything that will not decode stays as it was. */
     function readableUrl( value ) {
         try {
@@ -112,6 +181,14 @@
         } catch ( e ) {
             return String( value || "" );
         }
+    }
+    /**
+     * A URL or path for display, decoded and kept left to right. On an Arabic
+     * (RTL) admin "/2026/10/الشبكة/" showed with its slashes jumbled (ar-news
+     * QA 29 Oct 2026): the bidi algorithm reorders the Latin and Arabic runs.
+     */
+    function urlHtml( value ) {
+        return '<bdi dir="ltr">' + escape( readableUrl( value ) ) + "</bdi>";
     }
     function fmtDate( value ) {
         if ( ! value ) { return "—"; }
@@ -121,13 +198,26 @@
         }
         var d = new Date( s );
         if ( isNaN( d.getTime() ) ) { return String( value ); }
-        var abs;
+        return fmtAbs( d ) + " (" + relTime( d.getTime() - Date.now() ) + ")";
+    }
+    // In the site's time zone (Settings > General), like the Overview: the
+    // browser's own zone put Broken links hours away from the Overview's times.
+    function fmtAbs( d ) {
+        var opts = { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" };
         try {
-            abs = d.toLocaleString( uiLang, { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" } );
+            if ( cfg.siteTz ) {
+                return d.toLocaleString( uiLang, Object.assign( { timeZone: cfg.siteTz }, opts ) );
+            }
+        } catch ( e ) { /* an offset zone like "+05:30" on an older browser: shift by hand below */ }
+        try {
+            // wp_localize_script sends numbers as strings.
+            if ( cfg.siteOffset !== undefined && cfg.siteOffset !== "" && ! isNaN( Number( cfg.siteOffset ) ) ) {
+                return new Date( d.getTime() + Number( cfg.siteOffset ) * 1000 ).toLocaleString( uiLang, Object.assign( { timeZone: "UTC" }, opts ) );
+            }
+            return d.toLocaleString( uiLang, opts );
         } catch ( e ) {
-            abs = d.toLocaleString( "en-US" );
+            return d.toLocaleString( "en-US" );
         }
-        return abs + " (" + relTime( d.getTime() - Date.now() ) + ")";
     }
 
     /* ---------- Extension points (used by the Pro admin bundle) ----------
@@ -146,6 +236,7 @@
     cfg.escape        = escape;
     cfg.fmtDate       = fmtDate;
     cfg.readableUrl   = readableUrl;
+    cfg.urlHtml       = urlHtml;
     cfg.settingsFilters = cfg.settingsFilters || [];
     // Callbacks (body, form) that may add fields to a rule before it is saved, and
     // the "jnk_linkweave:rule-form" / "jnk_linkweave:rules-rendered" events, let an
@@ -347,7 +438,7 @@
             const rows = ( data.rules || [] ).map( ( r ) => `
                 <tr data-id="${ escape( r.id ) }">
                     <td><b>${ escape( r.keyword ) }</b>${ flag( r.is_generated ) ? ` <span class="jnkui-pill is-info" title="${ escape( __( "Created by the link map. Clearing the map removes it; rules you wrote are never touched.", "jnk-linkweave" ) ) }">${ __( "from link map", "jnk-linkweave" ) }</span>` : "" }${ flag( r.paused_needs_pro ) ? `<div class="jnkui-muted" style="margin-top:4px">${ __( "This rule uses Pro options and is paused on the free version.", "jnk-linkweave" ) }</div>` : "" }</td>
-                    <td><a href="${ escape( r.target_url ) }" target="_blank" rel="noopener">${ escape( readableUrl( r.target_url.replace( /^https?:\/\/[^/]+/, "" ) || r.target_url ) ) }</a></td>
+                    <td><a href="${ escape( r.target_url ) }" target="_blank" rel="noopener">${ urlHtml( r.target_url.replace( /^https?:\/\/[^/]+/, "" ) || r.target_url ) }</a></td>
                     <td>${ flag( r.paused_needs_pro ) ? `<span class="jnkui-pill is-warn" title="${ escape( __( "Its settings are kept. It runs again when the Pro version is back.", "jnk-linkweave" ) ) }">${ __( "Paused", "jnk-linkweave" ) }</span>` : flag( r.is_active ) ? `<span class="jnkui-pill is-ok">${ __( "On", "jnk-linkweave" ) }</span>` : `<span class="jnkui-pill">${ __( "Paused", "jnk-linkweave" ) }</span>` }</td>
                     <td class="is-num">${ flag( r.paused_needs_pro ) ? 0 : ( r.applied_count || 0 ) }</td>
                     <td style="text-align:end;white-space:nowrap"><button class="button button-small" data-action="edit-rule">${ __( "Edit", "jnk-linkweave" ) }</button> <button class="button button-small is-danger" data-action="delete-rule">${ __( "Delete", "jnk-linkweave" ) }</button></td>
@@ -421,6 +512,7 @@
                             </form>
                         </td>`;
                     const form = tr.querySelector( "form.jnk-linkweave-edit-rule" );
+                    attachPostPicker( form );
                     document.dispatchEvent( new CustomEvent( "jnk_linkweave:rule-form", { detail: { form: form, rule: r } } ) );
                     form.querySelector( "[data-action=cancel-rule]" ).addEventListener( "click", function () { renderRules(); } );
                     form.querySelector( "[data-action=save-rule]" ).addEventListener( "click", async function () {
@@ -445,6 +537,7 @@
                 } );
             } );
 
+            attachPostPicker( document.getElementById( "jnk-linkweave-add-rule" ) );
             document.dispatchEvent( new CustomEvent( "jnk_linkweave:rule-form", { detail: { form: document.getElementById( "jnk-linkweave-add-rule" ), rule: null } } ) );
             document.dispatchEvent( new CustomEvent( "jnk_linkweave:rules-rendered", { detail: { mount: rulesMount, rules: data.rules || [], rerender: renderRules } } ) );
 
@@ -480,6 +573,21 @@
         orphansMount.innerHTML = '<div class="jnkui-empty"><span class="jnkui-spin"></span> ' + __( "Loading…", "jnk-linkweave" ) + "</div>";
         api( "reports/orphans" ).then( ( data ) => {
             const items = data.orphans || [];
+            // Posts no saved link points at, but an auto-link rule links to on the
+            // live site. Not orphans; listed apart so the owner can see they lean
+            // on rules alone.
+            const ruleOnly = data.rule_only || [];
+            const ruleOnlyCard = ! ruleOnly.length ? "" : '<div class="jnkui-card jnk-rule-only"><div class="jnkui-card-head"><div><h2>'
+                /* translators: %d: number of posts that only auto-link rules link to. */
+                + escape( sprintf( _n( "%d post linked only by auto-link rules", "%d posts linked only by auto-link rules", ruleOnly.length, "jnk-linkweave" ), ruleOnly.length ) ) + "</h2>"
+                + "<p>" + __( "Visitors reach these through your auto-link rules, so they are not orphans. No link written in a post points at them yet.", "jnk-linkweave" ) + "</p></div></div>"
+                + '<ul class="jnkui-list">' + ruleOnly.map( ( r ) =>
+                    `<li data-post="${ escape( r.post_id ) }"><span>`
+                    + ( r.edit_url ? `<a href="${ escape( r.edit_url ) }">${ escape( r.post_title || ( "#" + r.post_id ) ) }</a>` : escape( r.post_title ) )
+                    + `<span class="jnkui-sub">${ escape( r.post_type_label || r.post_type ) }${ r.view_url ? ` · <a href="${ escape( r.view_url ) }" target="_blank" rel="noopener">${ __( "View", "jnk-linkweave" ) }</a>` : "" }</span></span>`
+                    /* translators: %d: number of links auto-link rules add to this post across the site. */
+                    + `<span class="jnkui-pill is-ok">${ escape( sprintf( _n( "%d auto-link in", "%d auto-links in", Number( r.rule_links || 0 ), "jnk-linkweave" ), Number( r.rule_links || 0 ) ) ) }</span></li>`
+                ).join( "" ) + "</ul></div>";
             if ( ! items.length ) {
                 // "Nothing to show" is ambiguous here: it means either a healthy
                 // site or an index that was never built. Say which, and link the fix.
@@ -490,7 +598,7 @@
                         __( "Every published post has at least one internal link pointing at it. If you have not built the index yet, %1$sdo that on the Overview%2$s first.", "jnk-linkweave" ),
                         '<a href="admin.php?page=jnk-linkweave">',
                         "</a>"
-                    ) + "</p></div>";
+                    ) + "</p></div>" + ruleOnlyCard;
                 return;
             }
             orphansMount.innerHTML = '<div class="jnkui-card"><div class="jnkui-card-head"><div><h2>'
@@ -500,12 +608,12 @@
                 + '<ul class="jnkui-list jnk-orphans">' + items.map( ( r ) =>
                     `<li data-post="${ escape( r.post_id ) }"><div class="jnk-orphan-main"><span>`
                     + ( r.edit_url ? `<a href="${ escape( r.edit_url ) }">${ escape( r.post_title || ( "#" + r.post_id ) ) }</a>` : escape( r.post_title ) )
-                    + `<span class="jnkui-sub">${ escape( r.post_type ) }${ r.view_url ? ` · <a href="${ escape( r.view_url ) }" target="_blank" rel="noopener">${ __( "View", "jnk-linkweave" ) }</a>` : "" }</span></span>`
+                    + `<span class="jnkui-sub">${ escape( r.post_type_label || r.post_type ) }${ r.view_url ? ` · <a href="${ escape( r.view_url ) }" target="_blank" rel="noopener">${ __( "View", "jnk-linkweave" ) }</a>` : "" }</span></span>`
                     + '<span class="jnk-orphan-actions">'
                     + ( r.indexed ? "" : `<span class="jnkui-pill is-warn" title="${ escape( __( "Shorter than the minimum length in Settings, so it is never suggested as a link target.", "jnk-linkweave" ) ) }">${ __( "Too short to suggest", "jnk-linkweave" ) }</span>` )
                     + `<button type="button" class="button button-small" data-action="find" aria-expanded="false">${ __( "Find posts that could link here", "jnk-linkweave" ) }</button></span></div>`
                     + '<div class="jnk-orphan-found" hidden></div></li>'
-                ).join( "" ) + "</ul></div>";
+                ).join( "" ) + "</ul></div>" + ruleOnlyCard;
         } ).catch( ( e ) => {
             orphansMount.innerHTML = '<div class="jnkui-empty">' + escape( e.message ) + "</div>";
         } );
@@ -795,7 +903,7 @@
                         : escape( r.source_title );
                     return `<tr data-broken-id="${ escape( r.id ) }">`
                         + `<td>${ source }</td>`
-                        + `<td class="jnk-linkweave-target">${ escape( readableUrl( r.target_label ) ) }</td>`
+                        + `<td class="jnk-linkweave-target">${ /^(?:https?:|\/)/.test( String( r.target_label ) ) ? urlHtml( r.target_label ) : escape( r.target_label ) }</td>`
                         + `<td>${ escape( r.anchor_text ) }</td>`
                         + ( Number( r.is_broken ) === 2
                             ? `<td><span class="jnk-linkweave-pill is-unreachable" title="${ escape( __( "No answer in time, or the server returned an error. The page may be fine: open it to check. Remove all leaves these links alone.", "jnk-linkweave" ) ) }">${ __( "Did not answer", "jnk-linkweave" ) }</span></td>`

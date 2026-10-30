@@ -15,6 +15,73 @@ class Index_Builder {
         return $wpdb->prefix . "jnk_linkweave_index";
     }
 
+    /** Settings flag: the owner chose the post types themselves. */
+    public const TYPES_CHOSEN_KEY = "post_types_chosen";
+
+    /** Is WooCommerce running? (filterable so tests and odd setups can say.) */
+    public static function woocommerce_active(): bool {
+        return (bool) apply_filters( "jnk_linkweave_woocommerce_active", class_exists( "WooCommerce" ) );
+    }
+
+    /**
+     * The post types the owner's settings ask for, before the
+     * jnk_linkweave_suggestion_post_types filter.
+     *
+     * Posts and Pages by default, plus WooCommerce products when WooCommerce is
+     * active: a shop's products are what its posts should link to, and on a
+     * 152-product shop the products were left out until someone found the
+     * setting (persona run 29 Oct 2026). A list the owner saved is kept as is,
+     * products or not. Sites set up before this change stored the plain default,
+     * so that list without the "chosen" flag still counts as never changed.
+     *
+     * @param array<string,mixed>|null $settings
+     * @return string[]
+     */
+    public static function base_post_types( ?array $settings = null ): array {
+        $settings = $settings ?? (array) get_option( "jnk_linkweave_settings", [] );
+        $saved    = isset( $settings["post_types"] ) && is_array( $settings["post_types"] ) ? array_values( $settings["post_types"] ) : null;
+        if ( ! empty( $settings[ self::TYPES_CHOSEN_KEY ] ) && null !== $saved ) {
+            return $saved;
+        }
+        $types = $saved ?? [ "post", "page" ];
+        $plain = $types;
+        sort( $plain );
+        if ( [ "page", "post" ] === $plain && self::woocommerce_active() ) {
+            $types[] = "product";
+        }
+        return $types;
+    }
+
+    /** The default post types last seen, to notice one joining (WooCommerce switched on). */
+    public const DEFAULT_TYPES_OPTION = "jnk_linkweave_default_types_seen";
+
+    /**
+     * admin_init: a post type that joined the defaults (WooCommerce switched on,
+     * or the update that brought the products default) is read in the
+     * background, once, on a site whose index is already built. A fresh install
+     * reads everything in its first index anyway.
+     */
+    public static function maybe_index_new_default_types(): void {
+        $types = self::base_post_types();
+        sort( $types );
+        $seen = get_option( self::DEFAULT_TYPES_OPTION, null );
+        if ( $seen === $types ) {
+            return;
+        }
+        update_option( self::DEFAULT_TYPES_OPTION, $types, false );
+        if ( ! is_array( $seen ) ) {
+            // First look since this check arrived: compare with the stored list,
+            // which is what the existing index was built from.
+            $seen = (array) ( get_option( "jnk_linkweave_settings", [] )["post_types"] ?? [ "post", "page" ] );
+        }
+        if ( ! array_diff( $types, $seen ) ) {
+            return; // nothing added
+        }
+        if ( self::indexed_count() > 0 && empty( self::status()["is_running"] ) ) {
+            self::schedule_rebuild();
+        }
+    }
+
     /**
      * What the index is built from. 2 = the title (counted twice) plus the body.
      * Format 1 read the body only, so a post's own title said nothing about its
@@ -24,7 +91,7 @@ class Index_Builder {
      * stopwords and stemming (see Tokenizer); link text left out of the body.
      * A site with none of that script and no links keeps its index.
      */
-    public const INDEX_FORMAT        = 3;
+    public const INDEX_FORMAT        = 4;
     public const INDEX_FORMAT_OPTION = "jnk_linkweave_index_format";
 
     /**
@@ -53,7 +120,9 @@ class Index_Builder {
             return;
         }
         update_option( self::INDEX_FORMAT_OPTION, self::INDEX_FORMAT, false );
-        if ( ( $stored < 2 && self::indexed_count() > 0 ) || self::site_needs_format_3() || self::site_has_links() ) {
+        if ( ( $stored < 2 && self::indexed_count() > 0 )
+            || ( $stored < 3 && ( self::site_needs_format_3() || self::site_has_links() ) )
+            || ( $stored < 4 && self::site_needs_format_4() ) ) {
             self::schedule_rebuild();
         }
     }
@@ -64,7 +133,7 @@ class Index_Builder {
         $settings   = get_option( "jnk_linkweave_settings", [] );
         $post_types = array_values( array_filter( array_map( "sanitize_key", (array) apply_filters(
             "jnk_linkweave_suggestion_post_types",
-            $settings["post_types"] ?? [ "post", "page" ]
+            Index_Builder::base_post_types( (array) $settings )
         ) ) ) );
         if ( ! $post_types ) {
             return false;
@@ -94,7 +163,7 @@ class Index_Builder {
         $settings   = get_option( "jnk_linkweave_settings", [] );
         $post_types = array_values( array_filter( array_map( "sanitize_key", (array) apply_filters(
             "jnk_linkweave_suggestion_post_types",
-            $settings["post_types"] ?? [ "post", "page" ]
+            Index_Builder::base_post_types( (array) $settings )
         ) ) ) );
         if ( ! $post_types ) {
             return false;
@@ -106,6 +175,47 @@ class Index_Builder {
             array_merge( [ $wpdb->posts ], $post_types )
         ) );
         return Tokenizer::is_cjk_or_indic( implode( " ", (array) $texts ) );
+    }
+
+    /**
+     * Does the site write in a language format 4 reads differently? Thai, Lao,
+     * Khmer and Myanmar text is cut into words; Turkish İ/ı and decomposed
+     * (NFD) text are read as the same words as their usual spellings; Persian
+     * function words are left out; Arabic ي and ك are read as Persian ی and ک,
+     * Arabic function words are left out and Arabic words are lightly stemmed
+     * ("الشبكة" = "شبكة"), so Arabic sites rebuild too, once. Cheap checks only, like
+     * site_needs_format_3().
+     */
+    public static function site_needs_format_4(): bool {
+        if ( preg_match( "/^(th|lo|km|my|fa|ar|ur)(_|$)/", (string) get_locale() ) ) {
+            return true;
+        }
+        global $wpdb;
+        $settings   = get_option( "jnk_linkweave_settings", [] );
+        $post_types = array_values( array_filter( array_map( "sanitize_key", (array) apply_filters(
+            "jnk_linkweave_suggestion_post_types",
+            Index_Builder::base_post_types( (array) $settings )
+        ) ) ) );
+        if ( ! $post_types ) {
+            return false;
+        }
+        $in    = implode( ",", array_fill( 0, count( $post_types ), "%s" ) );
+        $texts = $wpdb->get_col( $wpdb->prepare(
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- IN() list built from %s placeholders.
+            "SELECT CONCAT(post_title, ' ', LEFT(post_content, 2000)) FROM %i WHERE post_status = 'publish' AND post_type IN ($in) ORDER BY ID DESC LIMIT 50",
+            array_merge( [ $wpdb->posts ], $post_types )
+        ) );
+        return self::text_needs_format_4( implode( " ", (array) $texts ) );
+    }
+
+    /** Text that format 4 tokenises differently from format 3. */
+    public static function text_needs_format_4( string $text ): bool {
+        return Tokenizer::is_sea( $text )
+            || 1 === preg_match( "/[\\x{0130}\\x{0131}]/u", $text ) // Turkish İ and ı
+            || Tokenizer::is_vietnamese( $text )
+            || Tokenizer::is_persian( $text ) // Persian function words leave the index
+            || 1 === preg_match( "/[\\x{0621}-\\x{064A}\\x{06C0}\\x{0654}]/u", $text ) // Arabic letters: function words, light stem, ي ك ۀ folded
+            || ( class_exists( "Normalizer" ) && ! \Normalizer::isNormalized( $text, \Normalizer::FORM_C ) );
     }
 
     public static function register_hooks(): void {
@@ -232,7 +342,7 @@ class Index_Builder {
         $settings   = get_option( "jnk_linkweave_settings", [] );
         $post_types = (array) apply_filters(
             "jnk_linkweave_suggestion_post_types",
-            $settings["post_types"] ?? [ "post", "page" ]
+            Index_Builder::base_post_types( (array) $settings )
         );
         return array_map( "intval", get_posts( [
             "post_type"        => $post_types,
@@ -432,7 +542,7 @@ class Index_Builder {
         $settings   = get_option( "jnk_linkweave_settings", [] );
         $post_types = (array) apply_filters(
             "jnk_linkweave_suggestion_post_types",
-            $settings["post_types"] ?? [ "post", "page" ]
+            Index_Builder::base_post_types( (array) $settings )
         );
         if ( ! in_array( $post->post_type, $post_types, true ) ) {
             self::delete( $post_id );
@@ -551,7 +661,7 @@ class Index_Builder {
         $language = (string) ( $settings["language"] ?? "en" );
         $post_types = (array) apply_filters(
             "jnk_linkweave_suggestion_post_types",
-            $settings["post_types"] ?? [ "post", "page" ]
+            Index_Builder::base_post_types( (array) $settings )
         );
 
         // Same minimum-length gate index_post() applies on per-save reindex, so
