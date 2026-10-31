@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.22.0
+Stable tag: 1.23.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,6 +169,11 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.23.0 =
+* New (Pro): the AI second opinion can use WordPress's AI connection (Settings > Connectors, WordPress 7.0 or newer) instead of your own key. Your own key keeps working exactly as before; the settings say what each choice means.
+* Fixed (Pro): with a current Claude model (Haiku, Sonnet or Opus 5.5) the AI second opinion quietly changed nothing. It reads their answers now, and those models are in the list; retired Claude 3.5 models are gone.
+* New: the AI assistants screen has a "Guide for your assistant" download, a short file that tells Claude or another AI app how to use the Linkweave abilities safely.
 
 = 1.22.0 =
 * New: an AI assistants screen (Linkweave > More tools > AI assistants). Connect Claude Desktop, Claude Code, Cursor or another MCP app to your site and ask it about your internal links. It shows ready-to-paste settings, installs the free MCP Adapter plugin in one click, and lists every request an assistant made.

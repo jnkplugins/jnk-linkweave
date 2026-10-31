@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.18.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-10-31T15:06:32+00:00\n"
+"POT-Creation-Date: 2026-10-31T17:07:33+00:00\n"
 "PO-Revision-Date: 2026-10-29 12:00+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Hindi\n"
@@ -623,7 +623,7 @@ msgid "Reading your posts…"
 msgstr "आपकी पोस्ट पढ़ी जा रही हैं…"
 
 #: admin/class-admin.php:372
-#: admin/views/assistants.php:207
+#: admin/views/assistants.php:211
 msgid "Done"
 msgstr "हो गया"
 
@@ -633,11 +633,12 @@ msgstr "हो गया"
 msgid "Last full read: just now (%d posts)"
 msgstr "पिछली पूरी रीडिंग: अभी-अभी (%d पोस्ट)"
 
-#: admin/class-assistants.php:72
+#: admin/class-assistants.php:104
+#: admin/class-assistants.php:116
 msgid "Sorry, you are not allowed to do that."
 msgstr "माफ़ करें, आपको ऐसा करने की अनुमति नहीं है।"
 
-#: admin/class-assistants.php:95
+#: admin/class-assistants.php:139
 msgid "Sorry, you are not allowed to install plugins on this site."
 msgstr "माफ़ करें, आपको इस साइट पर प्लगइन इंस्टॉल करने की अनुमति नहीं है।"
 
@@ -853,94 +854,106 @@ msgstr "इसे ऐप की MCP सेटिंग्स फ़ाइल म
 msgid "Claude Code"
 msgstr "Claude Code"
 
+#: admin/views/assistants.php:145
+msgid "Guide for your assistant"
+msgstr "आपके असिस्टेंट के लिए गाइड"
+
+#: admin/views/assistants.php:146
+msgid "A short file that tells your assistant how to use these abilities safely: preview first, ask before saving, undo when needed. In Claude, add it as a skill; in other apps, paste it into the instructions."
+msgstr "एक छोटी फ़ाइल जो आपके असिस्टेंट को बताती है कि इन क्षमताओं का सुरक्षित इस्तेमाल कैसे करें: पहले पूर्वावलोकन, सेव करने से पहले पूछना, और ज़रूरत हो तो पहले जैसा करना। Claude में इसे skill के रूप में जोड़ें; दूसरे ऐप में इसे निर्देशों में पेस्ट करें।"
+
+#: admin/views/assistants.php:147
+msgid "Download the guide"
+msgstr "गाइड डाउनलोड करें"
+
 #. translators: %s: web address of the other MCP server.
-#: admin/views/assistants.php:150
+#: admin/views/assistants.php:154
 #, php-format
 msgid "Another plugin on this site (for example Rank Math) added an MCP server that signs in with OAuth, at %s. Apps in a web browser, such as ChatGPT or Claude, may be able to connect there; follow that plugin's instructions. It offers the same Linkweave abilities you allow above."
 msgstr "इस साइट पर एक दूसरे प्लगइन (जैसे Rank Math) ने %s पर एक MCP सर्वर जोड़ा है जो OAuth से साइन इन करता है। वेब ब्राउज़र में चलने वाले ऐप, जैसे ChatGPT या Claude, शायद वहाँ कनेक्ट हो सकें; उस प्लगइन के निर्देशों का पालन करें। इसमें वही Linkweave क्षमताएँ मिलती हैं जिनकी अनुमति आपने ऊपर दी है।"
 
-#: admin/views/assistants.php:155
+#: admin/views/assistants.php:159
 msgid "ChatGPT and Claude in a web browser cannot connect to a WordPress site this way yet: they need a sign-in method (OAuth) that WordPress does not offer yet."
 msgstr "वेब ब्राउज़र में ChatGPT और Claude अभी इस तरह WordPress साइट से कनेक्ट नहीं हो सकते: उन्हें साइन इन का एक तरीका (OAuth) चाहिए जो WordPress अभी नहीं देता।"
 
-#: admin/views/assistants.php:157
+#: admin/views/assistants.php:161
 msgid "Try asking: “Which of my posts have no internal links pointing to them?”"
 msgstr "पूछकर देखें: “मेरी किन पोस्ट पर कोई आंतरिक लिंक नहीं आता?”"
 
-#: admin/views/assistants.php:163
+#: admin/views/assistants.php:167
 msgid "3. What an assistant sees"
 msgstr "3. असिस्टेंट को क्या दिखता है"
 
-#: admin/views/assistants.php:164
+#: admin/views/assistants.php:168
 msgid "Every Linkweave ability on this site and whether assistants can use it now."
 msgstr "इस साइट पर Linkweave की हर क्षमता, और क्या असिस्टेंट अभी उसका इस्तेमाल कर सकते हैं।"
 
-#: admin/views/assistants.php:166
-#: admin/views/assistants.php:197
+#: admin/views/assistants.php:170
+#: admin/views/assistants.php:201
 msgid "Ability"
 msgstr "क्षमता"
 
-#: admin/views/assistants.php:166
+#: admin/views/assistants.php:170
 msgid "What it does"
 msgstr "यह क्या करती है"
 
-#: admin/views/assistants.php:166
+#: admin/views/assistants.php:170
 msgid "Kind"
 msgstr "प्रकार"
 
-#: admin/views/assistants.php:166
+#: admin/views/assistants.php:170
 msgid "Assistants"
 msgstr "असिस्टेंट"
 
-#: admin/views/assistants.php:171
+#: admin/views/assistants.php:175
 msgid "Reads"
 msgstr "पढ़ता है"
 
-#: admin/views/assistants.php:172
+#: admin/views/assistants.php:176
 msgid "Changes posts"
 msgstr "पोस्ट बदलता है"
 
-#: admin/views/assistants.php:173
+#: admin/views/assistants.php:177
 msgid "Big changes"
 msgstr "बड़े बदलाव"
 
-#: admin/views/assistants.php:182
+#: admin/views/assistants.php:186
 msgid "Allowed"
 msgstr "अनुमति है"
 
-#: admin/views/assistants.php:182
+#: admin/views/assistants.php:186
 msgid "Off"
 msgstr "बंद"
 
-#: admin/views/assistants.php:191
+#: admin/views/assistants.php:195
 msgid "4. What assistants did"
 msgstr "4. असिस्टेंट ने क्या किया"
 
-#: admin/views/assistants.php:192
+#: admin/views/assistants.php:196
 msgid "The last 50 requests. Linkweave keeps the newest 200."
 msgstr "पिछले 50 अनुरोध। Linkweave सबसे नए 200 रखता है।"
 
-#: admin/views/assistants.php:194
+#: admin/views/assistants.php:198
 msgid "No requests yet."
 msgstr "अभी तक कोई अनुरोध नहीं।"
 
-#: admin/views/assistants.php:197
+#: admin/views/assistants.php:201
 msgid "When"
 msgstr "कब"
 
-#: admin/views/assistants.php:197
+#: admin/views/assistants.php:201
 msgid "User"
 msgstr "यूज़र"
 
-#: admin/views/assistants.php:197
+#: admin/views/assistants.php:201
 msgid "Asked"
 msgstr "क्या माँगा"
 
-#: admin/views/assistants.php:197
+#: admin/views/assistants.php:201
 msgid "Result"
 msgstr "नतीजा"
 
-#: admin/views/assistants.php:207
+#: admin/views/assistants.php:211
 msgid "Failed"
 msgstr "विफल"
 
