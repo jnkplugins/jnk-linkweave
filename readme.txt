@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.2
-Stable tag: 1.20.1
+Stable tag: 1.20.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -168,6 +168,9 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.20.2 =
+* Fixed: View details on a free install shows the full description, changelog and FAQ, with the video, instead of raw text.
 
 = 1.20.1 =
 * Changed: View details on the Plugins screen shows the plugin's banner, icons and screenshots, loaded from our server.
