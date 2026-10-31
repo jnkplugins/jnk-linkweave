@@ -31,6 +31,9 @@ final class Plugin {
 
         add_filter( "the_content", [ $this, "apply_auto_link_rules" ], 99 );
 
+        // Reports for AI assistants (WordPress 6.9+ Abilities API).
+        Abilities::register();
+
         add_action( "enqueue_block_editor_assets", [ $this, "enqueue_editor_assets" ] );
 
         // Classic Editor (TinyMCE) integration.

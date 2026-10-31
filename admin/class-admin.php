@@ -23,6 +23,8 @@ class Admin {
         add_filter( "site_status_tests", [ $this, "site_status_tests" ] );
         // "Links in / out" column on the Posts list (free).
         Posts_Column::register();
+        // AI assistants screen: switches, MCP Adapter install, access log.
+        Assistants::register();
     }
 
     /** @param array<string,mixed> $tests */
@@ -279,6 +281,7 @@ class Admin {
             "-inbound"  => [ __( "Inbound links", "jnk-linkweave" ),   "render_inbound" ],
             "-broken"   => [ __( "Broken links", "jnk-linkweave" ),    "render_broken" ],
             "-settings" => [ __( "Settings", "jnk-linkweave" ),        "render_settings" ],
+            "-assistants" => [ __( "AI assistants", "jnk-linkweave" ),  "render_assistants" ],
         ];
         foreach ( $pages as $suffix => [ $label, $render ] ) {
             add_submenu_page( self::MENU_SLUG, $label, $label, $cap, self::MENU_SLUG . $suffix, [ $this, $render ] );
@@ -394,6 +397,10 @@ class Admin {
 
     public function render_broken(): void {
         include JNK_LINKWEAVE_PATH . "admin/views/broken.php";
+    }
+
+    public function render_assistants(): void {
+        ( new Assistants() )->render();
     }
 
     public function render_settings(): void {

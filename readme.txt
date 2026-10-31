@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.21.0
+Stable tag: 1.22.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,7 @@ It's built for the people who actually maintain content at scale: bloggers, SEO 
 * **Post-type control** — choose which post types are indexed and eligible as link targets.
 * **Background indexing** via Action Scheduler: rebuilds never run inline on `save_post`. The first index starts by itself after activation, and small sites are indexed in seconds.
 * **"Links in / out" column** on the Posts list, so you see at a glance which posts get no links.
+* **AI assistants** — let Claude, Cursor or another MCP app read your orphan posts, link counts, broken links and suggestions (WordPress 6.9 or newer). Read only, off until you switch it on.
 * **Tag-aware rewriting** — rules skip content inside `<a>`, `<code>`, `<pre>`, headings, and shortcodes, so existing markup is never mangled.
 
 = Get Pro =
@@ -53,7 +54,7 @@ Pro is a flat license — **from $29/year** for 3 sites (or a one-time lifetime 
 * **Link check before you publish**: how many internal links the post has, with good matches to add in one click.
 * **Dead-end report**: posts that link to none of your other posts, with links in and out for every post.
 * **Rules 2.0**: other words for the same link, limit a rule to post types or categories, rel="sponsored", a per-post "no auto-links" switch, CSV import and export.
-* **AI assistants (read only)**: let AI tools that use the WordPress Abilities API read your Linkweave reports.
+* **AI assistants that fix links**: your assistant adds links, fixes broken links and manages auto-link rules, showing each change first. Every change can be undone.
 
 Bundle JnK Linkweave with Trinity Forms or EntryVault for ~20% off, or take all three for ~25% off — one checkout, one renewal, a license key per plugin.
 
@@ -105,7 +106,7 @@ Buy any two at ~20% off or all three at ~25% off — one checkout, one renewal, 
 
 = Does this send my content to an AI service? =
 
-No. JnK Linkweave computes link relevance entirely on your server using BM25 (or TF-IDF cosine, if you pick it in Settings). Nothing is sent to any external service.
+No. JnK Linkweave computes link relevance entirely on your server using BM25 (or TF-IDF cosine, if you pick it in Settings). Nothing is sent to any external service. If you connect an AI assistant on the AI assistants screen, that assistant can read the reports you allow, the same as you can on your screen; nothing is sent until you set that up.
 
 = How long does indexing take? =
 
@@ -168,6 +169,12 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.22.0 =
+* New: an AI assistants screen (Linkweave > More tools > AI assistants). Connect Claude Desktop, Claude Code, Cursor or another MCP app to your site and ask it about your internal links. It shows ready-to-paste settings, installs the free MCP Adapter plugin in one click, and lists every request an assistant made.
+* New: reading reports is now free. An assistant can list orphan posts, link counts, the links of one post, broken links, auto-link rules and link suggestions. Nothing is changed, and it stays off until you switch it on.
+* New (Pro): assistants can fix links. Add a link to a post, fix or remove a broken link, add or change auto-link rules, and (behind a separate "Big changes" switch) change an address in every post. Each change is shown to the assistant first and only saved when it asks again, and every change can be undone from the screen or by the assistant, unless the post was edited since.
+* New (Pro): assistants can read internal link clicks.
 
 = 1.21.0 =
 * New: ticking "Also delete Linkweave's data" asks you to confirm and shows what deleting the plugin will remove.

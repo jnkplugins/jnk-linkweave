@@ -36,7 +36,7 @@ $jnk_linkweave_pro_features = [
     [ __( "Link check before you publish", "jnk-linkweave" ), __( "When you click Publish, see how many internal links the post has and add a good match in one click.", "jnk-linkweave" ) ],
     [ __( "Dead-end report", "jnk-linkweave" ), __( "Find posts that link to none of your other posts, with links in and out for every post and a CSV export.", "jnk-linkweave" ) ],
     [ __( "More from each rule", "jnk-linkweave" ), __( "Other words for the same link, limit a rule to some post types or categories, mark paid links as sponsored, switch rules off for one post, and import or export rules as CSV.", "jnk-linkweave" ) ],
-    [ __( "AI assistants (read only)", "jnk-linkweave" ), __( "Let AI tools that use the WordPress Abilities API read your orphan posts, link counts and suggestions. Needs WordPress 6.9 or newer.", "jnk-linkweave" ) ],
+    [ __( "AI assistants that fix links", "jnk-linkweave" ), __( "Your AI assistant can add links, fix broken links and manage auto-link rules, showing you each change first. Every change can be undone. Reading reports is free. Needs WordPress 6.9 or newer.", "jnk-linkweave" ) ],
     [ __( "Anchor text report", "jnk-linkweave" ), __( "See every anchor you use, where it points, and which ones are over-used.", "jnk-linkweave" ) ],
     [ __( "Related posts", "jnk-linkweave" ), __( "A “Read more” list of related posts for readers, added with a shortcode.", "jnk-linkweave" ) ],
     [ __( "Link preview cards", "jnk-linkweave" ), __( "Optional hover cards with title, image and excerpt on internal links.", "jnk-linkweave" ) ],

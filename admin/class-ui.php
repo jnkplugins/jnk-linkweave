@@ -35,6 +35,7 @@ class UI {
             "-anchors"     => __( "Anchor text", "jnk-linkweave" ),
             "-cluster-map" => __( "Link map", "jnk-linkweave" ),
             "-links-report" => __( "Links per post", "jnk-linkweave" ),
+            "-assistants"   => __( "AI assistants", "jnk-linkweave" ),
         ];
     }
 
