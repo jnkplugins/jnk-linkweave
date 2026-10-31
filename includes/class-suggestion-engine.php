@@ -534,6 +534,12 @@ class Suggestion_Engine {
      */
     private static function utility_page_ids(): array {
         $ids = [ (int) get_option( "page_on_front" ), (int) get_option( "page_for_posts" ), (int) get_option( "wp_page_for_privacy_policy" ) ];
+        // WordPress's own "Sample Page": "a sample page" in a sentence is not
+        // naming it, yet it got the title boost on every fresh site (QA 31 Oct 2026).
+        $sample = get_page_by_path( "sample-page", OBJECT, "page" );
+        if ( $sample instanceof \WP_Post ) {
+            $ids[] = (int) $sample->ID;
+        }
         if ( function_exists( "wc_get_page_id" ) ) {
             foreach ( [ "shop", "cart", "checkout", "myaccount", "terms" ] as $page ) {
                 $ids[] = (int) wc_get_page_id( $page );

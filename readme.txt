@@ -2,9 +2,9 @@
 Contributors: suresh1986
 Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.20.2
+Stable tag: 1.21.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -168,6 +168,26 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.21.0 =
+* New: ticking "Also delete Linkweave's data" asks you to confirm and shows what deleting the plugin will remove.
+* Changed: deleting the plugin frees this site's licence seat, so you can use it on another site straight away. Your data stays unless you ticked the delete box; if you install the plugin again, enter your key again.
+* Fixed: the licence box answers in your language (a wrong key, Install Pro, deactivating), an unlimited licence shows Unlimited instead of a site limit of 0, and a free key is no longer told it switches on Pro.
+* Fixed: View details on the Plugins screen is there right after you activate the plugin, and its tabs keep WordPress's order.
+* Fixed: the question shown when you deactivate the plugin closes with Esc.
+* Fixed: WordPress's "Sample Page" is no longer pushed up the suggestions because a post says "a sample page".
+* Improved: "Rebuild index" starts reading your posts within seconds on most hosts, instead of saying "Queued" for a minute or more.
+* Fixed: the "JnK Linkweave is ready" notice shows once and goes away as soon as you open any Linkweave screen.
+* Tested up to WordPress 7.1, so the Plugins screen no longer says "not tested with your version".
+* Improved: Insert link finds Thai words in your text (Thai titles are cut into words) and Korean words that carry a different particle ("환율 전망과" links "환율 전망" in "환율 전망을"), so it no longer tacks the whole title onto the paragraph so often. It also no longer links a Korean title inside a longer word.
+* Improved: Arabic auto-link rules match the usual spelling variants (أحمد and احمد, مدرسة and مدرسه, على and علي) and link a word written together with و, ف, ب, ل, ك or ال ("بالشبكة").
+* Fixed: a Korean auto-link rule no longer links inside a longer word ("환율" in "수환율"); particles after the word still work.
+* Fixed: "Find a post" under a rule's Links to box shows titles as written (Chef’s Knife), not as code (Chef&#8217;s Knife).
+* Fixed: Insert link on a post whose title has an apostrophe ("Walnut Chef’s Knife") links the whole title in your text, not half of it, in the block and classic editors.
+* Fixed: an auto-link rule with an apostrophe or quote in it ("Chef's Knife") now links the page, whichever way the quote is written. Before, WordPress turned the quote curly on the page, so the link never appeared while Links added still counted it.
+* Fixed: View details on the Plugins screen of a free install opens the plugin details popup again, instead of our website.
+* Fixed: a site with older Thai, Turkish, Vietnamese, Persian or Arabic posts behind newer English ones now gets the one-time index rebuild after updating, so those posts get suggestions again.
+* Fixed: deleting the plugin with "Also delete Linkweave's data" ticked now removes everything, including the click, cross-site, Search Console and URL change tables, every setting and the licence state, on the free build too.
 
 = 1.20.2 =
 * Fixed: View details on a free install shows the full description, changelog and FAQ, with the video, instead of raw text.

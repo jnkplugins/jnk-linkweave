@@ -78,6 +78,22 @@
         return main + ( acts.length ? `<div class="row-actions visible">${ acts.join( " | " ) }</div>` : "" );
     }
 
+    /**
+     * Text from HTML entities. WordPress's search endpoint sends titles as HTML
+     * ("Chef&#8217;s Knife"), and escaping that again printed the entity itself
+     * in the "Find a post" list (QA 31 Oct 2026).
+     */
+    function decodeEntities( s ) {
+        const named = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: "\u00A0", hellip: "\u2026", ndash: "\u2013", mdash: "\u2014", lsquo: "\u2018", rsquo: "\u2019", ldquo: "\u201C", rdquo: "\u201D" };
+        return String( s == null ? "" : s ).replace( /&(#[0-9]+|#[xX][0-9a-fA-F]+|[a-zA-Z]+);/g, ( m, e ) => {
+            if ( "#" === e[ 0 ] ) {
+                const code = "x" === e[ 1 ] || "X" === e[ 1 ] ? parseInt( e.slice( 2 ), 16 ) : parseInt( e.slice( 1 ), 10 );
+                return code > 0 && code <= 0x10FFFF ? String.fromCodePoint( code ) : m;
+            }
+            return Object.prototype.hasOwnProperty.call( named, e ) ? named[ e ] : m;
+        } );
+    }
+
     function escape( s ) {
         return String( s == null ? "" : s )
             .replace( /&/g, "&amp;" )
@@ -156,7 +172,7 @@
                     return;
                 }
                 list.innerHTML = hits.length
-                    ? hits.map( ( h ) => `<li><button type="button" class="button-link" data-url="${ escape( h.url ) }">${ escape( h.title || ( "#" + h.id ) ) } <span class="jnkui-muted">${ urlHtml( String( h.url ).replace( /^https?:\/\/[^/]+/, "" ) ) }</span></button></li>` ).join( "" )
+                    ? hits.map( ( h ) => `<li><button type="button" class="button-link" data-url="${ escape( h.url ) }">${ escape( decodeEntities( h.title ) || ( "#" + h.id ) ) } <span class="jnkui-muted">${ urlHtml( String( h.url ).replace( /^https?:\/\/[^/]+/, "" ) ) }</span></button></li>` ).join( "" )
                     : `<li class="jnkui-muted">${ escape( __( "No posts match.", "jnk-linkweave" ) ) }</li>`;
                 list.hidden = false;
             }, 250 );

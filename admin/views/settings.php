@@ -109,6 +109,21 @@ unset( $public_types["attachment"] ); // media has no linkable body content
                 <td>
                     <label><input type="checkbox" name="delete_data_on_uninstall" value="1" <?php checked( $delete ); ?>> <?php esc_html_e( "Also delete Linkweave's data (rules, reports and settings)", "jnk-linkweave" ); ?></label>
                     <p class="description"><?php esc_html_e( "Off by default, so nothing is lost if you deactivate the plugin, delete it, or a Pro license runs out.", "jnk-linkweave" ); ?></p>
+                    <?php $jnk_linkweave_delete_warning = __( "Deleting Linkweave will then permanently remove all your auto-link rules, reports and settings. Links already in your posts stay. This cannot be undone.", "jnk-linkweave" ); ?>
+                    <div id="jnk-linkweave-delete-data-warning" class="notice notice-warning inline" data-confirm="<?php echo esc_attr( $jnk_linkweave_delete_warning . "\n\n" . __( "Tick this anyway?", "jnk-linkweave" ) ); ?>"<?php echo $delete ? "" : ' style="display:none"'; ?>><p><?php echo esc_html( $jnk_linkweave_delete_warning ); ?></p></div>
+                    <script>
+                    ( function () {
+                        // Ticking it is one click; what it does on delete cannot be undone, so ask once and keep the warning in view.
+                        var box = document.querySelector( 'input[type=checkbox][name="delete_data_on_uninstall"]' ), warn = document.getElementById( 'jnk-linkweave-delete-data-warning' );
+                        if ( ! box || ! warn ) { return; }
+                        function show() { warn.style.display = box.checked ? "" : "none"; }
+                        box.addEventListener( "change", function () {
+                            if ( box.checked && ! window.confirm( warn.getAttribute( "data-confirm" ) ) ) { box.checked = false; }
+                            show();
+                        } );
+                        show();
+                    } )();
+                    </script>
                 </td>
             </tr>
             </tbody>

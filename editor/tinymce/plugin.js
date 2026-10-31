@@ -124,14 +124,120 @@
     const CJK = "\\p{Script=Han}\\p{Script=Hiragana}\\p{Script=Katakana}\\p{Script=Hangul}\\u3005\\u3006\\u30FC";
     const CJK_CHAR = new RegExp( "[" + CJK + "]", "gu" );
 
+    /** Apostrophes, straight or curly, match each other (same as the block editor). */
+    const APOS = /['\u2018\u2019\u02BC]/g;
+    const APOS_CLASS = "['\u2018\u2019\u02BC]";
+
+    /** Before a word Korean is not transparent ("수환율" is not "환율"); Chinese and Japanese are. */
+    const CJK_START = "\\p{Script=Han}\\p{Script=Hiragana}\\p{Script=Katakana}\\u3005\\u3006\\u30FC";
+
+    /** Thai, Lao, Khmer, Myanmar: no spaces; words come from the browser's segmenter (same as the block editor). */
+    const SEA = "\\p{Script=Thai}\\p{Script=Lao}\\p{Script=Khmer}\\p{Script=Myanmar}";
+    const SEA_CHAR = new RegExp( "[" + SEA + "]", "u" );
+    const TH_STOPWORDS = new Set( (
+        "และ ที่ ของ ใน เป็น การ ได้ มี จะ ให้ ไม่ กับ แล้ว ก็ ว่า นี้ คือ ความ หรือ " +
+        "จาก โดย ซึ่ง อยู่ ไป มา ด้วย แต่ เพื่อ ถ้า ต้อง ควร เมื่อ ทุก กว่า ยัง อีก นั้น " +
+        "เรา คุณ เขา มาก ไว้ ทำ แบบ เลย นะ ครับ ค่ะ จึง เพราะ ถึง ทั้ง บาง แค่ กัน ตาม " +
+        "สำหรับ อย่าง เช่น นี่"
+    ).split( " " ) );
+    const KO_PARTICLES = [ "에서", "으로", "에게", "까지", "부터", "처럼", "보다", "하고", "은", "는", "이", "가", "을", "를", "의", "에", "와", "과", "도", "로", "만" ];
+
+    let wordSegmenter;
+    function segmenter() {
+        if ( wordSegmenter === undefined ) {
+            wordSegmenter = typeof Intl !== "undefined" && Intl.Segmenter ? new Intl.Segmenter( "th", { granularity: "word" } ) : null;
+        }
+        return wordSegmenter;
+    }
+
+    function isStopword( word ) {
+        return STOPWORDS.has( word.toLowerCase() ) || TH_STOPWORDS.has( word );
+    }
+
     function phraseWeight( phrase ) {
         return phrase.length + ( phrase.match( CJK_CHAR ) || [] ).length;
     }
 
-    /** Whole-word pattern for a phrase; CJK letters next to it do not count as the same word. */
+    /** A title segment's words, each with whether it is glued to the one before (Thai). */
+    function titleWords( segment ) {
+        const out = [];
+        for ( const m of segment.matchAll( /[\p{L}\p{M}\p{N}'\u2018\u2019\u02BC-]+/gu ) ) {
+            const run = m[ 0 ];
+            const seg = SEA_CHAR.test( run ) ? segmenter() : null;
+            if ( ! seg ) {
+                out.push( { word: run, glued: false } );
+                continue;
+            }
+            let glued = false;
+            for ( const piece of seg.segment( run ) ) {
+                if ( piece.isWordLike ) {
+                    out.push( { word: piece.segment, glued: glued } );
+                    glued = true;
+                } else {
+                    glued = false;
+                }
+            }
+        }
+        return out;
+    }
+
+    /** RegExp source for a phrase: any apostrophe, any space run, Korean particles inside the phrase. */
+    function phraseSource( phrase ) {
+        const words = phrase.split( /\s+/ );
+        return words.map( ( word, i ) => {
+            let stem = word;
+            if ( /^\p{Script=Hangul}+$/u.test( word ) ) {
+                const p = KO_PARTICLES.find( ( k ) => word.length - k.length >= 2 && word.endsWith( k ) );
+                stem = p ? word.slice( 0, -p.length ) : word;
+            }
+            let src = stem.replace( /[.*+?^${}()|[\]\\]/g, "\\$&" ).replace( APOS, APOS_CLASS );
+            if ( i < words.length - 1 && /\p{Script=Hangul}$/u.test( stem ) ) {
+                src += "\\p{Script=Hangul}{0,2}";
+            }
+            return src;
+        } ).join( "\\s+" );
+    }
+
+    /** Thai edges must be word edges by the segmenter ("ตา" is not in "ตาราง"). */
+    function seaEdgesOk( text, start, end ) {
+        const atStart = start > 0 && SEA_CHAR.test( text[ start - 1 ] ) && SEA_CHAR.test( text[ start ] );
+        const atEnd = end < text.length && SEA_CHAR.test( text[ end ] ) && SEA_CHAR.test( text[ end - 1 ] );
+        if ( ! atStart && ! atEnd ) {
+            return true;
+        }
+        const seg = segmenter();
+        if ( ! seg ) {
+            return false;
+        }
+        const from = Math.max( 0, start - 80 );
+        const to = Math.min( text.length, end + 80 );
+        const cuts = new Set( [ to ] );
+        for ( const piece of seg.segment( text.slice( from, to ) ) ) {
+            cuts.add( from + piece.index );
+        }
+        return ( ! atStart || cuts.has( start ) ) && ( ! atEnd || cuts.has( end ) );
+    }
+
+    /**
+     * Whole-word pattern for a phrase. exec() returns a match like a RegExp's
+     * (m.index, m[1] the character before, m[2] the words), or null.
+     */
     function phrasePattern( phrase ) {
-        const escaped = phrase.replace( /[.*+?^${}()|[\]\\]/g, "\\$&" ).replace( /\s+/g, "\\s+" );
-        return new RegExp( "(^|[^\\p{L}\\p{N}]|[" + CJK + "])(" + escaped + ")(?=$|[^\\p{L}\\p{N}]|[" + CJK + "])", "iu" );
+        const re = new RegExp( "(^|[^\\p{L}\\p{M}\\p{N}]|[" + CJK_START + SEA + "])(" + phraseSource( phrase ) + ")(?=$|[^\\p{L}\\p{M}\\p{N}]|[" + CJK + SEA + "])", "giu" );
+        return {
+            exec( text ) {
+                re.lastIndex = 0;
+                let m;
+                while ( ( m = re.exec( text ) ) !== null ) {
+                    const start = m.index + m[ 1 ].length;
+                    if ( seaEdgesOk( text, start, start + m[ 2 ].length ) ) {
+                        return m;
+                    }
+                    re.lastIndex = m.index + 1;
+                }
+                return null;
+            },
+        };
     }
 
     /** Title phrases of 2–4 words, then a one-word title, most specific first (same rules as the block editor). */
@@ -140,21 +246,22 @@
         decodeEntities( title )
             .split( /\s*[:|—–]\s*|\s+-\s+/u )
             .forEach( ( segment ) => {
-                const words = segment.split( /[^\p{L}\p{N}'-]+/u ).filter( Boolean );
+                const list = titleWords( segment );
+                const words = list.map( ( w ) => w.word );
+                const join = ( i, n ) => list.slice( i, i + n ).map( ( w, k ) => ( k > 0 && ! w.glued ? " " : "" ) + w.word ).join( "" );
                 for ( let n = Math.min( 4, words.length ); n >= 2; n-- ) {
                     for ( let i = 0; i + n <= words.length; i++ ) {
-                        const slice = words.slice( i, i + n );
-                        if ( STOPWORDS.has( slice[ 0 ].toLowerCase() ) || STOPWORDS.has( slice[ n - 1 ].toLowerCase() ) ) {
+                        if ( isStopword( words[ i ] ) || isStopword( words[ i + n - 1 ] ) ) {
                             continue;
                         }
-                        const phrase = slice.join( " " );
+                        const phrase = join( i, n );
                         if ( phraseWeight( phrase ) >= 6 && ! found.has( phrase.toLowerCase() ) ) {
                             found.set( phrase.toLowerCase(), { phrase, n } );
                         }
                     }
                 }
                 // A one-word title ("한국은행", "Espresso") is the page's name: link it where it is used.
-                if ( words.length === 1 && phraseWeight( words[ 0 ] ) >= 4 && ! STOPWORDS.has( words[ 0 ].toLowerCase() ) && ! found.has( words[ 0 ].toLowerCase() ) ) {
+                if ( words.length === 1 && phraseWeight( words[ 0 ] ) >= 4 && ! isStopword( words[ 0 ] ) && ! found.has( words[ 0 ].toLowerCase() ) ) {
                     found.set( words[ 0 ].toLowerCase(), { phrase: words[ 0 ], n: 1 } );
                 }
             } );

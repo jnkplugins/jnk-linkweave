@@ -309,6 +309,10 @@ msgstr "अपडेट चैनल"
 msgid "Site limit"
 msgstr "साइट सीमा"
 
+#: pro/licensorpro-client/licensorpro-client.php:1823
+msgid "Unlimited"
+msgstr "असीमित"
+
 #: pro/licensorpro-client/licensorpro-client.php:1808
 msgid "Expires"
 msgstr "समाप्त होता है"
@@ -348,6 +352,70 @@ msgstr "मदद चाहिए?"
 #: pro/licensorpro-client/licensorpro-client.php:1857
 msgid "Contact support"
 msgstr "सहायता से संपर्क करें"
+
+#: pro/licensorpro-client/licensorpro-client.php:1880
+msgid "Every seat on this license is in use. Deactivate one of your other sites from your account, then try again."
+msgstr "इस लाइसेंस की सभी साइटें इस्तेमाल में हैं। अपने अकाउंट से कोई दूसरी साइट निष्क्रिय करें, फिर दोबारा कोशिश करें।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1881
+msgid "This license has expired. Renewing it from your account reactivates this site immediately. Your settings and data are untouched."
+msgstr "इस लाइसेंस की अवधि खत्म हो गई है। अपने अकाउंट से रिन्यू करते ही यह साइट फिर से सक्रिय हो जाएगी। आपकी सेटिंग्स और डेटा जैसे हैं वैसे रहेंगे।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1882
+msgid "That key was not recognised. Check for a missing character, or copy it again from your purchase email."
+msgstr "यह Key पहचानी नहीं गई। देखें कि कोई अक्षर छूटा तो नहीं, या खरीद वाले ईमेल से इसे फिर से कॉपी करें।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1883
+msgid "This key has been revoked. If you believe that is a mistake, reply to your purchase email and we will sort it out."
+msgstr "यह Key रद्द कर दी गई है। अगर आपको लगता है कि यह गलती है, तो खरीद वाले ईमेल का जवाब दें, हम इसे ठीक कर देंगे।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1884
+msgid "Could not reach the licensing server. Your site may be blocking outbound requests. This is usually temporary, so try again in a minute."
+msgstr "लाइसेंस सर्वर तक नहीं पहुँच सके। हो सकता है आपकी साइट बाहर जाने वाले अनुरोध रोक रही हो। यह अक्सर कुछ देर के लिए होता है, इसलिए एक मिनट बाद फिर कोशिश करें।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1885
+msgid "Too many attempts in a short window. Wait a minute and try again."
+msgstr "थोड़े समय में बहुत ज़्यादा कोशिशें हो गईं। एक मिनट रुकें और फिर कोशिश करें।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1886
+msgid "The licensing server had a problem on its side. Your key was not rejected. Try again in a few minutes, and if it keeps happening, reply to your purchase email."
+msgstr "लाइसेंस सर्वर की तरफ से कोई दिक्कत आई। आपकी Key अस्वीकार नहीं हुई है। कुछ मिनट बाद फिर कोशिश करें, और अगर यह बार-बार हो तो खरीद वाले ईमेल का जवाब दें।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1887
+msgid "Enter your license key first."
+msgstr "पहले अपनी लाइसेंस Key डालें।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1888
+msgid "Installing Pro. This takes a few seconds, keep this page open…"
+msgstr "Pro इंस्टॉल हो रहा है। इसमें कुछ सेकंड लगेंगे, यह पेज खुला रखें…"
+
+#: pro/licensorpro-client/licensorpro-client.php:1889
+msgid "Reloading to switch on the Pro tools…"
+msgstr "Pro टूल चालू करने के लिए पेज फिर से लोड हो रहा है…"
+
+#: pro/licensorpro-client/licensorpro-client.php:1890
+msgid "Reload now"
+msgstr "अभी फिर से लोड करें"
+
+#: pro/licensorpro-client/licensorpro-client.php:1891
+msgid "Could not reach the licensing server. Check your connection and try again."
+msgstr "लाइसेंस सर्वर तक नहीं पहुँच सके। अपना कनेक्शन जाँचें और फिर कोशिश करें।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1892
+msgid "Deactivate this license on this site? Premium features switch off here and the seat is freed for another site."
+msgstr "इस साइट पर यह लाइसेंस निष्क्रिय करें? यहाँ प्रीमियम फ़ीचर बंद हो जाएँगे और यह जगह किसी दूसरी साइट के लिए खाली हो जाएगी।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1893
+msgid "Done."
+msgstr "हो गया।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1894
+msgid "Deactivated."
+msgstr "निष्क्रिय हो गया।"
+
+#: pro/licensorpro-client/licensorpro-client.php:1895
+msgid "Checked."
+msgstr "जाँच हो गई।"
 
 #: pro/licensorpro-client/licensorpro-client.php:2062
 msgid "Only someone who may install plugins on this site can install Pro."
@@ -1067,6 +1135,14 @@ msgstr "Linkweave का डेटा भी हटाएँ (नियम, र�
 #: admin/views/settings.php:111
 msgid "Off by default, so nothing is lost if you deactivate the plugin, delete it, or a Pro license runs out."
 msgstr "डिफ़ॉल्ट रूप से बंद, ताकि प्लगइन निष्क्रिय करने, हटाने या Pro लाइसेंस खत्म होने पर कुछ न खोए।"
+
+#: admin/views/settings.php:112
+msgid "Deleting Linkweave will then permanently remove all your auto-link rules, reports and settings. Links already in your posts stay. This cannot be undone."
+msgstr "इसके बाद Linkweave डिलीट करने पर आपके सारे ऑटो-लिंक नियम, रिपोर्ट और सेटिंग्स हमेशा के लिए हट जाएँगी। आपकी पोस्ट में पहले से लगे लिंक बने रहेंगे। इसे वापस नहीं किया जा सकता।"
+
+#: admin/views/settings.php:113
+msgid "Tick this anyway?"
+msgstr "फिर भी इसे चुनें?"
 
 #: admin/views/settings.php:117
 msgid "Save settings"

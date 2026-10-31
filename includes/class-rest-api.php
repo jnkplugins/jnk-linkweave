@@ -184,6 +184,15 @@ class REST_API {
         ) {
             return true;
         }
+        // URL Changer previews are dry runs an admin repeats while trying old and
+        // new addresses, and the screen lists past batches on every load: a
+        // dozen tries hit "Rate limit exceeded." (QA 31 Oct 2026). Admins only;
+        // Apply is still counted.
+        if ( current_user_can( "manage_options" )
+            && preg_match( "~/jnk-linkweave/v1/url-changer/(preview|batches)$~", (string) $request->get_route() )
+        ) {
+            return true;
+        }
         $user_id = get_current_user_id();
         $key     = "jnk_linkweave_rl_" . $user_id;
         $now     = time();

@@ -309,6 +309,10 @@ msgstr "قناة التحديث"
 msgid "Site limit"
 msgstr "حد المواقع"
 
+#: pro/licensorpro-client/licensorpro-client.php:1823
+msgid "Unlimited"
+msgstr "غير محدود"
+
 #: pro/licensorpro-client/licensorpro-client.php:1808
 msgid "Expires"
 msgstr "ينتهي في"
@@ -348,6 +352,70 @@ msgstr "تحتاج مساعدة؟"
 #: pro/licensorpro-client/licensorpro-client.php:1857
 msgid "Contact support"
 msgstr "تواصل مع الدعم"
+
+#: pro/licensorpro-client/licensorpro-client.php:1880
+msgid "Every seat on this license is in use. Deactivate one of your other sites from your account, then try again."
+msgstr "كل المواقع المسموح بها في هذا الترخيص مستخدمة. عطّل أحد مواقعك الأخرى من حسابك ثم حاول مجددًا."
+
+#: pro/licensorpro-client/licensorpro-client.php:1881
+msgid "This license has expired. Renewing it from your account reactivates this site immediately. Your settings and data are untouched."
+msgstr "انتهت صلاحية هذا الترخيص. تجديده من حسابك يعيد تفعيل هذا الموقع فورًا، وتبقى إعداداتك وبياناتك كما هي."
+
+#: pro/licensorpro-client/licensorpro-client.php:1882
+msgid "That key was not recognised. Check for a missing character, or copy it again from your purchase email."
+msgstr "لم نتعرّف على هذا المفتاح. تأكد من عدم نقص أي حرف، أو انسخه مجددًا من رسالة الشراء."
+
+#: pro/licensorpro-client/licensorpro-client.php:1883
+msgid "This key has been revoked. If you believe that is a mistake, reply to your purchase email and we will sort it out."
+msgstr "تم إلغاء هذا المفتاح. إن كنت ترى أن ذلك خطأ، فردّ على رسالة الشراء وسنحلّ الأمر."
+
+#: pro/licensorpro-client/licensorpro-client.php:1884
+msgid "Could not reach the licensing server. Your site may be blocking outbound requests. This is usually temporary, so try again in a minute."
+msgstr "تعذّر الوصول إلى خادم التراخيص. ربما يمنع موقعك الطلبات الخارجية. غالبًا يكون ذلك مؤقتًا، فحاول مجددًا بعد دقيقة."
+
+#: pro/licensorpro-client/licensorpro-client.php:1885
+msgid "Too many attempts in a short window. Wait a minute and try again."
+msgstr "محاولات كثيرة خلال وقت قصير. انتظر دقيقة ثم حاول مجددًا."
+
+#: pro/licensorpro-client/licensorpro-client.php:1886
+msgid "The licensing server had a problem on its side. Your key was not rejected. Try again in a few minutes, and if it keeps happening, reply to your purchase email."
+msgstr "حدثت مشكلة في خادم التراخيص من جهته، ولم يُرفض مفتاحك. حاول مجددًا بعد بضع دقائق، وإن تكرر ذلك فردّ على رسالة الشراء."
+
+#: pro/licensorpro-client/licensorpro-client.php:1887
+msgid "Enter your license key first."
+msgstr "أدخل مفتاح الترخيص أولًا."
+
+#: pro/licensorpro-client/licensorpro-client.php:1888
+msgid "Installing Pro. This takes a few seconds, keep this page open…"
+msgstr "جارٍ تثبيت Pro. يستغرق ذلك بضع ثوانٍ، أبقِ هذه الصفحة مفتوحة…"
+
+#: pro/licensorpro-client/licensorpro-client.php:1889
+msgid "Reloading to switch on the Pro tools…"
+msgstr "جارٍ إعادة التحميل لتشغيل أدوات Pro…"
+
+#: pro/licensorpro-client/licensorpro-client.php:1890
+msgid "Reload now"
+msgstr "أعد التحميل الآن"
+
+#: pro/licensorpro-client/licensorpro-client.php:1891
+msgid "Could not reach the licensing server. Check your connection and try again."
+msgstr "تعذّر الوصول إلى خادم التراخيص. تحقق من اتصالك وحاول مجددًا."
+
+#: pro/licensorpro-client/licensorpro-client.php:1892
+msgid "Deactivate this license on this site? Premium features switch off here and the seat is freed for another site."
+msgstr "هل تريد تعطيل هذا الترخيص على هذا الموقع؟ ستتوقف الميزات المميزة هنا ويصبح المكان متاحًا لموقع آخر."
+
+#: pro/licensorpro-client/licensorpro-client.php:1893
+msgid "Done."
+msgstr "تم."
+
+#: pro/licensorpro-client/licensorpro-client.php:1894
+msgid "Deactivated."
+msgstr "تم التعطيل."
+
+#: pro/licensorpro-client/licensorpro-client.php:1895
+msgid "Checked."
+msgstr "تم الفحص."
 
 #: pro/licensorpro-client/licensorpro-client.php:2062
 msgid "Only someone who may install plugins on this site can install Pro."
@@ -1099,6 +1167,14 @@ msgstr "احذف أيضًا بيانات Linkweave (القواعد والتقا�
 #: admin/views/settings.php:111
 msgid "Off by default, so nothing is lost if you deactivate the plugin, delete it, or a Pro license runs out."
 msgstr "مُعطّل افتراضيًا، كي لا يضيع شيء إذا عطّلت الإضافة أو حذفتها أو انتهى ترخيص Pro."
+
+#: admin/views/settings.php:112
+msgid "Deleting Linkweave will then permanently remove all your auto-link rules, reports and settings. Links already in your posts stay. This cannot be undone."
+msgstr "عند حذف Linkweave بعد ذلك ستُحذف نهائيًا كل قواعد الربط التلقائي والتقارير والإعدادات. تبقى الروابط الموجودة في مقالاتك. لا يمكن التراجع عن ذلك."
+
+#: admin/views/settings.php:113
+msgid "Tick this anyway?"
+msgstr "هل تريد تحديده رغم ذلك؟"
 
 #: admin/views/settings.php:117
 msgid "Save settings"

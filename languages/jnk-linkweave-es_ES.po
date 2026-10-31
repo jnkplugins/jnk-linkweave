@@ -309,6 +309,10 @@ msgstr "Canal de actualizaciones"
 msgid "Site limit"
 msgstr "Límite de sitios"
 
+#: pro/licensorpro-client/licensorpro-client.php:1823
+msgid "Unlimited"
+msgstr "Ilimitado"
+
 #: pro/licensorpro-client/licensorpro-client.php:1808
 msgid "Expires"
 msgstr "Caduca"
@@ -348,6 +352,70 @@ msgstr "¿Necesitas ayuda?"
 #: pro/licensorpro-client/licensorpro-client.php:1857
 msgid "Contact support"
 msgstr "Contactar con soporte"
+
+#: pro/licensorpro-client/licensorpro-client.php:1880
+msgid "Every seat on this license is in use. Deactivate one of your other sites from your account, then try again."
+msgstr "Todos los sitios de esta licencia están en uso. Desactiva uno de tus otros sitios desde tu cuenta y vuelve a intentarlo."
+
+#: pro/licensorpro-client/licensorpro-client.php:1881
+msgid "This license has expired. Renewing it from your account reactivates this site immediately. Your settings and data are untouched."
+msgstr "Esta licencia ha caducado. Al renovarla desde tu cuenta, este sitio se reactiva al momento. Tus ajustes y datos no se tocan."
+
+#: pro/licensorpro-client/licensorpro-client.php:1882
+msgid "That key was not recognised. Check for a missing character, or copy it again from your purchase email."
+msgstr "No reconocemos esa clave. Comprueba que no falte ningún carácter o vuelve a copiarla del correo de tu compra."
+
+#: pro/licensorpro-client/licensorpro-client.php:1883
+msgid "This key has been revoked. If you believe that is a mistake, reply to your purchase email and we will sort it out."
+msgstr "Esta clave se ha revocado. Si crees que es un error, responde al correo de tu compra y lo solucionamos."
+
+#: pro/licensorpro-client/licensorpro-client.php:1884
+msgid "Could not reach the licensing server. Your site may be blocking outbound requests. This is usually temporary, so try again in a minute."
+msgstr "No se pudo conectar con el servidor de licencias. Puede que tu sitio bloquee las conexiones salientes. Suele ser temporal, así que vuelve a intentarlo en un minuto."
+
+#: pro/licensorpro-client/licensorpro-client.php:1885
+msgid "Too many attempts in a short window. Wait a minute and try again."
+msgstr "Demasiados intentos en poco tiempo. Espera un minuto y vuelve a intentarlo."
+
+#: pro/licensorpro-client/licensorpro-client.php:1886
+msgid "The licensing server had a problem on its side. Your key was not rejected. Try again in a few minutes, and if it keeps happening, reply to your purchase email."
+msgstr "El servidor de licencias tuvo un problema por su parte. Tu clave no se ha rechazado. Vuelve a intentarlo en unos minutos y, si sigue pasando, responde al correo de tu compra."
+
+#: pro/licensorpro-client/licensorpro-client.php:1887
+msgid "Enter your license key first."
+msgstr "Primero introduce tu clave de licencia."
+
+#: pro/licensorpro-client/licensorpro-client.php:1888
+msgid "Installing Pro. This takes a few seconds, keep this page open…"
+msgstr "Instalando Pro. Tarda unos segundos, mantén esta página abierta…"
+
+#: pro/licensorpro-client/licensorpro-client.php:1889
+msgid "Reloading to switch on the Pro tools…"
+msgstr "Recargando para activar las herramientas Pro…"
+
+#: pro/licensorpro-client/licensorpro-client.php:1890
+msgid "Reload now"
+msgstr "Recargar ahora"
+
+#: pro/licensorpro-client/licensorpro-client.php:1891
+msgid "Could not reach the licensing server. Check your connection and try again."
+msgstr "No se pudo conectar con el servidor de licencias. Comprueba tu conexión y vuelve a intentarlo."
+
+#: pro/licensorpro-client/licensorpro-client.php:1892
+msgid "Deactivate this license on this site? Premium features switch off here and the seat is freed for another site."
+msgstr "¿Desactivar esta licencia en este sitio? Las funciones premium se apagan aquí y el hueco queda libre para otro sitio."
+
+#: pro/licensorpro-client/licensorpro-client.php:1893
+msgid "Done."
+msgstr "Hecho."
+
+#: pro/licensorpro-client/licensorpro-client.php:1894
+msgid "Deactivated."
+msgstr "Desactivado."
+
+#: pro/licensorpro-client/licensorpro-client.php:1895
+msgid "Checked."
+msgstr "Comprobado."
 
 #: pro/licensorpro-client/licensorpro-client.php:2062
 msgid "Only someone who may install plugins on this site can install Pro."
@@ -1067,6 +1135,14 @@ msgstr "Borrar también los datos de Linkweave (reglas, informes y ajustes)"
 #: admin/views/settings.php:111
 msgid "Off by default, so nothing is lost if you deactivate the plugin, delete it, or a Pro license runs out."
 msgstr "Desactivado por defecto, para que no se pierda nada si desactivas el plugin, lo borras o caduca una licencia Pro."
+
+#: admin/views/settings.php:112
+msgid "Deleting Linkweave will then permanently remove all your auto-link rules, reports and settings. Links already in your posts stay. This cannot be undone."
+msgstr "Al eliminar Linkweave se borrarán para siempre todas tus reglas de enlace automático, informes y ajustes. Los enlaces que ya están en tus entradas se quedan. No se puede deshacer."
+
+#: admin/views/settings.php:113
+msgid "Tick this anyway?"
+msgstr "¿Marcarlo de todos modos?"
 
 #: admin/views/settings.php:117
 msgid "Save settings"

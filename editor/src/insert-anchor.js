@@ -91,6 +91,182 @@ const CJK =
 	'\\p{Script=Han}\\p{Script=Hiragana}\\p{Script=Katakana}\\p{Script=Hangul}\\u3005\\u3006\\u30FC';
 const CJK_CHAR = new RegExp( `[${ CJK }]`, 'gu' );
 
+/**
+ * Apostrophes: typed ('), curly (’ ‘) or a modifier letter (ʼ). A title
+ * "Walnut Chef’s Knife" split at the curly one and linked only "Walnut Chef"
+ * in text typed with a straight one (QA 31 Oct 2026); any of them now matches
+ * any other.
+ */
+const APOS = /['\u2018\u2019\u02BC]/g;
+const APOS_CLASS = "['\u2018\u2019\u02BC]";
+
+/**
+ * Before a word, Korean is not transparent: endings and particles follow a
+ * word, so a Hangul syllable in front means another word ("수환율" is not
+ * "환율"). Chinese and Japanese write no spaces, so they stay transparent.
+ */
+const CJK_START =
+	'\\p{Script=Han}\\p{Script=Hiragana}\\p{Script=Katakana}\\u3005\\u3006\\u30FC';
+
+/**
+ * Thai, Lao, Khmer and Myanmar write no spaces between words. Titles are cut
+ * into words with the browser's word segmenter, and a match must start and end
+ * where the segmenter says a word does. A Thai title used to be one "word", so
+ * Insert link appended the whole title (QA 31 Oct 2026).
+ */
+const SEA =
+	'\\p{Script=Thai}\\p{Script=Lao}\\p{Script=Khmer}\\p{Script=Myanmar}';
+const SEA_CHAR = new RegExp( `[${ SEA }]`, 'u' );
+
+/** Thai function words a phrase does not start or end on (and, of, in, do...). */
+const TH_STOPWORDS = new Set(
+	(
+		'และ ที่ ของ ใน เป็น การ ได้ มี จะ ให้ ไม่ กับ แล้ว ก็ ว่า นี้ คือ ความ หรือ ' +
+		'จาก โดย ซึ่ง อยู่ ไป มา ด้วย แต่ เพื่อ ถ้า ต้อง ควร เมื่อ ทุก กว่า ยัง อีก นั้น ' +
+		'เรา คุณ เขา มาก ไว้ ทำ แบบ เลย นะ ครับ ค่ะ จึง เพราะ ถึง ทั้ง บาง แค่ กัน ตาม ' +
+		'สำหรับ อย่าง เช่น นี่'
+	).split( ' ' )
+);
+
+/**
+ * Korean particles. A title word "전망과" (outlook + and) is "전망" in the
+ * writer's "전망을"; a word inside a phrase may carry any particle.
+ */
+const KO_PARTICLES = [
+	'에서',
+	'으로',
+	'에게',
+	'까지',
+	'부터',
+	'처럼',
+	'보다',
+	'하고',
+	'은',
+	'는',
+	'이',
+	'가',
+	'을',
+	'를',
+	'의',
+	'에',
+	'와',
+	'과',
+	'도',
+	'로',
+	'만',
+];
+
+let wordSegmenter;
+function segmenter() {
+	if ( wordSegmenter === undefined ) {
+		wordSegmenter =
+			typeof Intl !== 'undefined' && Intl.Segmenter
+				? new Intl.Segmenter( 'th', { granularity: 'word' } )
+				: null;
+	}
+	return wordSegmenter;
+}
+
+function isStopword( word ) {
+	return STOPWORDS.has( word.toLowerCase() ) || TH_STOPWORDS.has( word );
+}
+
+/**
+ * The words of a title segment, each with whether it follows the one before
+ * with nothing in between (Thai words cut by the segmenter).
+ *
+ * @param {string} segment Part of a title.
+ * @return {Array<{word:string,glued:boolean}>} Words in order.
+ */
+function titleWords( segment ) {
+	const out = [];
+	for ( const m of segment.matchAll(
+		/[\p{L}\p{M}\p{N}'\u2018\u2019\u02BC-]+/gu
+	) ) {
+		const run = m[ 0 ];
+		const seg = SEA_CHAR.test( run ) ? segmenter() : null;
+		if ( ! seg ) {
+			out.push( { word: run, glued: false } );
+			continue;
+		}
+		let glued = false;
+		for ( const piece of seg.segment( run ) ) {
+			if ( piece.isWordLike ) {
+				out.push( { word: piece.segment, glued } );
+				glued = true;
+			} else {
+				glued = false;
+			}
+		}
+	}
+	return out;
+}
+
+/**
+ * The pattern for a phrase (no edges): any apostrophe for any other, any
+ * run of space for a space, and a Korean word inside the phrase with its
+ * particle dropped and any particle allowed.
+ *
+ * @param {string} phrase A title phrase.
+ * @return {string} RegExp source.
+ */
+function phraseSource( phrase ) {
+	const words = phrase.split( /\s+/ );
+	return words
+		.map( ( word, i ) => {
+			let stem = word;
+			if ( /^\p{Script=Hangul}+$/u.test( word ) ) {
+				const p = KO_PARTICLES.find(
+					( k ) => word.length - k.length >= 2 && word.endsWith( k )
+				);
+				stem = p ? word.slice( 0, -p.length ) : word;
+			}
+			let src = stem
+				.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' )
+				.replace( APOS, APOS_CLASS );
+			if ( i < words.length - 1 && /\p{Script=Hangul}$/u.test( stem ) ) {
+				src += '\\p{Script=Hangul}{0,2}';
+			}
+			return src;
+		} )
+		.join( '\\s+' );
+}
+
+/**
+ * Where a match meets Thai (Lao, Khmer, Myanmar) letters on both sides of an
+ * edge, does the word segmenter agree a word ends there? "ตา" (eye) is not in
+ * "ตาราง" (table). Without a segmenter, no match next to those letters.
+ *
+ * @param {string} text  Text searched.
+ * @param {number} start Match start.
+ * @param {number} end   Match end.
+ * @return {boolean} True when both edges are word edges.
+ */
+function seaEdgesOk( text, start, end ) {
+	const atStart =
+		start > 0 &&
+		SEA_CHAR.test( text[ start - 1 ] ) &&
+		SEA_CHAR.test( text[ start ] );
+	const atEnd =
+		end < text.length &&
+		SEA_CHAR.test( text[ end ] ) &&
+		SEA_CHAR.test( text[ end - 1 ] );
+	if ( ! atStart && ! atEnd ) {
+		return true;
+	}
+	const seg = segmenter();
+	if ( ! seg ) {
+		return false;
+	}
+	const from = Math.max( 0, start - 80 );
+	const to = Math.min( text.length, end + 80 );
+	const cuts = new Set( [ to ] );
+	for ( const piece of seg.segment( text.slice( from, to ) ) ) {
+		cuts.add( from + piece.index );
+	}
+	return ( ! atStart || cuts.has( start ) ) && ( ! atEnd || cuts.has( end ) );
+}
+
 function phraseWeight( phrase ) {
 	return phrase.length + ( phrase.match( CJK_CHAR ) || [] ).length;
 }
@@ -126,19 +302,24 @@ export function titlePhrases( title ) {
 	decodeEntities( title )
 		.split( /\s*[:|—–]\s*|\s+-\s+/u )
 		.forEach( ( segment ) => {
-			const words = segment
-				.split( /[^\p{L}\p{N}'-]+/u )
-				.filter( Boolean );
+			const list = titleWords( segment );
+			const words = list.map( ( w ) => w.word );
+			const join = ( i, n ) =>
+				list
+					.slice( i, i + n )
+					.map(
+						( w, k ) => ( k > 0 && ! w.glued ? ' ' : '' ) + w.word
+					)
+					.join( '' );
 			for ( let n = Math.min( 4, words.length ); n >= 2; n-- ) {
 				for ( let i = 0; i + n <= words.length; i++ ) {
-					const slice = words.slice( i, i + n );
 					if (
-						STOPWORDS.has( slice[ 0 ].toLowerCase() ) ||
-						STOPWORDS.has( slice[ n - 1 ].toLowerCase() )
+						isStopword( words[ i ] ) ||
+						isStopword( words[ i + n - 1 ] )
 					) {
 						continue;
 					}
-					const phrase = slice.join( ' ' );
+					const phrase = join( i, n );
 					if (
 						phraseWeight( phrase ) >= 6 &&
 						! found.has( phrase.toLowerCase() )
@@ -154,7 +335,7 @@ export function titlePhrases( title ) {
 			if (
 				words.length === 1 &&
 				phraseWeight( words[ 0 ] ) >= 4 &&
-				! STOPWORDS.has( words[ 0 ].toLowerCase() ) &&
+				! isStopword( words[ 0 ] ) &&
 				! found.has( words[ 0 ].toLowerCase() )
 			) {
 				found.set( words[ 0 ].toLowerCase(), {
@@ -179,18 +360,17 @@ export function titlePhrases( title ) {
 function findPhraseRange( value, suggestion ) {
 	const text = value.text || '';
 	for ( const phrase of titlePhrases( suggestion.title ) ) {
-		const escaped = phrase
-			.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' )
-			.replace( /\s+/g, '\\s+' );
 		const re = new RegExp(
-			`(?<!(?![${ CJK }])[\\p{L}\\p{N}])(${ escaped })(?!(?![${ CJK }])[\\p{L}\\p{N}])`,
+			`(?<!(?![${ CJK_START }${ SEA }])[\\p{L}\\p{M}\\p{N}])(${ phraseSource(
+				phrase
+			) })(?!(?![${ CJK }${ SEA }])[\\p{L}\\p{M}\\p{N}])`,
 			'giu'
 		);
 		let m;
 		while ( ( m = re.exec( text ) ) !== null ) {
 			const start = m.index;
 			const end = start + m[ 1 ].length;
-			let clean = true;
+			let clean = seaEdgesOk( text, start, end );
 			for ( let i = start; i < end; i++ ) {
 				if (
 					( value.formats &&

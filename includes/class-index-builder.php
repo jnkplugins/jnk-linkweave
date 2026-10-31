@@ -90,8 +90,12 @@ class Index_Builder {
      * and other Indic words kept whole with their vowel signs, plus Hindi
      * stopwords and stemming (see Tokenizer); link text left out of the body.
      * A site with none of that script and no links keeps its index.
+     * 4 = Thai, Lao, Khmer, Myanmar, Persian, Arabic and Urdu tokenised anew.
+     * 5 = the same text as 4. 1.20.x decided the 4 rebuild from the newest 50
+     * posts only, so older posts in those scripts stayed unindexed; 5 asks
+     * again over every post (QA 31 Oct 2026).
      */
-    public const INDEX_FORMAT        = 4;
+    public const INDEX_FORMAT        = 5;
     public const INDEX_FORMAT_OPTION = "jnk_linkweave_index_format";
 
     /**
@@ -122,7 +126,7 @@ class Index_Builder {
         update_option( self::INDEX_FORMAT_OPTION, self::INDEX_FORMAT, false );
         if ( ( $stored < 2 && self::indexed_count() > 0 )
             || ( $stored < 3 && ( self::site_needs_format_3() || self::site_has_links() ) )
-            || ( $stored < 4 && self::site_needs_format_4() ) ) {
+            || ( $stored < 5 && self::site_needs_format_4() ) ) {
             self::schedule_rebuild();
         }
     }
@@ -184,10 +188,17 @@ class Index_Builder {
      * function words are left out; Arabic ي and ك are read as Persian ی and ک,
      * Arabic function words are left out and Arabic words are lightly stemmed
      * ("الشبكة" = "شبكة"), so Arabic sites rebuild too, once. Cheap checks only, like
-     * site_needs_format_3().
+     * site_needs_format_3(): the site language, the words of the last full index
+     * (every post it read, not only the newest; old Thai posts behind 55 newer
+     * English ones were never rebuilt, QA 31 Oct 2026), and the latest posts,
+     * which catch posts written since that index.
      */
     public static function site_needs_format_4(): bool {
         if ( preg_match( "/^(th|lo|km|my|fa|ar|ur)(_|$)/", (string) get_locale() ) ) {
+            return true;
+        }
+        $idf = get_option( "jnk_linkweave_idf", [] );
+        if ( is_array( $idf ) && $idf && self::text_needs_format_4( implode( " ", array_map( "strval", array_keys( $idf ) ) ) ) ) {
             return true;
         }
         global $wpdb;
@@ -199,13 +210,27 @@ class Index_Builder {
         if ( ! $post_types ) {
             return false;
         }
+        // Then the posts themselves, every one, newest first in chunks with an
+        // early stop: a format 3 index left out Thai runs over 40 characters, so
+        // its word list can hold none of the Thai a site has. This runs once,
+        // when the stored format is older (the option is bumped before).
         $in    = implode( ",", array_fill( 0, count( $post_types ), "%s" ) );
-        $texts = $wpdb->get_col( $wpdb->prepare(
-            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- IN() list built from %s placeholders.
-            "SELECT CONCAT(post_title, ' ', LEFT(post_content, 2000)) FROM %i WHERE post_status = 'publish' AND post_type IN ($in) ORDER BY ID DESC LIMIT 50",
-            array_merge( [ $wpdb->posts ], $post_types )
-        ) );
-        return self::text_needs_format_4( implode( " ", (array) $texts ) );
+        $after = PHP_INT_MAX;
+        for ( $chunk = 0; $chunk < 200; $chunk++ ) {
+            $rows = $wpdb->get_results( $wpdb->prepare(
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- IN() list built from %s placeholders.
+                "SELECT ID, CONCAT(post_title, ' ', LEFT(post_content, 2000)) AS t FROM %i WHERE post_status = 'publish' AND post_type IN ($in) AND ID < %d ORDER BY ID DESC LIMIT 500",
+                array_merge( [ $wpdb->posts ], $post_types, [ $after ] )
+            ) );
+            if ( ! $rows ) {
+                return false;
+            }
+            if ( self::text_needs_format_4( implode( " ", array_map( static fn( $r ) => (string) $r->t, $rows ) ) ) ) {
+                return true;
+            }
+            $after = (int) end( $rows )->ID;
+        }
+        return false;
     }
 
     /** Text that format 4 tokenises differently from format 3. */
@@ -222,6 +247,8 @@ class Index_Builder {
         add_action( "admin_init", [ __CLASS__, "maybe_rebuild_for_format" ] );
         add_action( self::REINDEX_HOOK, [ __CLASS__, "index_post" ], 10, 1 );
         add_action( self::REBUILD_HOOK, [ __CLASS__, "rebuild" ], 10, 0 );
+        add_action( "wp_ajax_nopriv_" . self::KICK_ACTION, [ __CLASS__, "handle_kick" ] );
+        add_action( "wp_ajax_" . self::KICK_ACTION, [ __CLASS__, "handle_kick" ] );
         // Refresh each rule's applied_count once the corpus is rebuilt (replaces
         // the old per-render counter). Rule CRUD recomputes on its own.
         add_action( "jnk_linkweave_index_complete", [ Rules_Engine::class, "recompute_applied_counts" ], 10, 0 );
@@ -308,11 +335,61 @@ class Index_Builder {
             if ( ! self::has_pending_action() ) {
                 as_enqueue_async_action( self::REBUILD_HOOK, [], "jnk-linkweave" );
             }
+            self::kick_rebuild();
             return;
         }
         if ( ! wp_next_scheduled( self::REBUILD_HOOK ) ) {
-            wp_schedule_single_event( time() + 5, self::REBUILD_HOOK );
+            wp_schedule_single_event( time(), self::REBUILD_HOOK );
         }
+        if ( function_exists( "spawn_cron" ) ) {
+            spawn_cron();
+        }
+    }
+
+    /** One-time token for the loopback that starts a queued rebuild. */
+    public const KICK_TOKEN_TRANSIENT = "jnk_linkweave_rebuild_kick";
+    public const KICK_ACTION = "jnk_linkweave_kick_rebuild";
+
+    /**
+     * Start the queued rebuild now, in a loopback request, instead of waiting
+     * for Action Scheduler's next run: the dashboard said "Queued" for about a
+     * minute, five on a cached shop (QA 31 Oct 2026). Non-blocking; where
+     * loopbacks are blocked nothing changes and the queue runs it as before.
+     */
+    public static function kick_rebuild(): void {
+        /** Filter: jnk_linkweave_kick_rebuild. Return false to leave a queued rebuild to the queue. */
+        if ( ! apply_filters( "jnk_linkweave_kick_rebuild", true ) || get_transient( self::KICK_TOKEN_TRANSIENT ) ) {
+            return;
+        }
+        $token = wp_generate_password( 32, false );
+        set_transient( self::KICK_TOKEN_TRANSIENT, $token, 5 * MINUTE_IN_SECONDS );
+        wp_remote_post( admin_url( "admin-ajax.php" ), [
+            "blocking"  => false,
+            "timeout"   => 0.01,
+            "sslverify" => (bool) apply_filters( "https_local_ssl_verify", false ),
+            "body"      => [ "action" => self::KICK_ACTION, "token" => $token ],
+        ] );
+    }
+
+    /** The loopback: run the pending rebuild through Action Scheduler, so it is marked done there. */
+    public static function handle_kick(): void {
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- a one-time token, checked below; the loopback has no user session.
+        $token = isset( $_POST["token"] ) ? sanitize_text_field( wp_unslash( (string) $_POST["token"] ) ) : "";
+        $want  = (string) get_transient( self::KICK_TOKEN_TRANSIENT );
+        if ( "" === $token || "" === $want || ! hash_equals( $want, $token ) ) {
+            wp_die( "", "", [ "response" => 403 ] );
+        }
+        delete_transient( self::KICK_TOKEN_TRANSIENT );
+        $ids = function_exists( "as_get_scheduled_actions" )
+            ? as_get_scheduled_actions( [ "hook" => self::REBUILD_HOOK, "group" => "jnk-linkweave", "status" => "pending", "per_page" => 1 ], "ids" )
+            : [];
+        if ( $ids && class_exists( "ActionScheduler" ) ) {
+            if ( function_exists( "set_time_limit" ) ) {
+                @set_time_limit( 0 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- may be disabled by the host.
+            }
+            \ActionScheduler::runner()->process_action( (int) reset( $ids ), "Linkweave kick" );
+        }
+        wp_die();
     }
 
     /** Is a rebuild waiting in Action Scheduler or WP-Cron? */

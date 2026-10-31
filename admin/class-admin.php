@@ -98,15 +98,24 @@ class Admin {
      * Strangers activated it and then did not know where it lived (persona runs
      * 29 Oct 2026). No redirect. Gone once the link is clicked, the notice is
      * dismissed, or the Overview is opened any other way.
+     *
+     * Shown once, and cleared by opening any Linkweave screen: it stayed on the
+     * Plugins screen until clicked, and only the Overview cleared it (QA 31 Oct
+     * 2026).
      */
     public function ready_notice(): void {
         if ( ! get_option( \JnkLinkweave_Activator::READY_NOTICE_OPTION ) || ! current_user_can( "manage_options" ) ) {
             return;
         }
         $screen = function_exists( "get_current_screen" ) ? get_current_screen() : null;
+        if ( $screen && false !== strpos( (string) $screen->id, self::MENU_SLUG ) ) {
+            delete_option( \JnkLinkweave_Activator::READY_NOTICE_OPTION );
+            return;
+        }
         if ( ! $screen || "plugins" !== $screen->id ) {
             return;
         }
+        delete_option( \JnkLinkweave_Activator::READY_NOTICE_OPTION );
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read only: WordPress's own "activated several plugins" flag.
         if ( isset( $_GET["activate-multi"] ) ) {
             delete_option( \JnkLinkweave_Activator::READY_NOTICE_OPTION );
@@ -207,12 +216,16 @@ class Admin {
      * EntryVault, so it is left alone (it used to be swapped for the docs page;
      * owner report, 30 Oct 2026). Without the client (the wordpress.org build) it
      * would open the closed wordpress.org listing, so it points to our site.
+     *
+     * "Loaded" is read from the build, not only from the Pro build's global: the
+     * free build's bootstrap keeps its client in a local variable, so a free
+     * install's popup was swapped for the docs page (QA 31 Oct 2026).
      */
     public function plugin_row_meta( array $meta, string $file ): array {
         if ( plugin_basename( JNK_LINKWEAVE_FILE ) !== $file ) {
             return $meta;
         }
-        if ( empty( $GLOBALS["jnk_linkweave_license_client"] ) ) {
+        if ( ! self::licence_client_loaded() ) {
             foreach ( $meta as $i => $item ) {
                 if ( false !== strpos( (string) $item, "tab=plugin-information" ) ) {
                     $meta[ $i ] = '<a href="https://jnkplugins.com/jnk-linkweave/" target="_blank" rel="noopener">'
@@ -225,6 +238,16 @@ class Admin {
         $meta[] = '<a href="https://jnkplugins.com/contact.php" target="_blank" rel="noopener">'
             . esc_html__( "Support", "jnk-linkweave" ) . "</a>";
         return $meta;
+    }
+
+    /**
+     * Is a licensing client answering for Linkweave? The Free and Pro builds
+     * ship it under pro/; the wordpress.org build has no pro/ at all.
+     */
+    public static function licence_client_loaded(): bool {
+        $loaded = ! empty( $GLOBALS["jnk_linkweave_license_client"] ) || is_dir( JNK_LINKWEAVE_PATH . "pro/licensorpro-client" );
+        /** Filter: jnk_linkweave_has_licence_client. Whether View details is answered by our server. */
+        return (bool) apply_filters( "jnk_linkweave_has_licence_client", $loaded );
     }
 
     public function register_menu(): void {

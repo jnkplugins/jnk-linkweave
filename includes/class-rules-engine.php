@@ -15,7 +15,18 @@ class Rules_Engine {
      * write words without spaces or with endings attached (내부 링크를,
      * 内部リンクを設置, WordPressのプラグイン), so a rule never fired there.
      */
-    public const WORD_START = "(?<!(?![" . Tokenizer::CJK_CLASS . Tokenizer::SEA_CLASS . "])[\\p{L}\\p{M}\\p{N}])";
+    /*
+     * Korean is the exception at the start: endings and particles go after a
+     * word, so a Hangul syllable before a keyword means it is inside another
+     * word ("수환율" is not "환율"; QA 31 Oct 2026). Arabic puts و ف ب ل ك
+     * and ال (the) in front of a word, written as one with it: "بالشبكة" is
+     * "with the network", so a keyword may follow them at a word's start.
+     * After a one-letter prefix the keyword needs four letters or more: "ريد"
+     * would otherwise link inside "بريد" (mail).
+     */
+    public const WORD_START = "(?:(?<!(?![\\p{Han}\\p{Hiragana}\\p{Katakana}\\x{3005}\\x{3006}\\x{30FC}" . Tokenizer::SEA_CLASS . "])[\\p{L}\\p{M}\\p{N}])"
+        . "|(?<=(?<![\\p{L}\\p{M}\\p{N}])و|(?<![\\p{L}\\p{M}\\p{N}])ف|(?<![\\p{L}\\p{M}\\p{N}])ب|(?<![\\p{L}\\p{M}\\p{N}])ل|(?<![\\p{L}\\p{M}\\p{N}])ك)(?=\\p{Arabic}{4})"
+        . "|(?<=(?<![\\p{L}\\p{M}\\p{N}])ال|(?<![\\p{L}\\p{M}\\p{N}])وال|(?<![\\p{L}\\p{M}\\p{N}])فال|(?<![\\p{L}\\p{M}\\p{N}])بال|(?<![\\p{L}\\p{M}\\p{N}])كال|(?<![\\p{L}\\p{M}\\p{N}])لل)(?=\\p{Arabic}))";
     public const WORD_END   = "(?!(?![" . Tokenizer::CJK_CLASS . Tokenizer::SEA_CLASS . "])[\\p{L}\\p{M}\\p{N}])";
 
     /**
@@ -401,8 +412,20 @@ class Rules_Engine {
     private static function fold( string $text ): string {
         $text = Tokenizer::unify_spelling( $text );
         $text = function_exists( "mb_convert_case" ) ? mb_convert_case( $text, MB_CASE_FOLD_SIMPLE, "UTF-8" ) : strtolower( $text );
-        return strtr( $text, [ "i\u{0307}" => "i", "İ" => "i", "ı" => "i", "ي" => "ی", "ك" => "ک" ] );
+        $text = strtr( $text, [ "i\u{0307}" => "i", "İ" => "i", "ı" => "i", "ي" => "ی", "ك" => "ک", "ى" => "ی", "أ" => "ا", "إ" => "ا", "آ" => "ا", "ة" => "ه" ] );
+        return (string) preg_replace( [ "/" . self::APOS_RE . "/u", "/" . self::DQUOTE_RE . "/u" ], [ "'", '"' ], $text );
     }
+
+    /**
+     * An apostrophe as visitors' HTML may hold it: typed (' ’ ‘ ʼ), turned
+     * curly by wptexturize (&#8217;) or encoded (&#039;, &rsquo;). A rule
+     * typed "Chef's Knife" never linked "Chef&#8217;s Knife", the way the page
+     * prints it, though the Links added count said it did (QA 31 Oct 2026).
+     */
+    public const APOS_RE = "(?:['`\\x{2018}\\x{2019}\\x{02BC}\\x{2032}]|&#0*39;|&#0*821[67];|&#0*8242;|&#[xX]0*27;|&#[xX]0*201[89];|&[lr]squo;|&apos;)";
+
+    /** A double quote the same ways: " “ ” ″, &#8220; &#8221; &quot;. */
+    public const DQUOTE_RE = "(?:[\"\\x{201C}\\x{201D}\\x{2033}]|&#0*34;|&#0*822[01];|&#0*8243;|&#[xX]0*22;|&#[xX]0*201[cdCD];|&[lr]dquo;|&quot;)";
 
     /** A folded keyword for mentions_any(): its longest part between ZWNJs, which keyword_regex() lets be a space or nothing. */
     private static function fold_keyword( string $keyword ): string {
@@ -419,7 +442,9 @@ class Rules_Engine {
      * zero-width non-joiner) missed "قورمه سبزی" (QA 29 Oct 2026).
      */
     public static function keyword_regex( string $keyword, bool $case_insensitive = true ): string {
-        $forms = [ $keyword ];
+        // Quotes typed as entities match like the characters they stand for.
+        $keyword = (string) preg_replace( [ "/" . self::APOS_RE . "/u", "/" . self::DQUOTE_RE . "/u" ], [ "'", '"' ], $keyword );
+        $forms   = [ $keyword ];
         if ( class_exists( "Normalizer" ) && preg_match( "/[^\\x00-\\x7F]/", $keyword ) ) {
             foreach ( [ \Normalizer::FORM_C, \Normalizer::FORM_D ] as $form ) {
                 $normal = \Normalizer::normalize( $keyword, $form );
@@ -428,7 +453,11 @@ class Rules_Engine {
                 }
             }
         }
-        $map = [ "ی" => "[یي]", "ي" => "[یي]", "ک" => "[کك]", "ك" => "[کك]", "\u{200C}" => "[\\x{200C} ]?" ];
+        // Arabic as people type it: hamza on alef or not (أحمد = احمد), teh
+        // marbuta or heh at a word's end (مدرسة = مدرسه), alef maqsura or yeh
+        // (على = علي). Writers mix them; a rule matched only the one typed.
+        $arabic = [ "ا" => "[اأإآ]", "أ" => "[اأإآ]", "إ" => "[اأإآ]", "آ" => "[اأإآ]", "ة" => "[ةه]", "ه" => "[ةه]", "ى" => "[یيى]" ];
+        $map = $arabic + [ "ی" => "[یيى]", "ي" => "[یيى]", "ک" => "[کك]", "ك" => "[کك]", "\u{200C}" => "[\\x{200C} ]?", "'" => self::APOS_RE, '"' => self::DQUOTE_RE ];
         if ( $case_insensitive ) {
             $map += [ "i" => "[iİı]", "I" => "[iİı]", "İ" => "[iİı]", "ı" => "[iİı]" ];
         }
@@ -602,10 +631,16 @@ class Rules_Engine {
                 $post_types
             ) );
 
+            // Count the text visitors get: the_content turns quotes curly
+            // (wptexturize, priority 10) before the rules run at 99.
+            $texturize = false !== has_filter( "the_content", "wptexturize" );
             foreach ( (array) $posts as $post ) {
                 $content = (string) $post->post_content;
                 if ( "" === $content ) {
                     continue;
+                }
+                if ( $texturize ) {
+                    $content = wptexturize( $content );
                 }
                 $result = self::link_content( $content, $active, (int) $post->ID, $remaining, false, $phrases );
                 foreach ( $result["applied"] as $rule_id => $n ) {
