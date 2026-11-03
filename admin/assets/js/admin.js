@@ -886,9 +886,13 @@
             return '<p class="jnkui-muted jnk-linkweave-scan-summary">' + escape( parts.join( " " ) ) + "</p>";
         };
 
-        const renderBroken = () => {
+        const renderBroken = ( opts ) => {
+            const quiet = !! ( opts && opts.quiet );
             brokenMount.innerHTML = '<div class="jnkui-empty"><span class="jnkui-spin"></span> ' + __( "Loading…", "jnk-linkweave" ) + "</div>";
             api( "reports/broken-links" ).then( ( data ) => {
+                // Lets an extension refresh its own part of the screen after a check.
+                // "quiet": the extension asked for this reload itself, so it keeps its own part.
+                document.dispatchEvent( new CustomEvent( "jnk_linkweave:broken-loaded", { detail: { data: data, quiet: quiet } } ) );
                 const items   = data.broken || [];
                 const summary = scanSummary( data.scan || { last_scan: data.last_scan } );
                 if ( data.scan && data.scan.running && ! driving && ! following ) {
@@ -942,6 +946,9 @@
             } );
         };
         renderBroken();
+        // Another part of the screen edited posts (fixing redirects rewrites their
+        // link rows, so the ids in this list go stale): read the list again.
+        document.addEventListener( "jnk_linkweave:broken-reload", () => renderBroken( { quiet: true } ) );
     }
 
     /* ---------- Settings save ---------- */
@@ -981,10 +988,18 @@
             try {
                 const saved = await api( "settings", { method: "POST", body } );
                 status.textContent = __( "Settings saved.", "jnk-linkweave" );
+                status.style.color = "";
                 flash(
                     settingsForm,
                     __( "Settings saved.", "jnk-linkweave" ) + ( saved && saved.rebuild_queued ? " " + __( "The index is being rebuilt in the background so the change reaches every post.", "jnk-linkweave" ) : "" )
                 );
+                // Saved, but one field was left out (an API key on a site
+                // without HTTPS): the server says which and why, translated.
+                if ( saved && saved.notice ) {
+                    status.textContent = saved.notice;
+                    status.style.color = "#b32d2e";
+                    flash( settingsForm, saved.notice, "warning" );
+                }
                 // `response` and `status` let an extension add a warning about what
                 // was saved (e.g. a mode that needs a field left empty).
                 document.dispatchEvent( new CustomEvent( "jnk_linkweave:settings-saved", {

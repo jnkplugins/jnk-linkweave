@@ -32,7 +32,7 @@ $broken      = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i WH
 $link_total  = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i WHERE target_post_id > 0", $links_table ) );
 $rules       = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i WHERE is_active = 1", $wpdb->prefix . "jnk_linkweave_rules" ) );
 $top_linked  = $wpdb->get_results( $wpdb->prepare(
-    "SELECT target_post_id AS post_id, COUNT(*) AS n FROM %i WHERE target_post_id > 0 GROUP BY target_post_id ORDER BY n DESC LIMIT 5",
+    "SELECT target_post_id AS post_id, COUNT(*) AS n FROM %i WHERE target_post_id > 0" . \JnkLinkweave\Woo_Pages::sql_exclude( "target_post_id" ) . " GROUP BY target_post_id ORDER BY n DESC LIMIT 5",
     $links_table
 ) );
 // Link coverage: how many published posts receive 0, 1-2, 3-5 and 6+ internal links.
@@ -41,7 +41,7 @@ $coverage    = [ 0 => 0, 1 => 0, 3 => 0, 6 => 0 ];
 $inbound_all = $wpdb->get_results( $wpdb->prepare(
     // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- IN() list built from %s placeholders.
     "SELECT p.ID AS id, COUNT(l.id) AS n FROM {$wpdb->posts} p LEFT JOIN %i l ON l.target_post_id = p.ID
-     WHERE p.post_status = 'publish' AND p.post_type IN (" . implode( ",", array_fill( 0, count( $types_in ), "%s" ) ) . ")
+     WHERE p.post_status = 'publish' AND p.post_type IN (" . implode( ",", array_fill( 0, count( $types_in ), "%s" ) ) . ")" . \JnkLinkweave\Woo_Pages::sql_exclude( "p.ID" ) . "
      GROUP BY p.ID",
     array_merge( [ $links_table ], $types_in )
 ) );

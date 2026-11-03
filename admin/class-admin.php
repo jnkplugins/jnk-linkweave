@@ -252,13 +252,43 @@ class Admin {
         return (bool) apply_filters( "jnk_linkweave_has_licence_client", $loaded );
     }
 
+    /**
+     * The capability for one area of the plugin: "reports", "rules", "tools" or
+     * "settings". manage_options for all four unless an extension maps them
+     * (Pro: Settings > Who can use Linkweave).
+     */
+    public static function cap_for( string $area ): string {
+        /** Filter: jnk_linkweave_area_capability. The capability an area needs. */
+        return (string) apply_filters( "jnk_linkweave_area_capability", "manage_options", $area );
+    }
+
+    /** Which area each screen belongs to, by page-slug suffix. */
+    public const SCREEN_AREAS = [
+        ""            => "reports",
+        "-rules"      => "rules",
+        "-orphans"    => "reports",
+        "-inbound"    => "reports",
+        "-broken"     => "reports",
+        "-settings"   => "settings",
+        "-assistants" => "settings",
+        "-domains"    => "reports",
+    ];
+
+    /** The capability a screen needs, by page-slug suffix (Pro screens included, for the tabs). */
+    public static function screen_cap( string $suffix ): string {
+        $extra = [ "-url-changer" => "tools", "-gsc" => "settings", "-cluster-map" => "rules", "-anchors" => "reports", "-links-report" => "reports", "-competing" => "reports", "-snapshots" => "reports", "-clicks" => "reports", "-crawl-log" => "reports" ];
+        return self::cap_for( self::SCREEN_AREAS[ $suffix ] ?? $extra[ $suffix ] ?? "settings" );
+    }
+
     public function register_menu(): void {
         // Every screen here reads or writes SITE-WIDE data (the index, the
         // link graph, auto-link rules applied on the_content for all posts) and
         // its REST endpoints all require manage_options. Gate the whole menu on
         // manage_options too, so the menu a role can SEE matches the data it can
         // actually load — otherwise an Editor opens a page whose AJAX 403s.
-        $cap = "manage_options";
+        // Pro can let other roles into chosen areas (cap_for); WordPress then
+        // links the top-level item to the first screen the user may open.
+        $cap = self::cap_for( "reports" );
         add_menu_page(
             "JnK Linkweave",
             "JnK Linkweave",
@@ -282,9 +312,10 @@ class Admin {
             "-broken"   => [ __( "Broken links", "jnk-linkweave" ),    "render_broken" ],
             "-settings" => [ __( "Settings", "jnk-linkweave" ),        "render_settings" ],
             "-assistants" => [ __( "AI assistants", "jnk-linkweave" ),  "render_assistants" ],
+            "-domains"  => [ __( "Sites you link to", "jnk-linkweave" ), "render_domains" ],
         ];
         foreach ( $pages as $suffix => [ $label, $render ] ) {
-            add_submenu_page( self::MENU_SLUG, $label, $label, $cap, self::MENU_SLUG . $suffix, [ $this, $render ] );
+            add_submenu_page( self::MENU_SLUG, $label, $label, self::cap_for( self::SCREEN_AREAS[ $suffix ] ?? "settings" ), self::MENU_SLUG . $suffix, [ $this, $render ] );
         }
 
         // Premium submenus (the bulk URL Changer) register here from pro/; the free
@@ -397,6 +428,10 @@ class Admin {
 
     public function render_broken(): void {
         include JNK_LINKWEAVE_PATH . "admin/views/broken.php";
+    }
+
+    public function render_domains(): void {
+        include JNK_LINKWEAVE_PATH . "admin/views/domains.php";
     }
 
     public function render_assistants(): void {

@@ -31,6 +31,8 @@ class Cron {
         // and Inbound Counts follow a save without a full rebuild.
         add_action( Index_Builder::REINDEX_HOOK, [ __CLASS__, "refresh_links_for_post" ], 15, 1 );
         add_action( self::LINKS_HOOK, [ __CLASS__, "refresh_links_for_post" ], 10, 1 );
+        add_action( self::GRAPH_HOOK, [ __CLASS__, "rebuild_links_graph" ], 10, 0 );
+        add_action( "admin_init", [ __CLASS__, "maybe_upgrade_links_format" ], 25 );
         add_action( "wp_trash_post", [ __CLASS__, "forget_post_links" ] );
         add_action( "before_delete_post", [ __CLASS__, "forget_post_links" ] );
         add_action( "admin_init", [ __CLASS__, "maybe_purge_unlinkable_rows" ] );
@@ -354,6 +356,7 @@ class Cron {
                     break;
                 }
                 foreach ( $rows as $row ) {
+                    self::$last_final_url = null;
                     $status = self::scan_verdict( $row, $state );
                     $wpdb->update(
                         $table,
@@ -362,6 +365,12 @@ class Cron {
                         [ "%d", "%s" ],
                         [ "%d" ]
                     );
+                    /**
+                     * Action: jnk_linkweave_link_checked. One link was checked.
+                     * $final_url is where a redirect ended: "" = asked, not
+                     * redirected; null = no request was made for this link.
+                     */
+                    do_action( "jnk_linkweave_link_checked", $row, $status, self::$last_final_url );
                     $state["last_id"] = (int) $row->id;
                     $state["checked"]++;
                     if ( self::LINK_BROKEN === $status ) {
@@ -450,6 +459,8 @@ class Cron {
             false
         );
         delete_option( self::SCAN_STATE_OPTION );
+        /** Action: jnk_linkweave_broken_scan_finished. A full check of the internal links ended. */
+        do_action( "jnk_linkweave_broken_scan_finished" );
     }
 
     private static function count_links(): int {
@@ -533,7 +544,7 @@ class Cron {
         if ( ! self::is_own_site( $url ) ) {
             return null;
         }
-        $id = url_to_postid( $url );
+        $id = Woo_Pages::resolve( $url );
         if ( $id > 0 ) {
             return self::is_public_target( $id ) ? self::LINK_OK : self::LINK_BROKEN;
         }
@@ -564,8 +575,16 @@ class Cron {
         return self::code_status( self::http_code( $url ) );
     }
 
+    /**
+     * Where the last request of http_code() ended up after redirects: "" when it
+     * was not redirected, null when no request was made. The verdict still follows redirects (a link that
+     * redirects to a live page is not broken); this only lets an extension see it.
+     */
+    private static ?string $last_final_url = null;
+
     /** The answer's status code; 0 when nothing answered. */
     private static function http_code( string $url ): int {
+        self::$last_final_url = "";
         $args = [ "timeout" => 10, "redirection" => 3 ];
         $resp = wp_remote_head( $url, $args );
         $code = is_wp_error( $resp ) ? 0 : (int) wp_remote_retrieve_response_code( $resp );
@@ -573,10 +592,27 @@ class Cron {
             $resp = wp_remote_get( $url, [ "timeout" => 15, "redirection" => 3, "limit_response_size" => 8192 ] );
             $code = is_wp_error( $resp ) ? 0 : (int) wp_remote_retrieve_response_code( $resp );
         }
+        self::$last_final_url = self::final_url( $resp );
         return $code;
     }
 
-    private static function code_status( int $code ): int {
+    /** The address a followed redirect landed on, "" when there was none. */
+    private static function final_url( $resp ): string {
+        if ( is_wp_error( $resp ) || ! is_array( $resp ) || ! isset( $resp["http_response"] ) || ! is_object( $resp["http_response"] ) ) {
+            return "";
+        }
+        $http = $resp["http_response"];
+        if ( ! method_exists( $http, "get_response_object" ) ) {
+            return "";
+        }
+        $obj = $http->get_response_object();
+        if ( ! is_object( $obj ) || empty( $obj->redirects ) || empty( $obj->url ) ) {
+            return "";
+        }
+        return (string) $obj->url;
+    }
+
+    public static function code_status( int $code ): int {
         if ( 0 === $code || $code >= 500 || in_array( $code, [ 401, 403, 429 ], true ) ) {
             return self::LINK_UNREACHABLE;
         }
@@ -617,6 +653,8 @@ class Cron {
             "post_status"      => "publish",
             "posts_per_page"   => -1,
             "fields"           => "ids",
+            // WooCommerce Cart, Checkout and My account: filled per visitor, not content.
+            "post__not_in"     => Woo_Pages::excluded_ids(), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in -- at most three ids.
             // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.SuppressFilters_suppress_filters -- scan the canonical published corpus for broken links; other plugins' query filters must not alter the set.
             "suppress_filters" => true,
         ] );
@@ -625,15 +663,20 @@ class Cron {
         // re-insert every row with is_broken = 0, so "Rebuild index" silently emptied
         // the Broken Links report while the dead links were still in the posts.
         $previous = self::previous_verdicts( $wpdb->get_results( $wpdb->prepare( "SELECT source_post_id, target_post_id, target_url, anchor_text, is_broken, last_checked FROM %i", $table ) ) );
+        self::external_ready();
+        $external     = self::external_table();
+        $previous_ext = self::previous_external( $wpdb->get_results( $wpdb->prepare( "SELECT source_post_id, url_hash, anchor_text, is_broken, http_code, last_checked FROM %i", $external ) ) );
 
         // Fresh rebuild: truncate then repopulate.
         $wpdb->query( $wpdb->prepare( "TRUNCATE TABLE %i", $table ) );
+        $wpdb->query( $wpdb->prepare( "TRUNCATE TABLE %i", $external ) );
 
         $written = 0;
         foreach ( $ids as $source_id ) {
-            $written += self::write_links_for_post( (int) $source_id, $previous );
+            $written += self::write_links_for_post( (int) $source_id, $previous, $previous_ext );
             clean_post_cache( $source_id );
         }
+        update_option( self::LINKS_FORMAT_OPTION, self::LINKS_FORMAT, false );
 
         // TRUNCATE restarts the row ids, so a scan in progress starts over rather
         // than skip every row below the id it had reached.
@@ -667,13 +710,20 @@ class Cron {
             $post_id
         ) ) );
         $wpdb->delete( $table, [ "source_post_id" => $post_id ], [ "%d" ] );
+        self::external_ready();
+        $previous_ext = self::previous_external( $wpdb->get_results( $wpdb->prepare(
+            "SELECT source_post_id, url_hash, anchor_text, is_broken, http_code, last_checked FROM %i WHERE source_post_id = %d",
+            self::external_table(),
+            $post_id
+        ) ) );
+        $wpdb->delete( self::external_table(), [ "source_post_id" => $post_id ], [ "%d" ] );
 
         $post       = get_post( $post_id );
         $settings   = get_option( "jnk_linkweave_settings", [] );
         $post_types = (array) apply_filters( "jnk_linkweave_suggestion_post_types", Index_Builder::base_post_types( (array) $settings ) );
         $written    = 0;
-        if ( $post && "publish" === $post->post_status && in_array( $post->post_type, $post_types, true ) ) {
-            $written = self::write_links_for_post( $post_id, $previous );
+        if ( $post && "publish" === $post->post_status && in_array( $post->post_type, $post_types, true ) && ! Woo_Pages::is_excluded( $post_id ) ) {
+            $written = self::write_links_for_post( $post_id, $previous, $previous_ext );
         }
         self::bump_graph_version();
         return $written;
@@ -758,7 +808,7 @@ class Cron {
         $rows = $wpdb->get_results( $wpdb->prepare( $sql, $args ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- placeholders only, built above.
         $n    = 0;
         foreach ( (array) $rows as $row ) {
-            if ( url_to_postid( (string) $row->target_url ) !== $id ) {
+            if ( Woo_Pages::resolve( (string) $row->target_url ) !== $id ) {
                 continue;
             }
             // IGNORE: the same link may already be stored resolved. Then this
@@ -797,6 +847,7 @@ class Cron {
     public static function forget_post_links( $post_id ): void {
         global $wpdb;
         $wpdb->delete( $wpdb->prefix . "jnk_linkweave_links", [ "source_post_id" => (int) $post_id ], [ "%d" ] );
+        $wpdb->delete( self::external_table(), [ "source_post_id" => (int) $post_id ], [ "%d" ] );
         self::bump_graph_version();
     }
 
@@ -807,6 +858,15 @@ class Cron {
      */
     public static function bump_graph_version(): void {
         update_option( "jnk_linkweave_graph_version", (int) get_option( "jnk_linkweave_graph_version", 0 ) + 1, false );
+    }
+
+    /** @return array<string,object> "source|url_hash|anchor" => old external row */
+    private static function previous_external( $rows ): array {
+        $previous = [];
+        foreach ( (array) $rows as $old ) {
+            $previous[ (int) $old->source_post_id . "|" . $old->url_hash . "|" . $old->anchor_text ] = $old;
+        }
+        return $previous;
     }
 
     /** @return array<string,object> "source|url|anchor" => old row */
@@ -938,8 +998,114 @@ class Cron {
         return count( $ids );
     }
 
-    /** Parse a post's rendered content and insert its outgoing internal links. */
-    private static function write_links_for_post( int $source_id, array $previous ): int {
+    public static function external_table(): string {
+        global $wpdb;
+        return $wpdb->prefix . "jnk_linkweave_external_links";
+    }
+
+    /** Is the external links table there? (A background job can run before the first admin page after an update creates it.) */
+    private static function external_ready(): bool {
+        static $ready = null;
+        if ( true === $ready ) {
+            return true;
+        }
+        global $wpdb;
+        $ready = self::external_table() === $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $wpdb->esc_like( self::external_table() ) ) );
+        if ( ! $ready ) {
+            \JnkLinkweave_Activator::activate();
+            $ready = self::external_table() === $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $wpdb->esc_like( self::external_table() ) ) );
+        }
+        return $ready;
+    }
+
+    /**
+     * What the graph holds. 2 = links to other sites are stored too (external_links),
+     * for the domains report and the Pro check. A site on 1 re-reads its links once
+     * in the background: the graph only, never the word index.
+     */
+    public const LINKS_FORMAT        = 2;
+    public const LINKS_FORMAT_OPTION = "jnk_linkweave_links_format";
+    public const GRAPH_HOOK          = "jnk_linkweave_rebuild_links_graph";
+
+    /** admin_init: queue the one background re-read a site on an older graph format needs. */
+    public static function maybe_upgrade_links_format(): void {
+        if ( (int) get_option( self::LINKS_FORMAT_OPTION, 1 ) >= self::LINKS_FORMAT ) {
+            return;
+        }
+        update_option( self::LINKS_FORMAT_OPTION, self::LINKS_FORMAT, false );
+        global $wpdb;
+        // Nothing read yet (a fresh install): the first index reads the graph anyway.
+        if ( ! (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM %i", $wpdb->prefix . "jnk_linkweave_links" ) ) ) {
+            return;
+        }
+        if ( function_exists( "as_enqueue_async_action" ) ) {
+            as_enqueue_async_action( self::GRAPH_HOOK, [], "jnk-linkweave" );
+        } elseif ( ! wp_next_scheduled( self::GRAPH_HOOK ) ) {
+            wp_schedule_single_event( time() + 30, self::GRAPH_HOOK );
+        }
+    }
+
+    /**
+     * The site a link to another site goes to, as the domains report groups it:
+     * lower case, without "www.". "" for a link with no host.
+     */
+    public static function link_domain( string $url ): string {
+        $host = (string) wp_parse_url( 0 === strpos( $url, "//" ) ? "https:" . $url : $url, PHP_URL_HOST );
+        $host = strtolower( rtrim( $host, "." ) );
+        return 0 === strpos( $host, "www." ) ? substr( $host, 4 ) : $host;
+    }
+
+    /** rel="..." words of an <a> tag: [ nofollow, sponsored, ugc ] as 0/1. */
+    private static function rel_flags( string $tag ): array {
+        $rel = preg_match( "~\\srel\\s*=\\s*([\"'])(.*?)\\1~is", $tag, $m ) ? strtolower( $m[2] ) : "";
+        $words = preg_split( "/\\s+/", trim( $rel ) ) ?: [];
+        return [
+            in_array( "nofollow", $words, true ) ? 1 : 0,
+            in_array( "sponsored", $words, true ) ? 1 : 0,
+            in_array( "ugc", $words, true ) ? 1 : 0,
+        ];
+    }
+
+    /**
+     * One link to another site as a row to store, keeping the last check's
+     * verdict; null when it has no host. Rows are written per post in one query.
+     */
+    private static function external_row( int $source_id, string $url, string $anchor, string $tag, array $previous ): ?array {
+        $stored_url = mb_substr( $url, 0, 500 );
+        $hash       = md5( $stored_url );
+        $anchor     = mb_substr( $anchor, 0, 500 );
+        $domain     = mb_substr( self::link_domain( $stored_url ), 0, 191 );
+        if ( "" === $domain ) {
+            return null;
+        }
+        [ $nofollow, $sponsored, $ugc ] = self::rel_flags( $tag );
+        $old = $previous[ $source_id . "|" . $hash . "|" . $anchor ] ?? null;
+        return [ $source_id, $stored_url, $hash, $domain, $anchor, $nofollow, $sponsored, $ugc, $old ? (int) $old->is_broken : 0, $old ? (int) $old->http_code : 0, $old && null !== $old->last_checked ? (string) $old->last_checked : null ];
+    }
+
+    /** @param array[] $rows from external_row() */
+    private static function insert_external( array $rows ): void {
+        if ( ! $rows ) {
+            return;
+        }
+        global $wpdb;
+        $now    = current_time( "mysql", true );
+        $values = [];
+        $args   = [ self::external_table() ];
+        foreach ( $rows as $r ) {
+            $checked  = array_pop( $r );
+            $values[] = "(%d, %s, %s, %s, %s, %d, %d, %d, %d, %d, " . ( null === $checked ? "NULL" : "%s" ) . ", %s)";
+            $args     = array_merge( $args, $r, null === $checked ? [] : [ $checked ], [ $now ] );
+        }
+        $wpdb->query( $wpdb->prepare(
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- VALUES built from placeholders.
+            "INSERT IGNORE INTO %i (source_post_id, url, url_hash, domain, anchor_text, nofollow, sponsored, ugc, is_broken, http_code, last_checked, created_at) VALUES " . implode( ", ", $values ),
+            $args
+        ) );
+    }
+
+    /** Parse a post's rendered content and insert its outgoing links (internal ones counted). */
+    private static function write_links_for_post( int $source_id, array $previous, array $previous_ext = [] ): int {
         global $wpdb;
         $table = $wpdb->prefix . "jnk_linkweave_links";
         $post  = get_post( $source_id );
@@ -948,20 +1114,28 @@ class Cron {
         }
         $host = wp_parse_url( home_url( "/" ), PHP_URL_HOST );
 
-        $content = (string) $post->post_content;
+        $content = Index_Builder::post_body( $post );
         if ( false !== strpos( $content, "<!-- wp:" ) && function_exists( "do_blocks" ) ) {
             $content = do_blocks( $content );
         }
         if ( ! preg_match_all( "~<a\\b[^>]*href=([\"\\'])(.*?)\\1[^>]*>(.*?)</a>~is", $content, $matches, PREG_SET_ORDER ) ) {
             return 0;
         }
-        $written = 0;
+        $written  = 0;
+        $external = [];
         foreach ( $matches as $m ) {
             // Hrefs in rendered HTML are entity-encoded ("&#038;"); store the real URL.
             $url      = trim( html_entity_decode( $m[2], ENT_QUOTES | ENT_HTML5, "UTF-8" ) );
             $anchor   = trim( html_entity_decode( wp_strip_all_tags( $m[3] ), ENT_QUOTES | ENT_HTML5, "UTF-8" ) );
             $url_host = wp_parse_url( $url, PHP_URL_HOST );
             if ( $url_host && $host && strtolower( $url_host ) !== strtolower( $host ) ) {
+                // A link to another site: kept apart, for the domains report.
+                if ( self::is_linkable_url( $url ) ) {
+                    $ext = self::external_row( $source_id, $url, $anchor, (string) strtok( $m[0], ">" ), $previous_ext );
+                    if ( $ext ) {
+                        $external[] = $ext;
+                    }
+                }
                 continue;
             }
 
@@ -970,7 +1144,7 @@ class Cron {
             if ( ! self::is_linkable_url( $url ) ) {
                 continue;
             }
-            $target_id = url_to_postid( $url );
+            $target_id = Woo_Pages::resolve( $url );
             if ( $target_id && $target_id === $source_id ) {
                 continue; // self-link
             }
@@ -1019,6 +1193,7 @@ class Cron {
             ) );
             $written++;
         }
+        self::insert_external( $external );
         return $written;
     }
 

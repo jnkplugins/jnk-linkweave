@@ -90,6 +90,8 @@ class Posts_Column {
                 $c["out"]
             ) )
         );
+        /** Action: jnk_linkweave_posts_column_after. Print more under the counts (post id, counts). */
+        do_action( "jnk_linkweave_posts_column_after", $post_id, $c );
     }
 
     /**

@@ -627,7 +627,7 @@ class Rules_Engine {
             // already shows the link.
             $posts = $wpdb->get_results( $wpdb->prepare(
                 // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- IN() placeholder list is built from %s at runtime; post types are the prepared args.
-                "SELECT ID, post_content FROM {$wpdb->posts} WHERE post_status = 'publish' AND post_type IN ($in) ORDER BY post_date ASC, ID ASC",
+                "SELECT ID, post_content FROM {$wpdb->posts} WHERE post_status = 'publish' AND post_type IN ($in)" . Woo_Pages::sql_exclude( "ID" ) . " ORDER BY post_date ASC, ID ASC",
                 $post_types
             ) );
 
@@ -636,6 +636,10 @@ class Rules_Engine {
             $texturize = false !== has_filter( "the_content", "wptexturize" );
             foreach ( (array) $posts as $post ) {
                 $content = (string) $post->post_content;
+                if ( has_filter( "jnk_linkweave_post_body" ) ) {
+                    $full    = get_post( (int) $post->ID );
+                    $content = $full ? Index_Builder::post_body( $full ) : $content;
+                }
                 if ( "" === $content ) {
                     continue;
                 }
@@ -719,14 +723,14 @@ class Rules_Engine {
         if ( str_starts_with( $url, "/" ) && ! str_starts_with( $url, "//" ) ) {
             $url = untrailingslashit( home_url() ) . $url;
         }
-        $id = (int) url_to_postid( $url );
+        $id = Woo_Pages::resolve( $url );
         if ( $id <= 0 ) {
             // A Korean or Thai address pasted from the address bar is plain letters;
             // WordPress stores the slug percent-encoded.
             $parts = wp_parse_url( $url );
             if ( is_array( $parts ) && ! empty( $parts["path"] ) && rawurldecode( $parts["path"] ) === $parts["path"] && preg_match( "/[^\\x00-\\x7f]/", $parts["path"] ) ) {
                 $enc = implode( "/", array_map( static fn( $s ) => strtolower( rawurlencode( $s ) ), explode( "/", $parts["path"] ) ) );
-                $id  = (int) url_to_postid( str_replace( $parts["path"], $enc, $url ) );
+                $id  = Woo_Pages::resolve( str_replace( $parts["path"], $enc, $url ) );
             }
         }
         return $id;

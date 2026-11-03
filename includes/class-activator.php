@@ -87,6 +87,31 @@ class JnkLinkweave_Activator {
                 KEY idx_active (is_active),
                 KEY idx_generated (is_generated)
             ) {$charset_collate};",
+
+            // Links to other sites, read with the internal ones (Cron::write_links_for_post).
+            // A table of their own: every report on the links table counts internal
+            // links, and a link to another site there would read as a dead internal one.
+            // url_hash = md5(url): one check per address, and the unique key.
+            "CREATE TABLE {$prefix}external_links (
+                id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                source_post_id BIGINT UNSIGNED NOT NULL,
+                url VARCHAR(500) NOT NULL DEFAULT '',
+                url_hash CHAR(32) NOT NULL DEFAULT '',
+                domain VARCHAR(191) NOT NULL DEFAULT '',
+                anchor_text VARCHAR(500) NOT NULL DEFAULT '',
+                nofollow TINYINT(1) NOT NULL DEFAULT 0,
+                sponsored TINYINT(1) NOT NULL DEFAULT 0,
+                ugc TINYINT(1) NOT NULL DEFAULT 0,
+                is_broken TINYINT(1) NOT NULL DEFAULT 0,
+                http_code SMALLINT NOT NULL DEFAULT 0,
+                last_checked DATETIME DEFAULT NULL,
+                created_at DATETIME NOT NULL,
+                PRIMARY KEY (id),
+                UNIQUE KEY unique_link (source_post_id, url_hash, anchor_text(100)),
+                KEY idx_domain (domain),
+                KEY idx_hash (url_hash),
+                KEY idx_broken (is_broken)
+            ) {$charset_collate};",
         ];
 
         foreach ( $statements as $sql ) {
@@ -98,6 +123,7 @@ class JnkLinkweave_Activator {
 
         $version = defined( "JNK_LINKWEAVE_VERSION" ) ? JNK_LINKWEAVE_VERSION : "1.0.0";
         update_option( "jnk_linkweave_version", $version );
+        update_option( self::SCHEMA_REV_OPTION, self::SCHEMA_REV, false );
 
         if ( false === get_option( "jnk_linkweave_settings" ) ) {
             update_option( "jnk_linkweave_settings", self::default_settings() );
@@ -115,7 +141,14 @@ class JnkLinkweave_Activator {
     }
 
     /** The tables Linkweave cannot work without, without the prefix. */
-    public const TABLES = [ "index", "links", "rules" ];
+    public const TABLES = [ "index", "links", "rules", "external_links" ];
+
+    /**
+     * Bumped when a free table changes between releases, so a site that already
+     * ran activate() for this version converges too. 2 = external_links.
+     */
+    public const SCHEMA_REV        = 2;
+    public const SCHEMA_REV_OPTION = "jnk_linkweave_schema_rev";
 
     /** Option holding what check_tables() found missing, if anything. */
     public const SCHEMA_PROBLEM_OPTION = "jnk_linkweave_schema_problem";
@@ -179,7 +212,7 @@ class JnkLinkweave_Activator {
      */
     public static function maybe_upgrade(): void {
         $version = defined( "JNK_LINKWEAVE_VERSION" ) ? JNK_LINKWEAVE_VERSION : "1.0.0";
-        if ( get_option( "jnk_linkweave_version" ) === $version ) {
+        if ( get_option( "jnk_linkweave_version" ) === $version && (int) get_option( self::SCHEMA_REV_OPTION, 1 ) >= self::SCHEMA_REV ) {
             return;
         }
         self::activate();

@@ -35,12 +35,16 @@ class UI {
             "-anchors"     => __( "Anchor text", "jnk-linkweave" ),
             "-cluster-map" => __( "Link map", "jnk-linkweave" ),
             "-links-report" => __( "Links per post", "jnk-linkweave" ),
+            "-competing"    => __( "Competing pages", "jnk-linkweave" ),
+            "-snapshots"    => __( "Snapshots", "jnk-linkweave" ),
+            "-domains"      => __( "Sites you link to", "jnk-linkweave" ),
             "-assistants"   => __( "AI assistants", "jnk-linkweave" ),
+            "-crawl-log"    => __( "Crawl log", "jnk-linkweave" ),
         ];
     }
 
     /** Pro-only screens; in the free build these tabs lead to the upgrade page. */
-    private const PRO_ONLY = [ "-clicks", "-url-changer", "-gsc", "-anchors", "-cluster-map", "-links-report" ];
+    private const PRO_ONLY = [ "-clicks", "-url-changer", "-gsc", "-anchors", "-cluster-map", "-links-report", "-competing", "-snapshots", "-crawl-log" ];
 
     private static function url( string $suffix ): string {
         return admin_url( "admin.php?page=" . Admin::MENU_SLUG . $suffix );
@@ -65,6 +69,10 @@ class UI {
     }
 
     private static function tab( string $suffix, string $label, string $current, string $class = "jnkui-tab" ): string {
+        // A screen this user may not open (Pro: Who can use Linkweave) gets no tab.
+        if ( ! current_user_can( Admin::screen_cap( $suffix ) ) ) {
+            return "";
+        }
         [ $href, $locked ] = self::href( $suffix );
         $active = $suffix === $current ? " is-active" : "";
         $pro    = $locked ? ' <span class="jnkui-pill is-pro">' . esc_html__( "Pro", "jnk-linkweave" ) . "</span>" : "";

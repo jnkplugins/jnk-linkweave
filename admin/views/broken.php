@@ -12,4 +12,5 @@ UI::open(
 );
 ?>
 <div id="jnk-linkweave-broken-app" data-mount="broken"></div>
+<?php do_action( "jnk_linkweave_broken_page_after" ); ?>
 <?php UI::close(); ?>

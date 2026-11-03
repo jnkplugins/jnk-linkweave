@@ -335,12 +335,12 @@ class Abilities {
         $in    = implode( ",", array_fill( 0, count( $types ), "%s" ) );
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- IN() list built from %s placeholders.
         $published = (int) $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_status = 'publish' AND post_type IN ($in)",
+            "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_status = 'publish' AND post_type IN ($in)" . Woo_Pages::sql_exclude( "ID" ) . "",
             $types
         ) );
         $dead_ends = (int) $wpdb->get_var( $wpdb->prepare(
             "SELECT COUNT(*) FROM {$wpdb->posts} p
-             WHERE p.post_status = 'publish' AND p.post_type IN ($in)
+             WHERE p.post_status = 'publish' AND p.post_type IN ($in)" . Woo_Pages::sql_exclude( "p.ID" ) . "
                AND NOT EXISTS (SELECT 1 FROM %i l WHERE l.source_post_id = p.ID AND l.target_post_id > 0)",
             array_merge( $types, [ $links ] )
         ) );

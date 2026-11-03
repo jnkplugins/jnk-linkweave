@@ -149,8 +149,25 @@ class REST_API {
         return self::check_nonce_and_rate( $request );
     }
 
+    /**
+     * The area a site-wide route belongs to, for Admin::cap_for(): changes to
+     * rules, edits that fix posts in bulk ("tools"), settings, and everything
+     * else (reading reports, running checks) is "reports".
+     */
+    public static function area_for_route( string $route ): string {
+        $path = (string) preg_replace( "~^/" . preg_quote( self::NAMESPACE_V1, "~" ) . "~", "", $route );
+        $area = "reports";
+        if ( preg_match( "~^/rules(/|$)~", $path ) ) {
+            $area = "rules";
+        } elseif ( preg_match( "~^/settings(/|$)~", $path ) ) {
+            $area = "settings";
+        }
+        /** Filter: jnk_linkweave_route_area. The area of a route (path without the namespace). */
+        return (string) apply_filters( "jnk_linkweave_route_area", $area, $path );
+    }
+
     public static function perm_manage_options( \WP_REST_Request $request ) {
-        if ( ! current_user_can( "manage_options" ) ) {
+        if ( ! current_user_can( \JnkLinkweave\Admin\Admin::cap_for( self::area_for_route( (string) $request->get_route() ) ) ) ) {
             return new \WP_Error( "jnk_linkweave_forbidden", "Insufficient permissions.", [ "status" => 403 ] );
         }
         return self::check_nonce_and_rate( $request );
@@ -405,7 +422,7 @@ class REST_API {
              FROM {$wpdb->posts} p
              LEFT JOIN %i i ON i.post_id = p.ID
              LEFT JOIN %i l ON l.target_post_id = p.ID
-             WHERE l.id IS NULL AND p.post_status = 'publish' AND p.post_type IN ($in)
+             WHERE l.id IS NULL AND p.post_status = 'publish' AND p.post_type IN ($in)" . Woo_Pages::sql_exclude( "p.ID" ) . "
              GROUP BY p.ID, p.post_title, p.post_type
              ORDER BY p.post_title ASC",
             array_merge( [ Index_Builder::table(), $wpdb->prefix . "jnk_linkweave_links" ], $types )
@@ -447,7 +464,7 @@ class REST_API {
             "SELECT p.ID AS post_id, p.post_title, COUNT(l.id) AS inbound
              FROM {$wpdb->posts} p
              LEFT JOIN %i l ON l.target_post_id = p.ID
-             WHERE p.post_status = 'publish' AND p.post_type IN ($in)
+             WHERE p.post_status = 'publish' AND p.post_type IN ($in)" . Woo_Pages::sql_exclude( "p.ID" ) . "
              GROUP BY p.ID, p.post_title
              ORDER BY inbound DESC, p.post_title ASC",
             array_merge( [ $wpdb->prefix . "jnk_linkweave_links" ], $types )
@@ -602,15 +619,20 @@ class REST_API {
             $opts["delete_data_on_uninstall"] = ! empty( $body["delete_data_on_uninstall"] );
         }
 
+        // An API key is only taken over HTTPS. Without it the key is left out and
+        // everything else is saved: refusing the whole save threw away the other
+        // changes on the form (QA ko-blog, 3 Nov 2026). The guard is generic; the
+        // Pro module does the actual (encrypted) write in the
+        // jnk_linkweave_settings_response filter, which no longer sees the key.
+        $notice = "";
+        if ( isset( $body["llm_api_key"] ) && "" !== $body["llm_api_key"] && ! is_ssl() ) {
+            unset( $body["llm_api_key"] );
+            $notice = __( "Your API key was not saved because this site does not use HTTPS; every other setting was saved. Switch the site to HTTPS, or pick the WordPress AI connection (Settings > Connectors) instead of your own key.", "jnk-linkweave" );
+        }
+
         // Premium LLM fields (mode/model) are handled by the Pro module, which
         // hooks this filter; free core neither knows nor stores them.
         $opts = (array) apply_filters( "jnk_linkweave_settings_pre_save", $opts, $body );
-
-        // API-key changes require HTTPS. The guard is generic; the Pro module does
-        // the actual (encrypted) write in the jnk_linkweave_settings_response filter.
-        if ( isset( $body["llm_api_key"] ) && "" !== $body["llm_api_key"] && ! is_ssl() ) {
-            return new \WP_REST_Response( [ "error" => "API key changes require HTTPS." ], 400 );
-        }
 
         $before_types = Index_Builder::base_post_types();
         update_option( "jnk_linkweave_settings", $opts );
@@ -636,6 +658,10 @@ class REST_API {
         unset( $opts["llm_api_key"] );
         $opts = (array) apply_filters( "jnk_linkweave_settings_response", $opts, $body, true );
         $opts["rebuild_queued"] = $rebuild_queued;
+        if ( "" !== $notice ) {
+            $opts["key_skipped"] = true;
+            $opts["notice"]      = $notice;
+        }
         return new \WP_REST_Response( $opts );
     }
 }

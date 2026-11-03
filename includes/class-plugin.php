@@ -20,6 +20,8 @@ final class Plugin {
         Cron::register_hooks();
         // New, changed or removed auto-link rules empty the page cache.
         Page_Cache::register_hooks();
+        // Elementor pages are read from Elementor's own data (no-op without Elementor).
+        Elementor_Reader::register();
 
         add_action( "save_post", [ $this, "reindex_post_on_save" ], 20, 3 );
         add_action( "wp_trash_post", [ Index_Builder::class, "delete" ] );
@@ -30,6 +32,9 @@ final class Plugin {
         } );
 
         add_filter( "the_content", [ $this, "apply_auto_link_rules" ], 99 );
+
+        // wp linkweave ... (no-op outside WP-CLI).
+        CLI::register();
 
         // Reports for AI assistants (WordPress 6.9+ Abilities API).
         Abilities::register();
@@ -49,6 +54,8 @@ final class Plugin {
             add_action( "admin_init", [ Index_Builder::class, "maybe_start_first_index" ], 20 );
             // WooCommerce products join the default post types; read them once.
             add_action( "admin_init", [ Index_Builder::class, "maybe_index_new_default_types" ], 21 );
+            // WooCommerce Cart, Checkout and My account leave the index and graph once.
+            add_action( "admin_init", [ Woo_Pages::class, "maybe_purge" ], 22 );
             ( new \JnkLinkweave\Admin\Admin() )->register_hooks();
         }
     }

@@ -40,13 +40,13 @@ class Suggestion_Engine {
         if ( ! $source && "publish" !== $post->post_status ) {
             // Drafts are indexed when they are published; until then rank them on
             // their saved text, so the sidebar helps while the post is written.
-            $source = $this->draft_source( $post, (string) $post->post_content );
+            $source = $this->draft_source( $post, Index_Builder::post_body( $post ) );
         }
         if ( ! $source ) {
             return $this->empty_response( $post_id, $args["mode"] );
         }
 
-        $response = $this->rank( $post, $source, (string) $post->post_content, $args );
+        $response = $this->rank( $post, $source, Index_Builder::post_body( $post ), $args );
         set_transient( $cache_key, $response, 6 * HOUR_IN_SECONDS );
         return $response;
     }
@@ -743,7 +743,7 @@ class Suggestion_Engine {
             return $out;
         }
 
-        $tokens        = Tokenizer::tokenize( wp_strip_all_tags( (string) $post->post_content ), (string) ( $opts["language"] ?? "en" ) );
+        $tokens        = Tokenizer::tokenize( wp_strip_all_tags( Index_Builder::post_body( $post ) ), (string) ( $opts["language"] ?? "en" ) );
         $out["words"]  = Tokenizer::word_count( $tokens );
 
         // Drafts, pending and scheduled posts are indexed when they are published, so

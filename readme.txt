@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.23.0
+Stable tag: 1.24.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,6 +169,15 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.24.0 =
+* Fixed: on WooCommerce shops the Cart, Checkout and My account pages were indexed, offered as link ideas and counted in the reports. Their content changes per visitor (the Cart page read as 4 product links in one run and 0 in the next), so Internal links and the orphan count moved with no edit. They are now left out of the index, link ideas, orphans and every report, found by WooCommerce's own page settings whatever their slug or language; old rows go on the next admin page load. Links to the Shop page (/shop/) now count as links to that page.
+* New: the link map on Inbound links has a Graph view. Every post is a dot, grouped into topic islands; zoom, drag and pinch; click a dot to see the posts that link to it and the posts it links to, with Open post and Edit post; filter by topic or post type, show only posts with no links in, and find a post by title. Drawn on a canvas, no outside library, smooth at a few thousand posts.
+* New: WP-CLI commands. wp linkweave index rebuild reads every post again, wp linkweave index status shows what the index holds, wp linkweave scan checks every internal link, wp linkweave rules list lists the auto-link rules (--format=table, csv, json...).
+* Fixed: the post-type lists in Settings and in Related posts no longer offer media or page-builder storage such as Elementor's Templates and Floating Elements (anything without a page of its own). A type you had already ticked stays listed so you can untick it; a template type saved for the related list is ignored.
+* New: Sites you link to (Linkweave > More tools). Every link in your posts to another website, grouped by site: how many links, from how many posts, and what share is nofollow or sponsored. Open a site to see each link. Linkweave reads these links along with your internal ones; after updating, it reads them once in the background (the link list only, not the whole index).
+* New: Elementor support. Linkweave reads Elementor pages from Elementor's own data, so suggestions, orphans and link counts match what visitors see, even after an import left the page's plain copy empty. Auto-link rules already reached Elementor pages and still do.
+* New: in the Elementor editor, Page Settings has "Linkweave link ideas": the pages worth linking to, each with a Copy link button to paste into Elementor's link box.
 
 = 1.23.0 =
 * New (Pro): the AI second opinion can use WordPress's AI connection (Settings > Connectors, WordPress 7.0 or newer) instead of your own key. Your own key keeps working exactly as before; the settings say what each choice means.

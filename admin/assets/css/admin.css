@@ -103,6 +103,30 @@
 .jnkui .jnkui-seg-toggle { display: inline-flex; gap: 0; border: 1px solid var(--jnk-line); border-radius: 8px; padding: 2px; background: var(--jnk-line-2); }
 .jnkui .jnkui-seg-toggle .button { border: 0; background: none; box-shadow: none; min-height: 28px; }
 .jnkui .jnkui-seg-toggle .button.is-active { background: #fff; box-shadow: 0 1px 2px rgba(15,23,42,.12); color: var(--jnk-ink); }
+/* Link graph (Inbound links > Graph). */
+.jnkui .jnk-graph-bar { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin: 0 0 10px; }
+.jnkui .jnk-graph-bar select { max-width: 220px; }
+.jnkui .jnk-graph-check { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+.jnkui .jnk-graph-find { position: relative; }
+.jnkui .jnk-graph-find input { width: 200px; max-width: 100%; }
+.jnkui .jnk-graph-hits { position: absolute; z-index: 6; inset-inline-start: 0; top: calc(100% + 4px); min-width: 260px; max-width: 80vw; display: flex; flex-direction: column; gap: 2px; padding: 6px 10px; background: var(--jnk-card); border: 1px solid var(--jnk-line); border-radius: 8px; box-shadow: var(--jnk-shadow-lg); }
+.jnkui .jnk-graph-hits[hidden] { display: none; }
+.jnkui .jnk-graph-hits .button-link { text-align: start; padding: 3px 0; }
+.jnkui .jnk-graph-zoom { display: inline-flex; gap: 4px; margin-inline-start: auto; }
+.jnkui .jnk-graph-body { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 14px; align-items: start; }
+.jnkui .jnk-graph-stage canvas { display: block; width: 100%; height: 560px; border: 1px solid var(--jnk-line); border-radius: 10px; background: var(--jnk-card); cursor: grab; touch-action: none; }
+.jnkui .jnk-graph-stage canvas:focus-visible { outline: 2px solid var(--jnk-brand); outline-offset: 2px; }
+.jnkui .jnk-graph-count { margin: 6px 0 0; font-size: 12px; color: var(--jnk-mute); }
+.jnkui .jnk-graph-panel { max-height: 590px; overflow: auto; padding: 12px 14px; border: 1px solid var(--jnk-line); border-radius: 10px; font-size: 13px; }
+.jnkui .jnk-graph-panel h3 { margin: 0 0 4px; font-size: 14px; overflow-wrap: anywhere; }
+.jnkui .jnk-graph-panel p { margin: 0 0 8px; }
+.jnkui .jnk-graph-panel h4 { display: flex; align-items: center; gap: 6px; margin: 12px 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .03em; color: var(--jnk-ink-2); }
+.jnkui .jnk-graph-panel h4 i { width: 10px; height: 3px; border-radius: 2px; display: inline-block; }
+.jnkui .jnk-graph-panel h4 span { color: var(--jnk-mute); font-weight: 500; }
+.jnkui .jnk-graph-panel ul { margin: 0; padding: 0; list-style: none; }
+.jnkui .jnk-graph-panel li { margin: 0 0 3px; }
+.jnkui .jnk-graph-panel .button-link { text-align: start; overflow-wrap: anywhere; }
+@media (max-width: 960px) { .jnkui .jnk-graph-body { grid-template-columns: minmax(0, 1fr); } .jnkui .jnk-graph-stage canvas { height: 420px; } .jnkui .jnk-graph-panel { max-height: none; } }
 @media (max-width: 782px) { .jnkui .jnk-map-row { grid-template-columns: 1fr; gap: 6px; } .jnkui .jnk-map { padding: 4px 14px 16px; } }
 
 /* Phones. Nothing may be wider than the screen: in Arabic and Hebrew a page

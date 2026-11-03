@@ -99,6 +99,21 @@ class Index_Builder {
     public const INDEX_FORMAT_OPTION = "jnk_linkweave_index_format";
 
     /**
+     * The HTML a post shows visitors, for reading its words and links. Normally
+     * post_content; a page builder that renders from its own copy (Elementor's
+     * _elementor_data) supplies that instead through the filter, so suggestions,
+     * orphans and link counts follow what visitors actually see.
+     */
+    public static function post_body( \WP_Post $post ): string {
+        $content = (string) $post->post_content;
+        if ( ! has_filter( "jnk_linkweave_post_body" ) ) {
+            return $content;
+        }
+        /** Filter: jnk_linkweave_post_body. The HTML to read a post's words and links from. */
+        return (string) apply_filters( "jnk_linkweave_post_body", $content, $post );
+    }
+
+    /**
      * The text a post is indexed by: title twice, then the body without the
      * text of its links. Link text names the page it points at, not this post:
      * an English post with one link titled in Hindi was matched to Hindi posts
@@ -106,7 +121,7 @@ class Index_Builder {
      */
     public static function index_text( \WP_Post $post, ?string $content = null ): string {
         $title = wp_strip_all_tags( (string) $post->post_title );
-        $body  = null === $content ? (string) $post->post_content : $content;
+        $body  = null === $content ? self::post_body( $post ) : $content;
         if ( false !== stripos( $body, "<a" ) ) {
             $body = (string) preg_replace( "~<a\\b[^>]*>.*?</a\\s*>~is", " ", $body );
         }
@@ -426,6 +441,8 @@ class Index_Builder {
             "post_status"      => "publish",
             "posts_per_page"   => -1,
             "fields"           => "ids",
+            // WooCommerce Cart, Checkout and My account (see Woo_Pages).
+            "post__not_in"     => Woo_Pages::excluded_ids(), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in -- at most three ids.
             // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.SuppressFilters_suppress_filters -- index the canonical published corpus; other plugins' query filters must not alter what we index.
             "suppress_filters" => true,
         ] ) );
@@ -613,6 +630,10 @@ class Index_Builder {
         }
 
         if ( apply_filters( "jnk_linkweave_skip_indexing_post", false, $post_id, $post ) ) {
+            return false;
+        }
+        if ( Woo_Pages::is_excluded( $post_id ) ) {
+            self::delete( $post_id );
             return false;
         }
 

@@ -11,8 +11,14 @@ $auto     = ! empty( $settings["auto_index_on_save"] );
 $delete   = ! empty( $settings["delete_data_on_uninstall"] );
 $ranking  = ( ( $settings["ranking"] ?? "bm25" ) === "tfidf" ) ? "tfidf" : "bm25";
 $selected_types = \JnkLinkweave\Index_Builder::base_post_types( (array) $settings );
-$public_types   = get_post_types( [ "public" => true ], "objects" );
-unset( $public_types["attachment"] ); // media has no linkable body content
+// Content types only (no media, no page-builder templates); a type already
+// chosen stays listed so it can be unticked.
+$public_types   = \JnkLinkweave\Post_Types::content( "objects" );
+foreach ( $selected_types as $jnk_linkweave_t ) {
+    if ( ! isset( $public_types[ $jnk_linkweave_t ] ) && "attachment" !== $jnk_linkweave_t && post_type_exists( $jnk_linkweave_t ) ) {
+        $public_types[ $jnk_linkweave_t ] = get_post_type_object( $jnk_linkweave_t );
+    }
+}
 ?>
 <?php
 \JnkLinkweave\Admin\UI::open(
@@ -41,6 +47,9 @@ unset( $public_types["attachment"] ); // media has no linkable body content
                         <?php endforeach; ?>
                     </fieldset>
                     <p class="description"><?php esc_html_e( "The kinds of content Linkweave reads and suggests links to. Posts and Pages by default, and Products when WooCommerce is active. Changes take effect straight away; adding a type reads those posts in the background.", "jnk-linkweave" ); ?></p>
+                    <?php if ( \JnkLinkweave\Woo_Pages::excluded_ids() ) : ?>
+                        <p class="description"><?php esc_html_e( "WooCommerce's Cart, Checkout and My account pages are always left out: what they show changes for each visitor.", "jnk-linkweave" ); ?></p>
+                    <?php endif; ?>
                 </td>
             </tr>
             <tr>
