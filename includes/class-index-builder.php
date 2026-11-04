@@ -74,12 +74,64 @@ class Index_Builder {
             // which is what the existing index was built from.
             $seen = (array) ( get_option( "jnk_linkweave_settings", [] )["post_types"] ?? [ "post", "page" ] );
         }
+        $left = array_values( array_diff( $seen, $types ) );
+        if ( $left ) {
+            self::drop_left_types( $left );
+        }
         if ( ! array_diff( $types, $seen ) ) {
             return; // nothing added
         }
         if ( self::indexed_count() > 0 && empty( self::status()["is_running"] ) ) {
             self::schedule_rebuild();
         }
+    }
+
+    /**
+     * A post type left the defaults (WooCommerce switched off): its rows leave
+     * the index now, and so do the link map's untouched rules that point at
+     * its posts. The 6 product rows used to stay, and the next map made the
+     * rule "Five page" -> /?p=128, a product page that no longer exists
+     * (video QA 3 Nov 2026). One DELETE, safe from admin_init or a cron run.
+     *
+     * @param string[] $left the post types that left
+     */
+    public static function drop_left_types( array $left ): int {
+        $types = self::indexed_types();
+        $left  = array_values( array_diff( array_map( "sanitize_key", $left ), $types ) );
+        if ( ! $types || ! $left ) {
+            return 0;
+        }
+        $removed = self::purge_excluded_types( $types );
+        Rules_Engine::drop_generated_rules_for_types( $left );
+        if ( $removed > 0 ) {
+            do_action( "jnk_linkweave_index_types_left", $left, $removed );
+        }
+        return $removed;
+    }
+
+    /**
+     * The post types the index holds right now: the settings (with the
+     * WooCommerce default) after the jnk_linkweave_suggestion_post_types filter.
+     * Map, suggestions and orphans read only these, so a row of a type that
+     * just left is never offered, even before it is purged.
+     *
+     * @return string[]
+     */
+    public static function indexed_types(): array {
+        $types = (array) apply_filters( "jnk_linkweave_suggestion_post_types", self::base_post_types() );
+        return array_values( array_unique( array_filter( array_map( "sanitize_key", $types ) ) ) );
+    }
+
+    /** " AND {column} IN ('post','page',...)" for the indexed types, or "" when there are none. */
+    public static function sql_types( string $column ): string {
+        global $wpdb;
+        $types = self::indexed_types();
+        if ( ! $types ) {
+            return "";
+        }
+        $in = implode( ",", array_fill( 0, count( $types ), "%s" ) );
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- IN() list built from %s placeholders; column is a code constant.
+        return " AND " . $column . " IN (" . $wpdb->prepare( $in, $types ) . ")";
     }
 
     /**

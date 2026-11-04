@@ -112,11 +112,16 @@
         for ( var i = 0; i < units.length; i++ ) {
             var v = Math.floor( s / units[ i ][ 1 ] );
             if ( v >= 1 ) {
-                try {
-                    return new Intl.RelativeTimeFormat( uiLang, { numeric: "always" } ).format( past ? -v : v, units[ i ][ 0 ] );
-                } catch ( e ) {
-                    return past ? v + " " + units[ i ][ 0 ] + "(s) ago" : "in " + v + " " + units[ i ][ 0 ] + "(s)";
+                // A <html lang> Intl rejects falls back to the browser's own
+                // language; with no Intl at all, only the date shows (never
+                // untranslated English like "3 day(s) ago").
+                var tags = [ uiLang, undefined ];
+                for ( var j = 0; j < tags.length; j++ ) {
+                    try {
+                        return new Intl.RelativeTimeFormat( tags[ j ], { numeric: "always" } ).format( past ? -v : v, units[ i ][ 0 ] );
+                    } catch ( e ) {}
                 }
+                return "";
             }
         }
         return past ? __( "just now", "jnk-linkweave" ) : __( "in a moment", "jnk-linkweave" );
@@ -214,7 +219,8 @@
         }
         var d = new Date( s );
         if ( isNaN( d.getTime() ) ) { return String( value ); }
-        return fmtAbs( d ) + " (" + relTime( d.getTime() - Date.now() ) + ")";
+        var rel = relTime( d.getTime() - Date.now() );
+        return fmtAbs( d ) + ( rel ? " (" + rel + ")" : "" );
     }
     // In the site's time zone (Settings > General), like the Overview: the
     // browser's own zone put Broken links hours away from the Overview's times.

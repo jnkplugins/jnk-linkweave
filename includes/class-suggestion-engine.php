@@ -383,6 +383,16 @@ class Suggestion_Engine {
         return $out;
     }
 
+    /**
+     * Is $word (lowercased) an everyday word that says nothing about a topic?
+     * The auto-link map and bulk inbound links skip a title phrase made only of
+     * such words ("every new" from "A quick accessibility checklist for every
+     * new page"), so the list is shared.
+     */
+    public static function is_generic_word( string $word ): bool {
+        return isset( self::GENERIC_LABEL_WORDS[ $word ] );
+    }
+
     /** Everyday words that are not stopwords but say nothing about a topic. */
     private const GENERIC_LABEL_WORDS = [
         "also" => 1, "back" => 1, "best" => 1, "better" => 1, "check" => 1, "come" => 1, "done" => 1,
@@ -561,7 +571,8 @@ class Suggestion_Engine {
         $table = Index_Builder::table();
         $rows  = $wpdb->get_results(
             $wpdb->prepare(
-                "SELECT post_id, `vector`, vector_norm, word_count FROM %i WHERE post_id != %d",
+                // Only types indexed right now: products stay out once WooCommerce is off.
+                "SELECT post_id, `vector`, vector_norm, word_count FROM %i WHERE post_id != %d" . Index_Builder::sql_types( "post_type" ),
                 $table,
                 $exclude_id
             ),
@@ -682,6 +693,9 @@ class Suggestion_Engine {
         // change the candidates and the already-linked penalty without touching this
         // post, so a list cached before them was served for up to 6 hours.
         $salt .= "|g" . (int) get_option( "jnk_linkweave_graph_version", 0 );
+        // The types indexed right now: once WooCommerce is off, a list cached with
+        // products in it is not served again.
+        $salt .= "|t" . implode( ",", Index_Builder::indexed_types() );
         // A plugin update can change what a cached list shows (labels, fields), so
         // lists cached by the previous version are never served after an update.
         $salt .= "|v" . ( defined( "JNK_LINKWEAVE_VERSION" ) ? JNK_LINKWEAVE_VERSION : "" );

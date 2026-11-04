@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.19.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-11-02T19:59:43+00:00\n"
+"POT-Creation-Date: 2026-11-04T06:54:38+00:00\n"
 "PO-Revision-Date: 2026-10-29 12:00+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Arabic (review pending)\n"
@@ -154,7 +154,7 @@ msgid "Skip and deactivate"
 msgstr "تخطَّ وعطّل"
 
 #: pro/licensorpro-client/licensorpro-client.php:1261
-#: admin/assets/js/admin.js:526
+#: admin/assets/js/admin.js:532
 msgid "Cancel"
 msgstr "إلغاء"
 
@@ -324,8 +324,8 @@ msgstr "فشل دفع التجديد، تبقى أدوات Pro مفعّلة حت
 
 #: pro/licensorpro-client/licensorpro-client.php:2035
 #: admin/views/domains.php:63
-#: admin/assets/js/admin.js:465
-#: admin/assets/js/admin.js:938
+#: admin/assets/js/admin.js:471
+#: admin/assets/js/admin.js:944
 msgid "Status"
 msgstr "الحالة"
 
@@ -726,12 +726,12 @@ msgstr "تمّ"
 msgid "Last full read: just now (%d posts)"
 msgstr "آخر قراءة كاملة: الآن (%d مقالة)"
 
-#: admin/class-assistants.php:104
-#: admin/class-assistants.php:116
+#: admin/class-assistants.php:105
+#: admin/class-assistants.php:117
 msgid "Sorry, you are not allowed to do that."
 msgstr "عذرًا، غير مسموح لك بالقيام بذلك."
 
-#: admin/class-assistants.php:139
+#: admin/class-assistants.php:140
 msgid "Sorry, you are not allowed to install plugins on this site."
 msgstr "عذرًا، غير مسموح لك بتثبيت الإضافات على هذا الموقع."
 
@@ -761,7 +761,7 @@ msgstr[5] "%d رابط داخلي يشير إلى هنا"
 
 #. translators: %d: number of links in.
 #: admin/class-posts-column.php:79
-#: admin/assets/js/admin.js:701
+#: admin/assets/js/admin.js:707
 #, php-format
 msgid "%d in"
 msgid_plural "%d in"
@@ -887,7 +887,7 @@ msgid "Off by default. An assistant only ever acts as the user it signs in as, s
 msgstr "مُعطّل افتراضيًا. يعمل المساعد دائمًا بصفة العضو الذي يسجّل الدخول به، لذا لا يمكنه أبدًا فعل أكثر مما يستطيع ذلك العضو فعله في هذه الشاشات."
 
 #: admin/views/assistants.php:72
-#: admin/assets/js/admin.js:525
+#: admin/assets/js/admin.js:531
 msgid "Save"
 msgstr "حفظ"
 
@@ -1083,7 +1083,7 @@ msgid "Links in your posts that lead to a page that no longer exists. Linkweave 
 msgstr "روابط في مقالاتك تؤدي إلى صفحة لم تعد موجودة. يفحصها Linkweave كل يوم، ويمكنك أيضًا فحصها الآن."
 
 #: admin/views/dashboard.php:61
-#: admin/assets/js/admin.js:321
+#: admin/assets/js/admin.js:327
 msgid "Run now"
 msgstr "تشغيل الآن"
 
@@ -1128,13 +1128,13 @@ msgid "Posts Linkweave knows"
 msgstr "المقالات التي يعرفها Linkweave"
 
 #: admin/views/dashboard.php:99
-#: admin/assets/js/admin.js:306
+#: admin/assets/js/admin.js:312
 msgid "Queued, waiting for WordPress to start it"
 msgstr "في قائمة الانتظار، بانتظار أن يبدأه WordPress"
 
 #. translators: 1: posts read so far, 2: total posts.
 #: admin/views/dashboard.php:103
-#: admin/assets/js/admin.js:313
+#: admin/assets/js/admin.js:319
 #, php-format
 msgid "Reading posts %1$d of %2$d"
 msgstr "جارٍ قراءة المقالات %1$d من %2$d"
@@ -1404,12 +1404,12 @@ msgid "No links to this site were found in your posts."
 msgstr "لم يُعثر على روابط إلى هذا الموقع في مقالاتك."
 
 #: admin/views/domains.php:59
-#: admin/assets/js/admin.js:938
+#: admin/assets/js/admin.js:944
 msgid "Found in"
 msgstr "موجود في"
 
 #: admin/views/domains.php:60
-#: admin/assets/js/admin.js:938
+#: admin/assets/js/admin.js:944
 msgid "Link text"
 msgstr "نص الرابط"
 
@@ -1426,17 +1426,17 @@ msgid "followed"
 msgstr "متبوع"
 
 #: admin/views/domains.php:74
-#: admin/assets/js/admin.js:913
+#: admin/assets/js/admin.js:919
 msgid "Not checked yet"
 msgstr "لم يُفحص بعد"
 
 #: admin/views/domains.php:76
-#: admin/assets/js/admin.js:930
+#: admin/assets/js/admin.js:936
 msgid "Page missing"
 msgstr "صفحة مفقودة"
 
 #: admin/views/domains.php:78
-#: admin/assets/js/admin.js:929
+#: admin/assets/js/admin.js:935
 msgid "Did not answer"
 msgstr "لم يستجب"
 
@@ -1889,39 +1889,51 @@ msgid "Posts on this site that a given post should link to, best match first, wi
 msgstr "مقالات في هذا الموقع يجب أن ترتبط بها مقالة معيّنة، الأفضل مطابقة أولًا، مع الكلمات المشتركة بينها."
 
 #: includes/class-abilities.php:183
+msgid "Find posts by title"
+msgstr "البحث عن المقالات بالعنوان"
+
+#: includes/class-abilities.php:184
+msgid "Published posts and pages whose title contains the given words, with their ID, title, address and post type. Use it to get the post IDs the other abilities need."
+msgstr "المقالات والصفحات المنشورة التي يحتوي عنوانها على الكلمات المعطاة، مع رقمها وعنوانها ورابطها ونوع المحتوى. استخدمها للحصول على أرقام المقالات التي تحتاجها القدرات الأخرى."
+
+#: includes/class-abilities.php:218
 msgid "Get internal link stats"
 msgstr "احصل على إحصاءات الروابط الداخلية"
 
-#: includes/class-abilities.php:184
+#: includes/class-abilities.php:219
 msgid "Site-wide internal linking numbers: posts indexed, internal links, orphans, dead ends, broken links and active auto-link rules."
 msgstr "أرقام الربط الداخلي على مستوى الموقع: المقالات المفهرسة، والروابط الداخلية، والصفحات اليتيمة، والطرق المسدودة، والروابط المعطّلة، وقواعد الربط التلقائي النشطة."
 
-#: includes/class-abilities.php:203
+#: includes/class-abilities.php:238
 msgid "Get the links of one post"
 msgstr "جلب روابط مقالة واحدة"
 
-#: includes/class-abilities.php:204
+#: includes/class-abilities.php:239
 msgid "The internal links a post makes (outbound) and the posts that link to it (inbound), with their link text."
 msgstr "الروابط الداخلية التي تضعها المقالة (الصادرة) والمقالات التي ترتبط بها (الواردة)، مع نص الرابط لكل منها."
 
-#: includes/class-abilities.php:226
+#: includes/class-abilities.php:261
 msgid "List broken links"
 msgstr "عرض الروابط المعطّلة"
 
-#: includes/class-abilities.php:227
+#: includes/class-abilities.php:262
 msgid "Links found by the last broken-link check: the post they are in, where they point, their text, and whether the page is missing or did not answer."
 msgstr "الروابط التي عثر عليها آخر فحص للروابط المعطّلة: المقالة التي توجد فيها، والوجهة التي تشير إليها، ونصّها، وهل الصفحة مفقودة أم لم تستجب."
 
-#: includes/class-abilities.php:249
+#: includes/class-abilities.php:284
 msgid "List auto-link rules"
 msgstr "عرض قواعد الربط التلقائي"
 
-#: includes/class-abilities.php:250
+#: includes/class-abilities.php:285
 msgid "The keyword-to-address rules that add links automatically, with how many posts each one links from."
 msgstr "قواعد ربط الكلمة المفتاحية بعنوان التي تضيف الروابط تلقائيًا، مع عدد المقالات التي تضع كل قاعدة روابط فيها."
 
-#: includes/class-abilities.php:311
-#: includes/class-abilities.php:363
+#: includes/class-abilities.php:346
+msgid "Give some words from the title to search for."
+msgstr "اكتب بعض كلمات العنوان للبحث عنها."
+
+#: includes/class-abilities.php:408
+#: includes/class-abilities.php:460
 msgid "Post not found."
 msgstr "لم يُعثر على المقالة."
 
@@ -1934,12 +1946,12 @@ msgid "Loading link ideas…"
 msgstr "جارٍ تحميل أفكار الروابط…"
 
 #. translators: %s: the database's error message
-#: includes/class-index-builder.php:553
+#: includes/class-index-builder.php:605
 #, php-format
 msgid "The index table could not be created, so nothing can be indexed. The database said: %s"
 msgstr "تعذّر إنشاء جدول الفهرس، لذا لا يمكن فهرسة أي شيء. رسالة قاعدة البيانات: %s"
 
-#: includes/class-index-builder.php:554
+#: includes/class-index-builder.php:606
 msgid "no reason given"
 msgstr "لم يُذكر سبب"
 
@@ -2034,33 +2046,33 @@ msgid "Your API key was not saved because this site does not use HTTPS; every ot
 msgstr "لم يُحفظ مفتاح API لأن هذا الموقع لا يستخدم HTTPS؛ وحُفظت جميع الإعدادات الأخرى. انقل الموقع إلى HTTPS، أو اختر اتصال الذكاء الاصطناعي في ووردبريس (الإعدادات > الموصلات) بدلًا من مفتاحك الخاص."
 
 #: admin/assets/js/admin.js:73
-#: admin/assets/js/admin.js:460
+#: admin/assets/js/admin.js:466
 msgid "Edit"
 msgstr "تحرير"
 
-#: admin/assets/js/admin.js:708
+#: admin/assets/js/admin.js:714
 msgid "Filter by title…"
 msgstr "تصفية حسب العنوان…"
 
-#: admin/assets/js/admin.js:708
+#: admin/assets/js/admin.js:714
 msgid "Filter by title"
 msgstr "تصفية حسب العنوان"
 
 #: admin/assets/js/admin.js:76
-#: admin/assets/js/admin.js:603
-#: admin/assets/js/admin.js:627
-#: admin/assets/js/admin.js:698
+#: admin/assets/js/admin.js:609
+#: admin/assets/js/admin.js:633
+#: admin/assets/js/admin.js:704
 msgid "View"
 msgstr "عرض"
 
-#: admin/assets/js/admin.js:460
+#: admin/assets/js/admin.js:466
 msgid "Delete"
 msgstr "حذف"
 
-#: admin/assets/js/admin.js:450
-#: admin/assets/js/admin.js:589
-#: admin/assets/js/admin.js:684
-#: admin/assets/js/admin.js:891
+#: admin/assets/js/admin.js:456
+#: admin/assets/js/admin.js:595
+#: admin/assets/js/admin.js:690
+#: admin/assets/js/admin.js:897
 msgid "Loading…"
 msgstr "جارٍ التحميل…"
 
@@ -2072,160 +2084,160 @@ msgstr "نسخ الرابط"
 msgid "Copied"
 msgstr "تم النسخ"
 
-#: admin/assets/js/admin.js:483
+#: admin/assets/js/admin.js:489
 msgid "Add rule"
 msgstr "أضف القاعدة"
 
-#: admin/assets/js/admin.js:122
+#: admin/assets/js/admin.js:127
 msgid "just now"
 msgstr "الآن"
 
-#: admin/assets/js/admin.js:122
+#: admin/assets/js/admin.js:127
 msgid "in a moment"
 msgstr "بعد لحظات"
 
-#: admin/assets/js/admin.js:137
+#: admin/assets/js/admin.js:142
 msgid "or find a post by title"
 msgstr "أو ابحث عن مقالة بعنوانها"
 
-#: admin/assets/js/admin.js:137
+#: admin/assets/js/admin.js:142
 msgid "Find a post by title"
 msgstr "ابحث عن مقالة بعنوانها"
 
-#: admin/assets/js/admin.js:176
+#: admin/assets/js/admin.js:181
 msgid "No posts match."
 msgstr "لا توجد مقالات مطابقة."
 
 #. translators: 1: posts saved so far, 2: total posts.
-#: admin/assets/js/admin.js:310
+#: admin/assets/js/admin.js:316
 msgid "Saving what it learned: %1$d of %2$d"
 msgstr "جارٍ حفظ ما تعلّمه: %1$d من %2$d"
 
-#: admin/assets/js/admin.js:341
+#: admin/assets/js/admin.js:347
 msgid "The last read stopped before it finished."
 msgstr "توقفت آخر قراءة قبل أن تكتمل."
 
-#: admin/assets/js/admin.js:342
+#: admin/assets/js/admin.js:348
 msgid "The last read failed."
 msgstr "فشلت آخر قراءة."
 
-#: admin/assets/js/admin.js:343
-#: admin/assets/js/admin.js:399
-#: admin/assets/js/admin.js:415
+#: admin/assets/js/admin.js:349
+#: admin/assets/js/admin.js:405
+#: admin/assets/js/admin.js:421
 msgid "Run it again now"
 msgstr "أعد التشغيل الآن"
 
-#: admin/assets/js/admin.js:456
+#: admin/assets/js/admin.js:462
 msgid "Created by the link map. Clearing the map removes it; rules you wrote are never touched."
 msgstr "أنشأتها خريطة الروابط. مسح الخريطة يزيلها؛ أما القواعد التي كتبتها فلا تُمسّ أبدًا."
 
-#: admin/assets/js/admin.js:456
+#: admin/assets/js/admin.js:462
 msgid "from link map"
 msgstr "من خريطة الروابط"
 
-#: admin/assets/js/admin.js:456
+#: admin/assets/js/admin.js:462
 msgid "This rule uses Pro options and is paused on the free version."
 msgstr "تستخدم هذه القاعدة خيارات Pro وهي متوقفة مؤقتًا في النسخة المجانية."
 
-#: admin/assets/js/admin.js:458
+#: admin/assets/js/admin.js:464
 msgid "Its settings are kept. It runs again when the Pro version is back."
 msgstr "إعداداتها محفوظة. ستعمل مجددًا عند عودة نسخة Pro."
 
-#: admin/assets/js/admin.js:458
+#: admin/assets/js/admin.js:464
 msgid "Paused"
 msgstr "متوقفة مؤقتًا"
 
-#: admin/assets/js/admin.js:458
-#: admin/assets/js/admin.js:473
-#: admin/assets/js/admin.js:517
+#: admin/assets/js/admin.js:464
+#: admin/assets/js/admin.js:479
+#: admin/assets/js/admin.js:523
 msgid "On"
 msgstr "تعمل"
 
-#: admin/assets/js/admin.js:465
-#: admin/assets/js/admin.js:470
+#: admin/assets/js/admin.js:471
+#: admin/assets/js/admin.js:476
 msgid "Phrase"
 msgstr "العبارة"
 
-#: admin/assets/js/admin.js:465
 #: admin/assets/js/admin.js:471
+#: admin/assets/js/admin.js:477
 #: admin/assets/js/linkmap.js:530
 msgid "Links to"
 msgstr "ترتبط بـ"
 
-#: admin/assets/js/admin.js:465
+#: admin/assets/js/admin.js:471
 msgid "Links this rule adds across your published posts right now. Mentions already inside a link, a heading or code, and mentions on the target page itself, are skipped, so 0 can be correct."
 msgstr "عدد الروابط التي تضيفها هذه القاعدة الآن في مقالاتك المنشورة. يتم تخطّي الإشارات الموجودة أصلًا داخل رابط أو عنوان أو شفرة، والإشارات في الصفحة الهدف نفسها، لذا قد يكون 0 صحيحًا."
 
-#: admin/assets/js/admin.js:465
+#: admin/assets/js/admin.js:471
 msgid "Links added"
 msgstr "الروابط المضافة"
 
-#: admin/assets/js/admin.js:466
+#: admin/assets/js/admin.js:472
 msgid "No rules yet"
 msgstr "لا توجد قواعد بعد"
 
-#: admin/assets/js/admin.js:466
+#: admin/assets/js/admin.js:472
 msgid "A rule links one phrase to one page everywhere it appears. Add your first one with the form."
 msgstr "القاعدة تربط عبارة واحدة بصفحة واحدة في كل مكان تظهر فيه. أضف أول قاعدة لك من النموذج."
 
-#: admin/assets/js/admin.js:468
+#: admin/assets/js/admin.js:474
 msgid "Add a rule"
 msgstr "إضافة قاعدة"
 
-#: admin/assets/js/admin.js:468
+#: admin/assets/js/admin.js:474
 msgid "Linkweave links this phrase wherever it appears in your posts."
 msgstr "يربط Linkweave هذه العبارة أينما ظهرت في مقالاتك."
 
-#: admin/assets/js/admin.js:470
+#: admin/assets/js/admin.js:476
 msgid "e.g. internal linking"
 msgstr "مثلًا: الربط الداخلي"
 
-#: admin/assets/js/admin.js:474
-#: admin/assets/js/admin.js:514
+#: admin/assets/js/admin.js:480
+#: admin/assets/js/admin.js:520
 msgid "Match capital letters"
 msgstr "مطابقة حالة الأحرف"
 
-#: admin/assets/js/admin.js:475
-#: admin/assets/js/admin.js:515
+#: admin/assets/js/admin.js:481
+#: admin/assets/js/admin.js:521
 msgid "Open in a new tab"
 msgstr "فتح في تبويب جديد"
 
-#: admin/assets/js/admin.js:476
+#: admin/assets/js/admin.js:482
 msgid "Tells search engines not to pass ranking credit through this link"
 msgstr "يخبر محركات البحث بألا تمرّر قيمة الترتيب عبر هذا الرابط"
 
-#: admin/assets/js/admin.js:479
-#: admin/assets/js/admin.js:520
+#: admin/assets/js/admin.js:485
+#: admin/assets/js/admin.js:526
 msgid "Most per post"
 msgstr "الحد الأقصى لكل مقالة"
 
-#: admin/assets/js/admin.js:480
-#: admin/assets/js/admin.js:521
+#: admin/assets/js/admin.js:486
+#: admin/assets/js/admin.js:527
 msgid "Most across the site"
 msgstr "الحد الأقصى في الموقع كله"
 
-#: admin/assets/js/admin.js:480
-#: admin/assets/js/admin.js:521
+#: admin/assets/js/admin.js:486
+#: admin/assets/js/admin.js:527
 msgid "0 means no limit"
 msgstr "0 يعني بلا حد"
 
-#: admin/assets/js/admin.js:490
+#: admin/assets/js/admin.js:496
 msgid "Delete this rule?"
 msgstr "حذف هذه القاعدة؟"
 
-#: admin/assets/js/admin.js:494
+#: admin/assets/js/admin.js:500
 msgid "Rule deleted."
 msgstr "تمّ حذف القاعدة."
 
-#: admin/assets/js/admin.js:548
+#: admin/assets/js/admin.js:554
 msgid "Rule saved."
 msgstr "تمّ حفظ القاعدة."
 
-#: admin/assets/js/admin.js:575
+#: admin/assets/js/admin.js:581
 msgid "Rule added."
 msgstr "تمّت إضافة القاعدة."
 
-#: admin/assets/js/admin.js:598
+#: admin/assets/js/admin.js:604
 msgid "%d post linked only by auto-link rules"
 msgid_plural "%d posts linked only by auto-link rules"
 msgstr[0] "%d مقالة تربطها قواعد الربط التلقائي فقط"
@@ -2235,11 +2247,11 @@ msgstr[3] "%d مقالات تربطها قواعد الربط التلقائي �
 msgstr[4] "%d مقالة تربطها قواعد الربط التلقائي فقط"
 msgstr[5] "%d مقالة تربطها قواعد الربط التلقائي فقط"
 
-#: admin/assets/js/admin.js:599
+#: admin/assets/js/admin.js:605
 msgid "Visitors reach these through your auto-link rules, so they are not orphans. No link written in a post points at them yet."
 msgstr "يصل الزوار إلى هذه المقالات عبر قواعد الربط التلقائي، لذا فهي ليست صفحات يتيمة. لكن لا يشير إليها بعد أي رابط مكتوب في مقالة."
 
-#: admin/assets/js/admin.js:605
+#: admin/assets/js/admin.js:611
 msgid "%d auto-link in"
 msgid_plural "%d auto-links in"
 msgstr[0] "%d رابط تلقائي وارد"
@@ -2249,16 +2261,16 @@ msgstr[3] "%d روابط تلقائية واردة"
 msgstr[4] "%d رابطًا تلقائيًا واردًا"
 msgstr[5] "%d رابط تلقائي وارد"
 
-#: admin/assets/js/admin.js:611
+#: admin/assets/js/admin.js:617
 msgid "No orphan posts"
 msgstr "لا توجد مقالات يتيمة"
 
 #. translators: 1: opening link tag to the Overview screen, 2: closing link tag.
-#: admin/assets/js/admin.js:614
+#: admin/assets/js/admin.js:620
 msgid "Every published post has at least one internal link pointing at it. If you have not built the index yet, %1$sdo that on the Overview%2$s first."
 msgstr "كل مقالة منشورة يشير إليها رابط داخلي واحد على الأقل. إن لم تبنِ الفهرس بعد، %1$sفافعل ذلك من «نظرة عامة»%2$s أولًا."
 
-#: admin/assets/js/admin.js:622
+#: admin/assets/js/admin.js:628
 msgid "%d post needs a link"
 msgid_plural "%d posts need a link"
 msgstr[0] "%d مقالة تحتاج إلى رابط"
@@ -2268,61 +2280,61 @@ msgstr[3] "%d مقالات تحتاج إلى رابط"
 msgstr[4] "%d مقالة تحتاج إلى رابط"
 msgstr[5] "%d مقالة تحتاج إلى رابط"
 
-#: admin/assets/js/admin.js:623
+#: admin/assets/js/admin.js:629
 msgid "Linkweave compares each one with the rest of your site and lists the posts that talk about the same thing."
 msgstr "يقارن Linkweave كل واحدة منها ببقية موقعك ويعرض المقالات التي تتحدث عن الموضوع نفسه."
 
-#: admin/assets/js/admin.js:629
+#: admin/assets/js/admin.js:635
 msgid "Shorter than the minimum length in Settings, so it is never suggested as a link target."
 msgstr "أقصر من الحد الأدنى للطول في الإعدادات، لذا لا تُقترح أبدًا كهدف لرابط."
 
-#: admin/assets/js/admin.js:629
+#: admin/assets/js/admin.js:635
 msgid "Too short to suggest"
 msgstr "أقصر من أن تُقترح"
 
-#: admin/assets/js/admin.js:630
-#: admin/assets/js/admin.js:647
+#: admin/assets/js/admin.js:636
+#: admin/assets/js/admin.js:653
 msgid "Find posts that could link here"
 msgstr "ابحث عن مقالات تربط إليها"
 
-#: admin/assets/js/admin.js:647
+#: admin/assets/js/admin.js:653
 msgid "Hide"
 msgstr "إخفاء"
 
-#: admin/assets/js/admin.js:650
+#: admin/assets/js/admin.js:656
 msgid "Looking through your posts…"
 msgstr "جارٍ البحث في مقالاتك…"
 
-#: admin/assets/js/admin.js:656
+#: admin/assets/js/admin.js:662
 msgid "No close matches yet. Write a related post and link it here, or add an auto-link rule for this page."
 msgstr "لا توجد مطابقات قريبة بعد. اكتب مقالة ذات صلة واربطها بهذه المقالة، أو أضف قاعدة ربط تلقائي لهذه الصفحة."
 
-#: admin/assets/js/admin.js:664
+#: admin/assets/js/admin.js:670
 msgid "How closely the two posts match"
 msgstr "مدى تطابق المقالتين"
 
-#: admin/assets/js/admin.js:665
+#: admin/assets/js/admin.js:671
 msgid "Open"
 msgstr "فتح"
 
-#: admin/assets/js/admin.js:668
+#: admin/assets/js/admin.js:674
 msgid "Open a post and add the link in the editor."
 msgstr "افتح مقالة وأضف الرابط في المحرّر."
 
-#: admin/assets/js/admin.js:669
+#: admin/assets/js/admin.js:675
 msgid "Pro adds the links for you"
 msgstr "Pro يضيف الروابط عنك"
 
-#: admin/assets/js/admin.js:688
+#: admin/assets/js/admin.js:694
 msgid "Nothing to show yet"
 msgstr "لا شيء لعرضه بعد"
 
-#: admin/assets/js/admin.js:688
+#: admin/assets/js/admin.js:694
 msgid "Build the index on the Overview and the counts appear here."
 msgstr "ابنِ الفهرس من «نظرة عامة» وستظهر الأعداد هنا."
 
 #. translators: %d: number of posts.
-#: admin/assets/js/admin.js:705
+#: admin/assets/js/admin.js:711
 #: admin/assets/js/linkmap.js:36
 msgid "%d post"
 msgid_plural "%d posts"
@@ -2333,7 +2345,7 @@ msgstr[3] "%d مقالات"
 msgstr[4] "%d مقالة"
 msgstr[5] "%d مقالة"
 
-#: admin/assets/js/admin.js:707
+#: admin/assets/js/admin.js:713
 msgid "%d with no links in, shown in red."
 msgid_plural "%d with no links in, shown in red."
 msgstr[0] "%d بلا روابط واردة، معروضة بالأحمر."
@@ -2343,52 +2355,52 @@ msgstr[3] "%d بلا روابط واردة، معروضة بالأحمر."
 msgstr[4] "%d بلا روابط واردة، معروضة بالأحمر."
 msgstr[5] "%d بلا روابط واردة، معروضة بالأحمر."
 
-#: admin/assets/js/admin.js:707
+#: admin/assets/js/admin.js:713
 msgid "Every post has at least one link in."
 msgstr "كل مقالة لديها رابط وارد واحد على الأقل."
 
-#: admin/assets/js/admin.js:743
+#: admin/assets/js/admin.js:749
 msgid "Checking links: %1$d of %2$d…"
 msgstr "جارٍ فحص الروابط: %1$d من %2$d…"
 
-#: admin/assets/js/admin.js:744
-#: admin/assets/js/admin.js:854
+#: admin/assets/js/admin.js:750
+#: admin/assets/js/admin.js:860
 msgid "Collecting your links…"
 msgstr "جارٍ جمع روابطك…"
 
-#: admin/assets/js/admin.js:752
+#: admin/assets/js/admin.js:758
 msgid "The check stopped: a step failed %1$d times in a row (%2$s). Click “Check all links now” to start again."
 msgstr "توقف الفحص: فشلت خطوة %1$d مرات متتالية (%2$s). انقر على «افحص كل الروابط الآن» للبدء من جديد."
 
-#: admin/assets/js/admin.js:754
+#: admin/assets/js/admin.js:760
 msgid "The check stopped: a step failed %d times in a row. Click “Check all links now” to start again."
 msgstr "توقف الفحص: فشلت خطوة %d مرات متتالية. انقر على «افحص كل الروابط الآن» للبدء من جديد."
 
 #. translators: 1: links checked, 2: links to missing pages, 3: links that did not answer.
-#: admin/assets/js/admin.js:762
+#: admin/assets/js/admin.js:768
 msgid "Done: %1$d links checked, %2$d to missing pages, %3$d did not answer."
 msgstr "تمّ: فُحص %1$d رابطًا، %2$d إلى صفحات مفقودة، %3$d لم يستجب."
 
-#: admin/assets/js/admin.js:764
+#: admin/assets/js/admin.js:770
 msgid "The check stopped before it finished. Click the button to run it again."
 msgstr "توقف الفحص قبل أن يكتمل. انقر على الزر لتشغيله مجددًا."
 
 #. translators: %s: the error message from the site.
-#: admin/assets/js/admin.js:823
+#: admin/assets/js/admin.js:829
 msgid "This page could not go on with the check (%s). It carries on in the background; this line updates when it is done."
 msgstr "تعذّر على هذه الصفحة متابعة الفحص (%s). يستمر الفحص في الخلفية؛ وسيتحدّث هذا السطر عند انتهائه."
 
 #. translators: 1: date and time, 2: number of links checked.
-#: admin/assets/js/admin.js:873
+#: admin/assets/js/admin.js:879
 msgid "Last full check: %1$s, %2$d links checked."
 msgstr "آخر فحص كامل: %1$s، فُحص %2$d رابطًا."
 
-#: admin/assets/js/admin.js:875
+#: admin/assets/js/admin.js:881
 msgid "No full check has finished yet."
 msgstr "لم يكتمل أي فحص كامل بعد."
 
 #. translators: %d: number of links never checked.
-#: admin/assets/js/admin.js:879
+#: admin/assets/js/admin.js:885
 msgid "%d link has never been checked."
 msgid_plural "%d links have never been checked."
 msgstr[0] "%d رابط لم يُفحص أبدًا."
@@ -2398,15 +2410,15 @@ msgstr[3] "%d روابط لم تُفحص أبدًا."
 msgstr[4] "%d رابطًا لم تُفحص أبدًا."
 msgstr[5] "%d رابط لم يُفحص أبدًا."
 
-#: admin/assets/js/admin.js:884
+#: admin/assets/js/admin.js:890
 msgid "The last check stopped part way. Click “Check all links now” to finish it."
 msgstr "توقف آخر فحص في منتصفه. انقر على «افحص كل الروابط الآن» لإكماله."
 
-#: admin/assets/js/admin.js:907
+#: admin/assets/js/admin.js:913
 msgid "No broken links"
 msgstr "لا توجد روابط معطّلة"
 
-#: admin/assets/js/admin.js:910
+#: admin/assets/js/admin.js:916
 msgid "Last checked %1$s, %2$d link in total."
 msgid_plural "Last checked %1$s, %2$d links in total."
 msgstr[0] "آخر فحص %1$s، %2$d رابط إجمالًا."
@@ -2416,36 +2428,36 @@ msgstr[3] "آخر فحص %1$s، %2$d روابط إجمالًا."
 msgstr[4] "آخر فحص %1$s، %2$d رابطًا إجمالًا."
 msgstr[5] "آخر فحص %1$s، %2$d رابط إجمالًا."
 
-#: admin/assets/js/admin.js:912
+#: admin/assets/js/admin.js:918
 msgid "Last checked %s."
 msgstr "آخر فحص %s."
 
-#: admin/assets/js/admin.js:913
+#: admin/assets/js/admin.js:919
 msgid "Linkweave checks your links once a day. Click “Check all links now” to do it straight away."
 msgstr "يفحص Linkweave روابطك مرة يوميًا. انقر على «افحص كل الروابط الآن» للقيام بذلك فورًا."
 
-#: admin/assets/js/admin.js:929
+#: admin/assets/js/admin.js:935
 msgid "No answer in time, or the server returned an error. The page may be fine: open it to check. Remove all leaves these links alone."
 msgstr "لم يصل رد في الوقت المحدد، أو أعاد الخادم خطأ. قد تكون الصفحة سليمة: افتحها للتحقق. زر «إزالة كل الروابط إلى الصفحات المفقودة» لا يمسّ هذه الروابط."
 
-#: admin/assets/js/admin.js:938
+#: admin/assets/js/admin.js:944
 msgid "Points at"
 msgstr "يشير إلى"
 
-#: admin/assets/js/admin.js:938
+#: admin/assets/js/admin.js:944
 msgid "Checked"
 msgstr "تاريخ الفحص"
 
-#: admin/assets/js/admin.js:986
+#: admin/assets/js/admin.js:992
 msgid "Saving…"
 msgstr "جارٍ الحفظ…"
 
-#: admin/assets/js/admin.js:990
-#: admin/assets/js/admin.js:994
+#: admin/assets/js/admin.js:996
+#: admin/assets/js/admin.js:1000
 msgid "Settings saved."
 msgstr "تمّ حفظ الإعدادات."
 
-#: admin/assets/js/admin.js:994
+#: admin/assets/js/admin.js:1000
 msgid "The index is being rebuilt in the background so the change reaches every post."
 msgstr "يُعاد بناء الفهرس في الخلفية حتى يصل التغيير إلى كل مقالة."
 
@@ -2735,6 +2747,54 @@ msgstr "ابنِ الفهرس"
 #: editor/src/SuggestionList.jsx:296
 msgid "Already built it? Save this post, then refresh."
 msgstr "بنيته بالفعل؟ احفظ هذه المقالة، ثم حدّث."
+
+#~ msgid "Undone in %1$d post(s); %2$d edited since were left as they are."
+#~ msgstr "تم التراجع في %1$d مقالة؛ وتُركت %2$d عُدّلت بعد ذلك كما هي."
+
+#~ msgid "Undone in %d post(s)."
+#~ msgstr "تم التراجع في %d مقالة."
+
+#~ msgid "%1$d repeated link(s) in %2$d post(s)."
+#~ msgstr "%1$d رابطًا مكررًا في %2$d مقالة."
+
+#~ msgid "%1$d repeated link(s) removed in %2$d post(s)."
+#~ msgstr "أُزيل %1$d رابطًا مكررًا في %2$d مقالة."
+
+#~ msgid "Undone: %1$d rule(s) removed, %2$d put back, %3$d edited since were left as they are."
+#~ msgstr "تم التراجع: أُزيلت %1$d قاعدة، وأُعيدت %2$d، وتُركت %3$d عُدّلت بعد ذلك كما هي."
+
+#~ msgid "Built the link map: scanned %1$d indexed post(s); %2$d sit in a topical cluster"
+#~ msgstr "تمّ إنشاء خريطة الروابط: فُحصت %1$d مقالة مفهرسة؛ %2$d منها ضمن مجموعة موضوعية"
+
+#~ msgid "Created %d rule(s)."
+#~ msgstr "أُنشئت %d قاعدة."
+
+#~ msgid "Replaced %d rule(s) from the earlier map that you had not edited."
+#~ msgstr "استُبدلت %d قاعدة من الخريطة السابقة لم تكن قد عدّلتها."
+
+#~ msgid "Removed %d auto-generated rule(s)."
+#~ msgstr "أُزيلت %d قاعدة منشأة تلقائيًا."
+
+#~ msgid "Rolled back %1$d post(s), skipped %2$d edited since the change."
+#~ msgstr "تمّ التراجع في %1$d مقالة، وتخطّي %2$d حُرّرت بعد التغيير."
+
+#~ msgid "Rolled back %d post(s)."
+#~ msgstr "تمّ التراجع في %d مقالة."
+
+#~ msgid "It would add %1$d link(s) in %2$d post(s):"
+#~ msgstr "ستضيف %1$d رابطًا في %2$d مقالة:"
+
+#~ msgid "%1$d link(s) would be written into %2$d post(s)."
+#~ msgstr "ستُكتب %1$d رابطًا في %2$d مقالة."
+
+#~ msgid "%1$d link(s) written into %2$d post(s)."
+#~ msgstr "كُتب %1$d رابطًا في %2$d مقالة."
+
+#~ msgid "Added %1$d link(s); skipped %2$d."
+#~ msgstr "أُضيف %1$d رابط؛ وتمّ تخطّي %2$d."
+
+#~ msgid "Link a phrase in one post to another post on this site. Without apply it returns the sentence the link would go in; with apply: true it saves the post. Use get-link-suggestions or list-orphans to choose posts. Leave anchor empty to let Linkweave pick a natural phrase."
+#~ msgstr "ربط عبارة في مقالة بمقالة أخرى على هذا الموقع. دون apply تُرجع الجملة التي سيوضع فيها الرابط؛ ومع apply: true تحفظ المقالة. استخدم get-link-suggestions أو list-orphans لاختيار المقالات. اترك anchor فارغًا ليختار Linkweave عبارة طبيعية."
 
 #~ msgid "This site does not use HTTPS, so the API key was not saved and no other setting changed. Switch the site to HTTPS, or pick the WordPress AI connection (Settings > Connectors) instead of your own key."
 #~ msgstr "لا يستخدم هذا الموقع HTTPS، لذلك لم يُحفظ مفتاح API ولم يتغيّر أي إعداد آخر. انقل الموقع إلى HTTPS، أو اختر اتصال الذكاء الاصطناعي في WordPress (الإعدادات > الموصلات) بدلًا من مفتاحك."

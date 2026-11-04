@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.24.0
+Stable tag: 1.25.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,6 +169,11 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.25.0 =
+* Fixed: a dashboard date never shows untranslated English like "3 day(s) ago". If the browser can't format the relative time in the admin language it uses the browser's own, or shows the date only.
+* Fixed: after WooCommerce was switched off, its products stayed in the index, so link ideas and the link map could still point at product pages that no longer exist (a rule like "Five page" to /?p=128, a 404 for visitors). A post type that leaves the defaults now leaves the index on the next admin page load or daily background run, along with the link map's untouched rules to it; link ideas and the link map only read the post types indexed right now, and a rule whose /?p= target is a post of a type that no longer exists does not fire. Your own rules stay and work again when WooCommerce is back.
+* New: an AI assistant can find a post by the words in its title. The free read ability jnk-linkweave/find-posts returns the ID, title, address and post type of matching published posts (10 by default, at most 50, only the post types Linkweave reads). Before, an assistant asked to link "my post about choosing fonts" tried post IDs one by one. The Add a link ability and the "Guide for your assistant" file now point to it.
 
 = 1.24.0 =
 * Fixed: on WooCommerce shops the Cart, Checkout and My account pages were indexed, offered as link ideas and counted in the reports. Their content changes per visitor (the Cart page read as 4 product links in one run and 0 in the next), so Internal links and the orphan count moved with no edit. They are now left out of the index, link ideas, orphans and every report, found by WooCommerce's own page settings whatever their slug or language; old rows go on the next admin page load. Links to the Shop page (/shop/) now count as links to that page.

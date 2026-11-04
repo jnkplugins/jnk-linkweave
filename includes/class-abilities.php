@@ -179,6 +179,41 @@ class Abilities {
             "permission_callback" => [ __CLASS__, "can_read_post" ],
         ] );
 
+        self::add( "find-posts", "read", [
+            "label"               => __( "Find posts by title", "jnk-linkweave" ),
+            "description"         => __( "Published posts and pages whose title contains the given words, with their ID, title, address and post type. Use it to get the post IDs the other abilities need.", "jnk-linkweave" ),
+            "input_schema"        => [
+                "type"                 => "object",
+                "properties"           => [
+                    "search" => [ "type" => "string", "minLength" => 1, "maxLength" => 200, "description" => "Words in the title, for example \"choosing fonts\"." ],
+                    "type"   => [ "type" => "string", "maxLength" => 20, "description" => "Only this post type (post, page, product...). Optional." ],
+                    "limit"  => [ "type" => "integer", "minimum" => 1, "maximum" => self::FIND_MAX, "default" => 10 ],
+                ],
+                "required"             => [ "search" ],
+                "additionalProperties" => false,
+            ],
+            "output_schema"       => [
+                "type"       => "object",
+                "properties" => [
+                    "total" => [ "type" => "integer" ],
+                    "posts" => [
+                        "type"  => "array",
+                        "items" => [
+                            "type"       => "object",
+                            "properties" => [
+                                "post_id" => [ "type" => "integer" ],
+                                "title"   => [ "type" => "string" ],
+                                "url"     => [ "type" => "string" ],
+                                "type"    => [ "type" => "string" ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            "execute_callback"    => [ __CLASS__, "find_posts" ],
+            "permission_callback" => [ __CLASS__, "can_find_posts" ],
+        ] );
+
         self::add( "get-link-stats", "read", [
             "label"               => __( "Get internal link stats", "jnk-linkweave" ),
             "description"         => __( "Site-wide internal linking numbers: posts indexed, internal links, orphans, dead ends, broken links and active auto-link rules.", "jnk-linkweave" ),
@@ -278,6 +313,11 @@ class Abilities {
         return current_user_can( "manage_options" );
     }
 
+    /** Searching titles: anyone who may edit posts (the same people the editor suggests links to). */
+    public static function can_find_posts( $input = null ): bool {
+        return current_user_can( "edit_posts" );
+    }
+
     public static function can_read_post( $input = null ): bool {
         $id = (int) ( is_array( $input ) ? ( $input["post_id"] ?? 0 ) : 0 );
         return $id > 0 && current_user_can( "edit_posts" ) && current_user_can( "read_post", $id );
@@ -288,6 +328,63 @@ class Abilities {
     private static function int_arg( $input, string $key, int $default, int $min, int $max ): int {
         $value = is_array( $input ) && isset( $input[ $key ] ) ? (int) $input[ $key ] : $default;
         return max( $min, min( $max, $value ) );
+    }
+
+    /** Most posts find-posts returns in one call. */
+    public const FIND_MAX = 50;
+
+    /**
+     * Posts whose title has the words in "search", best match first. An
+     * assistant asked to link "my post about choosing fonts" called
+     * get-post-links on eleven post IDs in turn to find it (video QA 3 Nov 2026).
+     * Published posts of the indexed types only (what links can point at),
+     * that the user may read.
+     */
+    public static function find_posts( $input = null ) {
+        $search = trim( wp_strip_all_tags( (string) ( is_array( $input ) ? ( $input["search"] ?? "" ) : "" ) ) );
+        if ( "" === $search ) {
+            return new \WP_Error( "jnk_linkweave_no_search", __( "Give some words from the title to search for.", "jnk-linkweave" ) );
+        }
+        $search = mb_substr( $search, 0, 200 );
+        $limit  = self::int_arg( $input, "limit", 10, 1, self::FIND_MAX );
+        $types  = Index_Builder::indexed_types() ?: [ "post", "page" ];
+        $type   = sanitize_key( (string) ( is_array( $input ) ? ( $input["type"] ?? "" ) : "" ) );
+        if ( "" !== $type ) {
+            if ( ! in_array( $type, $types, true ) ) {
+                return [ "total" => 0, "posts" => [] ];
+            }
+            $types = [ $type ];
+        }
+        $query = new \WP_Query( [
+            "s"                      => $search,
+            "search_columns"         => [ "post_title" ],
+            "post_type"              => $types,
+            "post_status"            => "publish",
+            "posts_per_page"         => $limit,
+            "post__not_in"           => Woo_Pages::excluded_ids(),
+            "orderby"                => "relevance",
+            "ignore_sticky_posts"    => true,
+            "no_found_rows"          => false,
+            "update_post_meta_cache" => false,
+            "update_post_term_cache" => false,
+            "suppress_filters"       => false,
+        ] );
+        $out = [];
+        foreach ( $query->posts as $post ) {
+            if ( ! current_user_can( "read_post", $post->ID ) ) {
+                continue;
+            }
+            $out[] = [
+                "post_id" => (int) $post->ID,
+                "title"   => REST_API::plain_title( $post ),
+                "url"     => (string) get_permalink( $post ),
+                "type"    => (string) $post->post_type,
+            ];
+        }
+        return [
+            "total" => (int) $query->found_posts,
+            "posts" => $out,
+        ];
     }
 
     public static function list_orphans( $input = null ): array {

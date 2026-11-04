@@ -10,6 +10,9 @@ class Cron {
 
     public static function register_hooks(): void {
         add_action( self::DAILY_HOOK, [ __CLASS__, "run_daily_scan" ] );
+        // A post type that left the defaults (WooCommerce switched off) leaves the
+        // index even on a site where nobody opens the admin.
+        add_action( self::DAILY_HOOK, [ Index_Builder::class, "maybe_index_new_default_types" ], 5 );
         // The daily event was only ever scheduled on activation or upgrade, so once
         // lost (a cron table wiped by a migration or a cleanup plugin; seen in QA on
         // 8 Oct 2026 after a bulk import) the broken-link scan and the nightly

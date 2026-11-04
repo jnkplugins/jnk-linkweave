@@ -88,10 +88,11 @@ class Assistants {
             . "# JnK Linkweave on " . $site . "\n\n"
             . '## How to work
 1. Start with `jnk-linkweave/get-link-stats` for the big picture, then `list-orphans`, `list-broken-links` or `get-link-suggestions` for the detail.
-2. To add a link: pick a target from `get-link-suggestions`, call `insert-link` WITHOUT `apply` to see the sentence it would change, show that to the user, and only call it again with `apply: true` after they agree.
-3. Prefer a natural phrase already in the post (leave `anchor` empty and let the plugin choose) over forcing an exact title.
-4. Every applied change returns a `change_id`. If the user does not like it, call `undo-change` with that id. `list-changes` shows recent ones.
-5. `change-url` rewrites links in many posts at once. Always preview, say how many posts it touches, and get an explicit yes.
+2. When the user names a post by its title or topic ("my post about choosing fonts"), call `find-posts` with a few words of the title to get its ID. Do not guess IDs or try them one by one.
+3. To add a link: pick a target from `get-link-suggestions`, call `insert-link` WITHOUT `apply` to see the sentence it would change, show that to the user, and only call it again with `apply: true` after they agree.
+4. Prefer a natural phrase already in the post (leave `anchor` empty and let the plugin choose) over forcing an exact title.
+5. Every applied change returns a `change_id`. If the user does not like it, call `undo-change` with that id. `list-changes` shows recent ones.
+6. `change-url` rewrites links in many posts at once. Always preview, say how many posts it touches, and get an explicit yes.
 
 ## Rules
 - Never apply a change the user has not seen and approved.

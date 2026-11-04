@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-11-02T19:59:43+00:00\n"
+"POT-Creation-Date: 2026-11-04T06:54:38+00:00\n"
 "PO-Revision-Date: 2026-10-10 16:38+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Korean\n"
@@ -154,7 +154,7 @@ msgid "Skip and deactivate"
 msgstr "건너뛰고 비활성화"
 
 #: pro/licensorpro-client/licensorpro-client.php:1261
-#: admin/assets/js/admin.js:526
+#: admin/assets/js/admin.js:532
 msgid "Cancel"
 msgstr "취소"
 
@@ -324,8 +324,8 @@ msgstr "갱신 결제 실패, Pro 도구는 %s까지 계속 켜져 있습니다"
 
 #: pro/licensorpro-client/licensorpro-client.php:2035
 #: admin/views/domains.php:63
-#: admin/assets/js/admin.js:465
-#: admin/assets/js/admin.js:938
+#: admin/assets/js/admin.js:471
+#: admin/assets/js/admin.js:944
 msgid "Status"
 msgstr "상태"
 
@@ -721,12 +721,12 @@ msgstr "완료"
 msgid "Last full read: just now (%d posts)"
 msgstr "마지막 전체 읽기: 방금(글 %d개)"
 
-#: admin/class-assistants.php:104
-#: admin/class-assistants.php:116
+#: admin/class-assistants.php:105
+#: admin/class-assistants.php:117
 msgid "Sorry, you are not allowed to do that."
 msgstr "죄송합니다. 이 작업을 할 권한이 없습니다."
 
-#: admin/class-assistants.php:139
+#: admin/class-assistants.php:140
 msgid "Sorry, you are not allowed to install plugins on this site."
 msgstr "죄송합니다. 이 사이트에 플러그인을 설치할 권한이 없습니다."
 
@@ -751,7 +751,7 @@ msgstr[0] "내부 링크 %d개가 이 글을 가리킵니다"
 
 #. translators: %d: number of links in.
 #: admin/class-posts-column.php:79
-#: admin/assets/js/admin.js:701
+#: admin/assets/js/admin.js:707
 #, php-format
 msgid "%d in"
 msgid_plural "%d in"
@@ -867,7 +867,7 @@ msgid "Off by default. An assistant only ever acts as the user it signs in as, s
 msgstr "기본값은 꺼짐입니다. 어시스턴트는 로그인한 사용자로서만 작동하므로, 그 사용자가 이 화면에서 할 수 있는 것 이상은 절대 할 수 없습니다."
 
 #: admin/views/assistants.php:72
-#: admin/assets/js/admin.js:525
+#: admin/assets/js/admin.js:531
 msgid "Save"
 msgstr "저장"
 
@@ -1063,7 +1063,7 @@ msgid "Links in your posts that lead to a page that no longer exists. Linkweave 
 msgstr "글에 있는 링크 중 더 이상 존재하지 않는 페이지로 연결되는 링크입니다. Linkweave가 매일 확인하며, 지금 바로 확인할 수도 있습니다."
 
 #: admin/views/dashboard.php:61
-#: admin/assets/js/admin.js:321
+#: admin/assets/js/admin.js:327
 msgid "Run now"
 msgstr "지금 실행"
 
@@ -1108,13 +1108,13 @@ msgid "Posts Linkweave knows"
 msgstr "Linkweave가 아는 글"
 
 #: admin/views/dashboard.php:99
-#: admin/assets/js/admin.js:306
+#: admin/assets/js/admin.js:312
 msgid "Queued, waiting for WordPress to start it"
 msgstr "대기 중, WordPress가 시작하기를 기다리는 중"
 
 #. translators: 1: posts read so far, 2: total posts.
 #: admin/views/dashboard.php:103
-#: admin/assets/js/admin.js:313
+#: admin/assets/js/admin.js:319
 #, php-format
 msgid "Reading posts %1$d of %2$d"
 msgstr "글 읽는 중: %2$d개 중 %1$d개"
@@ -1359,12 +1359,12 @@ msgid "No links to this site were found in your posts."
 msgstr "글에서 이 사이트로 가는 링크를 찾지 못했습니다."
 
 #: admin/views/domains.php:59
-#: admin/assets/js/admin.js:938
+#: admin/assets/js/admin.js:944
 msgid "Found in"
 msgstr "발견 위치"
 
 #: admin/views/domains.php:60
-#: admin/assets/js/admin.js:938
+#: admin/assets/js/admin.js:944
 msgid "Link text"
 msgstr "링크 텍스트"
 
@@ -1381,17 +1381,17 @@ msgid "followed"
 msgstr "follow"
 
 #: admin/views/domains.php:74
-#: admin/assets/js/admin.js:913
+#: admin/assets/js/admin.js:919
 msgid "Not checked yet"
 msgstr "아직 확인하지 않았습니다"
 
 #: admin/views/domains.php:76
-#: admin/assets/js/admin.js:930
+#: admin/assets/js/admin.js:936
 msgid "Page missing"
 msgstr "페이지 없음"
 
 #: admin/views/domains.php:78
-#: admin/assets/js/admin.js:929
+#: admin/assets/js/admin.js:935
 msgid "Did not answer"
 msgstr "응답 없음"
 
@@ -1844,39 +1844,51 @@ msgid "Posts on this site that a given post should link to, best match first, wi
 msgstr "특정 글이 연결하면 좋은 이 사이트의 글을 가장 잘 맞는 순서로, 공통 단어와 함께 보여 줍니다."
 
 #: includes/class-abilities.php:183
+msgid "Find posts by title"
+msgstr "제목으로 글 찾기"
+
+#: includes/class-abilities.php:184
+msgid "Published posts and pages whose title contains the given words, with their ID, title, address and post type. Use it to get the post IDs the other abilities need."
+msgstr "제목에 주어진 단어가 들어 있는 발행된 글과 페이지를 ID, 제목, 주소, 글 유형과 함께 돌려줍니다. 다른 기능에 필요한 글 ID를 얻을 때 쓰세요."
+
+#: includes/class-abilities.php:218
 msgid "Get internal link stats"
 msgstr "내부 링크 통계 가져오기"
 
-#: includes/class-abilities.php:184
+#: includes/class-abilities.php:219
 msgid "Site-wide internal linking numbers: posts indexed, internal links, orphans, dead ends, broken links and active auto-link rules."
 msgstr "사이트 전체 내부 링크 수치: 색인된 글, 내부 링크, 링크 없는 글, 막다른 글, 깨진 링크, 활성 자동 링크 규칙."
 
-#: includes/class-abilities.php:203
+#: includes/class-abilities.php:238
 msgid "Get the links of one post"
 msgstr "글 하나의 링크 가져오기"
 
-#: includes/class-abilities.php:204
+#: includes/class-abilities.php:239
 msgid "The internal links a post makes (outbound) and the posts that link to it (inbound), with their link text."
 msgstr "글이 거는 내부 링크(나가는 링크)와 그 글로 링크하는 글(들어오는 링크)을 링크 텍스트와 함께 보여 줍니다."
 
-#: includes/class-abilities.php:226
+#: includes/class-abilities.php:261
 msgid "List broken links"
 msgstr "깨진 링크 목록"
 
-#: includes/class-abilities.php:227
+#: includes/class-abilities.php:262
 msgid "Links found by the last broken-link check: the post they are in, where they point, their text, and whether the page is missing or did not answer."
 msgstr "마지막 깨진 링크 검사에서 찾은 링크입니다. 링크가 있는 글, 연결 대상, 링크 텍스트, 그리고 페이지가 없는지 응답하지 않았는지를 보여 줍니다."
 
-#: includes/class-abilities.php:249
+#: includes/class-abilities.php:284
 msgid "List auto-link rules"
 msgstr "자동 링크 규칙 목록"
 
-#: includes/class-abilities.php:250
+#: includes/class-abilities.php:285
 msgid "The keyword-to-address rules that add links automatically, with how many posts each one links from."
 msgstr "키워드를 주소로 자동 링크하는 규칙과, 규칙마다 몇 개의 글에서 링크하는지를 보여 줍니다."
 
-#: includes/class-abilities.php:311
-#: includes/class-abilities.php:363
+#: includes/class-abilities.php:346
+msgid "Give some words from the title to search for."
+msgstr "찾을 제목의 단어를 몇 개 입력하세요."
+
+#: includes/class-abilities.php:408
+#: includes/class-abilities.php:460
 msgid "Post not found."
 msgstr "글을 찾을 수 없습니다."
 
@@ -1889,12 +1901,12 @@ msgid "Loading link ideas…"
 msgstr "링크 아이디어를 불러오는 중…"
 
 #. translators: %s: the database's error message
-#: includes/class-index-builder.php:553
+#: includes/class-index-builder.php:605
 #, php-format
 msgid "The index table could not be created, so nothing can be indexed. The database said: %s"
 msgstr "색인 테이블을 만들지 못해 아무것도 색인할 수 없습니다. 데이터베이스 메시지: %s"
 
-#: includes/class-index-builder.php:554
+#: includes/class-index-builder.php:606
 msgid "no reason given"
 msgstr "이유가 표시되지 않음"
 
@@ -1989,33 +2001,33 @@ msgid "Your API key was not saved because this site does not use HTTPS; every ot
 msgstr "이 사이트가 HTTPS를 사용하지 않아 API 키는 저장하지 않았습니다. 다른 설정은 모두 저장했습니다. 사이트를 HTTPS로 바꾸거나, 직접 입력한 키 대신 WordPress AI 연결(설정 > 커넥터)을 선택하세요."
 
 #: admin/assets/js/admin.js:73
-#: admin/assets/js/admin.js:460
+#: admin/assets/js/admin.js:466
 msgid "Edit"
 msgstr "편집"
 
-#: admin/assets/js/admin.js:708
+#: admin/assets/js/admin.js:714
 msgid "Filter by title…"
 msgstr "제목으로 필터…"
 
-#: admin/assets/js/admin.js:708
+#: admin/assets/js/admin.js:714
 msgid "Filter by title"
 msgstr "제목으로 필터"
 
 #: admin/assets/js/admin.js:76
-#: admin/assets/js/admin.js:603
-#: admin/assets/js/admin.js:627
-#: admin/assets/js/admin.js:698
+#: admin/assets/js/admin.js:609
+#: admin/assets/js/admin.js:633
+#: admin/assets/js/admin.js:704
 msgid "View"
 msgstr "보기"
 
-#: admin/assets/js/admin.js:460
+#: admin/assets/js/admin.js:466
 msgid "Delete"
 msgstr "삭제"
 
-#: admin/assets/js/admin.js:450
-#: admin/assets/js/admin.js:589
-#: admin/assets/js/admin.js:684
-#: admin/assets/js/admin.js:891
+#: admin/assets/js/admin.js:456
+#: admin/assets/js/admin.js:595
+#: admin/assets/js/admin.js:690
+#: admin/assets/js/admin.js:897
 msgid "Loading…"
 msgstr "불러오는 중…"
 
@@ -2027,345 +2039,345 @@ msgstr "링크 복사"
 msgid "Copied"
 msgstr "복사됨"
 
-#: admin/assets/js/admin.js:483
+#: admin/assets/js/admin.js:489
 msgid "Add rule"
 msgstr "규칙 추가"
 
-#: admin/assets/js/admin.js:122
+#: admin/assets/js/admin.js:127
 msgid "just now"
 msgstr "방금"
 
-#: admin/assets/js/admin.js:122
+#: admin/assets/js/admin.js:127
 msgid "in a moment"
 msgstr "잠시 후"
 
-#: admin/assets/js/admin.js:137
+#: admin/assets/js/admin.js:142
 msgid "or find a post by title"
 msgstr "또는 제목으로 글 찾기"
 
-#: admin/assets/js/admin.js:137
+#: admin/assets/js/admin.js:142
 msgid "Find a post by title"
 msgstr "제목으로 글 찾기"
 
-#: admin/assets/js/admin.js:176
+#: admin/assets/js/admin.js:181
 msgid "No posts match."
 msgstr "맞는 글이 없습니다."
 
 #. translators: 1: posts saved so far, 2: total posts.
-#: admin/assets/js/admin.js:310
+#: admin/assets/js/admin.js:316
 msgid "Saving what it learned: %1$d of %2$d"
 msgstr "읽은 내용 저장 중: %2$d개 중 %1$d개"
 
-#: admin/assets/js/admin.js:341
+#: admin/assets/js/admin.js:347
 msgid "The last read stopped before it finished."
 msgstr "마지막 읽기가 끝나기 전에 멈췄습니다."
 
-#: admin/assets/js/admin.js:342
+#: admin/assets/js/admin.js:348
 msgid "The last read failed."
 msgstr "마지막 읽기가 실패했습니다."
 
-#: admin/assets/js/admin.js:343
-#: admin/assets/js/admin.js:399
-#: admin/assets/js/admin.js:415
+#: admin/assets/js/admin.js:349
+#: admin/assets/js/admin.js:405
+#: admin/assets/js/admin.js:421
 msgid "Run it again now"
 msgstr "지금 다시 실행"
 
-#: admin/assets/js/admin.js:456
+#: admin/assets/js/admin.js:462
 msgid "Created by the link map. Clearing the map removes it; rules you wrote are never touched."
 msgstr "링크 맵이 만든 규칙입니다. 맵을 지우면 함께 삭제되며, 직접 만든 규칙은 건드리지 않습니다."
 
-#: admin/assets/js/admin.js:456
+#: admin/assets/js/admin.js:462
 msgid "from link map"
 msgstr "링크 맵에서 생성"
 
-#: admin/assets/js/admin.js:456
+#: admin/assets/js/admin.js:462
 msgid "This rule uses Pro options and is paused on the free version."
 msgstr "이 규칙은 Pro 옵션을 사용하므로 무료 버전에서는 일시 중지됩니다."
 
-#: admin/assets/js/admin.js:458
+#: admin/assets/js/admin.js:464
 msgid "Its settings are kept. It runs again when the Pro version is back."
 msgstr "설정은 그대로 유지됩니다. Pro 버전이 돌아오면 다시 작동합니다."
 
-#: admin/assets/js/admin.js:458
+#: admin/assets/js/admin.js:464
 msgid "Paused"
 msgstr "일시 중지됨"
 
-#: admin/assets/js/admin.js:458
-#: admin/assets/js/admin.js:473
-#: admin/assets/js/admin.js:517
+#: admin/assets/js/admin.js:464
+#: admin/assets/js/admin.js:479
+#: admin/assets/js/admin.js:523
 msgid "On"
 msgstr "켜짐"
 
-#: admin/assets/js/admin.js:465
-#: admin/assets/js/admin.js:470
+#: admin/assets/js/admin.js:471
+#: admin/assets/js/admin.js:476
 msgid "Phrase"
 msgstr "문구"
 
-#: admin/assets/js/admin.js:465
 #: admin/assets/js/admin.js:471
+#: admin/assets/js/admin.js:477
 #: admin/assets/js/linkmap.js:530
 msgid "Links to"
 msgstr "연결 대상"
 
-#: admin/assets/js/admin.js:465
+#: admin/assets/js/admin.js:471
 msgid "Links this rule adds across your published posts right now. Mentions already inside a link, a heading or code, and mentions on the target page itself, are skipped, so 0 can be correct."
 msgstr "이 규칙이 지금 발행된 글 전체에 추가하는 링크 수입니다. 이미 링크, 제목, 코드 안에 있는 언급과 대상 페이지 자체의 언급은 건너뛰므로 0이 맞을 수도 있습니다."
 
-#: admin/assets/js/admin.js:465
+#: admin/assets/js/admin.js:471
 msgid "Links added"
 msgstr "추가된 링크"
 
-#: admin/assets/js/admin.js:466
+#: admin/assets/js/admin.js:472
 msgid "No rules yet"
 msgstr "아직 규칙이 없습니다"
 
-#: admin/assets/js/admin.js:466
+#: admin/assets/js/admin.js:472
 msgid "A rule links one phrase to one page everywhere it appears. Add your first one with the form."
 msgstr "규칙은 한 문구를 그 문구가 나오는 모든 곳에서 한 페이지로 링크합니다. 양식에서 첫 규칙을 추가하세요."
 
-#: admin/assets/js/admin.js:468
+#: admin/assets/js/admin.js:474
 msgid "Add a rule"
 msgstr "규칙 추가"
 
-#: admin/assets/js/admin.js:468
+#: admin/assets/js/admin.js:474
 msgid "Linkweave links this phrase wherever it appears in your posts."
 msgstr "Linkweave가 글에서 이 문구가 나오는 곳마다 링크를 겁니다."
 
-#: admin/assets/js/admin.js:470
+#: admin/assets/js/admin.js:476
 msgid "e.g. internal linking"
 msgstr "예: 내부 링크"
 
-#: admin/assets/js/admin.js:474
-#: admin/assets/js/admin.js:514
+#: admin/assets/js/admin.js:480
+#: admin/assets/js/admin.js:520
 msgid "Match capital letters"
 msgstr "대소문자 구분"
 
-#: admin/assets/js/admin.js:475
-#: admin/assets/js/admin.js:515
+#: admin/assets/js/admin.js:481
+#: admin/assets/js/admin.js:521
 msgid "Open in a new tab"
 msgstr "새 탭에서 열기"
 
-#: admin/assets/js/admin.js:476
+#: admin/assets/js/admin.js:482
 msgid "Tells search engines not to pass ranking credit through this link"
 msgstr "이 링크를 통해 검색 순위 점수를 넘기지 말라고 검색엔진에 알립니다"
 
-#: admin/assets/js/admin.js:479
-#: admin/assets/js/admin.js:520
+#: admin/assets/js/admin.js:485
+#: admin/assets/js/admin.js:526
 msgid "Most per post"
 msgstr "글당 최대"
 
-#: admin/assets/js/admin.js:480
-#: admin/assets/js/admin.js:521
+#: admin/assets/js/admin.js:486
+#: admin/assets/js/admin.js:527
 msgid "Most across the site"
 msgstr "사이트 전체 최대"
 
-#: admin/assets/js/admin.js:480
-#: admin/assets/js/admin.js:521
+#: admin/assets/js/admin.js:486
+#: admin/assets/js/admin.js:527
 msgid "0 means no limit"
 msgstr "0은 제한 없음"
 
-#: admin/assets/js/admin.js:490
+#: admin/assets/js/admin.js:496
 msgid "Delete this rule?"
 msgstr "이 규칙을 삭제할까요?"
 
-#: admin/assets/js/admin.js:494
+#: admin/assets/js/admin.js:500
 msgid "Rule deleted."
 msgstr "규칙을 삭제했습니다."
 
-#: admin/assets/js/admin.js:548
+#: admin/assets/js/admin.js:554
 msgid "Rule saved."
 msgstr "규칙을 저장했습니다."
 
-#: admin/assets/js/admin.js:575
+#: admin/assets/js/admin.js:581
 msgid "Rule added."
 msgstr "규칙을 추가했습니다."
 
-#: admin/assets/js/admin.js:598
+#: admin/assets/js/admin.js:604
 msgid "%d post linked only by auto-link rules"
 msgid_plural "%d posts linked only by auto-link rules"
 msgstr[0] "자동 링크 규칙으로만 링크되는 글 %d개"
 
-#: admin/assets/js/admin.js:599
+#: admin/assets/js/admin.js:605
 msgid "Visitors reach these through your auto-link rules, so they are not orphans. No link written in a post points at them yet."
 msgstr "방문자는 자동 링크 규칙을 통해 이 글에 도달하므로 링크 없는 글이 아닙니다. 다만 글에 직접 쓴 링크는 아직 하나도 없습니다."
 
-#: admin/assets/js/admin.js:605
+#: admin/assets/js/admin.js:611
 msgid "%d auto-link in"
 msgid_plural "%d auto-links in"
 msgstr[0] "자동 링크 %d개"
 
-#: admin/assets/js/admin.js:611
+#: admin/assets/js/admin.js:617
 msgid "No orphan posts"
 msgstr "링크 없는 글이 없습니다"
 
 #. translators: 1: opening link tag to the Overview screen, 2: closing link tag.
-#: admin/assets/js/admin.js:614
+#: admin/assets/js/admin.js:620
 msgid "Every published post has at least one internal link pointing at it. If you have not built the index yet, %1$sdo that on the Overview%2$s first."
 msgstr "발행된 모든 글에 내부 링크가 하나 이상 연결되어 있습니다. 아직 색인을 만들지 않았다면 먼저 %1$s개요에서 만드세요%2$s."
 
-#: admin/assets/js/admin.js:622
+#: admin/assets/js/admin.js:628
 msgid "%d post needs a link"
 msgid_plural "%d posts need a link"
 msgstr[0] "링크가 필요한 글 %d개"
 
-#: admin/assets/js/admin.js:623
+#: admin/assets/js/admin.js:629
 msgid "Linkweave compares each one with the rest of your site and lists the posts that talk about the same thing."
 msgstr "Linkweave가 각 글을 사이트의 나머지 글과 비교해 같은 주제를 다루는 글을 보여 줍니다."
 
-#: admin/assets/js/admin.js:629
+#: admin/assets/js/admin.js:635
 msgid "Shorter than the minimum length in Settings, so it is never suggested as a link target."
 msgstr "설정의 최소 길이보다 짧아서 링크 대상으로 제안되지 않습니다."
 
-#: admin/assets/js/admin.js:629
+#: admin/assets/js/admin.js:635
 msgid "Too short to suggest"
 msgstr "너무 짧아서 제안 안 됨"
 
-#: admin/assets/js/admin.js:630
-#: admin/assets/js/admin.js:647
+#: admin/assets/js/admin.js:636
+#: admin/assets/js/admin.js:653
 msgid "Find posts that could link here"
 msgstr "여기로 링크할 수 있는 글 찾기"
 
-#: admin/assets/js/admin.js:647
+#: admin/assets/js/admin.js:653
 msgid "Hide"
 msgstr "숨기기"
 
-#: admin/assets/js/admin.js:650
+#: admin/assets/js/admin.js:656
 msgid "Looking through your posts…"
 msgstr "글을 살펴보는 중…"
 
-#: admin/assets/js/admin.js:656
+#: admin/assets/js/admin.js:662
 msgid "No close matches yet. Write a related post and link it here, or add an auto-link rule for this page."
 msgstr "아직 비슷한 글이 없습니다. 관련 글을 써서 여기로 링크하거나, 이 페이지에 대한 자동 링크 규칙을 추가하세요."
 
-#: admin/assets/js/admin.js:664
+#: admin/assets/js/admin.js:670
 msgid "How closely the two posts match"
 msgstr "두 글이 얼마나 비슷한지"
 
-#: admin/assets/js/admin.js:665
+#: admin/assets/js/admin.js:671
 msgid "Open"
 msgstr "열기"
 
-#: admin/assets/js/admin.js:668
+#: admin/assets/js/admin.js:674
 msgid "Open a post and add the link in the editor."
 msgstr "글을 열고 편집기에서 링크를 추가하세요."
 
-#: admin/assets/js/admin.js:669
+#: admin/assets/js/admin.js:675
 msgid "Pro adds the links for you"
 msgstr "Pro는 링크를 대신 추가해 줍니다"
 
-#: admin/assets/js/admin.js:688
+#: admin/assets/js/admin.js:694
 msgid "Nothing to show yet"
 msgstr "아직 표시할 내용이 없습니다"
 
-#: admin/assets/js/admin.js:688
+#: admin/assets/js/admin.js:694
 msgid "Build the index on the Overview and the counts appear here."
 msgstr "개요에서 색인을 만들면 여기에 링크 수가 나타납니다."
 
 #. translators: %d: number of posts.
-#: admin/assets/js/admin.js:705
+#: admin/assets/js/admin.js:711
 #: admin/assets/js/linkmap.js:36
 msgid "%d post"
 msgid_plural "%d posts"
 msgstr[0] "글 %d개"
 
-#: admin/assets/js/admin.js:707
+#: admin/assets/js/admin.js:713
 msgid "%d with no links in, shown in red."
 msgid_plural "%d with no links in, shown in red."
 msgstr[0] "들어오는 링크가 없는 글 %d개, 빨간색으로 표시됩니다."
 
-#: admin/assets/js/admin.js:707
+#: admin/assets/js/admin.js:713
 msgid "Every post has at least one link in."
 msgstr "모든 글에 들어오는 링크가 하나 이상 있습니다."
 
-#: admin/assets/js/admin.js:743
+#: admin/assets/js/admin.js:749
 msgid "Checking links: %1$d of %2$d…"
 msgstr "링크 확인 중: %2$d개 중 %1$d개…"
 
-#: admin/assets/js/admin.js:744
-#: admin/assets/js/admin.js:854
+#: admin/assets/js/admin.js:750
+#: admin/assets/js/admin.js:860
 msgid "Collecting your links…"
 msgstr "링크를 모으는 중…"
 
-#: admin/assets/js/admin.js:752
+#: admin/assets/js/admin.js:758
 msgid "The check stopped: a step failed %1$d times in a row (%2$s). Click “Check all links now” to start again."
 msgstr "확인이 멈췄습니다: 한 단계가 %1$d번 연속 실패했습니다 (%2$s). “지금 모든 링크 확인”을 클릭해 다시 시작하세요."
 
-#: admin/assets/js/admin.js:754
+#: admin/assets/js/admin.js:760
 msgid "The check stopped: a step failed %d times in a row. Click “Check all links now” to start again."
 msgstr "확인이 멈췄습니다: 한 단계가 %d번 연속 실패했습니다. “지금 모든 링크 확인”을 클릭해 다시 시작하세요."
 
 #. translators: 1: links checked, 2: links to missing pages, 3: links that did not answer.
-#: admin/assets/js/admin.js:762
+#: admin/assets/js/admin.js:768
 msgid "Done: %1$d links checked, %2$d to missing pages, %3$d did not answer."
 msgstr "완료: 링크 %1$d개 확인, 없는 페이지로 연결 %2$d개, 응답 없음 %3$d개."
 
-#: admin/assets/js/admin.js:764
+#: admin/assets/js/admin.js:770
 msgid "The check stopped before it finished. Click the button to run it again."
 msgstr "확인이 끝나기 전에 멈췄습니다. 버튼을 눌러 다시 실행하세요."
 
 #. translators: %s: the error message from the site.
-#: admin/assets/js/admin.js:823
+#: admin/assets/js/admin.js:829
 msgid "This page could not go on with the check (%s). It carries on in the background; this line updates when it is done."
 msgstr "이 페이지에서 확인을 계속할 수 없습니다 (%s). 확인은 백그라운드에서 계속되며, 끝나면 이 줄이 업데이트됩니다."
 
 #. translators: 1: date and time, 2: number of links checked.
-#: admin/assets/js/admin.js:873
+#: admin/assets/js/admin.js:879
 msgid "Last full check: %1$s, %2$d links checked."
 msgstr "마지막 전체 확인: %1$s, 링크 %2$d개 확인함."
 
-#: admin/assets/js/admin.js:875
+#: admin/assets/js/admin.js:881
 msgid "No full check has finished yet."
 msgstr "아직 끝난 전체 확인이 없습니다."
 
 #. translators: %d: number of links never checked.
-#: admin/assets/js/admin.js:879
+#: admin/assets/js/admin.js:885
 msgid "%d link has never been checked."
 msgid_plural "%d links have never been checked."
 msgstr[0] "한 번도 확인하지 않은 링크가 %d개 있습니다."
 
-#: admin/assets/js/admin.js:884
+#: admin/assets/js/admin.js:890
 msgid "The last check stopped part way. Click “Check all links now” to finish it."
 msgstr "마지막 확인이 중간에 멈췄습니다. “지금 모든 링크 확인”을 눌러 마무리하세요."
 
-#: admin/assets/js/admin.js:907
+#: admin/assets/js/admin.js:913
 msgid "No broken links"
 msgstr "깨진 링크가 없습니다"
 
-#: admin/assets/js/admin.js:910
+#: admin/assets/js/admin.js:916
 msgid "Last checked %1$s, %2$d link in total."
 msgid_plural "Last checked %1$s, %2$d links in total."
 msgstr[0] "마지막 확인: %1$s, 전체 링크 %2$d개."
 
-#: admin/assets/js/admin.js:912
+#: admin/assets/js/admin.js:918
 msgid "Last checked %s."
 msgstr "마지막 확인: %s."
 
-#: admin/assets/js/admin.js:913
+#: admin/assets/js/admin.js:919
 msgid "Linkweave checks your links once a day. Click “Check all links now” to do it straight away."
 msgstr "Linkweave는 하루에 한 번 링크를 확인합니다. 지금 바로 확인하려면 \"지금 모든 링크 확인\"을 클릭하세요."
 
-#: admin/assets/js/admin.js:929
+#: admin/assets/js/admin.js:935
 msgid "No answer in time, or the server returned an error. The page may be fine: open it to check. Remove all leaves these links alone."
 msgstr "제때 응답이 없거나 서버가 오류를 돌려주었습니다. 페이지는 괜찮을 수도 있으니 열어서 확인하세요. 모두 제거 버튼은 이 링크를 건드리지 않습니다."
 
-#: admin/assets/js/admin.js:938
+#: admin/assets/js/admin.js:944
 msgid "Points at"
 msgstr "연결 대상"
 
-#: admin/assets/js/admin.js:938
+#: admin/assets/js/admin.js:944
 msgid "Checked"
 msgstr "확인 시각"
 
-#: admin/assets/js/admin.js:986
+#: admin/assets/js/admin.js:992
 msgid "Saving…"
 msgstr "저장하는 중…"
 
-#: admin/assets/js/admin.js:990
-#: admin/assets/js/admin.js:994
+#: admin/assets/js/admin.js:996
+#: admin/assets/js/admin.js:1000
 msgid "Settings saved."
 msgstr "설정을 저장했습니다."
 
-#: admin/assets/js/admin.js:994
+#: admin/assets/js/admin.js:1000
 msgid "The index is being rebuilt in the background so the change reaches every post."
 msgstr "변경 사항이 모든 글에 반영되도록 백그라운드에서 색인을 다시 만들고 있습니다."
 
@@ -2635,6 +2647,54 @@ msgstr "색인 만들기"
 #: editor/src/SuggestionList.jsx:296
 msgid "Already built it? Save this post, then refresh."
 msgstr "이미 만드셨나요? 이 글을 저장한 다음 새로 고치세요."
+
+#~ msgid "Undone in %1$d post(s); %2$d edited since were left as they are."
+#~ msgstr "글 %1$d개에서 되돌렸습니다. 그 뒤에 수정된 %2$d개는 그대로 두었습니다."
+
+#~ msgid "Undone in %d post(s)."
+#~ msgstr "글 %d개에서 되돌렸습니다."
+
+#~ msgid "%1$d repeated link(s) in %2$d post(s)."
+#~ msgstr "글 %2$d개에 반복된 링크 %1$d개."
+
+#~ msgid "%1$d repeated link(s) removed in %2$d post(s)."
+#~ msgstr "글 %2$d개에서 반복된 링크 %1$d개를 없앴습니다."
+
+#~ msgid "Undone: %1$d rule(s) removed, %2$d put back, %3$d edited since were left as they are."
+#~ msgstr "되돌렸습니다: 규칙 %1$d개 삭제, %2$d개 복원, 그 뒤에 수정된 %3$d개는 그대로 두었습니다."
+
+#~ msgid "Built the link map: scanned %1$d indexed post(s); %2$d sit in a topical cluster"
+#~ msgstr "링크 맵을 만들었습니다: 색인된 글 %1$d개를 살펴봤고, 그중 %2$d개가 주제 클러스터에 속합니다"
+
+#~ msgid "Created %d rule(s)."
+#~ msgstr "규칙 %d개를 만들었습니다."
+
+#~ msgid "Replaced %d rule(s) from the earlier map that you had not edited."
+#~ msgstr "이전 맵에서 수정하지 않은 규칙 %d개를 교체했습니다."
+
+#~ msgid "Removed %d auto-generated rule(s)."
+#~ msgstr "자동 생성 규칙 %d개를 제거했습니다."
+
+#~ msgid "Rolled back %1$d post(s), skipped %2$d edited since the change."
+#~ msgstr "글 %1$d개를 되돌렸고, 변경 후 수정된 글 %2$d개는 건너뛰었습니다."
+
+#~ msgid "Rolled back %d post(s)."
+#~ msgstr "글 %d개를 되돌렸습니다."
+
+#~ msgid "It would add %1$d link(s) in %2$d post(s):"
+#~ msgstr "글 %2$d개에 링크 %1$d개를 넣습니다:"
+
+#~ msgid "%1$d link(s) would be written into %2$d post(s)."
+#~ msgstr "글 %2$d개에 링크 %1$d개를 써 넣습니다."
+
+#~ msgid "%1$d link(s) written into %2$d post(s)."
+#~ msgstr "글 %2$d개에 링크 %1$d개를 써 넣었습니다."
+
+#~ msgid "Added %1$d link(s); skipped %2$d."
+#~ msgstr "링크 %1$d개를 추가했고 %2$d개를 건너뛰었습니다."
+
+#~ msgid "Link a phrase in one post to another post on this site. Without apply it returns the sentence the link would go in; with apply: true it saves the post. Use get-link-suggestions or list-orphans to choose posts. Leave anchor empty to let Linkweave pick a natural phrase."
+#~ msgstr "한 글의 문구를 이 사이트의 다른 글로 링크합니다. apply 없이 호출하면 링크가 들어갈 문장을 돌려주고, apply: true로 호출하면 글을 저장합니다. 글을 고를 때는 get-link-suggestions 또는 list-orphans를 쓰세요. anchor를 비워 두면 Linkweave가 자연스러운 문구를 고릅니다."
 
 #~ msgid "This site does not use HTTPS, so the API key was not saved and no other setting changed. Switch the site to HTTPS, or pick the WordPress AI connection (Settings > Connectors) instead of your own key."
 #~ msgstr "이 사이트는 HTTPS를 쓰지 않아 API 키를 저장하지 않았고 다른 설정도 바뀌지 않았습니다. 사이트를 HTTPS로 바꾸거나, 내 키 대신 WordPress AI 연결(설정 > 커넥터)을 고르세요."

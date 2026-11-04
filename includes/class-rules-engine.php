@@ -566,8 +566,81 @@ class Rules_Engine {
         if ( ! is_array( $rows ) ) {
             $rows = [];
         }
+        $rows = self::drop_dead_shortlinks( $rows );
         wp_cache_set( self::CACHE_KEY, $rows, "jnk-linkweave", self::CACHE_TTL );
         return $rows;
+    }
+
+    /**
+     * Rules whose target is a shortlink (/?p=128) to a post of a type that is
+     * not registered any more (a product after WooCommerce is switched off)
+     * would link visitors to a 404 page, so they do not fire.
+     *
+     * @param object[] $rows
+     * @return object[]
+     */
+    private static function drop_dead_shortlinks( array $rows ): array {
+        $ids = [];
+        foreach ( $rows as $row ) {
+            $id = self::shortlink_post_id( (string) ( $row->target_url ?? "" ) );
+            if ( $id > 0 ) {
+                $ids[] = $id;
+            }
+        }
+        if ( ! $ids ) {
+            return $rows;
+        }
+        _prime_post_caches( array_unique( $ids ), false, false );
+        return array_values( array_filter( $rows, static function ( $row ) {
+            $id   = self::shortlink_post_id( (string) ( $row->target_url ?? "" ) );
+            $type = $id > 0 ? get_post_type( $id ) : false;
+            return ! $type || post_type_exists( $type );
+        } ) );
+    }
+
+    /**
+     * The link map's rules (never edited by the owner) that point at posts of
+     * $types are removed: those post types left the index (WooCommerce
+     * switched off). The owner's own rules and edited map rules stay.
+     *
+     * @param string[] $types
+     */
+    public static function drop_generated_rules_for_types( array $types ): int {
+        global $wpdb;
+        $types = array_values( array_filter( array_map( "sanitize_key", $types ) ) );
+        if ( ! $types ) {
+            return 0;
+        }
+        $rules = (array) $wpdb->get_results( $wpdb->prepare( "SELECT id, target_url FROM %i WHERE is_generated = 1 AND updated_at = created_at", self::table() ) );
+        $drop  = [];
+        foreach ( $rules as $rule ) {
+            $url = (string) $rule->target_url;
+            $id  = self::target_post_id( $url );
+            if ( $id <= 0 ) {
+                // The type's permalinks no longer resolve once it is unregistered:
+                // look the slug up among that type's posts.
+                $slug = sanitize_title( rawurldecode( basename( (string) wp_parse_url( $url, PHP_URL_PATH ) ) ) );
+                $in   = implode( ",", array_fill( 0, count( $types ), "%s" ) );
+                $id   = "" === $slug ? 0 : (int) $wpdb->get_var( $wpdb->prepare(
+                    // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- IN() list built from %s placeholders.
+                    "SELECT ID FROM {$wpdb->posts} WHERE post_name = %s AND post_type IN ($in) LIMIT 1",
+                    array_merge( [ $slug ], $types )
+                ) );
+            }
+            $type = $id > 0 ? (string) get_post_field( "post_type", $id ) : "";
+            if ( "" !== $type && in_array( $type, $types, true ) ) {
+                $drop[] = (int) $rule->id;
+            }
+        }
+        foreach ( $drop as $id ) {
+            $wpdb->delete( self::table(), [ "id" => $id ], [ "%d" ] );
+        }
+        if ( $drop ) {
+            self::recompute_applied_counts();
+            self::flush_cache();
+            do_action( "jnk_linkweave_rules_changed" );
+        }
+        return count( $drop );
     }
 
     public static function flush_cache(): void {
