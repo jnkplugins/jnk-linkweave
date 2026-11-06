@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.25.0
+Stable tag: 1.26.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,6 +169,10 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.26.0 =
+* New: Beaver Builder pages (the free Beaver Builder Lite too) are read from their published layout, so link ideas, the link map, link counts and orphan reports see what visitors see. Before, text and links in Icon modules, and pages whose layout came in without the editor, were missed. Unpublished Beaver drafts are never read.
+* New: the Elementor link ideas panel (Page Settings) has an Insert link button. It puts the link on matching words in the page you have open: Text Editor and Elementor 4 Paragraph widgets, and the items of tabs, accordions and toggles (classic, nested and Elementor 4), never in headings or tab titles. Linkweave now also reads the text and links of Paragraph widgets. Elementor's undo takes it out again, and it is saved when you click Publish or Update. If you undo, Insert link comes back. Copy link is still there for buttons and other widgets.
 
 = 1.25.0 =
 * Fixed: a dashboard date never shows untranslated English like "3 day(s) ago". If the browser can't format the relative time in the admin language it uses the browser's own, or shows the date only.

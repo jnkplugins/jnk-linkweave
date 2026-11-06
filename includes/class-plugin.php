@@ -22,6 +22,8 @@ final class Plugin {
         Page_Cache::register_hooks();
         // Elementor pages are read from Elementor's own data (no-op without Elementor).
         Elementor_Reader::register();
+        // Beaver Builder pages are read from its published layout (only while it is active).
+        Beaver_Reader::register();
 
         add_action( "save_post", [ $this, "reindex_post_on_save" ], 20, 3 );
         add_action( "wp_trash_post", [ Index_Builder::class, "delete" ] );

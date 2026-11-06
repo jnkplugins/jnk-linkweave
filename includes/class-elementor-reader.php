@@ -16,10 +16,12 @@ defined( "ABSPATH" ) || exit;
  *     jnk_linkweave_post_body), so suggestions, orphans and link counts follow
  *     what visitors see.
  *   - Elementor's own save queues the page to be read again.
- *   - In the Elementor editor, Page Settings has a read-only "Linkweave link
- *     ideas" section with a Copy link button for each suggested page, the same
- *     suggestions the block editor sidebar shows. The link is added with
- *     Elementor's own link box, so nothing here writes to the page.
+ *   - In the Elementor editor, Page Settings has a "Linkweave link ideas"
+ *     section, the same suggestions the block editor sidebar shows. Insert link
+ *     puts the link on matching words in a Text Editor widget through
+ *     Elementor's own editor command (editor/elementor/), so Elementor's undo
+ *     and its Update button handle it; Copy link is there for its link box.
+ *     Nothing here writes to the page from the server.
  *
  * Changing links inside the JSON (URL changer, repairs) is a Pro feature.
  */
@@ -35,6 +37,7 @@ class Elementor_Reader {
         "caption", "testimonial_content", "alert_title", "alert_description",
         "blockquote_content", "before_text", "highlighted_text", "after_text",
         "inner_text", "heading", "sub_heading", "subtitle", "button_text", "html",
+        "paragraph",
     ];
 
     public static function register(): void {
@@ -111,8 +114,9 @@ class Elementor_Reader {
             if ( in_array( $key, $used, true ) ) {
                 continue;
             }
-            if ( is_string( $value ) && in_array( $key, self::TEXT_KEYS, true ) && "" !== trim( $value ) ) {
-                $out .= "<p>" . $value . "</p>\n";
+            $text = in_array( $key, self::TEXT_KEYS, true ) ? self::text_of( $value ) : null;
+            if ( null !== $text && "" !== trim( $text ) ) {
+                $out .= "<p>" . $text . "</p>\n";
             } elseif ( is_array( $value ) && array_is_list( $value ) ) {
                 foreach ( $value as $item ) {
                     if ( is_array( $item ) ) {
@@ -124,18 +128,50 @@ class Elementor_Reader {
         return $out;
     }
 
-    /** The address a widget (or repeater item) links to, if any. */
+    /**
+     * A setting's text: a plain string, or an Elementor 4 (atomic widget) typed
+     * value such as {"$$type":"escaped-html","value":"..."} (the Paragraph and
+     * Heading widgets). Null when it holds no text.
+     */
+    public static function text_of( $value ): ?string {
+        if ( is_string( $value ) ) {
+            return $value;
+        }
+        if ( is_array( $value ) && isset( $value['$$type'], $value["value"] ) && is_string( $value["value"] )
+            && in_array( $value['$$type'], [ "escaped-html", "html", "string" ], true ) ) {
+            return $value["value"];
+        }
+        return null;
+    }
+
+    /**
+     * The address a widget (or repeater item) links to, if any: a classic link
+     * control ({"url":...}) or an Elementor 4 typed link whose destination is an
+     * address or a post ({"$$type":"link","value":{"destination":...}}).
+     */
     public static function link_of( array $settings ): ?string {
         $link = $settings["link"] ?? null;
         if ( is_array( $link ) && isset( $link["url"] ) && is_string( $link["url"] ) && "" !== trim( $link["url"] ) ) {
             return trim( $link["url"] );
         }
+        if ( is_array( $link ) && "link" === ( $link['$$type'] ?? "" ) && is_array( $link["value"]["destination"] ?? null ) ) {
+            $dest = $link["value"]["destination"];
+            if ( "url" === ( $dest['$$type'] ?? "" ) && is_string( $dest["value"] ?? null ) && "" !== trim( $dest["value"] ) ) {
+                return trim( $dest["value"] );
+            }
+            if ( "query" === ( $dest['$$type'] ?? "" ) ) {
+                $id  = (int) ( $dest["value"]["id"]["value"] ?? $dest["value"]["id"] ?? 0 );
+                $url = $id > 0 ? get_permalink( $id ) : false;
+                return $url ? (string) $url : null;
+            }
+        }
         return null;
     }
 
     private static function label_key( array $settings ): string {
-        foreach ( [ "text", "title", "title_text", "item_title", "button_text", "heading" ] as $key ) {
-            if ( isset( $settings[ $key ] ) && is_string( $settings[ $key ] ) && "" !== trim( $settings[ $key ] ) ) {
+        foreach ( [ "text", "title", "title_text", "item_title", "button_text", "heading", "paragraph" ] as $key ) {
+            $text = self::text_of( $settings[ $key ] ?? null );
+            if ( null !== $text && "" !== trim( $text ) ) {
                 return $key;
             }
         }
@@ -144,7 +180,7 @@ class Elementor_Reader {
 
     public static function link_label( array $settings ): string {
         $key = self::label_key( $settings );
-        return "" === $key ? "" : trim( wp_strip_all_tags( (string) $settings[ $key ] ) );
+        return "" === $key ? "" : trim( wp_strip_all_tags( (string) self::text_of( $settings[ $key ] ) ) );
     }
 
     /* -------------------- in the Elementor editor -------------------- */
@@ -170,11 +206,13 @@ class Elementor_Reader {
     }
 
     public static function editor_script(): void {
+        $asset_file = JNK_LINKWEAVE_PATH . "editor/build-elementor/index.asset.php";
+        $asset      = file_exists( $asset_file ) ? require $asset_file : [ "dependencies" => [ "wp-i18n" ], "version" => JNK_LINKWEAVE_VERSION ];
         wp_enqueue_script(
             "jnk-linkweave-elementor",
-            JNK_LINKWEAVE_URL . "admin/assets/js/elementor-ideas.js",
-            [ "wp-i18n" ],
-            JNK_LINKWEAVE_VERSION,
+            JNK_LINKWEAVE_URL . "editor/build-elementor/index.js",
+            $asset["dependencies"],
+            $asset["version"],
             true
         );
         wp_set_script_translations( "jnk-linkweave-elementor", "jnk-linkweave", JNK_LINKWEAVE_PATH . "languages" );
