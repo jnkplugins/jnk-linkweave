@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.26.1
+Stable tag: 1.26.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,6 +169,9 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.26.2 =
+* Changed: nothing changes in the free version. This release stops a Pro install with a free licence key from being replaced by the free version when it updates.
 
 = 1.26.1 =
 * Changed: nothing changes in the free version. This release makes the Pro licence check lighter on every page.
