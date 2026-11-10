@@ -1,8 +1,9 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-11-04T20:54:22+00:00\n"
+"POT-Creation-Date: 2026-11-10T08:10:55+00:00\n"
 "PO-Revision-Date: 2026-10-10 16:38+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Spanish (Spain)\n"
@@ -14,541 +15,541 @@ msgstr ""
 "X-Domain: jnk-linkweave\n"
 "X-Generator: WP-CLI 2.12.0\n"
 
-#: pro/licensorpro-client/licensorpro-client.php:751
+#: pro/licensorpro-client/licensorpro-client.php:761
 msgid "Manage license"
 msgstr "Gestionar licencia"
 
-#: pro/licensorpro-client/licensorpro-client.php:754
+#: pro/licensorpro-client/licensorpro-client.php:764
 #: admin/class-admin.php:337
 msgid "Renew license"
 msgstr "Renovar licencia"
 
-#: pro/licensorpro-client/licensorpro-client.php:755
+#: pro/licensorpro-client/licensorpro-client.php:765
 #: admin/class-admin.php:336
 msgid "Activate license"
 msgstr "Activar licencia"
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:782
+#: pro/licensorpro-client/licensorpro-client.php:802
 #, php-format
 msgid "<strong>%s Pro is on.</strong> Thank you! Every Pro tool is switched on for this site, and updates come to your dashboard."
 msgstr "<strong>%s Pro está activado.</strong> ¡Gracias! Todas las herramientas Pro están activadas en este sitio y las actualizaciones llegan a tu escritorio."
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:831
+#: pro/licensorpro-client/licensorpro-client.php:851
 #, php-format
 msgid "<strong>%s Pro is installed, but no Pro license is active on this site.</strong> Enter your license key to switch on the Pro tools."
 msgstr "<strong>%s Pro está instalado, pero no hay ninguna licencia Pro activa en este sitio.</strong> Introduce tu clave de licencia para activar las herramientas Pro."
 
-#: pro/licensorpro-client/licensorpro-client.php:837
+#: pro/licensorpro-client/licensorpro-client.php:857
 msgid "Enter license key"
 msgstr "Introducir clave de licencia"
 
-#: pro/licensorpro-client/licensorpro-client.php:840
+#: pro/licensorpro-client/licensorpro-client.php:860
 msgid "Find your key in your account"
 msgstr "Busca tu clave en tu cuenta"
 
-#: pro/licensorpro-client/licensorpro-client.php:866
+#: pro/licensorpro-client/licensorpro-client.php:886
 msgid "Renew your license"
 msgstr "Renueva tu licencia"
 
 #. translators: 1: plugin name, 2: expiry date, 3: lock date, 4: days left
-#: pro/licensorpro-client/licensorpro-client.php:872
+#: pro/licensorpro-client/licensorpro-client.php:892
 #, php-format
 msgid "<strong>Your %1$s Pro license expired on %2$s.</strong> Pro keeps working as normal until %3$s (%4$d days left). Updates, including security fixes, and email support have stopped. After %3$s, everything you already set up keeps working and your visitors won't notice a thing, but the Pro tools in your dashboard will lock."
 msgstr "<strong>Tu licencia de %1$s Pro caducó el %2$s.</strong> Pro sigue funcionando con normalidad hasta el %3$s (quedan %4$d días). Las actualizaciones, incluidas las de seguridad, y el soporte por correo se han detenido. Después del %3$s, todo lo que ya configuraste sigue funcionando y tus visitantes no notarán nada, pero las herramientas Pro de tu escritorio se bloquearán."
 
 #. translators: 1: plugin name, 2: expiry date
-#: pro/licensorpro-client/licensorpro-client.php:882
+#: pro/licensorpro-client/licensorpro-client.php:902
 #, php-format
 msgid "<strong>%1$s Pro tools are locked because your license expired on %2$s.</strong> Your site, and everything visitors see, still works. Renew to unlock the Pro tools and get updates, including security fixes, again."
 msgstr "<strong>Las herramientas de %1$s Pro están bloqueadas porque tu licencia caducó el %2$s.</strong> Tu sitio, y todo lo que ven los visitantes, sigue funcionando. Renueva para desbloquear las herramientas Pro y volver a recibir actualizaciones, incluidas las de seguridad."
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:890
+#: pro/licensorpro-client/licensorpro-client.php:910
 #, php-format
 msgid "<strong>This site is no longer activated on your %s Pro license.</strong> The Pro tools in your dashboard are locked until you activate it again. Everything visitors see keeps working."
 msgstr "<strong>Este sitio ya no está activado en tu licencia de %s Pro.</strong> Las herramientas Pro de tu escritorio están bloqueadas hasta que lo vuelvas a activar. Todo lo que ven los visitantes sigue funcionando."
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:897
+#: pro/licensorpro-client/licensorpro-client.php:917
 #, php-format
 msgid "<strong>Your %s Pro license is no longer active.</strong> It was refunded or cancelled, so the Pro tools in your dashboard are locked and updates have stopped. Everything visitors see keeps working."
 msgstr "<strong>Tu licencia de %s Pro ya no está activa.</strong> Se reembolsó o se canceló, así que las herramientas Pro de tu escritorio están bloqueadas y las actualizaciones se han detenido. Todo lo que ven los visitantes sigue funcionando."
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:906
+#: pro/licensorpro-client/licensorpro-client.php:926
 #, php-format
 msgid "Your %s Pro license is no longer active on this site."
 msgstr "Tu licencia Pro de %s ya no está activa en este sitio."
 
-#: pro/licensorpro-client/licensorpro-client.php:1010
+#: pro/licensorpro-client/licensorpro-client.php:1072
 msgid "Please enter a license key."
 msgstr "Introduce una clave de licencia."
 
-#: pro/licensorpro-client/licensorpro-client.php:1025
-#: pro/licensorpro-client/licensorpro-client.php:1085
+#: pro/licensorpro-client/licensorpro-client.php:1087
+#: pro/licensorpro-client/licensorpro-client.php:1147
 msgid "License response failed signature verification."
 msgstr "La respuesta de la licencia no ha superado la verificación de la firma."
 
-#: pro/licensorpro-client/licensorpro-client.php:1067
+#: pro/licensorpro-client/licensorpro-client.php:1129
 msgid "No license key set."
 msgstr "No hay ninguna clave de licencia."
 
-#: pro/licensorpro-client/licensorpro-client.php:1200
+#: pro/licensorpro-client/licensorpro-client.php:1284
 msgid "Only deactivating temporarily"
 msgstr "Solo lo desactivo temporalmente"
 
-#: pro/licensorpro-client/licensorpro-client.php:1201
+#: pro/licensorpro-client/licensorpro-client.php:1285
 msgid "I could not work out how to use it"
 msgstr "No supe cómo usarlo"
 
-#: pro/licensorpro-client/licensorpro-client.php:1202
+#: pro/licensorpro-client/licensorpro-client.php:1286
 msgid "It is missing a feature I need"
 msgstr "Le falta una función que necesito"
 
-#: pro/licensorpro-client/licensorpro-client.php:1203
+#: pro/licensorpro-client/licensorpro-client.php:1287
 msgid "It did not work"
 msgstr "No funcionó"
 
-#: pro/licensorpro-client/licensorpro-client.php:1204
+#: pro/licensorpro-client/licensorpro-client.php:1288
 msgid "It broke something on my site"
 msgstr "Rompió algo en mi sitio"
 
-#: pro/licensorpro-client/licensorpro-client.php:1205
+#: pro/licensorpro-client/licensorpro-client.php:1289
 msgid "I found a better plugin"
 msgstr "Encontré un plugin mejor"
 
-#: pro/licensorpro-client/licensorpro-client.php:1206
+#: pro/licensorpro-client/licensorpro-client.php:1290
 msgid "I no longer need it"
 msgstr "Ya no lo necesito"
 
-#: pro/licensorpro-client/licensorpro-client.php:1207
+#: pro/licensorpro-client/licensorpro-client.php:1291
 msgid "Something else"
 msgstr "Otro motivo"
 
 #. translators: %s: plugin name.
-#: pro/licensorpro-client/licensorpro-client.php:1234
+#: pro/licensorpro-client/licensorpro-client.php:1318
 #, php-format
 msgid "Before you turn %s off"
 msgstr "Antes de desactivar %s"
 
-#: pro/licensorpro-client/licensorpro-client.php:1238
+#: pro/licensorpro-client/licensorpro-client.php:1322
 msgid "If you have a moment, what went wrong? It is the only way we hear about it."
 msgstr "Si tienes un momento, ¿qué ha fallado? Es la única forma de que nos enteremos."
 
-#: pro/licensorpro-client/licensorpro-client.php:1249
+#: pro/licensorpro-client/licensorpro-client.php:1333
 msgid "Anything else? (optional)"
 msgstr "¿Algo más? (opcional)"
 
-#: pro/licensorpro-client/licensorpro-client.php:1251
+#: pro/licensorpro-client/licensorpro-client.php:1335
 msgid "Sends your answer, the plugin version and your site address. Nothing else, and nothing from your site content."
 msgstr "Envía tu respuesta, la versión del plugin y la dirección de tu sitio. Nada más, y nada del contenido de tu sitio."
 
-#: pro/licensorpro-client/licensorpro-client.php:1255
+#: pro/licensorpro-client/licensorpro-client.php:1339
 msgid "Send and deactivate"
 msgstr "Enviar y desactivar"
 
-#: pro/licensorpro-client/licensorpro-client.php:1258
+#: pro/licensorpro-client/licensorpro-client.php:1342
 msgid "Skip and deactivate"
 msgstr "Omitir y desactivar"
 
-#: pro/licensorpro-client/licensorpro-client.php:1261
-#: admin/assets/js/admin.js:532
+#: pro/licensorpro-client/licensorpro-client.php:1345
+#: admin/assets/js/admin.js:533
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: pro/licensorpro-client/licensorpro-client.php:1392
-#: pro/licensorpro-client/licensorpro-client.php:1408
+#: pro/licensorpro-client/licensorpro-client.php:1476
+#: pro/licensorpro-client/licensorpro-client.php:1492
 msgid "API URL not configured."
 msgstr "La URL de la API no está configurada."
 
-#: pro/licensorpro-client/licensorpro-client.php:1427
+#: pro/licensorpro-client/licensorpro-client.php:1511
 msgid "Unexpected response from license server."
 msgstr "Respuesta inesperada del servidor de licencias."
 
 #. translators: %s: human-readable time difference, e.g. "3 months".
-#: pro/licensorpro-client/licensorpro-client.php:1804
+#: pro/licensorpro-client/licensorpro-client.php:1898
 #: includes/class-dates.php:38
 #, php-format
 msgid "in %s"
 msgstr "dentro de %s"
 
 #. translators: %s: human-readable time difference, e.g. "13 days".
-#: pro/licensorpro-client/licensorpro-client.php:1805
+#: pro/licensorpro-client/licensorpro-client.php:1899
 #: includes/class-dates.php:48
 #, php-format
 msgid "%s ago"
 msgstr "hace %s"
 
-#: pro/licensorpro-client/licensorpro-client.php:1821
+#: pro/licensorpro-client/licensorpro-client.php:1915
 #, php-format
 msgid "%s License"
 msgstr "Licencia de %s"
 
-#: pro/licensorpro-client/licensorpro-client.php:1831
+#: pro/licensorpro-client/licensorpro-client.php:1925
 msgid "This site was deactivated, so its seat is free for another site. Enter the key again here to switch the Pro tools back on."
 msgstr "Este sitio se desactivó, así que su plaza queda libre para otro sitio. Vuelve a introducir la clave aquí para activar de nuevo las herramientas Pro."
 
-#: pro/licensorpro-client/licensorpro-client.php:1849
-#: pro/licensorpro-client/licensorpro-client.php:2397
+#: pro/licensorpro-client/licensorpro-client.php:1943
+#: pro/licensorpro-client/licensorpro-client.php:2491
 msgid "Enter your license key first."
 msgstr "Primero introduce tu clave de licencia."
 
-#: pro/licensorpro-client/licensorpro-client.php:1850
+#: pro/licensorpro-client/licensorpro-client.php:1944
 msgid "Installing Pro. This takes a few seconds, keep this page open…"
 msgstr "Instalando Pro. Tarda unos segundos, mantén esta página abierta…"
 
-#: pro/licensorpro-client/licensorpro-client.php:1851
+#: pro/licensorpro-client/licensorpro-client.php:1945
 msgid "Reloading to switch on the Pro tools…"
 msgstr "Recargando para activar las herramientas Pro…"
 
-#: pro/licensorpro-client/licensorpro-client.php:1852
+#: pro/licensorpro-client/licensorpro-client.php:1946
 msgid "Reload now"
 msgstr "Recargar ahora"
 
-#: pro/licensorpro-client/licensorpro-client.php:1853
+#: pro/licensorpro-client/licensorpro-client.php:1947
 msgid "Could not reach the licensing server. Check your connection and try again."
 msgstr "No se pudo conectar con el servidor de licencias. Comprueba tu conexión y vuelve a intentarlo."
 
-#: pro/licensorpro-client/licensorpro-client.php:1854
+#: pro/licensorpro-client/licensorpro-client.php:1948
 msgid "Deactivate this license on this site? Premium features switch off here and the seat is freed for another site."
 msgstr "¿Desactivar esta licencia en este sitio? Las funciones premium se apagan aquí y el hueco queda libre para otro sitio."
 
-#: pro/licensorpro-client/licensorpro-client.php:1855
+#: pro/licensorpro-client/licensorpro-client.php:1949
 msgid "Done."
 msgstr "Hecho."
 
-#: pro/licensorpro-client/licensorpro-client.php:1856
+#: pro/licensorpro-client/licensorpro-client.php:1950
 msgid "Deactivated."
 msgstr "Desactivado."
 
-#: pro/licensorpro-client/licensorpro-client.php:1857
+#: pro/licensorpro-client/licensorpro-client.php:1951
 msgid "Checked."
 msgstr "Comprobado."
 
-#: pro/licensorpro-client/licensorpro-client.php:2028
-#: pro/licensorpro-client/licensorpro-client.php:2059
-#: pro/licensorpro-client/licensorpro-client.php:2134
+#: pro/licensorpro-client/licensorpro-client.php:2122
+#: pro/licensorpro-client/licensorpro-client.php:2153
+#: pro/licensorpro-client/licensorpro-client.php:2228
 msgid "License key"
 msgstr "Clave de licencia"
 
-#: pro/licensorpro-client/licensorpro-client.php:2029
+#: pro/licensorpro-client/licensorpro-client.php:2123
 msgid "Type"
 msgstr "Tipo"
 
-#: pro/licensorpro-client/licensorpro-client.php:2031
+#: pro/licensorpro-client/licensorpro-client.php:2125
 msgid "Free license: updates of the free version only. It does not switch on Pro."
 msgstr "Licencia gratuita: solo actualizaciones de la versión gratuita. No activa Pro."
 
-#: pro/licensorpro-client/licensorpro-client.php:2032
+#: pro/licensorpro-client/licensorpro-client.php:2126
 msgid "Free license: updates arrive in your dashboard like any other plugin."
 msgstr "Licencia gratuita: las actualizaciones llegan a tu escritorio como las de cualquier otro plugin."
 
-#: pro/licensorpro-client/licensorpro-client.php:2034
-#: pro/licensorpro-client/licensorpro-client.php:2102
+#: pro/licensorpro-client/licensorpro-client.php:2128
+#: pro/licensorpro-client/licensorpro-client.php:2196
 msgid "Last checked"
 msgstr "Última comprobación"
 
-#: pro/licensorpro-client/licensorpro-client.php:2038
-#: pro/licensorpro-client/licensorpro-client.php:2108
+#: pro/licensorpro-client/licensorpro-client.php:2132
+#: pro/licensorpro-client/licensorpro-client.php:2202
 msgid "Check for updates now"
 msgstr "Buscar actualizaciones ahora"
 
-#: pro/licensorpro-client/licensorpro-client.php:2041
+#: pro/licensorpro-client/licensorpro-client.php:2135
 msgid "Bought Pro?"
 msgstr "¿Compraste Pro?"
 
-#: pro/licensorpro-client/licensorpro-client.php:2042
+#: pro/licensorpro-client/licensorpro-client.php:2136
 msgid "Enter your Pro license key and Pro is installed over this version. Everything you set up stays."
 msgstr "Introduce tu clave de licencia Pro y Pro se instala sobre esta versión. Todo lo que configuraste se mantiene."
 
-#: pro/licensorpro-client/licensorpro-client.php:2044
+#: pro/licensorpro-client/licensorpro-client.php:2138
 msgid "Pro license key"
 msgstr "Clave de licencia Pro"
 
-#: pro/licensorpro-client/licensorpro-client.php:2047
-#: pro/licensorpro-client/licensorpro-client.php:2115
+#: pro/licensorpro-client/licensorpro-client.php:2141
+#: pro/licensorpro-client/licensorpro-client.php:2209
 msgid "Install Pro now"
 msgstr "Instalar Pro ahora"
 
-#: pro/licensorpro-client/licensorpro-client.php:2049
+#: pro/licensorpro-client/licensorpro-client.php:2143
 msgid "Rather do it by hand? Download the Pro zip from your account and upload it over this plugin."
 msgstr "¿Prefieres hacerlo a mano? Descarga el zip de Pro desde tu cuenta y súbelo sobre este plugin."
 
-#: pro/licensorpro-client/licensorpro-client.php:2050
-#: pro/licensorpro-client/licensorpro-client.php:2142
+#: pro/licensorpro-client/licensorpro-client.php:2144
+#: pro/licensorpro-client/licensorpro-client.php:2236
 msgid "Go to your account"
 msgstr "Ir a tu cuenta"
 
-#: pro/licensorpro-client/licensorpro-client.php:2063
+#: pro/licensorpro-client/licensorpro-client.php:2157
 msgid "this site is not activated"
 msgstr "este sitio no está activado"
 
-#: pro/licensorpro-client/licensorpro-client.php:2064
+#: pro/licensorpro-client/licensorpro-client.php:2158
 msgid "this key is for a different plugin"
 msgstr "esta clave es de otro plugin"
 
-#: pro/licensorpro-client/licensorpro-client.php:2065
+#: pro/licensorpro-client/licensorpro-client.php:2159
 msgid "key not recognised"
 msgstr "clave no reconocida"
 
-#: pro/licensorpro-client/licensorpro-client.php:2066
-#: pro/licensorpro-client/licensorpro-client.php:2067
+#: pro/licensorpro-client/licensorpro-client.php:2160
+#: pro/licensorpro-client/licensorpro-client.php:2161
 msgid "revoked"
 msgstr "revocada"
 
-#: pro/licensorpro-client/licensorpro-client.php:2071
+#: pro/licensorpro-client/licensorpro-client.php:2165
 msgid "active"
 msgstr "activa"
 
 #. translators: %s: date the Pro tools lock
-#: pro/licensorpro-client/licensorpro-client.php:2073
+#: pro/licensorpro-client/licensorpro-client.php:2167
 #, php-format
 msgid "expired, Pro tools stay on until %s"
 msgstr "caducada, las herramientas Pro siguen activas hasta el %s"
 
-#: pro/licensorpro-client/licensorpro-client.php:2074
+#: pro/licensorpro-client/licensorpro-client.php:2168
 msgid "expired, Pro tools locked"
 msgstr "caducada, herramientas Pro bloqueadas"
 
-#: pro/licensorpro-client/licensorpro-client.php:2075
+#: pro/licensorpro-client/licensorpro-client.php:2169
 msgid "no longer active (refunded or cancelled)"
 msgstr "ya no está activa (reembolsada o cancelada)"
 
 #. translators: %s: date the Pro tools lock
-#: pro/licensorpro-client/licensorpro-client.php:2079
+#: pro/licensorpro-client/licensorpro-client.php:2173
 #, php-format
 msgid "renewal payment failed, Pro tools stay on until %s"
 msgstr "falló el pago de renovación, las herramientas Pro siguen activas hasta el %s"
 
-#: pro/licensorpro-client/licensorpro-client.php:2081
+#: pro/licensorpro-client/licensorpro-client.php:2175
 #: admin/views/domains.php:63
-#: admin/assets/js/admin.js:471
-#: admin/assets/js/admin.js:944
+#: admin/assets/js/admin.js:472
+#: admin/assets/js/admin.js:990
 msgid "Status"
 msgstr "Estado"
 
-#: pro/licensorpro-client/licensorpro-client.php:2083
+#: pro/licensorpro-client/licensorpro-client.php:2177
 msgid "Renew"
 msgstr "Renovar"
 
-#: pro/licensorpro-client/licensorpro-client.php:2087
+#: pro/licensorpro-client/licensorpro-client.php:2181
 msgid "Offline mode"
 msgstr "Modo sin conexión"
 
-#: pro/licensorpro-client/licensorpro-client.php:2089
+#: pro/licensorpro-client/licensorpro-client.php:2183
 #, php-format
 msgid "cached license valid until %s"
 msgstr "licencia en caché válida hasta el %s"
 
-#: pro/licensorpro-client/licensorpro-client.php:2094
+#: pro/licensorpro-client/licensorpro-client.php:2188
 msgctxt "update channel"
 msgid "stable"
 msgstr "estable"
 
-#: pro/licensorpro-client/licensorpro-client.php:2095
+#: pro/licensorpro-client/licensorpro-client.php:2189
 msgctxt "update channel"
 msgid "beta"
 msgstr "beta"
 
-#: pro/licensorpro-client/licensorpro-client.php:2096
+#: pro/licensorpro-client/licensorpro-client.php:2190
 msgctxt "update channel"
 msgid "release candidate"
 msgstr "versión candidata"
 
-#: pro/licensorpro-client/licensorpro-client.php:2097
+#: pro/licensorpro-client/licensorpro-client.php:2191
 msgctxt "update channel"
 msgid "development"
 msgstr "desarrollo"
 
-#: pro/licensorpro-client/licensorpro-client.php:2099
+#: pro/licensorpro-client/licensorpro-client.php:2193
 msgid "Update channel"
 msgstr "Canal de actualizaciones"
 
-#: pro/licensorpro-client/licensorpro-client.php:2100
+#: pro/licensorpro-client/licensorpro-client.php:2194
 msgid "Site limit"
 msgstr "Límite de sitios"
 
-#: pro/licensorpro-client/licensorpro-client.php:2100
+#: pro/licensorpro-client/licensorpro-client.php:2194
 msgid "Unlimited"
 msgstr "Ilimitado"
 
-#: pro/licensorpro-client/licensorpro-client.php:2101
+#: pro/licensorpro-client/licensorpro-client.php:2195
 msgid "Expires"
 msgstr "Caduca"
 
-#: pro/licensorpro-client/licensorpro-client.php:2101
+#: pro/licensorpro-client/licensorpro-client.php:2195
 msgid "Never"
 msgstr "Nunca"
 
-#: pro/licensorpro-client/licensorpro-client.php:2106
+#: pro/licensorpro-client/licensorpro-client.php:2200
 msgid "Deactivate this site"
 msgstr "Desactivar este sitio"
 
-#: pro/licensorpro-client/licensorpro-client.php:2113
+#: pro/licensorpro-client/licensorpro-client.php:2207
 msgid "This is the free version, running on your Pro license."
 msgstr "Esta es la versión gratuita, funcionando con tu licencia Pro."
 
-#: pro/licensorpro-client/licensorpro-client.php:2130
+#: pro/licensorpro-client/licensorpro-client.php:2224
 msgid "Have a Pro license key? Enter it here to switch on the Pro tools. It replaces the free license on this site."
 msgstr "¿Tienes una clave de licencia Pro? Introdúcela aquí para activar las herramientas Pro. Sustituye a la licencia gratuita en este sitio."
 
-#: pro/licensorpro-client/licensorpro-client.php:2131
+#: pro/licensorpro-client/licensorpro-client.php:2225
 msgid "Enter your license key to activate this site."
 msgstr "Introduce tu clave de licencia para activar este sitio."
 
-#: pro/licensorpro-client/licensorpro-client.php:2138
+#: pro/licensorpro-client/licensorpro-client.php:2232
 msgid "Activate"
 msgstr "Activar"
 
-#: pro/licensorpro-client/licensorpro-client.php:2141
+#: pro/licensorpro-client/licensorpro-client.php:2235
 msgid "Your key is in your purchase email and in your account."
 msgstr "Tu clave está en el correo de tu compra y en tu cuenta."
 
-#: pro/licensorpro-client/licensorpro-client.php:2149
+#: pro/licensorpro-client/licensorpro-client.php:2243
 msgid "Need a hand?"
 msgstr "¿Necesitas ayuda?"
 
-#: pro/licensorpro-client/licensorpro-client.php:2150
+#: pro/licensorpro-client/licensorpro-client.php:2244
 msgid "Contact support"
 msgstr "Contactar con soporte"
 
-#: pro/licensorpro-client/licensorpro-client.php:2197
+#: pro/licensorpro-client/licensorpro-client.php:2291
 msgid "Only someone who may install plugins on this site can install Pro."
 msgstr "Solo alguien que pueda instalar plugins en este sitio puede instalar Pro."
 
-#: pro/licensorpro-client/licensorpro-client.php:2210
+#: pro/licensorpro-client/licensorpro-client.php:2304
 msgid "That is a free license key, so it keeps this free version updated. Pro needs the key from your purchase email."
 msgstr "Esa es una clave de licencia gratuita, así que mantiene actualizada esta versión gratuita. Pro necesita la clave del correo de tu compra."
 
 #. translators: %s: URL of the customer account
-#: pro/licensorpro-client/licensorpro-client.php:2215
+#: pro/licensorpro-client/licensorpro-client.php:2309
 #, php-format
 msgid "Your key is active. Download the Pro zip from your account (%s) and upload it over this plugin instead."
 msgstr "Tu clave está activa. Descarga el zip de Pro desde tu cuenta (%s) y súbelo sobre este plugin."
 
-#: pro/licensorpro-client/licensorpro-client.php:2219
+#: pro/licensorpro-client/licensorpro-client.php:2313
 msgid "This site does not allow installing plugins from the dashboard."
 msgstr "Este sitio no permite instalar plugins desde el escritorio."
 
-#: pro/licensorpro-client/licensorpro-client.php:2223
+#: pro/licensorpro-client/licensorpro-client.php:2317
 msgid "The Pro download could not be fetched for this key."
 msgstr "No se pudo obtener la descarga de Pro para esta clave."
 
-#: pro/licensorpro-client/licensorpro-client.php:2231
+#: pro/licensorpro-client/licensorpro-client.php:2325
 msgid "This site asks for FTP details to install plugins."
 msgstr "Este sitio pide datos de FTP para instalar plugins."
 
-#: pro/licensorpro-client/licensorpro-client.php:2266
+#: pro/licensorpro-client/licensorpro-client.php:2360
 msgid "Installing Pro did not finish."
 msgstr "La instalación de Pro no terminó."
 
 #. translators: %s: plugin name
-#: pro/licensorpro-client/licensorpro-client.php:2271
+#: pro/licensorpro-client/licensorpro-client.php:2365
 #, php-format
 msgid "%s Pro is installed and your license is active. Reloading…"
 msgstr "%s Pro está instalado y tu licencia está activa. Recargando…"
 
-#: pro/licensorpro-client/licensorpro-client.php:2290
+#: pro/licensorpro-client/licensorpro-client.php:2384
 msgid "License activated."
 msgstr "Licencia activada."
 
-#: pro/licensorpro-client/licensorpro-client.php:2302
+#: pro/licensorpro-client/licensorpro-client.php:2396
 msgid "Site deactivated."
 msgstr "Sitio desactivado."
 
-#: pro/licensorpro-client/licensorpro-client.php:2324
+#: pro/licensorpro-client/licensorpro-client.php:2418
 msgid "License is valid. Update info refreshed."
 msgstr "La licencia es válida. Información de actualizaciones renovada."
 
-#: pro/licensorpro-client/licensorpro-client.php:2358
+#: pro/licensorpro-client/licensorpro-client.php:2452
 msgid "Every seat on this license is in use. Deactivate one of your other sites from your account, then try again."
 msgstr "Todos los sitios de esta licencia están en uso. Desactiva uno de tus otros sitios desde tu cuenta y vuelve a intentarlo."
 
-#: pro/licensorpro-client/licensorpro-client.php:2361
+#: pro/licensorpro-client/licensorpro-client.php:2455
 msgid "This license has expired. Renewing it from your account reactivates this site immediately. Your settings and data are untouched."
 msgstr "Esta licencia ha caducado. Al renovarla desde tu cuenta, este sitio se reactiva al momento. Tus ajustes y datos no se tocan."
 
-#: pro/licensorpro-client/licensorpro-client.php:2363
+#: pro/licensorpro-client/licensorpro-client.php:2457
 msgid "The last renewal payment for this license did not go through, so it is paused. Update your payment details in your account and it switches back on. Your settings and data are untouched."
 msgstr "El último pago de renovación de esta licencia no se completó, así que está en pausa. Actualiza tus datos de pago en tu cuenta y se volverá a activar. Tus ajustes y datos no se tocan."
 
-#: pro/licensorpro-client/licensorpro-client.php:2366
+#: pro/licensorpro-client/licensorpro-client.php:2460
 msgid "This license was cancelled or refunded, so it no longer switches on Pro. If that is a mistake, reply to your purchase email."
 msgstr "Esta licencia se canceló o se reembolsó, así que ya no activa Pro. Si es un error, responde a tu correo de compra."
 
-#: pro/licensorpro-client/licensorpro-client.php:2369
+#: pro/licensorpro-client/licensorpro-client.php:2463
 msgid "That key was not recognised. Check for a missing character, or copy it again from your purchase email."
 msgstr "No reconocemos esa clave. Comprueba que no falte ningún carácter o vuelve a copiarla del correo de tu compra."
 
-#: pro/licensorpro-client/licensorpro-client.php:2371
+#: pro/licensorpro-client/licensorpro-client.php:2465
 msgid "This key is for a different plugin. Each plugin has its own key: use the one from the purchase email for this plugin."
 msgstr "Esta clave es de otro plugin. Cada plugin tiene su propia clave: usa la del correo de compra de este plugin."
 
-#: pro/licensorpro-client/licensorpro-client.php:2374
+#: pro/licensorpro-client/licensorpro-client.php:2468
 msgid "This key has been revoked. If you believe that is a mistake, reply to your purchase email and we will sort it out."
 msgstr "Esta clave se ha revocado. Si crees que es un error, responde al correo de tu compra y lo solucionamos."
 
-#: pro/licensorpro-client/licensorpro-client.php:2376
+#: pro/licensorpro-client/licensorpro-client.php:2470
 msgid "This site is not activated on this license any more. Enter the key again to activate it."
 msgstr "Este sitio ya no está activado con esta licencia. Vuelve a introducir la clave para activarlo."
 
-#: pro/licensorpro-client/licensorpro-client.php:2378
+#: pro/licensorpro-client/licensorpro-client.php:2472
 msgid "That is a free license key. It keeps the free version updated but does not switch on Pro. Enter the Pro key from your purchase email."
 msgstr "Esa es una clave de licencia gratuita. Mantiene actualizada la versión gratuita, pero no activa Pro. Introduce la clave Pro de tu correo de compra."
 
-#: pro/licensorpro-client/licensorpro-client.php:2381
+#: pro/licensorpro-client/licensorpro-client.php:2475
 msgid "This plugin has no free license. Use the key from your purchase email."
 msgstr "Este plugin no tiene licencia gratuita. Usa la clave de tu correo de compra."
 
-#: pro/licensorpro-client/licensorpro-client.php:2383
+#: pro/licensorpro-client/licensorpro-client.php:2477
 msgid "The licensing server does not know this plugin. Update the plugin, or reply to your purchase email."
 msgstr "El servidor de licencias no reconoce este plugin. Actualiza el plugin o responde a tu correo de compra."
 
-#: pro/licensorpro-client/licensorpro-client.php:2385
+#: pro/licensorpro-client/licensorpro-client.php:2479
 msgid "This site's license session ran out. Check the license again to renew it."
 msgstr "La sesión de licencia de este sitio ha caducado. Vuelve a comprobar la licencia para renovarla."
 
-#: pro/licensorpro-client/licensorpro-client.php:2388
+#: pro/licensorpro-client/licensorpro-client.php:2482
 msgid "The download link has expired. Check for updates again to get a fresh one."
 msgstr "El enlace de descarga ha caducado. Vuelve a buscar actualizaciones para obtener uno nuevo."
 
-#: pro/licensorpro-client/licensorpro-client.php:2390
+#: pro/licensorpro-client/licensorpro-client.php:2484
 msgid "The download is not on the server right now. Try again later, or download the zip from your account."
 msgstr "La descarga no está en el servidor ahora mismo. Inténtalo más tarde o descarga el zip desde tu cuenta."
 
-#: pro/licensorpro-client/licensorpro-client.php:2392
+#: pro/licensorpro-client/licensorpro-client.php:2486
 msgid "Enter a valid email address."
 msgstr "Introduce una dirección de correo válida."
 
-#: pro/licensorpro-client/licensorpro-client.php:2395
+#: pro/licensorpro-client/licensorpro-client.php:2489
 msgid "The request to the licensing server was missing details. Reload this page and try again."
 msgstr "A la solicitud al servidor de licencias le faltaban datos. Recarga esta página e inténtalo de nuevo."
 
-#: pro/licensorpro-client/licensorpro-client.php:2399
+#: pro/licensorpro-client/licensorpro-client.php:2493
 msgid "The answer from the licensing server could not be verified, so it was not trusted. Try again in a few minutes. If it keeps happening, reply to your purchase email."
 msgstr "No se pudo verificar la respuesta del servidor de licencias, así que no se ha dado por buena. Inténtalo de nuevo en unos minutos. Si sigue pasando, responde a tu correo de compra."
 
-#: pro/licensorpro-client/licensorpro-client.php:2402
+#: pro/licensorpro-client/licensorpro-client.php:2496
 msgid "Could not reach the licensing server. Your site may be blocking outbound requests. This is usually temporary, so try again in a minute."
 msgstr "No se pudo conectar con el servidor de licencias. Puede que tu sitio bloquee las conexiones salientes. Suele ser temporal, así que vuelve a intentarlo en un minuto."
 
-#: pro/licensorpro-client/licensorpro-client.php:2405
+#: pro/licensorpro-client/licensorpro-client.php:2499
 msgid "Too many attempts in a short window. Wait a minute and try again."
 msgstr "Demasiados intentos en poco tiempo. Espera un minuto y vuelve a intentarlo."
 
-#: pro/licensorpro-client/licensorpro-client.php:2407
+#: pro/licensorpro-client/licensorpro-client.php:2501
 msgid "The licensing server had a problem on its side. Your key was not rejected. Try again in a few minutes, and if it keeps happening, reply to your purchase email."
 msgstr "El servidor de licencias tuvo un problema por su parte. Tu clave no se ha rechazado. Vuelve a intentarlo en unos minutos y, si sigue pasando, responde al correo de tu compra."
 
 #. translators: %s: short error code from the licensing server
-#: pro/licensorpro-client/licensorpro-client.php:2411
+#: pro/licensorpro-client/licensorpro-client.php:2505
 #, php-format
 msgid "The licensing server could not confirm this license (%s). Try again in a few minutes. If it keeps happening, reply to your purchase email and quote that code."
 msgstr "El servidor de licencias no pudo confirmar esta licencia (%s). Inténtalo de nuevo en unos minutos. Si sigue pasando, responde a tu correo de compra e indica ese código."
 
-#: pro/licensorpro-client/licensorpro-client.php:2437
+#: pro/licensorpro-client/licensorpro-client.php:2531
 msgid "Permission denied."
 msgstr "Permiso denegado."
 
@@ -753,7 +754,7 @@ msgstr[1] "%d enlaces internos apuntan aquí"
 
 #. translators: %d: number of links in.
 #: admin/class-posts-column.php:79
-#: admin/assets/js/admin.js:707
+#: admin/assets/js/admin.js:753
 #, php-format
 msgid "%d in"
 msgid_plural "%d in"
@@ -871,7 +872,7 @@ msgid "Off by default. An assistant only ever acts as the user it signs in as, s
 msgstr "Desactivado por defecto. Un asistente siempre actúa como el usuario con el que inicia sesión, así que nunca puede hacer más de lo que ese usuario podría hacer en estas pantallas."
 
 #: admin/views/assistants.php:72
-#: admin/assets/js/admin.js:531
+#: admin/assets/js/admin.js:532
 msgid "Save"
 msgstr "Guardar"
 
@@ -1067,7 +1068,7 @@ msgid "Links in your posts that lead to a page that no longer exists. Linkweave 
 msgstr "Enlaces de tus entradas que llevan a una página que ya no existe. Linkweave los comprueba cada día; también puedes comprobarlos ahora mismo."
 
 #: admin/views/dashboard.php:61
-#: admin/assets/js/admin.js:327
+#: admin/assets/js/admin.js:328
 msgid "Run now"
 msgstr "Ejecutar ahora"
 
@@ -1112,13 +1113,13 @@ msgid "Posts Linkweave knows"
 msgstr "Entradas que Linkweave conoce"
 
 #: admin/views/dashboard.php:99
-#: admin/assets/js/admin.js:312
+#: admin/assets/js/admin.js:313
 msgid "Queued, waiting for WordPress to start it"
 msgstr "En cola, esperando a que WordPress la inicie"
 
 #. translators: 1: posts read so far, 2: total posts.
 #: admin/views/dashboard.php:103
-#: admin/assets/js/admin.js:319
+#: admin/assets/js/admin.js:320
 #, php-format
 msgid "Reading posts %1$d of %2$d"
 msgstr "Leyendo entradas: %1$d de %2$d"
@@ -1368,12 +1369,12 @@ msgid "No links to this site were found in your posts."
 msgstr "No se encontraron enlaces a este sitio en tus entradas."
 
 #: admin/views/domains.php:59
-#: admin/assets/js/admin.js:944
+#: admin/assets/js/admin.js:990
 msgid "Found in"
 msgstr "Encontrado en"
 
 #: admin/views/domains.php:60
-#: admin/assets/js/admin.js:944
+#: admin/assets/js/admin.js:990
 msgid "Link text"
 msgstr "Texto del enlace"
 
@@ -1390,17 +1391,17 @@ msgid "followed"
 msgstr "seguido"
 
 #: admin/views/domains.php:74
-#: admin/assets/js/admin.js:919
+#: admin/assets/js/admin.js:965
 msgid "Not checked yet"
 msgstr "Aún no se ha comprobado"
 
 #: admin/views/domains.php:76
-#: admin/assets/js/admin.js:936
+#: admin/assets/js/admin.js:982
 msgid "Page missing"
 msgstr "Página que falta"
 
 #: admin/views/domains.php:78
-#: admin/assets/js/admin.js:935
+#: admin/assets/js/admin.js:981
 msgid "Did not answer"
 msgstr "Sin respuesta"
 
@@ -1532,6 +1533,7 @@ msgid "WooCommerce's Cart, Checkout and My account pages are always left out: wh
 msgstr "Las páginas Carrito, Finalizar compra y Mi cuenta de WooCommerce siempre se dejan fuera: lo que muestran cambia para cada visitante."
 
 #: admin/views/settings.php:56
+#: includes/class-rest-api.php:661
 msgid "Shortest post to suggest"
 msgstr "Entrada más corta para sugerir"
 
@@ -1572,6 +1574,7 @@ msgid "Smart match is not fooled by a word repeated many times or by very long p
 msgstr "La coincidencia inteligente no se deja engañar por una palabra repetida muchas veces ni por entradas muy largas, así que sus sugerencias suelen ser más precisas. Puedes cambiarla cuando quieras."
 
 #: admin/views/settings.php:83
+#: includes/class-rest-api.php:664
 msgid "Suggestions per post"
 msgstr "Sugerencias por entrada"
 
@@ -1580,6 +1583,7 @@ msgid "How many link ideas the editor sidebar shows for each post (1 to 50)."
 msgstr "Cuántas ideas de enlace muestra la barra lateral del editor para cada entrada (de 1 a 50)."
 
 #: admin/views/settings.php:90
+#: includes/class-rest-api.php:667
 msgid "How close a match must be"
 msgstr "Lo parecida que debe ser una coincidencia"
 
@@ -2005,397 +2009,437 @@ msgstr "Poco relacionada"
 msgid "\"Links to\" needs a web address (https://…) or a path on this site (/…). To link to a post, find it by title under the box."
 msgstr "«Enlaza a» necesita una dirección web (https://…) o una ruta de este sitio (/…). Para enlazar a una entrada, búscala por su título debajo de la casilla."
 
-#: includes/class-rest-api.php:630
+#: includes/class-rest-api.php:350
+msgid "The rule could not be saved: the database refused it. Nothing was changed."
+msgstr "No se pudo guardar la regla: la base de datos la rechazó. No se ha cambiado nada."
+
+#. translators: 1: the phrase, 2: the page the existing rule links to.
+#: includes/class-rest-api.php:370
+#, php-format
+msgid "A rule for “%1$s” already links to %2$s. With two rules for the same phrase, each post gets only the first one. Edit that rule, or add this one anyway."
+msgstr "Ya hay una regla para «%1$s» que enlaza a %2$s. Con dos reglas para la misma frase, cada entrada recibe solo la primera. Edita esa regla o añade esta de todos modos."
+
+#. translators: 1: setting name, 2: the value entered, 3: the lowest allowed, which was saved.
+#: includes/class-rest-api.php:645
+#, php-format
+msgid "%1$s: %2$s is below the lowest allowed, so %3$s was saved."
+msgstr "%1$s: %2$s está por debajo del mínimo permitido, así que se ha guardado %3$s."
+
+#. translators: 1: setting name, 2: the value entered, 3: lowest allowed, 4: highest allowed, 5: the value saved.
+#: includes/class-rest-api.php:652
+#, php-format
+msgid "%1$s: %2$s is outside %3$s to %4$s, so %5$s was saved."
+msgstr "%1$s: %2$s está fuera del rango de %3$s a %4$s, así que se ha guardado %5$s."
+
+#: includes/class-rest-api.php:709
 msgid "Your API key was not saved because this site does not use HTTPS; every other setting was saved. Switch the site to HTTPS, or pick the WordPress AI connection (Settings > Connectors) instead of your own key."
 msgstr "Tu clave de API no se guardó porque este sitio no usa HTTPS; el resto de los ajustes sí se guardaron. Cambia el sitio a HTTPS o elige la conexión de IA de WordPress (Ajustes > Conectores) en lugar de tu propia clave."
 
-#: admin/assets/js/admin.js:73
-#: admin/assets/js/admin.js:466
+#. translators: 1: characters in the phrase, 2: the most allowed.
+#: includes/class-rules-engine.php:1026
+#, php-format
+msgid "This phrase is %1$d characters long. A rule phrase can be %2$d characters at most, so the rule was not saved. Use a shorter phrase."
+msgstr "Esta frase tiene %1$d caracteres. La frase de una regla puede tener %2$d como máximo, así que la regla no se ha guardado. Usa una frase más corta."
+
+#: admin/assets/js/admin.js:74
+#: admin/assets/js/admin.js:467
 msgid "Edit"
 msgstr "Editar"
 
-#: admin/assets/js/admin.js:714
+#: admin/assets/js/admin.js:760
 msgid "Filter by title…"
 msgstr "Filtrar por título…"
 
-#: admin/assets/js/admin.js:714
+#: admin/assets/js/admin.js:760
 msgid "Filter by title"
 msgstr "Filtrar por título"
 
-#: admin/assets/js/admin.js:76
-#: admin/assets/js/admin.js:609
-#: admin/assets/js/admin.js:633
-#: admin/assets/js/admin.js:704
+#: admin/assets/js/admin.js:77
+#: admin/assets/js/admin.js:655
+#: admin/assets/js/admin.js:679
+#: admin/assets/js/admin.js:750
 msgid "View"
 msgstr "Ver"
 
-#: admin/assets/js/admin.js:466
+#: admin/assets/js/admin.js:467
 msgid "Delete"
 msgstr "Borrar"
 
-#: admin/assets/js/admin.js:456
-#: admin/assets/js/admin.js:595
-#: admin/assets/js/admin.js:690
-#: admin/assets/js/admin.js:897
+#: admin/assets/js/admin.js:457
+#: admin/assets/js/admin.js:641
+#: admin/assets/js/admin.js:736
+#: admin/assets/js/admin.js:943
 msgid "Loading…"
 msgstr "Cargando…"
 
-#: editor/elementor/index.js:130
+#: editor/elementor/index.js:131
 msgid "Copy link"
 msgstr "Copiar enlace"
 
-#: editor/elementor/index.js:309
+#: editor/elementor/index.js:348
 msgid "Copied"
 msgstr "Copiado"
 
-#: admin/assets/js/admin.js:489
+#: admin/assets/js/admin.js:490
 msgid "Add rule"
 msgstr "Añadir regla"
 
-#: admin/assets/js/admin.js:127
+#: admin/assets/js/admin.js:128
 msgid "just now"
 msgstr "ahora mismo"
 
-#: admin/assets/js/admin.js:127
+#: admin/assets/js/admin.js:128
 msgid "in a moment"
 msgstr "en un momento"
 
-#: admin/assets/js/admin.js:142
+#: admin/assets/js/admin.js:143
 msgid "or find a post by title"
 msgstr "o busca una entrada por su título"
 
-#: admin/assets/js/admin.js:142
+#: admin/assets/js/admin.js:143
 msgid "Find a post by title"
 msgstr "Buscar una entrada por su título"
 
-#: admin/assets/js/admin.js:181
+#: admin/assets/js/admin.js:182
 msgid "No posts match."
 msgstr "Ninguna entrada coincide."
 
 #. translators: 1: posts saved so far, 2: total posts.
-#: admin/assets/js/admin.js:316
+#: admin/assets/js/admin.js:317
 msgid "Saving what it learned: %1$d of %2$d"
 msgstr "Guardando lo aprendido: %1$d de %2$d"
 
-#: admin/assets/js/admin.js:347
+#: admin/assets/js/admin.js:348
 msgid "The last read stopped before it finished."
 msgstr "La última lectura se detuvo antes de terminar."
 
-#: admin/assets/js/admin.js:348
+#: admin/assets/js/admin.js:349
 msgid "The last read failed."
 msgstr "La última lectura falló."
 
-#: admin/assets/js/admin.js:349
-#: admin/assets/js/admin.js:405
-#: admin/assets/js/admin.js:421
+#: admin/assets/js/admin.js:350
+#: admin/assets/js/admin.js:406
+#: admin/assets/js/admin.js:422
 msgid "Run it again now"
 msgstr "Volver a ejecutar ahora"
 
-#: admin/assets/js/admin.js:462
+#: admin/assets/js/admin.js:463
 msgid "Created by the link map. Clearing the map removes it; rules you wrote are never touched."
 msgstr "La creó el mapa de enlaces. Al borrar el mapa se elimina; las reglas que escribiste tú nunca se tocan."
 
-#: admin/assets/js/admin.js:462
+#: admin/assets/js/admin.js:463
 msgid "from link map"
 msgstr "del mapa de enlaces"
 
-#: admin/assets/js/admin.js:462
+#: admin/assets/js/admin.js:463
 msgid "This rule uses Pro options and is paused on the free version."
 msgstr "Esta regla usa opciones Pro y está en pausa en la versión gratuita."
 
-#: admin/assets/js/admin.js:464
+#: admin/assets/js/admin.js:465
 msgid "Its settings are kept. It runs again when the Pro version is back."
 msgstr "Sus ajustes se conservan. Vuelve a funcionar cuando vuelva la versión Pro."
 
-#: admin/assets/js/admin.js:464
+#: admin/assets/js/admin.js:465
 msgid "Paused"
 msgstr "En pausa"
 
-#: admin/assets/js/admin.js:464
-#: admin/assets/js/admin.js:479
-#: admin/assets/js/admin.js:523
+#: admin/assets/js/admin.js:465
+#: admin/assets/js/admin.js:480
+#: admin/assets/js/admin.js:524
 msgid "On"
 msgstr "Activada"
 
-#: admin/assets/js/admin.js:471
-#: admin/assets/js/admin.js:476
+#: admin/assets/js/admin.js:472
+#: admin/assets/js/admin.js:477
 msgid "Phrase"
 msgstr "Frase"
 
-#: admin/assets/js/admin.js:471
-#: admin/assets/js/admin.js:477
+#: admin/assets/js/admin.js:472
+#: admin/assets/js/admin.js:478
 #: admin/assets/js/linkmap.js:530
 msgid "Links to"
 msgstr "Enlaza a"
 
-#: admin/assets/js/admin.js:471
+#: admin/assets/js/admin.js:472
 msgid "Links this rule adds across your published posts right now. Mentions already inside a link, a heading or code, and mentions on the target page itself, are skipped, so 0 can be correct."
 msgstr "Enlaces que esta regla añade ahora mismo en tus entradas publicadas. Se omiten las menciones que ya están dentro de un enlace, un encabezado o código, y las de la propia página de destino, así que 0 puede ser correcto."
 
-#: admin/assets/js/admin.js:471
+#: admin/assets/js/admin.js:472
 msgid "Links added"
 msgstr "Enlaces añadidos"
 
-#: admin/assets/js/admin.js:472
+#: admin/assets/js/admin.js:473
 msgid "No rules yet"
 msgstr "Aún no hay reglas"
 
-#: admin/assets/js/admin.js:472
+#: admin/assets/js/admin.js:473
 msgid "A rule links one phrase to one page everywhere it appears. Add your first one with the form."
 msgstr "Una regla enlaza una frase a una página allí donde aparezca. Añade la primera con el formulario."
 
-#: admin/assets/js/admin.js:474
+#: admin/assets/js/admin.js:475
 msgid "Add a rule"
 msgstr "Añadir una regla"
 
-#: admin/assets/js/admin.js:474
+#: admin/assets/js/admin.js:475
 msgid "Linkweave links this phrase wherever it appears in your posts."
 msgstr "Linkweave enlaza esta frase allí donde aparezca en tus entradas."
 
-#: admin/assets/js/admin.js:476
+#: admin/assets/js/admin.js:477
 msgid "e.g. internal linking"
 msgstr "p. ej., enlazado interno"
 
-#: admin/assets/js/admin.js:480
-#: admin/assets/js/admin.js:520
+#: admin/assets/js/admin.js:481
+#: admin/assets/js/admin.js:521
 msgid "Match capital letters"
 msgstr "Distinguir mayúsculas"
 
-#: admin/assets/js/admin.js:481
-#: admin/assets/js/admin.js:521
+#: admin/assets/js/admin.js:482
+#: admin/assets/js/admin.js:522
 msgid "Open in a new tab"
 msgstr "Abrir en una pestaña nueva"
 
-#: admin/assets/js/admin.js:482
+#: admin/assets/js/admin.js:483
 msgid "Tells search engines not to pass ranking credit through this link"
 msgstr "Indica a los buscadores que no transmitan valor de posicionamiento a través de este enlace"
 
-#: admin/assets/js/admin.js:485
-#: admin/assets/js/admin.js:526
+#: admin/assets/js/admin.js:486
+#: admin/assets/js/admin.js:527
 msgid "Most per post"
 msgstr "Máximo por entrada"
 
-#: admin/assets/js/admin.js:486
-#: admin/assets/js/admin.js:527
+#: admin/assets/js/admin.js:487
+#: admin/assets/js/admin.js:528
 msgid "Most across the site"
 msgstr "Máximo en todo el sitio"
 
-#: admin/assets/js/admin.js:486
-#: admin/assets/js/admin.js:527
+#: admin/assets/js/admin.js:487
+#: admin/assets/js/admin.js:528
 msgid "0 means no limit"
 msgstr "0 significa sin límite"
 
-#: admin/assets/js/admin.js:496
+#: admin/assets/js/admin.js:497
 msgid "Delete this rule?"
 msgstr "¿Borrar esta regla?"
 
-#: admin/assets/js/admin.js:500
+#: admin/assets/js/admin.js:501
 msgid "Rule deleted."
 msgstr "Regla borrada."
 
-#: admin/assets/js/admin.js:554
+#: admin/assets/js/admin.js:555
 msgid "Rule saved."
 msgstr "Regla guardada."
 
-#: admin/assets/js/admin.js:581
+#: admin/assets/js/admin.js:585
 msgid "Rule added."
 msgstr "Regla añadida."
 
-#: admin/assets/js/admin.js:604
+#: admin/assets/js/admin.js:611
+msgid "Edit that rule"
+msgstr "Editar esa regla"
+
+#: admin/assets/js/admin.js:611
+msgid "Add anyway"
+msgstr "Añadir de todos modos"
+
+#: admin/assets/js/admin.js:650
 msgid "%d post linked only by auto-link rules"
 msgid_plural "%d posts linked only by auto-link rules"
 msgstr[0] "%d entrada enlazada solo por reglas de enlace automático"
 msgstr[1] "%d entradas enlazadas solo por reglas de enlace automático"
 
-#: admin/assets/js/admin.js:605
+#: admin/assets/js/admin.js:651
 msgid "Visitors reach these through your auto-link rules, so they are not orphans. No link written in a post points at them yet."
 msgstr "Los visitantes llegan a ellas a través de tus reglas de enlace automático, así que no son huérfanas. Todavía no apunta a ellas ningún enlace escrito en una entrada."
 
-#: admin/assets/js/admin.js:611
+#: admin/assets/js/admin.js:657
 msgid "%d auto-link in"
 msgid_plural "%d auto-links in"
 msgstr[0] "%d enlace automático entrante"
 msgstr[1] "%d enlaces automáticos entrantes"
 
-#: admin/assets/js/admin.js:617
+#: admin/assets/js/admin.js:663
 msgid "No orphan posts"
 msgstr "No hay entradas huérfanas"
 
 #. translators: 1: opening link tag to the Overview screen, 2: closing link tag.
-#: admin/assets/js/admin.js:620
+#: admin/assets/js/admin.js:666
 msgid "Every published post has at least one internal link pointing at it. If you have not built the index yet, %1$sdo that on the Overview%2$s first."
 msgstr "Cada entrada publicada tiene al menos un enlace interno que apunta a ella. Si aún no has creado el índice, %1$shazlo primero en el Resumen%2$s."
 
-#: admin/assets/js/admin.js:628
+#: admin/assets/js/admin.js:674
 msgid "%d post needs a link"
 msgid_plural "%d posts need a link"
 msgstr[0] "%d entrada necesita un enlace"
 msgstr[1] "%d entradas necesitan un enlace"
 
-#: admin/assets/js/admin.js:629
+#: admin/assets/js/admin.js:675
 msgid "Linkweave compares each one with the rest of your site and lists the posts that talk about the same thing."
 msgstr "Linkweave compara cada una con el resto de tu sitio y muestra las entradas que tratan el mismo tema."
 
-#: admin/assets/js/admin.js:635
+#: admin/assets/js/admin.js:681
 msgid "Shorter than the minimum length in Settings, so it is never suggested as a link target."
 msgstr "Es más corta que el mínimo de los ajustes, así que nunca se sugiere como destino de un enlace."
 
-#: admin/assets/js/admin.js:635
+#: admin/assets/js/admin.js:681
 msgid "Too short to suggest"
 msgstr "Demasiado corta para sugerirla"
 
-#: admin/assets/js/admin.js:636
-#: admin/assets/js/admin.js:653
+#: admin/assets/js/admin.js:682
+#: admin/assets/js/admin.js:699
 msgid "Find posts that could link here"
 msgstr "Buscar entradas que podrían enlazar aquí"
 
-#: admin/assets/js/admin.js:653
+#: admin/assets/js/admin.js:699
 msgid "Hide"
 msgstr "Ocultar"
 
-#: admin/assets/js/admin.js:656
+#: admin/assets/js/admin.js:702
 msgid "Looking through your posts…"
 msgstr "Revisando tus entradas…"
 
-#: admin/assets/js/admin.js:662
+#: admin/assets/js/admin.js:708
 msgid "No close matches yet. Write a related post and link it here, or add an auto-link rule for this page."
 msgstr "Aún no hay coincidencias cercanas. Escribe una entrada relacionada y enlázala aquí, o añade una regla de enlace automático para esta página."
 
-#: admin/assets/js/admin.js:670
+#: admin/assets/js/admin.js:716
 msgid "How closely the two posts match"
 msgstr "Lo parecidas que son las dos entradas"
 
-#: admin/assets/js/admin.js:671
+#: admin/assets/js/admin.js:717
 msgid "Open"
 msgstr "Abrir"
 
-#: admin/assets/js/admin.js:674
+#: admin/assets/js/admin.js:720
 msgid "Open a post and add the link in the editor."
 msgstr "Abre una entrada y añade el enlace en el editor."
 
-#: admin/assets/js/admin.js:675
+#: admin/assets/js/admin.js:721
 msgid "Pro adds the links for you"
 msgstr "Pro añade los enlaces por ti"
 
-#: admin/assets/js/admin.js:694
+#: admin/assets/js/admin.js:740
 msgid "Nothing to show yet"
 msgstr "Aún no hay nada que mostrar"
 
-#: admin/assets/js/admin.js:694
+#: admin/assets/js/admin.js:740
 msgid "Build the index on the Overview and the counts appear here."
 msgstr "Crea el índice en el Resumen y los recuentos aparecerán aquí."
 
 #. translators: %d: number of posts.
-#: admin/assets/js/admin.js:711
+#: admin/assets/js/admin.js:757
 #: admin/assets/js/linkmap.js:36
 msgid "%d post"
 msgid_plural "%d posts"
 msgstr[0] "%d entrada"
 msgstr[1] "%d entradas"
 
-#: admin/assets/js/admin.js:713
+#: admin/assets/js/admin.js:759
 msgid "%d with no links in, shown in red."
 msgid_plural "%d with no links in, shown in red."
 msgstr[0] "%d sin enlaces entrantes, en rojo."
 msgstr[1] "%d sin enlaces entrantes, en rojo."
 
-#: admin/assets/js/admin.js:713
+#: admin/assets/js/admin.js:759
 msgid "Every post has at least one link in."
 msgstr "Cada entrada tiene al menos un enlace entrante."
 
-#: admin/assets/js/admin.js:749
+#: admin/assets/js/admin.js:795
 msgid "Checking links: %1$d of %2$d…"
 msgstr "Comprobando enlaces: %1$d de %2$d…"
 
-#: admin/assets/js/admin.js:750
-#: admin/assets/js/admin.js:860
+#: admin/assets/js/admin.js:796
+#: admin/assets/js/admin.js:906
 msgid "Collecting your links…"
 msgstr "Reuniendo tus enlaces…"
 
-#: admin/assets/js/admin.js:758
+#: admin/assets/js/admin.js:804
 msgid "The check stopped: a step failed %1$d times in a row (%2$s). Click “Check all links now” to start again."
 msgstr "La comprobación se detuvo: un paso falló %1$d veces seguidas (%2$s). Haz clic en “Comprobar todos los enlaces ahora” para empezar de nuevo."
 
-#: admin/assets/js/admin.js:760
+#: admin/assets/js/admin.js:806
 msgid "The check stopped: a step failed %d times in a row. Click “Check all links now” to start again."
 msgstr "La comprobación se detuvo: un paso falló %d veces seguidas. Haz clic en “Comprobar todos los enlaces ahora” para empezar de nuevo."
 
 #. translators: 1: links checked, 2: links to missing pages, 3: links that did not answer.
-#: admin/assets/js/admin.js:768
+#: admin/assets/js/admin.js:814
 msgid "Done: %1$d links checked, %2$d to missing pages, %3$d did not answer."
 msgstr "Listo: %1$d enlaces comprobados, %2$d a páginas que no existen, %3$d sin respuesta."
 
-#: admin/assets/js/admin.js:770
+#: admin/assets/js/admin.js:816
 msgid "The check stopped before it finished. Click the button to run it again."
 msgstr "La comprobación se detuvo antes de terminar. Haz clic en el botón para volver a ejecutarla."
 
 #. translators: %s: the error message from the site.
-#: admin/assets/js/admin.js:829
+#: admin/assets/js/admin.js:875
 msgid "This page could not go on with the check (%s). It carries on in the background; this line updates when it is done."
 msgstr "Esta página no pudo seguir con la comprobación (%s). Continúa en segundo plano; esta línea se actualiza cuando termine."
 
 #. translators: 1: date and time, 2: number of links checked.
-#: admin/assets/js/admin.js:879
+#: admin/assets/js/admin.js:925
 msgid "Last full check: %1$s, %2$d links checked."
 msgstr "Última comprobación completa: %1$s, %2$d enlaces comprobados."
 
-#: admin/assets/js/admin.js:881
+#: admin/assets/js/admin.js:927
 msgid "No full check has finished yet."
 msgstr "Todavía no ha terminado ninguna comprobación completa."
 
 #. translators: %d: number of links never checked.
-#: admin/assets/js/admin.js:885
+#: admin/assets/js/admin.js:931
 msgid "%d link has never been checked."
 msgid_plural "%d links have never been checked."
 msgstr[0] "%d enlace no se ha comprobado nunca."
 msgstr[1] "%d enlaces no se han comprobado nunca."
 
-#: admin/assets/js/admin.js:890
+#: admin/assets/js/admin.js:936
 msgid "The last check stopped part way. Click “Check all links now” to finish it."
 msgstr "La última comprobación se quedó a medias. Haz clic en “Comprobar todos los enlaces ahora” para terminarla."
 
-#: admin/assets/js/admin.js:913
+#: admin/assets/js/admin.js:959
 msgid "No broken links"
 msgstr "No hay enlaces rotos"
 
-#: admin/assets/js/admin.js:916
+#: admin/assets/js/admin.js:962
 msgid "Last checked %1$s, %2$d link in total."
 msgid_plural "Last checked %1$s, %2$d links in total."
 msgstr[0] "Última comprobación: %1$s, %2$d enlace en total."
 msgstr[1] "Última comprobación: %1$s, %2$d enlaces en total."
 
-#: admin/assets/js/admin.js:918
+#: admin/assets/js/admin.js:964
 msgid "Last checked %s."
 msgstr "Última comprobación: %s."
 
-#: admin/assets/js/admin.js:919
+#: admin/assets/js/admin.js:965
 msgid "Linkweave checks your links once a day. Click “Check all links now” to do it straight away."
 msgstr "Linkweave comprueba tus enlaces una vez al día. Haz clic en «Comprobar todos los enlaces ahora» para hacerlo ya."
 
-#: admin/assets/js/admin.js:935
+#: admin/assets/js/admin.js:981
 msgid "No answer in time, or the server returned an error. The page may be fine: open it to check. Remove all leaves these links alone."
 msgstr "No respondió a tiempo o el servidor devolvió un error. Puede que la página esté bien: ábrela para comprobarlo. El botón de quitar todos no toca estos enlaces."
 
-#: admin/assets/js/admin.js:944
+#: admin/assets/js/admin.js:990
 msgid "Points at"
 msgstr "Apunta a"
 
-#: admin/assets/js/admin.js:944
+#: admin/assets/js/admin.js:990
 msgid "Checked"
 msgstr "Comprobado"
 
-#: admin/assets/js/admin.js:992
+#: admin/assets/js/admin.js:1038
 msgid "Saving…"
 msgstr "Guardando…"
 
-#: admin/assets/js/admin.js:996
-#: admin/assets/js/admin.js:1000
+#: admin/assets/js/admin.js:1042
+#: admin/assets/js/admin.js:1046
 msgid "Settings saved."
 msgstr "Ajustes guardados."
 
-#: admin/assets/js/admin.js:1000
+#: admin/assets/js/admin.js:1046
 msgid "The index is being rebuilt in the background so the change reaches every post."
 msgstr "El índice se está reconstruyendo en segundo plano para que el cambio llegue a todas las entradas."
+
+#: admin/assets/js/admin.js:1059
+msgid "Settings saved, with a change:"
+msgstr "Ajustes guardados, con un cambio:"
 
 #. translators: %d: number of internal links pointing at a post.
 #: admin/assets/js/linkmap.js:38
@@ -2524,46 +2568,55 @@ msgstr "Se muestran %1$s y %2$s."
 msgid "No post with that title on the map."
 msgstr "No hay ninguna entrada con ese título en el mapa."
 
-#: editor/elementor/index.js:91
+#: editor/elementor/index.js:92
 msgid "Could not load link ideas."
 msgstr "No se pudieron cargar las ideas de enlaces."
 
-#: editor/elementor/index.js:124
+#: editor/elementor/index.js:125
 #: editor/src/SuggestionItem.jsx:54
 msgid "Insert link"
 msgstr "Insertar enlace"
 
-#: editor/elementor/index.js:134
+#: editor/elementor/index.js:135
 msgid "This page already links here."
 msgstr "Esta página ya enlaza aquí."
 
-#: editor/elementor/index.js:147
+#: editor/elementor/index.js:148
 msgid "No link ideas for this page yet. Linkweave reads it again after you publish or update it."
 msgstr "Todavía no hay ideas de enlaces para esta página. Linkweave la vuelve a leer cuando la publicas o actualizas."
 
-#: editor/elementor/index.js:161
+#: editor/elementor/index.js:162
 msgid "Insert link puts the link on matching words in the page text: Text Editor and Paragraph widgets, tabs, accordions and toggles. Nothing is saved until you click Publish or Update."
 msgstr "Insertar enlace pone el enlace en las palabras que coinciden en el texto de la página: widgets Editor de texto y Párrafo, pestañas, acordeones y conmutadores. No se guarda nada hasta que pulses Publicar o Actualizar."
 
-#: editor/elementor/index.js:170
+#: editor/elementor/index.js:171
 msgid "Select words in a Text Editor widget, click its link button and paste. Or paste into a button's Link field."
 msgstr "Selecciona palabras en un widget Editor de texto, pulsa su botón de enlace y pega. O pega en el campo Enlace de un botón."
 
-#. translators: %s: the words that became the link.
-#: editor/elementor/index.js:259
-msgid "Linked “%s”. Click Publish or Update to save the page."
-msgstr "Enlazado «%s». Pulsa Publicar o Actualizar para guardar la página."
+#: editor/elementor/index.js:249
+msgid "This page has no Text Editor, Paragraph, tab, accordion or toggle text to put a link in. Use Copy link and paste it into a button's Link field."
+msgstr "Esta página no tiene texto de Editor de texto, Párrafo, pestañas, acordeón o conmutador donde poner un enlace. Usa Copiar enlace y pégalo en el campo Enlace de un botón."
 
-#: editor/elementor/index.js:274
-msgid "Elementor did not accept the change. Use Copy link instead."
-msgstr "Elementor no aceptó el cambio. Usa Copiar enlace en su lugar."
-
-#: editor/elementor/index.js:278
+#: editor/elementor/index.js:256
 msgid "The page text has no words from this title outside headings and links. Use Copy link and add the link by hand."
 msgstr "El texto de la página no tiene palabras de este título fuera de los encabezados y los enlaces. Usa Copiar enlace y añade el enlace a mano."
 
+#. translators: %s: one or two phrases from the idea's title, in quotes.
+#: editor/elementor/index.js:263
+msgid "Linkweave looked for %s and similar words in the page text, outside headings and links, and found none. Use Copy link, then select your own words in a Text Editor widget, click its link button and paste."
+msgstr "Linkweave buscó %s y palabras parecidas en el texto de la página, fuera de los encabezados y los enlaces, y no encontró ninguna. Usa Copiar enlace y después selecciona tus propias palabras en un widget Editor de texto, pulsa su botón de enlace y pega."
+
+#. translators: %s: the words that became the link.
+#: editor/elementor/index.js:295
+msgid "Linked “%s”. Click Publish or Update to save the page."
+msgstr "Enlazado «%s». Pulsa Publicar o Actualizar para guardar la página."
+
+#: editor/elementor/index.js:310
+msgid "Elementor did not accept the change. Use Copy link instead."
+msgstr "Elementor no aceptó el cambio. Usa Copiar enlace en su lugar."
+
 #. translators: %s: the address to copy by hand.
-#: editor/elementor/index.js:307
+#: editor/elementor/index.js:346
 msgid "Copy this: %s"
 msgstr "Copia esto: %s"
 
@@ -2689,8 +2742,6 @@ msgstr "Crear el índice"
 #: editor/src/SuggestionList.jsx:296
 msgid "Already built it? Save this post, then refresh."
 msgstr "¿Ya lo creaste? Guarda esta entrada y luego actualiza."
-
-
 
 #~ msgid "Undone in %1$d post(s); %2$d edited since were left as they are."
 #~ msgstr "Deshecho en %1$d entrada(s); %2$d editadas después se dejaron como están."

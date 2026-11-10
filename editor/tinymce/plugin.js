@@ -360,17 +360,23 @@
                     return;
                 }
 
+                // TinyMCE sizes a window from its content's natural width, measured
+                // with white-space:nowrap, so the hint and long titles grew it from 540
+                // to 884 px after it was centred: at 1366 px it opened at left:-30px
+                // and cut the start of every title (QA 10 Nov 2026). A content box of
+                // a fixed width, never wider than the screen, keeps it as declared.
+                const winWidth = Math.max( 280, Math.min( 540, ( window.innerWidth || 1024 ) - 40 ) );
                 editor.windowManager.open( {
                     title: i18n.title,
-                    width: 540,
+                    width: winWidth,
                     height: 400,
-                    html: '<div style="padding:10px;max-height:360px;overflow:auto">' +
+                    html: '<div class="jnk-linkweave-mce-list" style="box-sizing:border-box;width:' + winWidth + 'px;max-width:100%;padding:10px;max-height:360px;overflow:auto;white-space:normal">' +
                         ( i18n.hint ? '<p style="margin:0 0 8px;white-space:normal;color:#50575e">' + escape( i18n.hint ) + "</p>" : "" ) +
                         suggestions.map( ( s ) =>
                             '<div style="border-bottom:1px solid #eee;padding:6px 0;display:flex;justify-content:space-between;align-items:center;gap:8px">' +
-                            '<span style="white-space:normal"><strong>' + escape( decodeEntities( s.title ) ) + "</strong> " +
+                            '<span style="white-space:normal;flex:1 1 auto;min-width:0;overflow-wrap:anywhere"><strong>' + escape( decodeEntities( s.title ) ) + "</strong> " +
                             '<small title="' + escape( "Relevance " + Number( s.score ).toFixed( 2 ) ) + '">(' + escape( strength( Number( s.score ), s.matched_terms ) ) + ")</small></span>" +
-                            '<button type="button" class="button button-primary jnk-linkweave-pick" data-url="' + escape( s.url ) + '" data-title="' + escape( s.title ) + '" data-id="' + escape( s.target_id ) + '">' + escape( i18n.insert || "Insert" ) + "</button>" +
+                            '<button type="button" class="button button-primary jnk-linkweave-pick" style="flex:0 0 auto" data-url="' + escape( s.url ) + '" data-title="' + escape( s.title ) + '" data-id="' + escape( s.target_id ) + '">' + escape( i18n.insert || "Insert" ) + "</button>" +
                             "</div>"
                         ).join( "" ) +
                         "</div>",

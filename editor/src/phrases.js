@@ -158,10 +158,66 @@ function titleWords( segment ) {
 	return out;
 }
 
+/** Words ending in s that are not plurals ("news" is not "new"). */
+const NOT_PLURAL = new Set(
+	(
+		'news series species lens canvas chaos atlas means economics physics ' +
+		'politics mathematics ethics athletics always perhaps'
+	).split( ' ' )
+);
+
+/**
+ * An English (Latin-script) word's plural-free stem and the ending pattern that
+ * brings its forms back: "Bed" and "beds", "Seeds" and "seed", "Berry" and
+ * "berries", "Dish" and "dishes". Ideas are ranked on such stems, so the top
+ * idea for a page about "cedar raised beds" was "Raised Bed Kit", which Insert
+ * link could not place (QA 10 Nov 2026).
+ *
+ * @param {string} word A title word.
+ * @return {{stem:string,src:string}} Lower-case stem and its RegExp source.
+ */
+export function wordForms( word ) {
+	const esc = ( w ) =>
+		w.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' ).replace( APOS, APOS_CLASS );
+	if ( ! /^\p{Script=Latin}{3,}$/u.test( word ) ) {
+		return { stem: word.toLowerCase(), src: esc( word ) };
+	}
+	const l = word.toLowerCase();
+	if ( NOT_PLURAL.has( l ) ) {
+		return { stem: l, src: esc( word ) };
+	}
+	if ( l.length > 4 && l.endsWith( 'ies' ) ) {
+		return {
+			stem: l.slice( 0, -3 ) + 'y',
+			src: esc( word.slice( 0, -3 ) ) + '(?:y|ies)',
+		};
+	}
+	if ( l.length > 3 && /[^aeiouy]y$/.test( l ) ) {
+		return { stem: l, src: esc( word.slice( 0, -1 ) ) + '(?:y|ies)' };
+	}
+	if ( l.length > 4 && /(?:s|x|z|ch|sh)es$/.test( l ) ) {
+		return {
+			stem: l.slice( 0, -2 ),
+			src: esc( word.slice( 0, -2 ) ) + '(?:es)?',
+		};
+	}
+	if ( /(?:s|x|z|ch|sh)$/.test( l ) && ! /[^s]s$/.test( l ) ) {
+		return { stem: l, src: esc( word ) + '(?:es)?' };
+	}
+	if ( l.length > 3 && l.endsWith( 's' ) && ! /(?:ss|us|is)$/.test( l ) ) {
+		return {
+			stem: l.slice( 0, -1 ),
+			src: esc( word.slice( 0, -1 ) ) + '(?:s|es)?',
+		};
+	}
+	return { stem: l, src: esc( word ) + '(?:s)?' };
+}
+
 /**
  * The pattern for a phrase (no edges): any apostrophe for any other, any
- * run of space for a space, and a Korean word inside the phrase with its
- * particle dropped and any particle allowed.
+ * run of space for a space, an English word in its singular or plural, and a
+ * Korean word inside the phrase with its particle dropped and any particle
+ * allowed.
  *
  * @param {string} phrase A title phrase.
  * @return {string} RegExp source.
@@ -177,9 +233,7 @@ function phraseSource( phrase ) {
 				);
 				stem = p ? word.slice( 0, -p.length ) : word;
 			}
-			let src = stem
-				.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' )
-				.replace( APOS, APOS_CLASS );
+			let src = wordForms( stem ).src;
 			if ( i < words.length - 1 && /\p{Script=Hangul}$/u.test( stem ) ) {
 				src += '\\p{Script=Hangul}{0,2}';
 			}
@@ -329,10 +383,15 @@ export function phraseRegExp( phrase ) {
  * @param {string}   title   Suggestion title.
  * @param {Function} isClean Optional ( start, end ) => false to skip a match
  *                           (already linked or formatted there).
+ * @param {string[]} [terms] Optional words the idea was built from; when given,
+ *                           only title words among them are tried.
  * @return {{start:number,end:number}|null} Range in text.
  */
-export function findInText( text, title, isClean ) {
-	for ( const phrase of titlePhrases( title ) ) {
+export function findInText( text, title, isClean, terms ) {
+	const phrases = terms
+		? titleTermWords( title, terms )
+		: titlePhrases( title );
+	for ( const phrase of phrases ) {
 		const re = phraseRegExp( phrase );
 		let m;
 		while ( ( m = re.exec( text ) ) !== null ) {
@@ -347,4 +406,37 @@ export function findInText( text, title, isClean ) {
 		}
 	}
 	return null;
+}
+
+/**
+ * Single title words the idea was built from: the shared words the
+ * suggestion lists (matched_terms, as spelled in the page) that are also in
+ * its title, in either number ("seeds" for "Herb Seed Collection"). The last
+ * resort when no phrase of the title is in the text; a shared word that is not
+ * in the title would make a link whose words promise another page.
+ *
+ * @param {string}   title Suggestion title.
+ * @param {string[]} terms The suggestion's matched_terms.
+ * @return {string[]} Title words, in the order of terms.
+ */
+export function titleTermWords( title, terms ) {
+	const byStem = new Map();
+	for ( const { word } of titleWords( decodeEntities( title ) ) ) {
+		if ( ! isStopword( word ) && phraseWeight( word ) >= 4 ) {
+			const stem = wordForms( word ).stem;
+			if ( ! byStem.has( stem ) ) {
+				byStem.set( stem, word );
+			}
+		}
+	}
+	const out = [];
+	for ( const term of terms || [] ) {
+		for ( const part of String( term ).split( /\s+/ ) ) {
+			const word = byStem.get( wordForms( part ).stem );
+			if ( word && ! out.includes( word ) ) {
+				out.push( word );
+			}
+		}
+	}
+	return out;
 }

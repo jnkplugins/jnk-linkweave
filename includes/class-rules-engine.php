@@ -196,6 +196,12 @@ class Rules_Engine {
      * ("/grinder-guide/") is the same page as the rule's absolute target, so it
      * borrows this site's host before normalising.
      */
+    /** Do two link targets name the same page (relative or absolute, any trailing slash)? */
+    public static function same_target( string $a, string $b ): bool {
+        $ka = self::link_key( $a );
+        return "" !== $ka && self::link_key( $b ) === $ka;
+    }
+
     private static function link_key( string $url ): string {
         $url = trim( $url );
         if ( str_starts_with( $url, "/" ) && ! str_starts_with( $url, "//" ) ) {
@@ -322,6 +328,12 @@ class Rules_Engine {
         // itself. Resolve the current permalink once and skip those rules.
         $self_url = $post_id > 0 ? self::normalize_url( (string) get_permalink( $post_id ) ) : "";
 
+        // Phrases an earlier rule has linked in this post (case-folded). Two rules
+        // for the same phrase linked "비만" to one page and the next "비만" to
+        // another in the same post (QA 10 Nov 2026): the first rule wins and a
+        // later rule leaves that phrase alone here.
+        $claimed = [];
+
         // Case-folded copy of the text, to skip rules whose words are not in this
         // post at all before building their pattern. A link map has hundreds of
         // rules and a post mentions a few of them, so the Applied recount ran
@@ -334,6 +346,12 @@ class Rules_Engine {
             [ $keywords, $folded_keywords ] = $phrases[ $id ] ?? self::rule_phrases( [ $rule ] )[ $id ];
             if ( ! $keywords || ! self::mentions_any( $folded, $folded_keywords ) ) {
                 continue;
+            }
+            if ( $claimed ) {
+                $keywords = array_values( array_filter( $keywords, static fn( $k ) => ! isset( $claimed[ self::fold( $k ) ] ) ) );
+                if ( ! $keywords ) {
+                    continue;
+                }
             }
             if ( "" !== $self_url && self::normalize_url( (string) $rule->target_url ) === $self_url ) {
                 continue;
@@ -354,9 +372,15 @@ class Rules_Engine {
             if ( "" !== $target_key && isset( $linked[ $target_key ] ) ) {
                 continue;
             }
+            $before    = $applied[ $id ] ?? 0;
             $protected = self::replace_matches( $protected, $rule, $keywords, $cap, $applied, $post_id, $placeholders, $fire );
-            if ( "" !== $target_key && ( $applied[ $id ] ?? 0 ) > 0 ) {
-                $linked[ $target_key ] = true;
+            if ( ( $applied[ $id ] ?? 0 ) > $before ) {
+                if ( "" !== $target_key ) {
+                    $linked[ $target_key ] = true;
+                }
+                foreach ( $keywords as $k ) {
+                    $claimed[ self::fold( $k ) ] = true;
+                }
             }
         }
 
@@ -949,17 +973,84 @@ class Rules_Engine {
     /* -------------------- CRUD -------------------- */
 
     /**
+     * An existing rule for the same phrase (any capitals) that could link in the
+     * same posts, or null. $body is the new rule as sent; an extension with rule
+     * scopes (post types, categories) narrows "the same posts" through the
+     * jnk_linkweave_rule_scopes_overlap filter.
+     */
+    public static function duplicate_of( array $body, int $exclude_id = 0 ): ?object {
+        global $wpdb;
+        $keyword = trim( sanitize_text_field( (string) ( $body["keyword"] ?? "" ) ) );
+        if ( "" === $keyword ) {
+            return null;
+        }
+        $rows = (array) $wpdb->get_results( $wpdb->prepare(
+            "SELECT * FROM %i WHERE LOWER(keyword) = LOWER(%s) AND id <> %d ORDER BY id ASC",
+            self::table(),
+            $keyword,
+            $exclude_id
+        ) );
+        $want = self::fold( $keyword );
+        foreach ( $rows as $row ) {
+            if ( self::fold( (string) $row->keyword ) !== $want ) {
+                continue;
+            }
+            /**
+             * Could this existing rule link in the same posts as the new one?
+             *
+             * @param bool   $overlap Default true (rules without scopes link everywhere).
+             * @param object $row     The existing rule.
+             * @param array  $body    The new rule as sent.
+             */
+            if ( apply_filters( "jnk_linkweave_rule_scopes_overlap", true, $row, $body ) ) {
+                return self::typed( $row );
+            }
+        }
+        return null;
+    }
+
+    /** The rules table's keyword column holds this many characters. */
+    public const KEYWORD_MAX = 255;
+
+    /**
+     * Why a phrase cannot be stored, or null when it can. A phrase longer than
+     * the column was refused by the database, yet the screen said "Rule added"
+     * and the REST answer was 201 {"id":0} (QA 10 Nov 2026).
+     */
+    public static function keyword_error( $keyword ): ?string {
+        $keyword = sanitize_text_field( (string) $keyword );
+        $length  = function_exists( "mb_strlen" ) ? mb_strlen( $keyword, "UTF-8" ) : strlen( $keyword );
+        if ( $length > self::KEYWORD_MAX ) {
+            return sprintf(
+                /* translators: 1: characters in the phrase, 2: the most allowed. */
+                __( 'This phrase is %1$d characters long. A rule phrase can be %2$d characters at most, so the rule was not saved. Use a shorter phrase.', "jnk-linkweave" ),
+                $length,
+                self::KEYWORD_MAX
+            );
+        }
+        return null;
+    }
+
+    /**
      * @param bool $recount Recount every rule afterwards. Bulk callers pass false
      *                      and recount once at the end.
+     * @return int The new rule's id, or 0 when it was not saved (phrase too long,
+     *             or the database refused the row).
      */
     public function create( array $data, bool $recount = true ): int {
         global $wpdb;
+        if ( isset( $data["keyword"] ) && null !== self::keyword_error( $data["keyword"] ) ) {
+            return 0;
+        }
         $now    = current_time( "mysql", true );
         $insert = $this->sanitize( $data );
         $insert["created_at"] = $now;
         $insert["updated_at"] = $now;
-        $wpdb->insert( self::table(), $insert );
-        $id = (int) $wpdb->insert_id;
+        $ok = $wpdb->insert( self::table(), $insert );
+        $id = false === $ok ? 0 : (int) $wpdb->insert_id;
+        if ( $id <= 0 ) {
+            return 0;
+        }
         /**
          * A rule was created or updated. $data is the raw request body, so an
          * extension can store its own fields for the rule.
@@ -974,6 +1065,9 @@ class Rules_Engine {
 
     public function update( int $id, array $data, bool $recount = true ): bool {
         global $wpdb;
+        if ( isset( $data["keyword"] ) && null !== self::keyword_error( $data["keyword"] ) ) {
+            return false;
+        }
         $update = $this->sanitize( $data );
         $update["updated_at"] = current_time( "mysql", true );
         $ok = $wpdb->update( self::table(), $update, [ "id" => $id ] );

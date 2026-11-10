@@ -16,6 +16,7 @@
  */
 import { __, sprintf } from '@wordpress/i18n';
 import { linkFirstWords } from './link-words';
+import { titlePhrases } from '../src/phrases';
 import { textSpots } from './widgets';
 
 ( function () {
@@ -218,18 +219,53 @@ import { textSpots } from './widgets';
 	 * @return {string|null} The linked words, or null when none matched.
 	 */
 	function insertIdea( s ) {
-		for ( const w of textWidgets() ) {
-			const placed = linkFirstWords( w.html, s );
-			if ( placed ) {
-				window.$e.run( 'document/elements/settings', {
-					container: w.container,
-					settings: { [ w.key ]: w.value( placed.html ) },
-					options: { external: true },
-				} );
-				return placed.text;
+		// Title phrases first, in every widget (singular or plural alike: "Raised
+		// Bed Kit" goes on "raised beds"). Only then a single title word the idea
+		// was built from ("seeds" for "Herb Seed Collection").
+		for ( const byTerms of [ false, true ] ) {
+			for ( const w of textWidgets() ) {
+				const placed = linkFirstWords( w.html, s, byTerms );
+				if ( placed ) {
+					window.$e.run( 'document/elements/settings', {
+						container: w.container,
+						settings: { [ w.key ]: w.value( placed.html ) },
+						options: { external: true },
+					} );
+					return placed.text;
+				}
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Why Insert link found no place, in words the editor can act on.
+	 *
+	 * @param {Object} s Suggestion.
+	 * @return {string} The reason, with what to do instead.
+	 */
+	function whyNot( s ) {
+		if ( ! textWidgets().length ) {
+			return __(
+				"This page has no Text Editor, Paragraph, tab, accordion or toggle text to put a link in. Use Copy link and paste it into a button's Link field.",
+				'jnk-linkweave'
+			);
+		}
+		const looked = titlePhrases( s.title ).slice( 0, 2 );
+		if ( ! looked.length ) {
+			return __(
+				'The page text has no words from this title outside headings and links. Use Copy link and add the link by hand.',
+				'jnk-linkweave'
+			);
+		}
+		return sprintf(
+			/* translators: %s: one or two phrases from the idea's title, in quotes. */
+			__(
+				'Linkweave looked for %s and similar words in the page text, outside headings and links, and found none. Use Copy link, then select your own words in a Text Editor widget, click its link button and paste.',
+				'jnk-linkweave'
+			),
+			looked.map( ( p ) => '“' + p + '”' ).join( ', ' )
+		);
 	}
 
 	function onInsert( btn ) {
@@ -275,12 +311,15 @@ import { textSpots } from './widgets';
 							'Elementor did not accept the change. Use Copy link instead.',
 							'jnk-linkweave'
 					  )
-					: __(
-							'The page text has no words from this title outside headings and links. Use Copy link and add the link by hand.',
-							'jnk-linkweave'
-					  )
+					: whyNot( s )
 			)
 		);
+		// The way forward is Copy link: point at it.
+		const copy = li.querySelector( '[data-jnk-copy]' );
+		if ( copy ) {
+			copy.classList.add( 'elementor-button-success' );
+			copy.classList.remove( 'elementor-button-default' );
+		}
 	}
 
 	async function onCopy( btn ) {

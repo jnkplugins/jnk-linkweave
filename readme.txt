@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.26.2
+Stable tag: 1.27.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,6 +169,15 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.27.0 =
+* Fixed: an auto-link rule with a phrase over 255 characters was not saved, yet the screen said "Rule added". The phrase box now stops at 255 characters, and a longer phrase sent another way is refused with a message saying why.
+* Fixed: adding an auto-link rule for a phrase that already has one now warns and offers to edit the existing rule. If you add it anyway, each post links the phrase to one page only (the older rule wins); before, one post could link the same word to two different pages.
+* Fixed: Settings no longer reports "Settings saved" over a number it had to change. A value outside a field's range (500 suggestions per post, a match of 7) is still brought into range, and the notice now says which setting was changed to what.
+* Fixed: deleting Linkweave with "keep data" (the default) left its scheduled tasks behind, such as the hourly bot-log flush after a move from Pro to the free version. Every Linkweave task is now removed when the plugin is deleted; your data still stays.
+* Fixed: Insert link in the Elementor link ideas did nothing for most ideas when the page used the plural ("raised beds" for "Raised Bed Kit"). It now finds singular and plural alike, falls back to a title word the idea was built from, and when it truly cannot place the link it says which words it looked for and points you to Copy link. The block editor's Insert link matches plurals the same way.
+* Fixed: in the classic editor, the "JnK Linkweave suggestions" window could open partly off the left edge of the screen and cut the start of every title. It now opens at its set width, centred, and never wider than the screen.
+* Fixed: on a phone, Korean table headings and post titles (Rules, Broken links) no longer break one syllable per line. Headings break only between words, and a wide table scrolls sideways in its own box.
 
 = 1.26.2 =
 * Changed: nothing changes in the free version. This release stops a Pro install with a free licence key from being replaced by the free version when it updates.

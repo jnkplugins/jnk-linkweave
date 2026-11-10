@@ -174,6 +174,13 @@ a.jnkui-stat:hover { border-color: color-mix(in srgb, var(--jnk-brand) 35%, var(
 .jnkui table.jnkui-table tbody tr:hover td, .jnkui table.jnk-linkweave-table tbody tr:hover td { background: #fafbff; }
 .jnkui table a { color: var(--jnk-ink); font-weight: 600; text-decoration: none; }
 .jnkui table a:hover { color: var(--jnk-brand); text-decoration: underline; }
+/* Korean breaks between words, never between the syllables of one word: at 390 px
+   "추가된 링크" and the title "인플레이션" stood one syllable per line. Headers in any
+   language break only at spaces; a table wider than the screen scrolls in its
+   .jnkui-table-wrap instead (QA 10 Nov 2026). break-word, not anywhere, so a
+   column is never squeezed below its longest word. */
+.jnkui table.jnkui-table th, .jnkui table.jnk-linkweave-table th, .jnkui table.widefat thead th { word-break: keep-all; }
+.jnkui table.jnkui-table td:lang(ko):not(.jnk-linkweave-target), .jnkui table.jnk-linkweave-table td:lang(ko):not(.jnk-linkweave-target), .jnkui table.widefat td:lang(ko) { word-break: keep-all; overflow-wrap: break-word; }
 /* A long (often percent-encoded) URL wraps instead of pushing Status and Repair off-screen. */
 .jnkui td.jnk-linkweave-target { overflow-wrap: anywhere; word-break: break-word; min-width: 12rem; max-width: 28rem; }
 .jnkui td.is-num, .jnkui th.is-num { text-align: end; font-variant-numeric: tabular-nums; }

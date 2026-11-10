@@ -50,6 +50,7 @@
                 const err = new Error( data.message || data.error || res.statusText );
                 // Callers that poll need the status and, after a 429, how long to wait.
                 err.status     = res.status;
+                err.data       = data;
                 err.retryAfter = Number( ( data.data && data.data.retry_after ) || res.headers.get( "Retry-After" ) || 0 );
                 throw err;
             }
@@ -473,7 +474,7 @@
                 </table></div>
                 <div class="jnkui-card"><div class="jnkui-card-head"><div><h2>${ __( "Add a rule", "jnk-linkweave" ) }</h2><p>${ __( "Linkweave links this phrase wherever it appears in your posts.", "jnk-linkweave" ) }</p></div></div>
                 <form id="jnk-linkweave-add-rule" class="jnkui-card-body" onsubmit="return false;" style="display:grid;gap:14px">
-                    <label class="jnkui-field"><span>${ __( "Phrase", "jnk-linkweave" ) }</span><input type="text" name="keyword" placeholder="${ escape( __( "e.g. internal linking", "jnk-linkweave" ) ) }" required></label>
+                    <label class="jnkui-field"><span>${ __( "Phrase", "jnk-linkweave" ) }</span><input type="text" name="keyword" maxlength="255" placeholder="${ escape( __( "e.g. internal linking", "jnk-linkweave" ) ) }" required></label>
                     <label class="jnkui-field"><span>${ __( "Links to", "jnk-linkweave" ) }</span><input type="url" name="target_url" placeholder="https://…" required></label>
                     <div style="display:flex;flex-wrap:wrap;gap:8px 16px">
                         <label><input type="checkbox" name="is_active" value="1" checked> ${ __( "On", "jnk-linkweave" ) }</label>
@@ -513,7 +514,7 @@
                         <td colspan="5">
                             <form class="jnk-linkweave-edit-rule" onsubmit="return false;">
                                 <p>
-                                    <input type="text" name="keyword" value="${ escape( r.keyword ) }" required>
+                                    <input type="text" name="keyword" maxlength="255" value="${ escape( r.keyword ) }" required>
                                     <input type="url" name="target_url" value="${ escape( r.target_url ) }" class="regular-text" required>
                                 </p>
                                 <p>
@@ -576,13 +577,58 @@
                     max_per_site: parseInt( f.max_per_site.value, 10 ),
                 };
                 ruleBody( body, f );
-                try {
-                    await api( "rules", { method: "POST", body } );
-                    renderRules( __( "Rule added.", "jnk-linkweave" ) );
-                } catch ( e ) {
-                    alert( e.message );
+                const btn = this;
+                async function send() {
+                    btn.disabled = true;
+                    try {
+                        await api( "rules", { method: "POST", body } );
+                        renderRules( __( "Rule added.", "jnk-linkweave" ) );
+                    } catch ( e ) {
+                        btn.disabled = false;
+                        if ( e.status === 409 && e.data && e.data.existing ) {
+                            offerExisting( e.message, e.data.existing, function () {
+                                body.allow_duplicate = true;
+                                send();
+                            } );
+                            return;
+                        }
+                        flash( rulesMount, e.message, "error" );
+                        alert( e.message );
+                    }
                 }
+                send();
             } );
+
+            // The phrase already has a rule: say so above the table, with a way to
+            // edit that rule and a way to add this one anyway.
+            function offerExisting( message, existing, addAnyway ) {
+                flash( rulesMount, message, "warning" );
+                const box = rulesMount.parentNode.querySelector( ":scope > .jnk-linkweave-flash .notice" );
+                if ( ! box ) {
+                    return;
+                }
+                const p = document.createElement( "p" );
+                p.innerHTML = `<button type="button" class="button button-primary" data-action="edit-existing">${ __( "Edit that rule", "jnk-linkweave" ) }</button> <button type="button" class="button" data-action="add-anyway">${ __( "Add anyway", "jnk-linkweave" ) }</button>`;
+                box.appendChild( p );
+                box.scrollIntoView( { block: "nearest" } );
+                p.querySelector( "[data-action=edit-existing]" ).addEventListener( "click", function () {
+                    flash( rulesMount, "" );
+                    const row  = rulesMount.querySelector( `tr[data-id="${ String( existing.id ) }"]` );
+                    const edit = row && row.querySelector( "[data-action=edit-rule]" );
+                    if ( edit ) {
+                        edit.click();
+                        row.scrollIntoView( { block: "center" } );
+                        const kw = row.querySelector( "input[name=keyword]" );
+                        if ( kw ) {
+                            kw.focus();
+                        }
+                    }
+                } );
+                p.querySelector( "[data-action=add-anyway]" ).addEventListener( "click", function () {
+                    flash( rulesMount, "" );
+                    addAnyway();
+                } );
+            }
         } catch ( e ) {
             rulesMount.innerHTML = '<p class="jnk-linkweave-empty">' + escape( e.message ) + "</p>";
         }
@@ -999,6 +1045,19 @@
                     settingsForm,
                     __( "Settings saved.", "jnk-linkweave" ) + ( saved && saved.rebuild_queued ? " " + __( "The index is being rebuilt in the background so the change reaches every post.", "jnk-linkweave" ) : "" )
                 );
+                // Saved, but a number was out of range and brought into it: say
+                // which, and show the saved value in the field.
+                if ( saved && saved.adjusted ) {
+                    Object.keys( saved.adjusted ).forEach( function ( key ) {
+                        if ( settingsForm[ key ] && saved[ key ] !== undefined ) {
+                            settingsForm[ key ].value = saved[ key ];
+                        }
+                    } );
+                    const changed = Object.values( saved.adjusted ).join( " " );
+                    status.textContent = changed;
+                    status.style.color = "#b32d2e";
+                    flash( settingsForm, __( "Settings saved, with a change:", "jnk-linkweave" ) + " " + changed, "warning" );
+                }
                 // Saved, but one field was left out (an API key on a site
                 // without HTTPS): the server says which and why, translated.
                 if ( saved && saved.notice ) {

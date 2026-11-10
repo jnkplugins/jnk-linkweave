@@ -17,6 +17,22 @@ if ( is_readable( __DIR__ . "/pro/licensorpro-client/uninstall-seat.php" ) ) {
     include __DIR__ . "/pro/licensorpro-client/uninstall-seat.php";
 }
 
+// Clear scheduled events whether or not the data stays: every WP-Cron hook
+// named after the plugin, and every Action Scheduler action in its group. With
+// "keep data" (the default) this ran after the early return, so an hourly
+// Pro event outlived the plugin, e.g. after a Pro -> free
+// downgrade whose build carries no Pro deactivation hook (QA 10 Nov 2026).
+foreach ( (array) _get_cron_array() as $jnk_linkweave_events ) {
+    foreach ( array_keys( (array) $jnk_linkweave_events ) as $jnk_linkweave_hook ) {
+        if ( 0 === strpos( (string) $jnk_linkweave_hook, "jnk_linkweave_" ) || false !== strpos( (string) $jnk_linkweave_hook, "_jnk-linkweave_" ) ) {
+            wp_unschedule_hook( (string) $jnk_linkweave_hook );
+        }
+    }
+}
+if ( function_exists( "as_unschedule_all_actions" ) ) {
+    as_unschedule_all_actions( "", [], "jnk-linkweave" );
+}
+
 $jnk_linkweave_settings = get_option( "jnk_linkweave_settings", [] );
 if ( empty( $jnk_linkweave_settings["delete_data_on_uninstall"] ) ) {
     return;
@@ -49,19 +65,6 @@ foreach ( [ "jnk_linkweave_%", "%_jnk-linkweave_%" ] as $jnk_linkweave_p ) {
 }
 delete_post_meta_by_key( "_jnk_linkweave_no_autolink" );
 delete_post_meta_by_key( "_jnk_linkweave_related" );
-
-// Clear scheduled events: every WP-Cron hook named after the plugin, and every
-// Action Scheduler action in its group.
-foreach ( (array) _get_cron_array() as $jnk_linkweave_events ) {
-    foreach ( array_keys( (array) $jnk_linkweave_events ) as $jnk_linkweave_hook ) {
-        if ( 0 === strpos( (string) $jnk_linkweave_hook, "jnk_linkweave_" ) || false !== strpos( (string) $jnk_linkweave_hook, "_jnk-linkweave_" ) ) {
-            wp_unschedule_hook( (string) $jnk_linkweave_hook );
-        }
-    }
-}
-if ( function_exists( "as_unschedule_all_actions" ) ) {
-    as_unschedule_all_actions( "", [], "jnk-linkweave" );
-}
 
 // Premium builds carry their own teardown (the URL-changer table, license/SDK
 // state). Present only in the paid build; the free wordpress.org build ships no

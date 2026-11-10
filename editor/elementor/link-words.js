@@ -58,11 +58,13 @@ function shortcodeSpans( text ) {
 /**
  * Link the first whole-word match of one of the title's phrases.
  *
- * @param {string} html       The widget's HTML.
- * @param {Object} suggestion Suggestion with url and title.
+ * @param {string}  html       The widget's HTML.
+ * @param {Object}  suggestion Suggestion with url, title and matched_terms.
+ * @param {boolean} byTerms    Look for single title words the idea was built
+ *                             from (its matched_terms) instead of title phrases.
  * @return {{html:string,text:string}|null} The new HTML and the linked words, or null when no words match.
  */
-export function linkFirstWords( html, suggestion ) {
+export function linkFirstWords( html, suggestion, byTerms ) {
 	const parts = String( html || '' ).split( /(<!--[\s\S]*?-->|<[^>]*>)/ );
 	const open = {};
 	let shut = 0;
@@ -89,7 +91,8 @@ export function linkFirstWords( html, suggestion ) {
 			text,
 			suggestion.title,
 			( start, end ) =>
-				! spans.some( ( [ a, b ] ) => start < b && end > a )
+				! spans.some( ( [ a, b ] ) => start < b && end > a ),
+			byTerms ? suggestion.matched_terms || [] : undefined
 		);
 		if ( ! range ) {
 			continue;

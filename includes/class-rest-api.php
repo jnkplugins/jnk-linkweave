@@ -331,13 +331,54 @@ class REST_API {
         ], 400 );
     }
 
+    /** 400 when the phrase is longer than a rule can hold. */
+    private static function bad_keyword( array $body ): ?\WP_REST_Response {
+        if ( ! array_key_exists( "keyword", $body ) ) {
+            return null;
+        }
+        $error = Rules_Engine::keyword_error( $body["keyword"] );
+        return null === $error ? null : new \WP_REST_Response( [
+            "code"    => "jnk_linkweave_keyword_too_long",
+            "message" => $error,
+        ], 400 );
+    }
+
+    /** The answer when the database refused a rule: never a success. */
+    private static function rule_not_saved(): \WP_REST_Response {
+        return new \WP_REST_Response( [
+            "code"    => "jnk_linkweave_rule_not_saved",
+            "message" => __( "The rule could not be saved: the database refused it. Nothing was changed.", "jnk-linkweave" ),
+        ], 500 );
+    }
+
     public function create_rule( \WP_REST_Request $r ): \WP_REST_Response {
         $body = (array) $r->get_json_params();
         if ( $bad = self::bad_target( $body ) ) {
             return $bad;
         }
+        if ( $bad = self::bad_keyword( $body ) ) {
+            return $bad;
+        }
+        // Same phrase as an existing rule: warn and offer that rule, unless the
+        // owner chose "Add anyway". The engine lets the first rule win in a post.
+        $dup = empty( $body["allow_duplicate"] ) ? Rules_Engine::duplicate_of( $body ) : null;
+        if ( $dup ) {
+            return new \WP_REST_Response( [
+                "code"     => "jnk_linkweave_duplicate_phrase",
+                "message"  => sprintf(
+                    /* translators: 1: the phrase, 2: the page the existing rule links to. */
+                    __( 'A rule for “%1$s” already links to %2$s. With two rules for the same phrase, each post gets only the first one. Edit that rule, or add this one anyway.', "jnk-linkweave" ),
+                    $dup->keyword,
+                    $dup->target_url
+                ),
+                "existing" => [ "id" => (int) $dup->id, "keyword" => $dup->keyword, "target_url" => $dup->target_url ],
+            ], 409 );
+        }
         // Free tier creates unlimited auto-linking rules — no cap.
         $id = ( new Rules_Engine() )->create( $body );
+        if ( $id <= 0 ) {
+            return self::rule_not_saved();
+        }
         return new \WP_REST_Response( [ "id" => $id ], 201 );
     }
 
@@ -353,7 +394,13 @@ class REST_API {
         if ( $bad = self::bad_target( $body ) ) {
             return $bad;
         }
+        if ( $bad = self::bad_keyword( $body ) ) {
+            return $bad;
+        }
         $ok = ( new Rules_Engine() )->update( (int) $r["id"], $body );
+        if ( ! $ok ) {
+            return self::rule_not_saved();
+        }
         return new \WP_REST_Response( [ "updated" => $ok ] );
     }
 
@@ -578,14 +625,46 @@ class REST_API {
                 $opts[ Index_Builder::TYPES_CHOSEN_KEY ] = true;
             }
         }
+        // Numbers outside the field's range are brought into it, and the answer
+        // says which and to what: "Settings saved" over a silent 500 -> 50 and
+        // 7 -> 1 hid nearly every suggestion without a word (QA 10 Nov 2026).
+        $adjusted = [];
+        $clamp    = static function ( string $key, $value, $min, $max, string $label ) use ( &$opts, &$adjusted ) {
+            $float = is_float( $min );
+            $given = is_numeric( $value ) ? ( $float ? (float) $value : (int) $value ) : null;
+            $saved = null === $given ? $min : $given;
+            $saved = max( $min, null === $max ? $saved : min( $max, $saved ) );
+            $opts[ $key ] = $saved;
+            if ( $given === $saved ) {
+                return;
+            }
+            $show = static fn( $n ) => $float ? rtrim( rtrim( number_format( (float) $n, 2, ".", "" ), "0" ), "." ) : (string) $n;
+            $adjusted[ $key ] = null === $max
+                ? sprintf(
+                    /* translators: 1: setting name, 2: the value entered, 3: the lowest allowed, which was saved. */
+                    __( '%1$s: %2$s is below the lowest allowed, so %3$s was saved.', "jnk-linkweave" ),
+                    $label,
+                    null === $given ? "–" : $show( $given ),
+                    $show( $saved )
+                )
+                : sprintf(
+                    /* translators: 1: setting name, 2: the value entered, 3: lowest allowed, 4: highest allowed, 5: the value saved. */
+                    __( '%1$s: %2$s is outside %3$s to %4$s, so %5$s was saved.', "jnk-linkweave" ),
+                    $label,
+                    null === $given ? "–" : $show( $given ),
+                    $show( $min ),
+                    $show( $max ),
+                    $show( $saved )
+                );
+        };
         if ( array_key_exists( "min_post_length", $body ) ) {
-            $opts["min_post_length"] = max( 0, (int) $body["min_post_length"] );
+            $clamp( "min_post_length", $body["min_post_length"], 1, null, __( "Shortest post to suggest", "jnk-linkweave" ) );
         }
         if ( array_key_exists( "suggestions_per_post", $body ) ) {
-            $opts["suggestions_per_post"] = max( 1, min( 50, (int) $body["suggestions_per_post"] ) );
+            $clamp( "suggestions_per_post", $body["suggestions_per_post"], 1, 50, __( "Suggestions per post", "jnk-linkweave" ) );
         }
         if ( array_key_exists( "min_relevance_score", $body ) ) {
-            $opts["min_relevance_score"] = max( 0.0, min( 1.0, (float) $body["min_relevance_score"] ) );
+            $clamp( "min_relevance_score", $body["min_relevance_score"], 0.0, 1.0, __( "How close a match must be", "jnk-linkweave" ) );
         }
         if ( array_key_exists( "ranking", $body ) ) {
             $opts["ranking"] = in_array( $body["ranking"], [ "bm25", "tfidf" ], true ) ? $body["ranking"] : "bm25";
@@ -658,6 +737,9 @@ class REST_API {
         unset( $opts["llm_api_key"] );
         $opts = (array) apply_filters( "jnk_linkweave_settings_response", $opts, $body, true );
         $opts["rebuild_queued"] = $rebuild_queued;
+        if ( $adjusted ) {
+            $opts["adjusted"] = $adjusted;
+        }
         if ( "" !== $notice ) {
             $opts["key_skipped"] = true;
             $opts["notice"]      = $notice;
