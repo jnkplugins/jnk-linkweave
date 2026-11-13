@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.27.0
+Stable tag: 1.27.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,6 +169,9 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.27.1 =
+* Changed: nothing changes in the free version. This release fixes two Pro screens: the Duplicate links card and the Links to other sites counts.
 
 = 1.27.0 =
 * Fixed: an auto-link rule with a phrase over 255 characters was not saved, yet the screen said "Rule added". The phrase box now stops at 255 characters, and a longer phrase sent another way is refused with a message saying why.
