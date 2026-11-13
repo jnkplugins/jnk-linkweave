@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.27.1
+Stable tag: 1.27.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,6 +169,12 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.27.2 =
+* Fixed: on a phone, wide tables (Broken links, Auto-link rules, AI assistants, Sites you link to) show each row as a small card with the column name beside each value. Before, the first column stood one word a line and the Status and Repair buttons sat off screen.
+* Fixed: on a phone, long post titles on the Overview and Inbound links lists no longer push the link count past the screen edge; the title gets the full width with its bar below.
+* Fixed: on a phone, Orphans > "Find posts that could link here" shows the title, match and Open button beside the tick box instead of under it, and Settings rows lose the half-width line under each label.
+* Fixed: the link map on Inbound links works on a touch screen: the first tap on a square shows its title, a second tap opens the post. The title box stays inside the screen.
 
 = 1.27.1 =
 * Changed: nothing changes in the free version. This release fixes two Pro screens: the Duplicate links card and the Links to other sites counts.

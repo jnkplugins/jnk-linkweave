@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-11-13T17:55:39+00:00\n"
+"POT-Creation-Date: 2026-11-13T20:01:06+00:00\n"
 "PO-Revision-Date: 2026-10-10 16:38+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Spanish (Spain)\n"
@@ -1442,7 +1442,7 @@ msgid "Links"
 msgstr "Enlaces"
 
 #: admin/views/domains.php:110
-#: admin/views/inbound.php:21
+#: admin/views/inbound.php:22
 msgid "Posts"
 msgstr "Entradas"
 
@@ -1470,19 +1470,23 @@ msgstr "Cuántas de tus propias entradas enlazan a cada página. Las de arriba s
 msgid "Your link map"
 msgstr "Tu mapa de enlaces"
 
-#: admin/views/inbound.php:19
+#: admin/views/inbound.php:20
+msgid "Every square is one post, grouped by topic. The colour shows how many of your posts link to it. Tap a square for its title, tap it again to open it."
+msgstr "Cada cuadrado es una entrada, agrupada por tema. El color indica cuántas de tus entradas la enlazan. Toca un cuadrado para ver el título y vuelve a tocarlo para abrirla."
+
+#: admin/views/inbound.php:20
 msgid "Every square is one post, grouped by topic. The colour shows how many of your posts link to it. Hover for the title, click to open it."
 msgstr "Cada cuadrado es una entrada, agrupada por tema. El color indica cuántas de tus entradas la enlazan. Pasa el ratón por encima para ver el título y haz clic para abrirla."
 
-#: admin/views/inbound.php:22
+#: admin/views/inbound.php:23
 msgid "Graph"
 msgstr "Gráfico"
 
-#: admin/views/inbound.php:24
+#: admin/views/inbound.php:25
 msgid "Topics"
 msgstr "Temas"
 
-#: admin/views/inbound.php:35
+#: admin/views/inbound.php:36
 msgid "Only links saved in your posts count here. Links added on the fly by auto-link rules are not stored. New links are counted within a minute of saving a post."
 msgstr "Aquí solo cuentan los enlaces guardados en tus entradas. Los enlaces que añaden al vuelo las reglas de enlace automático no se guardan. Los enlaces nuevos se cuentan en menos de un minuto tras guardar una entrada."
 
@@ -2156,7 +2160,7 @@ msgstr "Frase"
 
 #: admin/assets/js/admin.js:472
 #: admin/assets/js/admin.js:478
-#: admin/assets/js/linkmap.js:530
+#: admin/assets/js/linkmap.js:560
 msgid "Links to"
 msgstr "Enlaza a"
 
@@ -2462,109 +2466,109 @@ msgstr[0] "%d sin enlaces entrantes"
 msgstr[1] "%d sin enlaces entrantes"
 
 #: admin/assets/js/linkmap.js:63
-#: admin/assets/js/linkmap.js:526
-#: admin/assets/js/linkmap.js:610
+#: admin/assets/js/linkmap.js:556
+#: admin/assets/js/linkmap.js:640
 msgid "Nothing links here yet"
 msgstr "Aún no hay nada que enlace aquí"
 
-#: admin/assets/js/linkmap.js:93
+#: admin/assets/js/linkmap.js:123
 msgid "Read across a row: how many links that topic's posts send to each topic. The shaded diagonal is links inside the same topic. A row of empty cells is a topic that never links out."
 msgstr "Lee cada fila de izquierda a derecha: cuántos enlaces envían las entradas de ese tema a cada tema. La diagonal sombreada son los enlaces dentro del mismo tema. Una fila de celdas vacías es un tema que nunca enlaza hacia fuera."
 
-#: admin/assets/js/linkmap.js:94
+#: admin/assets/js/linkmap.js:124
 msgid "From ↓"
 msgstr "Desde ↓"
 
-#: admin/assets/js/linkmap.js:94
+#: admin/assets/js/linkmap.js:124
 msgid "To →"
 msgstr "Hacia →"
 
-#: admin/assets/js/linkmap.js:95
+#: admin/assets/js/linkmap.js:125
 msgid "Total out"
 msgstr "Total de salida"
 
-#: admin/assets/js/linkmap.js:104
-#: admin/assets/js/linkmap.js:505
+#: admin/assets/js/linkmap.js:134
+#: admin/assets/js/linkmap.js:535
 msgid "None"
 msgstr "Ninguno"
 
-#: admin/assets/js/linkmap.js:135
+#: admin/assets/js/linkmap.js:165
 msgid "Which topics link to which. Topics that link to each other help readers move around your site."
 msgstr "Qué temas enlazan a cuáles. Los temas que se enlazan entre sí ayudan a los lectores a moverse por tu sitio."
 
-#: admin/assets/js/linkmap.js:137
+#: admin/assets/js/linkmap.js:167
 msgid "Every dot is one post, grouped into islands by topic. Bigger dots have more links in, red dots have none. Drag to move, scroll or pinch to zoom, click a dot to see its links."
 msgstr "Cada punto es una entrada, agrupadas en islas por tema. Los puntos más grandes reciben más enlaces; los rojos, ninguno. Arrastra para moverte, usa la rueda o pellizca para hacer zoom y haz clic en un punto para ver sus enlaces."
 
-#: admin/assets/js/linkmap.js:237
+#: admin/assets/js/linkmap.js:267
 msgid "Topic"
 msgstr "Tema"
 
-#: admin/assets/js/linkmap.js:237
+#: admin/assets/js/linkmap.js:267
 msgid "All topics"
 msgstr "Todos los temas"
 
-#: admin/assets/js/linkmap.js:238
+#: admin/assets/js/linkmap.js:268
 msgid "Post type"
 msgstr "Tipo de contenido"
 
-#: admin/assets/js/linkmap.js:238
+#: admin/assets/js/linkmap.js:268
 msgid "All post types"
 msgstr "Todos los tipos de contenido"
 
-#: admin/assets/js/linkmap.js:239
+#: admin/assets/js/linkmap.js:269
 msgid "Only posts with no links in"
 msgstr "Solo entradas sin enlaces entrantes"
 
-#: admin/assets/js/linkmap.js:240
+#: admin/assets/js/linkmap.js:270
 msgid "Find a post"
 msgstr "Buscar una entrada"
 
-#: admin/assets/js/linkmap.js:242
+#: admin/assets/js/linkmap.js:272
 msgid "Zoom in"
 msgstr "Acercar"
 
-#: admin/assets/js/linkmap.js:243
+#: admin/assets/js/linkmap.js:273
 msgid "Zoom out"
 msgstr "Alejar"
 
-#: admin/assets/js/linkmap.js:244
+#: admin/assets/js/linkmap.js:274
 msgid "Fit"
 msgstr "Ajustar"
 
-#: admin/assets/js/linkmap.js:247
+#: admin/assets/js/linkmap.js:277
 msgid "Link graph. Use the arrow keys to move, plus and minus to zoom."
 msgstr "Gráfico de enlaces. Usa las flechas para moverte y más y menos para hacer zoom."
 
-#: admin/assets/js/linkmap.js:249
-#: admin/assets/js/linkmap.js:519
+#: admin/assets/js/linkmap.js:279
+#: admin/assets/js/linkmap.js:549
 msgid "Click a dot to see which posts link to it and where it links."
 msgstr "Haz clic en un punto para ver qué entradas enlazan a ella y adónde enlaza."
 
-#: admin/assets/js/linkmap.js:512
+#: admin/assets/js/linkmap.js:542
 msgid "and %d more"
 msgid_plural "and %d more"
 msgstr[0] "y %d más"
 msgstr[1] "y %d más"
 
-#: admin/assets/js/linkmap.js:527
+#: admin/assets/js/linkmap.js:557
 msgid "Open post"
 msgstr "Abrir entrada"
 
-#: admin/assets/js/linkmap.js:528
+#: admin/assets/js/linkmap.js:558
 msgid "Edit post"
 msgstr "Editar entrada"
 
-#: admin/assets/js/linkmap.js:529
+#: admin/assets/js/linkmap.js:559
 msgid "Linked from"
 msgstr "Enlazada desde"
 
 #. translators: 1: number of posts, 2: number of links.
-#: admin/assets/js/linkmap.js:550
+#: admin/assets/js/linkmap.js:580
 msgid "Showing %1$s and %2$s."
 msgstr "Se muestran %1$s y %2$s."
 
-#: admin/assets/js/linkmap.js:689
+#: admin/assets/js/linkmap.js:719
 msgid "No post with that title on the map."
 msgstr "No hay ninguna entrada con ese título en el mapa."
 

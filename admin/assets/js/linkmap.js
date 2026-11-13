@@ -63,10 +63,40 @@
         tip.innerHTML = `<strong>${ esc( p[ 2 ] ) }</strong>${ esc( p[ 1 ] === 0 ? __( "Nothing links here yet", "jnk-linkweave" ) : linksIn( p[ 1 ] ) ) }`;
         const a = el.getBoundingClientRect();
         const h = host.getBoundingClientRect();
-        tip.style.left = ( a.left - h.left + a.width / 2 ) + "px";
-        tip.style.top = ( a.top - h.top ) + "px";
+        // Measured at the far left first: placed near the right edge, the tip
+        // shrank to the room left there and the title stood one word a line.
+        tip.style.left = "0px";
+        tip.style.width = "";
         tip.hidden = false;
+        tip.style.width = tip.offsetWidth + "px";
+        // Centred over the square, but kept inside the screen: on a phone a
+        // square near the edge put half the title off screen and the page
+        // scrolled sideways.
+        const half = tip.offsetWidth / 2;
+        const vw = document.documentElement.clientWidth;
+        const centre = Math.min( Math.max( a.left + a.width / 2, half + 8 ), vw - half - 8 );
+        tip.style.left = ( centre - h.left ) + "px";
+        tip.style.top = ( a.top - h.top ) + "px";
     };
+    // Touch screens have no hover: the first tap on a square shows its title,
+    // a second tap on the same square opens it.
+    const touch = window.matchMedia && window.matchMedia( "(hover: none)" ).matches;
+    let armed = null;
+    if ( touch ) {
+        const hint = host.closest( ".jnkui-card" )?.querySelector( ".jnkui-card-head p[data-touch]" );
+        if ( hint ) {
+            hint.textContent = hint.dataset.touch;
+        }
+        tiles.addEventListener( "click", ( e ) => {
+            const el = e.target.closest( ".jnk-map-cells .jnk-tile" );
+            if ( ! el || el === armed ) {
+                return;
+            }
+            e.preventDefault();
+            armed = el;
+            showTip( el );
+        } );
+    }
     tiles.addEventListener( "mouseover", ( e ) => {
         const el = e.target.closest( ".jnk-map-cells .jnk-tile" );
         if ( el ) {
@@ -78,8 +108,8 @@
             showTip( e.target );
         }
     } );
-    tiles.addEventListener( "mouseleave", () => { tip.hidden = true; } );
-    tiles.addEventListener( "focusout", () => { tip.hidden = true; } );
+    tiles.addEventListener( "mouseleave", () => { tip.hidden = true; armed = null; } );
+    tiles.addEventListener( "focusout", () => { tip.hidden = true; armed = null; } );
 
     /* ---------- Topics view ---------- */
     const names = data.topics || [];

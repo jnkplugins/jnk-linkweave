@@ -150,3 +150,72 @@
 .jnkui .jnk-linkweave-post-results button { display: block; width: 100%; text-align: start; text-decoration: none; }
 .jnkui .jnk-linkweave-post-results button:hover, .jnkui .jnk-linkweave-post-results button:focus { background: #f0f6fc; }
 .jnkui .jnk-linkweave-post-results .jnkui-muted { display: block; font-size: 12px; }
+
+/* ---------- Phones (mobile QA 14 Nov 2026, 412 and 360 px) ---------- */
+
+/* Overview > most linked-to posts: the title and its bar share the row on wide
+   screens; a long title or one long word no longer pushes the count off screen. */
+.jnkui .jnkui-list li > :first-child { min-width: 0; overflow-wrap: anywhere; }
+.jnkui .jnk-top-bar { display: flex; align-items: center; gap: 12px; flex: 0 0 46%; }
+.jnkui .jnk-top-bar .jnkui-bar { flex: 1; }
+.jnkui .jnk-top-bar .jnkui-muted { min-width: 64px; text-align: end; }
+.jnkui .jnk-hbar-label { overflow-wrap: anywhere; }
+/* Search Console > Upload it here: the file picker ran 20 px past a 360 px screen. */
+.jnkui input[type="file"] { max-width: 100%; }
+.jnkui .jnk-map-tip { box-sizing: border-box; max-width: min(320px, calc(100vw - 16px)); }
+
+/* Bigger link-map squares for fingers. */
+@media (pointer: coarse) {
+    .jnkui .jnk-map-tiles .jnk-map-cells .jnk-tile, .jnkui .jnk-map-tiles.is-large .jnk-map-cells .jnk-tile { width: 24px; height: 24px; border-radius: 5px; }
+    .jnkui .jnk-map-tiles .jnk-map-cells, .jnkui .jnk-map-tiles.is-large .jnk-map-cells { gap: 5px; }
+}
+
+@media (max-width: 782px) {
+    /* Help and Settings in the top bar were 20 px tall: too small to tap. */
+    .jnkui .jnkui-topbar-end { gap: 8px; }
+    .jnkui .jnkui-topbar-end a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 2px; }
+
+    /* Settings and licence rows: the label sits on its own line above the field,
+       so the divider under it (cut short at the label's width) and the gap below
+       it went. */
+    .jnkui .form-table th { border-bottom: 0; padding-bottom: 2px; width: auto; }
+    .jnkui .form-table td { padding-top: 6px; }
+    /* A long checkbox label wraps beside its box, not under it. */
+    .jnkui .form-table td label:has(> input[type="checkbox"]) { display: inline-block; padding-inline-start: 2.1rem; text-indent: -2.1rem; }
+    .jnkui .form-table td label:has(> input[type="checkbox"]) > input[type="checkbox"] { margin-inline: 0 .25rem; text-indent: 0; }
+
+    /* Orphans > Find posts that could link here: box, then title, match and
+       Open stacked beside it. The Open button made the box column wide and sat
+       on a row of its own. */
+    .jnkui .jnk-opp { grid-template-columns: auto minmax(0, 1fr); align-items: start; }
+    .jnkui .jnk-opp:not(:has(input)) { grid-template-columns: minmax(0, 1fr); }
+    .jnkui .jnk-opp > :not(input) { grid-column: -2; }
+    .jnkui .jnk-opp > input { grid-row: 1 / span 3; margin-top: 3px; }
+    .jnkui .jnk-opp > .button { justify-self: start; }
+    .jnkui .jnk-opp-body b { overflow-wrap: anywhere; }
+}
+
+@media (max-width: 600px) {
+    /* Bar rows: the title gets the full width, its bar goes under it. A 180 px
+       bar column left titles one or two words a line. */
+    .jnkui .jnk-hbars > li { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+    .jnkui .jnkui-list li:has(> .jnk-top-bar) { flex-wrap: wrap; gap: 6px 12px; }
+    .jnkui .jnk-top-bar { flex: 1 1 100%; }
+
+    /* Tables marked .jnk-stack become one card per row, each cell a
+       "Header  value" line (labels set by admin.js). */
+    .jnkui table.jnk-stack, .jnkui table.jnk-stack tbody, .jnkui table.jnk-stack tr { display: block; width: 100%; }
+    .jnkui table.jnk-stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .jnkui table.jnk-stack tbody tr { padding: 8px 0; border-bottom: 1px solid var(--jnk-line); }
+    .jnkui table.jnk-stack tbody tr:last-child { border-bottom: 0; }
+    .jnkui table.jnk-stack td,
+    .jnkui .form-table table.jnk-stack td { display: block; position: relative; width: auto; min-width: 0; max-width: none; min-height: 1.6em; padding-block: 5px; padding-inline: calc(34% + 10px) 14px; border: 0; text-align: start !important; white-space: normal !important; overflow-wrap: anywhere; }
+    .jnkui table.jnk-stack td::before { content: attr(data-label); position: absolute; inset-inline-start: 14px; top: 6px; width: calc(34% - 14px); color: var(--jnk-mute); font-size: 11px; font-weight: 650; line-height: 1.5; text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    /* No header (a tick box, the action buttons): the cell spans the card. */
+    .jnkui table.jnk-stack td:not([data-label]) { padding-inline-start: 14px; }
+    .jnkui table.jnk-stack td:not([data-label])::before { content: none; }
+    .jnkui table.jnk-stack td:empty { display: none; }
+    .jnkui table.jnk-stack .jnkui-bar { display: inline-block; width: 60%; vertical-align: middle; }
+    .jnkui table.jnk-stack td input:is([type="text"], [type="url"], [type="search"], [type="number"]), .jnkui table.jnk-stack td select { width: 100%; min-width: 0; box-sizing: border-box; }
+    .jnkui table.jnk-stack tbody tr:hover td { background: none; }
+}

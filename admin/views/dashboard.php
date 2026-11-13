@@ -246,9 +246,9 @@ UI::open(
             <?php foreach ( $top_linked as $t ) : ?>
                 <li>
                     <a href="<?php echo esc_url( (string) get_edit_post_link( (int) $t->post_id, "raw" ) ); ?>"><?php echo esc_html( get_the_title( (int) $t->post_id ) ?: sprintf( "#%d", (int) $t->post_id ) ); ?></a>
-                    <span style="display:flex;align-items:center;gap:12px;flex:0 0 46%">
-                        <span class="jnkui-bar" style="flex:1"><i style="width:<?php echo esc_attr( (string) round( (int) $t->n / $max * 100 ) ); ?>%"></i></span>
-                        <span class="jnkui-muted" style="min-width:64px;text-align:end"><?php printf(
+                    <span class="jnk-top-bar">
+                        <span class="jnkui-bar"><i style="width:<?php echo esc_attr( (string) round( (int) $t->n / $max * 100 ) ); ?>%"></i></span>
+                        <span class="jnkui-muted"><?php printf(
                             /* translators: %s: number of links. */
                             esc_html( _n( "%s link", "%s links", (int) $t->n, "jnk-linkweave" ) ),
                             esc_html( number_format_i18n( (int) $t->n ) )

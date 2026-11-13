@@ -16,7 +16,8 @@ $jnk_mnames = $jnk_map["topics"];
 <div class="jnkui-card">
     <div class="jnkui-card-head">
         <div><h2><?php esc_html_e( "Your link map", "jnk-linkweave" ); ?></h2>
-        <p><?php esc_html_e( "Every square is one post, grouped by topic. The colour shows how many of your posts link to it. Hover for the title, click to open it.", "jnk-linkweave" ); ?></p></div>
+        <?php // On a touch screen there is no hover: linkmap.js shows the tap wording instead. ?>
+        <p data-touch="<?php esc_attr_e( "Every square is one post, grouped by topic. The colour shows how many of your posts link to it. Tap a square for its title, tap it again to open it.", "jnk-linkweave" ); ?>"><?php esc_html_e( "Every square is one post, grouped by topic. The colour shows how many of your posts link to it. Hover for the title, click to open it.", "jnk-linkweave" ); ?></p></div>
         <div class="jnkui-seg-toggle" role="tablist">
             <button type="button" class="button button-small is-active" data-view="tiles"><?php esc_html_e( "Posts", "jnk-linkweave" ); ?></button>
             <button type="button" class="button button-small" data-view="graph"><?php esc_html_e( "Graph", "jnk-linkweave" ); ?></button>

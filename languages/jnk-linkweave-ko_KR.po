@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-11-13T17:55:39+00:00\n"
+"POT-Creation-Date: 2026-11-13T20:01:06+00:00\n"
 "PO-Revision-Date: 2026-10-10 16:38+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Korean\n"
@@ -1433,7 +1433,7 @@ msgid "Links"
 msgstr "링크"
 
 #: admin/views/domains.php:110
-#: admin/views/inbound.php:21
+#: admin/views/inbound.php:22
 msgid "Posts"
 msgstr "글"
 
@@ -1461,19 +1461,23 @@ msgstr "각 페이지로 링크하는 내 글의 수입니다. 위쪽에 있는 
 msgid "Your link map"
 msgstr "링크 맵"
 
-#: admin/views/inbound.php:19
+#: admin/views/inbound.php:20
+msgid "Every square is one post, grouped by topic. The colour shows how many of your posts link to it. Tap a square for its title, tap it again to open it."
+msgstr "사각형 하나가 글 하나이며, 주제별로 묶여 있습니다. 색은 그 글로 링크하는 내 글의 수를 나타냅니다. 사각형을 탭하면 제목이 보이고, 한 번 더 탭하면 열립니다."
+
+#: admin/views/inbound.php:20
 msgid "Every square is one post, grouped by topic. The colour shows how many of your posts link to it. Hover for the title, click to open it."
 msgstr "사각형 하나가 글 하나이며, 주제별로 묶여 있습니다. 색은 그 글로 링크하는 내 글의 수를 나타냅니다. 마우스를 올리면 제목이 보이고, 클릭하면 열립니다."
 
-#: admin/views/inbound.php:22
+#: admin/views/inbound.php:23
 msgid "Graph"
 msgstr "그래프"
 
-#: admin/views/inbound.php:24
+#: admin/views/inbound.php:25
 msgid "Topics"
 msgstr "주제"
 
-#: admin/views/inbound.php:35
+#: admin/views/inbound.php:36
 msgid "Only links saved in your posts count here. Links added on the fly by auto-link rules are not stored. New links are counted within a minute of saving a post."
 msgstr "여기에는 글에 저장된 링크만 포함됩니다. 자동 링크 규칙이 실시간으로 추가하는 링크는 저장되지 않습니다. 새 링크는 글을 저장하고 1분 안에 집계됩니다."
 
@@ -2147,7 +2151,7 @@ msgstr "문구"
 
 #: admin/assets/js/admin.js:472
 #: admin/assets/js/admin.js:478
-#: admin/assets/js/linkmap.js:530
+#: admin/assets/js/linkmap.js:560
 msgid "Links to"
 msgstr "연결 대상"
 
@@ -2443,108 +2447,108 @@ msgid_plural "%d with no links in"
 msgstr[0] "들어오는 링크가 없는 글 %d개"
 
 #: admin/assets/js/linkmap.js:63
-#: admin/assets/js/linkmap.js:526
-#: admin/assets/js/linkmap.js:610
+#: admin/assets/js/linkmap.js:556
+#: admin/assets/js/linkmap.js:640
 msgid "Nothing links here yet"
 msgstr "아직 여기로 링크하는 글이 없습니다"
 
-#: admin/assets/js/linkmap.js:93
+#: admin/assets/js/linkmap.js:123
 msgid "Read across a row: how many links that topic's posts send to each topic. The shaded diagonal is links inside the same topic. A row of empty cells is a topic that never links out."
 msgstr "각 행을 가로로 읽으세요. 그 주제의 글이 각 주제로 보내는 링크 수입니다. 음영 처리된 대각선은 같은 주제 안의 링크입니다. 빈 칸만 있는 행은 밖으로 링크하지 않는 주제입니다."
 
-#: admin/assets/js/linkmap.js:94
+#: admin/assets/js/linkmap.js:124
 msgid "From ↓"
 msgstr "보내는 쪽 ↓"
 
-#: admin/assets/js/linkmap.js:94
+#: admin/assets/js/linkmap.js:124
 msgid "To →"
 msgstr "받는 쪽 →"
 
-#: admin/assets/js/linkmap.js:95
+#: admin/assets/js/linkmap.js:125
 msgid "Total out"
 msgstr "나가는 링크 합계"
 
-#: admin/assets/js/linkmap.js:104
-#: admin/assets/js/linkmap.js:505
+#: admin/assets/js/linkmap.js:134
+#: admin/assets/js/linkmap.js:535
 msgid "None"
 msgstr "없음"
 
-#: admin/assets/js/linkmap.js:135
+#: admin/assets/js/linkmap.js:165
 msgid "Which topics link to which. Topics that link to each other help readers move around your site."
 msgstr "어떤 주제가 어떤 주제로 링크하는지 보여 줍니다. 서로 링크하는 주제는 독자가 사이트를 둘러보는 데 도움이 됩니다."
 
-#: admin/assets/js/linkmap.js:137
+#: admin/assets/js/linkmap.js:167
 msgid "Every dot is one post, grouped into islands by topic. Bigger dots have more links in, red dots have none. Drag to move, scroll or pinch to zoom, click a dot to see its links."
 msgstr "점 하나가 글 하나이며, 주제별로 섬처럼 묶여 있습니다. 점이 클수록 들어오는 링크가 많고, 빨간 점은 들어오는 링크가 없습니다. 끌어서 이동하고, 스크롤하거나 손가락을 오므려 확대/축소하고, 점을 클릭하면 링크를 볼 수 있습니다."
 
-#: admin/assets/js/linkmap.js:237
+#: admin/assets/js/linkmap.js:267
 msgid "Topic"
 msgstr "주제"
 
-#: admin/assets/js/linkmap.js:237
+#: admin/assets/js/linkmap.js:267
 msgid "All topics"
 msgstr "모든 주제"
 
-#: admin/assets/js/linkmap.js:238
+#: admin/assets/js/linkmap.js:268
 msgid "Post type"
 msgstr "글 유형"
 
-#: admin/assets/js/linkmap.js:238
+#: admin/assets/js/linkmap.js:268
 msgid "All post types"
 msgstr "모든 글 유형"
 
-#: admin/assets/js/linkmap.js:239
+#: admin/assets/js/linkmap.js:269
 msgid "Only posts with no links in"
 msgstr "들어오는 링크가 없는 글만"
 
-#: admin/assets/js/linkmap.js:240
+#: admin/assets/js/linkmap.js:270
 msgid "Find a post"
 msgstr "글 찾기"
 
-#: admin/assets/js/linkmap.js:242
+#: admin/assets/js/linkmap.js:272
 msgid "Zoom in"
 msgstr "확대"
 
-#: admin/assets/js/linkmap.js:243
+#: admin/assets/js/linkmap.js:273
 msgid "Zoom out"
 msgstr "축소"
 
-#: admin/assets/js/linkmap.js:244
+#: admin/assets/js/linkmap.js:274
 msgid "Fit"
 msgstr "맞춤"
 
-#: admin/assets/js/linkmap.js:247
+#: admin/assets/js/linkmap.js:277
 msgid "Link graph. Use the arrow keys to move, plus and minus to zoom."
 msgstr "링크 그래프. 화살표 키로 이동하고 더하기/빼기 키로 확대/축소합니다."
 
-#: admin/assets/js/linkmap.js:249
-#: admin/assets/js/linkmap.js:519
+#: admin/assets/js/linkmap.js:279
+#: admin/assets/js/linkmap.js:549
 msgid "Click a dot to see which posts link to it and where it links."
 msgstr "점을 클릭하면 어떤 글이 이 글로 링크하는지, 이 글이 어디로 링크하는지 볼 수 있습니다."
 
-#: admin/assets/js/linkmap.js:512
+#: admin/assets/js/linkmap.js:542
 msgid "and %d more"
 msgid_plural "and %d more"
 msgstr[0] "외 %d개"
 
-#: admin/assets/js/linkmap.js:527
+#: admin/assets/js/linkmap.js:557
 msgid "Open post"
 msgstr "글 열기"
 
-#: admin/assets/js/linkmap.js:528
+#: admin/assets/js/linkmap.js:558
 msgid "Edit post"
 msgstr "글 편집"
 
-#: admin/assets/js/linkmap.js:529
+#: admin/assets/js/linkmap.js:559
 msgid "Linked from"
 msgstr "링크한 글"
 
 #. translators: 1: number of posts, 2: number of links.
-#: admin/assets/js/linkmap.js:550
+#: admin/assets/js/linkmap.js:580
 msgid "Showing %1$s and %2$s."
 msgstr "%1$s, %2$s 표시 중."
 
-#: admin/assets/js/linkmap.js:689
+#: admin/assets/js/linkmap.js:719
 msgid "No post with that title on the map."
 msgstr "지도에 그 제목의 글이 없습니다."
 

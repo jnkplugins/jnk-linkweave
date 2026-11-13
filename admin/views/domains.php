@@ -54,7 +54,7 @@ UI::open(
     <?php if ( ! $links ) : ?>
         <div class="jnkui-card-body"><?php echo UI::empty_state( __( "Nothing to show", "jnk-linkweave" ), __( "No links to this site were found in your posts.", "jnk-linkweave" ), "", "search" ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped inside. ?></div>
     <?php else : ?>
-        <div class="jnkui-table-wrap"><table class="jnkui-table">
+        <div class="jnkui-table-wrap"><table class="jnkui-table jnk-stack">
             <thead><tr>
                 <th><?php esc_html_e( "Found in", "jnk-linkweave" ); ?></th>
                 <th><?php esc_html_e( "Link text", "jnk-linkweave" ); ?></th>
@@ -103,7 +103,7 @@ UI::open(
             : UI::empty_state( __( "Nothing to show", "jnk-linkweave" ), __( "No site matches that filter.", "jnk-linkweave" ), "", "search" );
         ?></div>
     <?php else : ?>
-        <div class="jnkui-table-wrap"><table class="jnkui-table">
+        <div class="jnkui-table-wrap"><table class="jnkui-table jnk-stack">
             <thead><tr>
                 <th><?php esc_html_e( "Site", "jnk-linkweave" ); ?></th>
                 <th class="is-num"><?php esc_html_e( "Links", "jnk-linkweave" ); ?></th>

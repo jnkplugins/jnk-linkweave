@@ -468,7 +468,7 @@
                 </tr>` ).join( "" );
             rulesMount.innerHTML = `
                 <div class="jnkui-grid-2 jnk-rules-grid">
-                <div class="jnkui-table-wrap"><table class="jnk-linkweave-table">
+                <div class="jnkui-table-wrap"><table class="jnk-linkweave-table jnk-stack">
                     <thead><tr><th>${ __( "Phrase", "jnk-linkweave" ) }</th><th>${ __( "Links to", "jnk-linkweave" ) }</th><th>${ __( "Status", "jnk-linkweave" ) }</th><th class="is-num"><span title="${ escape( __( "Links this rule adds across your published posts right now. Mentions already inside a link, a heading or code, and mentions on the target page itself, are skipped, so 0 can be correct.", "jnk-linkweave" ) ) }">${ __( "Links added", "jnk-linkweave" ) }</span></th><th></th></tr></thead>
                     <tbody>${ rows || `<tr><td colspan="5"><div class="jnkui-empty" style="border:0"><h3>${ __( "No rules yet", "jnk-linkweave" ) }</h3><p>${ __( "A rule links one phrase to one page everywhere it appears. Add your first one with the form.", "jnk-linkweave" ) }</p></div></td></tr>` }</tbody>
                 </table></div>
@@ -987,7 +987,7 @@
                 // whole page sideways, and in Arabic or Hebrew the page opened on
                 // blank space with the title off screen.
                 brokenMount.innerHTML = summary +
-                    '<div class="jnkui-table-wrap"><table class="jnk-linkweave-table"><thead><tr><th>' + __( "Found in", "jnk-linkweave" ) + "</th><th>" + __( "Points at", "jnk-linkweave" ) + "</th><th>" + __( "Link text", "jnk-linkweave" ) + "</th><th>" + __( "Status", "jnk-linkweave" ) + "</th><th>" + __( "Checked", "jnk-linkweave" ) + "</th></tr></thead><tbody>" + rows + "</tbody></table></div>";
+                    '<div class="jnkui-table-wrap"><table class="jnk-linkweave-table jnk-stack"><thead><tr><th>' + __( "Found in", "jnk-linkweave" ) + "</th><th>" + __( "Points at", "jnk-linkweave" ) + "</th><th>" + __( "Link text", "jnk-linkweave" ) + "</th><th>" + __( "Status", "jnk-linkweave" ) + "</th><th>" + __( "Checked", "jnk-linkweave" ) + "</th></tr></thead><tbody>" + rows + "</tbody></table></div>";
 
                 // Let the Pro bundle (if present) add one-click repair controls.
                 document.dispatchEvent( new CustomEvent( "jnk_linkweave:broken-rendered", {
@@ -1075,5 +1075,61 @@
                 flash( settingsForm, e.message, "error" );
             }
         } );
+    }
+} )();
+
+/*
+ * Phones: a table marked .jnk-stack shows each row as a small card, one
+ * "Header: value" line per cell (admin.css). Each cell gets its column header
+ * as data-label here, for tables in the page and for the ones the screens
+ * draw later (broken links, URL changer history...). Mobile QA 14 Nov 2026:
+ * in a sideways-scrolling table the first column was one word per line and
+ * Status, Repair and Undo sat off screen.
+ */
+( function () {
+    "use strict";
+
+    function label( root ) {
+        root.querySelectorAll( "table.jnk-stack" ).forEach( function ( table ) {
+            const heads = Array.prototype.map.call( table.querySelectorAll( "thead th" ), function ( th ) {
+                return th.textContent.replace( /\s+/g, " " ).trim();
+            } );
+            table.querySelectorAll( "tbody tr" ).forEach( function ( tr ) {
+                let col = 0;
+                Array.prototype.forEach.call( tr.children, function ( cell ) {
+                    // A cell spanning several columns (an inline edit form) has no one header.
+                    const text = ( cell.colSpan || 1 ) > 1 ? "" : heads[ col ] || "";
+                    if ( text && ! cell.hasAttribute( "data-label" ) ) {
+                        cell.setAttribute( "data-label", text );
+                    }
+                    col += cell.colSpan || 1;
+                } );
+            } );
+        } );
+    }
+
+    function start() {
+        const root = document.querySelector( ".jnkui" ) || document.body;
+        label( root );
+        if ( ! window.MutationObserver ) {
+            return;
+        }
+        let queued = false;
+        new MutationObserver( function () {
+            if ( queued ) {
+                return;
+            }
+            queued = true;
+            window.requestAnimationFrame( function () {
+                queued = false;
+                label( root );
+            } );
+        } ).observe( root, { childList: true, subtree: true } );
+    }
+
+    if ( document.readyState === "loading" ) {
+        document.addEventListener( "DOMContentLoaded", start );
+    } else {
+        start();
     }
 } )();

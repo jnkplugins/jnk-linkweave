@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.19.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-11-13T17:55:39+00:00\n"
+"POT-Creation-Date: 2026-11-13T20:01:06+00:00\n"
 "PO-Revision-Date: 2026-10-29 12:00+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Arabic (review pending)\n"
@@ -1478,7 +1478,7 @@ msgid "Links"
 msgstr "الروابط"
 
 #: admin/views/domains.php:110
-#: admin/views/inbound.php:21
+#: admin/views/inbound.php:22
 msgid "Posts"
 msgstr "المقالات"
 
@@ -1506,19 +1506,23 @@ msgstr "كم مقالة من مقالاتك ترتبط بكل صفحة. الصف
 msgid "Your link map"
 msgstr "خريطة روابطك"
 
-#: admin/views/inbound.php:19
+#: admin/views/inbound.php:20
+msgid "Every square is one post, grouped by topic. The colour shows how many of your posts link to it. Tap a square for its title, tap it again to open it."
+msgstr "كل مربع هو مقالة واحدة، مجمّعة حسب الموضوع. يبيّن اللون كم مقالة من مقالاتك ترتبط بها. اضغط على مربع لرؤية العنوان، واضغط عليه مرة أخرى لفتحها."
+
+#: admin/views/inbound.php:20
 msgid "Every square is one post, grouped by topic. The colour shows how many of your posts link to it. Hover for the title, click to open it."
 msgstr "كل مربع هو مقالة واحدة، مجمّعة حسب الموضوع. يبيّن اللون كم مقالة من مقالاتك ترتبط بها. مرّر المؤشر لرؤية العنوان، وانقر لفتحها."
 
-#: admin/views/inbound.php:22
+#: admin/views/inbound.php:23
 msgid "Graph"
 msgstr "المخطط"
 
-#: admin/views/inbound.php:24
+#: admin/views/inbound.php:25
 msgid "Topics"
 msgstr "المواضيع"
 
-#: admin/views/inbound.php:35
+#: admin/views/inbound.php:36
 msgid "Only links saved in your posts count here. Links added on the fly by auto-link rules are not stored. New links are counted within a minute of saving a post."
 msgstr "تُحتسب هنا الروابط المحفوظة في مقالاتك فقط. الروابط التي تضيفها قواعد الربط التلقائي أثناء العرض لا تُخزَّن. تُحتسب الروابط الجديدة خلال دقيقة من حفظ المقالة."
 
@@ -2192,7 +2196,7 @@ msgstr "العبارة"
 
 #: admin/assets/js/admin.js:472
 #: admin/assets/js/admin.js:478
-#: admin/assets/js/linkmap.js:530
+#: admin/assets/js/linkmap.js:560
 msgid "Links to"
 msgstr "ترتبط بـ"
 
@@ -2538,86 +2542,86 @@ msgstr[4] "%d بلا روابط واردة"
 msgstr[5] "%d بلا روابط واردة"
 
 #: admin/assets/js/linkmap.js:63
-#: admin/assets/js/linkmap.js:526
-#: admin/assets/js/linkmap.js:610
+#: admin/assets/js/linkmap.js:556
+#: admin/assets/js/linkmap.js:640
 msgid "Nothing links here yet"
 msgstr "لا شيء يرتبط بهذه المقالة بعد"
 
-#: admin/assets/js/linkmap.js:93
+#: admin/assets/js/linkmap.js:123
 msgid "Read across a row: how many links that topic's posts send to each topic. The shaded diagonal is links inside the same topic. A row of empty cells is a topic that never links out."
 msgstr "اقرأ على امتداد الصف: كم رابطًا ترسله مقالات ذلك الموضوع إلى كل موضوع. القطر المظلّل هو الروابط داخل الموضوع نفسه. صف من الخلايا الفارغة هو موضوع لا يرتبط بغيره أبدًا."
 
-#: admin/assets/js/linkmap.js:94
+#: admin/assets/js/linkmap.js:124
 msgid "From ↓"
 msgstr "من ↓"
 
-#: admin/assets/js/linkmap.js:94
+#: admin/assets/js/linkmap.js:124
 msgid "To →"
 msgstr "إلى ←"
 
-#: admin/assets/js/linkmap.js:95
+#: admin/assets/js/linkmap.js:125
 msgid "Total out"
 msgstr "إجمالي الصادر"
 
-#: admin/assets/js/linkmap.js:104
-#: admin/assets/js/linkmap.js:505
+#: admin/assets/js/linkmap.js:134
+#: admin/assets/js/linkmap.js:535
 msgid "None"
 msgstr "لا شيء"
 
-#: admin/assets/js/linkmap.js:135
+#: admin/assets/js/linkmap.js:165
 msgid "Which topics link to which. Topics that link to each other help readers move around your site."
 msgstr "أي المواضيع ترتبط بأيها. المواضيع التي ترتبط ببعضها تساعد القرّاء على التنقل في موقعك."
 
-#: admin/assets/js/linkmap.js:137
+#: admin/assets/js/linkmap.js:167
 msgid "Every dot is one post, grouped into islands by topic. Bigger dots have more links in, red dots have none. Drag to move, scroll or pinch to zoom, click a dot to see its links."
 msgstr "كل نقطة مقالة، والمقالات مجمّعة في جزر حسب الموضوع. النقاط الأكبر تصلها روابط أكثر، والنقاط الحمراء لا يصلها أي رابط. اسحب للتحريك، ومرّر أو اقرص للتكبير، وانقر على نقطة لرؤية روابطها."
 
-#: admin/assets/js/linkmap.js:237
+#: admin/assets/js/linkmap.js:267
 msgid "Topic"
 msgstr "الموضوع"
 
-#: admin/assets/js/linkmap.js:237
+#: admin/assets/js/linkmap.js:267
 msgid "All topics"
 msgstr "كل المواضيع"
 
-#: admin/assets/js/linkmap.js:238
+#: admin/assets/js/linkmap.js:268
 msgid "Post type"
 msgstr "نوع المحتوى"
 
-#: admin/assets/js/linkmap.js:238
+#: admin/assets/js/linkmap.js:268
 msgid "All post types"
 msgstr "كل أنواع المحتوى"
 
-#: admin/assets/js/linkmap.js:239
+#: admin/assets/js/linkmap.js:269
 msgid "Only posts with no links in"
 msgstr "المقالات التي لا تصلها روابط فقط"
 
-#: admin/assets/js/linkmap.js:240
+#: admin/assets/js/linkmap.js:270
 msgid "Find a post"
 msgstr "ابحث عن مقالة"
 
-#: admin/assets/js/linkmap.js:242
+#: admin/assets/js/linkmap.js:272
 msgid "Zoom in"
 msgstr "تكبير"
 
-#: admin/assets/js/linkmap.js:243
+#: admin/assets/js/linkmap.js:273
 msgid "Zoom out"
 msgstr "تصغير"
 
-#: admin/assets/js/linkmap.js:244
+#: admin/assets/js/linkmap.js:274
 msgid "Fit"
 msgstr "ملاءمة"
 
-#: admin/assets/js/linkmap.js:247
+#: admin/assets/js/linkmap.js:277
 msgid "Link graph. Use the arrow keys to move, plus and minus to zoom."
 msgstr "مخطط الروابط. استخدم مفاتيح الأسهم للتحريك، وزائد وناقص للتكبير والتصغير."
 
-#: admin/assets/js/linkmap.js:249
-#: admin/assets/js/linkmap.js:519
+#: admin/assets/js/linkmap.js:279
+#: admin/assets/js/linkmap.js:549
 msgid "Click a dot to see which posts link to it and where it links."
 msgstr "انقر على نقطة لترى المقالات التي تربط إليها والمقالات التي تربط هي إليها."
 
-#: admin/assets/js/linkmap.js:512
+#: admin/assets/js/linkmap.js:542
 msgid "and %d more"
 msgid_plural "and %d more"
 msgstr[0] "و%d أخرى"
@@ -2627,24 +2631,24 @@ msgstr[3] "و%d أخرى"
 msgstr[4] "و%d أخرى"
 msgstr[5] "و%d أخرى"
 
-#: admin/assets/js/linkmap.js:527
+#: admin/assets/js/linkmap.js:557
 msgid "Open post"
 msgstr "فتح المقالة"
 
-#: admin/assets/js/linkmap.js:528
+#: admin/assets/js/linkmap.js:558
 msgid "Edit post"
 msgstr "تحرير المقالة"
 
-#: admin/assets/js/linkmap.js:529
+#: admin/assets/js/linkmap.js:559
 msgid "Linked from"
 msgstr "مرتبطة من"
 
 #. translators: 1: number of posts, 2: number of links.
-#: admin/assets/js/linkmap.js:550
+#: admin/assets/js/linkmap.js:580
 msgid "Showing %1$s and %2$s."
 msgstr "عرض %1$s و%2$s."
 
-#: admin/assets/js/linkmap.js:689
+#: admin/assets/js/linkmap.js:719
 msgid "No post with that title on the map."
 msgstr "لا توجد مقالة بهذا العنوان على الخريطة."
 

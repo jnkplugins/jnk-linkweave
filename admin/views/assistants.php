@@ -166,7 +166,7 @@ if ( isset( $notices[ $notice ] ) ) {
 <div class="jnkui-card">
     <div class="jnkui-card-head"><div><h2><?php esc_html_e( "3. What an assistant sees", "jnk-linkweave" ); ?></h2>
         <p><?php esc_html_e( "Every Linkweave ability on this site and whether assistants can use it now.", "jnk-linkweave" ); ?></p></div></div>
-    <div class="jnkui-table-wrap"><table class="jnk-linkweave-table">
+    <div class="jnkui-table-wrap"><table class="jnk-linkweave-table jnk-stack">
         <thead><tr><th><?php esc_html_e( "Ability", "jnk-linkweave" ); ?></th><th><?php esc_html_e( "What it does", "jnk-linkweave" ); ?></th><th><?php esc_html_e( "Kind", "jnk-linkweave" ); ?></th><th><?php esc_html_e( "Assistants", "jnk-linkweave" ); ?></th></tr></thead>
         <tbody>
         <?php foreach ( $ours as $ability ) :
@@ -197,7 +197,7 @@ if ( isset( $notices[ $notice ] ) ) {
     <?php if ( ! $entries ) : ?>
         <div class="jnkui-card-body"><p class="jnkui-sub"><?php esc_html_e( "No requests yet.", "jnk-linkweave" ); ?></p></div>
     <?php else : ?>
-    <div class="jnkui-table-wrap"><table class="jnk-linkweave-table">
+    <div class="jnkui-table-wrap"><table class="jnk-linkweave-table jnk-stack">
         <thead><tr><th><?php esc_html_e( "When", "jnk-linkweave" ); ?></th><th><?php esc_html_e( "User", "jnk-linkweave" ); ?></th><th><?php esc_html_e( "Ability", "jnk-linkweave" ); ?></th><th><?php esc_html_e( "Asked", "jnk-linkweave" ); ?></th><th><?php esc_html_e( "Result", "jnk-linkweave" ); ?></th></tr></thead>
         <tbody>
         <?php foreach ( $entries as $e ) :
