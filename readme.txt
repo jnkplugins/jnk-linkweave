@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.27.2
+Stable tag: 1.27.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Internal linking for WordPress, on your own server: link suggestions, auto-linki
 
 **Adding internal links by hand is slow — and the tools that automate it charge you by the suggestion.**
 
-https://www.youtube.com/watch?v=CuT9KErhgPg
+https://www.youtube.com/watch?v=Opjz5BNVSyg
 
 Most AI internal-linking plugins meter their suggestions with credits and renew every year, so the more you link the more you pay, and your post content is sent off to someone else's server to be scored. For a blog with hundreds of posts, "just add internal links" turns into a recurring bill.
 
@@ -169,6 +169,9 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.27.3 =
+* Changed: the readme links to the new product video.
 
 = 1.27.2 =
 * Fixed: on a phone, wide tables (Broken links, Auto-link rules, AI assistants, Sites you link to) show each row as a small card with the column name beside each value. Before, the first column stood one word a line and the Status and Repair buttons sat off screen.
