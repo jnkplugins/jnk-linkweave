@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JnK Linkweave 1.18.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jnk-linkweave\n"
-"POT-Creation-Date: 2026-11-13T20:01:06+00:00\n"
+"POT-Creation-Date: 2026-11-19T20:04:00+00:00\n"
 "PO-Revision-Date: 2026-10-29 12:00+0000\n"
 "Last-Translator: JnK Plugins\n"
 "Language-Team: Hindi\n"
@@ -326,7 +326,7 @@ msgstr "नवीनीकरण भुगतान विफल रहा, Pro 
 #: pro/licensorpro-client/licensorpro-client.php:2175
 #: admin/views/domains.php:63
 #: admin/assets/js/admin.js:472
-#: admin/assets/js/admin.js:990
+#: admin/assets/js/admin.js:993
 msgid "Status"
 msgstr "स्थिति"
 
@@ -754,7 +754,7 @@ msgstr[1] "%d आंतरिक लिंक यहाँ आते हैं"
 
 #. translators: %d: number of links in.
 #: admin/class-posts-column.php:79
-#: admin/assets/js/admin.js:753
+#: admin/assets/js/admin.js:756
 #, php-format
 msgid "%d in"
 msgid_plural "%d in"
@@ -1369,12 +1369,12 @@ msgid "No links to this site were found in your posts."
 msgstr "आपकी पोस्ट में इस साइट का कोई लिंक नहीं मिला।"
 
 #: admin/views/domains.php:59
-#: admin/assets/js/admin.js:990
+#: admin/assets/js/admin.js:993
 msgid "Found in"
 msgstr "कहाँ मिला"
 
 #: admin/views/domains.php:60
-#: admin/assets/js/admin.js:990
+#: admin/assets/js/admin.js:993
 msgid "Link text"
 msgstr "लिंक टेक्स्ट"
 
@@ -1391,17 +1391,17 @@ msgid "followed"
 msgstr "follow"
 
 #: admin/views/domains.php:74
-#: admin/assets/js/admin.js:965
+#: admin/assets/js/admin.js:968
 msgid "Not checked yet"
 msgstr "अभी तक जाँच नहीं हुई"
 
 #: admin/views/domains.php:76
-#: admin/assets/js/admin.js:982
+#: admin/assets/js/admin.js:985
 msgid "Page missing"
 msgstr "पेज गायब"
 
 #: admin/views/domains.php:78
-#: admin/assets/js/admin.js:981
+#: admin/assets/js/admin.js:984
 msgid "Did not answer"
 msgstr "जवाब नहीं दिया"
 
@@ -2050,18 +2050,18 @@ msgstr "यह वाक्यांश %1$d अक्षरों का है
 msgid "Edit"
 msgstr "संपादित करें"
 
-#: admin/assets/js/admin.js:760
+#: admin/assets/js/admin.js:763
 msgid "Filter by title…"
 msgstr "शीर्षक से फ़िल्टर करें…"
 
-#: admin/assets/js/admin.js:760
+#: admin/assets/js/admin.js:763
 msgid "Filter by title"
 msgstr "शीर्षक से फ़िल्टर करें"
 
 #: admin/assets/js/admin.js:77
 #: admin/assets/js/admin.js:655
 #: admin/assets/js/admin.js:679
-#: admin/assets/js/admin.js:750
+#: admin/assets/js/admin.js:753
 msgid "View"
 msgstr "देखें"
 
@@ -2071,8 +2071,8 @@ msgstr "हटाएँ"
 
 #: admin/assets/js/admin.js:457
 #: admin/assets/js/admin.js:641
-#: admin/assets/js/admin.js:736
-#: admin/assets/js/admin.js:943
+#: admin/assets/js/admin.js:739
+#: admin/assets/js/admin.js:946
 msgid "Loading…"
 msgstr "लोड हो रहा है…"
 
@@ -2305,143 +2305,147 @@ msgstr "आपकी पोस्ट देखी जा रही हैं…"
 msgid "No close matches yet. Write a related post and link it here, or add an auto-link rule for this page."
 msgstr "अभी कोई करीबी मिलान नहीं। कोई संबंधित पोस्ट लिखें और उसे यहाँ लिंक करें, या इस पेज के लिए ऑटो-लिंक नियम जोड़ें।"
 
-#: admin/assets/js/admin.js:716
-msgid "How closely the two posts match"
-msgstr "दोनों पोस्ट कितनी करीब से मेल खाती हैं"
+#: admin/assets/js/admin.js:719
+msgid "How closely this post matches, compared with the others in this list"
+msgstr "इस सूची की बाकी पोस्ट की तुलना में यह पोस्ट कितनी मेल खाती है"
 
-#: admin/assets/js/admin.js:717
+#: admin/assets/js/admin.js:719
+msgid "best match"
+msgstr "सबसे अच्छा मेल"
+
+#: admin/assets/js/admin.js:720
 msgid "Open"
 msgstr "खोलें"
 
-#: admin/assets/js/admin.js:720
+#: admin/assets/js/admin.js:723
 msgid "Open a post and add the link in the editor."
 msgstr "कोई पोस्ट खोलें और एडिटर में लिंक जोड़ें।"
 
-#: admin/assets/js/admin.js:721
+#: admin/assets/js/admin.js:724
 msgid "Pro adds the links for you"
 msgstr "Pro आपके लिए लिंक जोड़ता है"
 
-#: admin/assets/js/admin.js:740
+#: admin/assets/js/admin.js:743
 msgid "Nothing to show yet"
 msgstr "अभी दिखाने को कुछ नहीं"
 
-#: admin/assets/js/admin.js:740
+#: admin/assets/js/admin.js:743
 msgid "Build the index on the Overview and the counts appear here."
 msgstr "सारांश पेज पर इंडेक्स बनाएँ और गिनती यहाँ दिखेगी।"
 
 #. translators: %d: number of posts.
-#: admin/assets/js/admin.js:757
+#: admin/assets/js/admin.js:760
 #: admin/assets/js/linkmap.js:36
 msgid "%d post"
 msgid_plural "%d posts"
 msgstr[0] "%d पोस्ट"
 msgstr[1] "%d पोस्ट"
 
-#: admin/assets/js/admin.js:759
+#: admin/assets/js/admin.js:762
 msgid "%d with no links in, shown in red."
 msgid_plural "%d with no links in, shown in red."
 msgstr[0] "%d पर कोई लिंक नहीं आता, लाल रंग में दिखाई गई।"
 msgstr[1] "%d पर कोई लिंक नहीं आता, लाल रंग में दिखाई गई हैं।"
 
-#: admin/assets/js/admin.js:759
+#: admin/assets/js/admin.js:762
 msgid "Every post has at least one link in."
 msgstr "हर पोस्ट पर कम से कम एक लिंक आता है।"
 
-#: admin/assets/js/admin.js:795
+#: admin/assets/js/admin.js:798
 msgid "Checking links: %1$d of %2$d…"
 msgstr "लिंक जाँचे जा रहे हैं: %2$d में से %1$d…"
 
-#: admin/assets/js/admin.js:796
-#: admin/assets/js/admin.js:906
+#: admin/assets/js/admin.js:799
+#: admin/assets/js/admin.js:909
 msgid "Collecting your links…"
 msgstr "आपके लिंक इकट्ठे किए जा रहे हैं…"
 
-#: admin/assets/js/admin.js:804
+#: admin/assets/js/admin.js:807
 msgid "The check stopped: a step failed %1$d times in a row (%2$s). Click “Check all links now” to start again."
 msgstr "जाँच रुक गई: एक चरण लगातार %1$d बार विफल रहा (%2$s)। फिर से शुरू करने के लिए “अभी सभी लिंक जाँचें” पर क्लिक करें।"
 
-#: admin/assets/js/admin.js:806
+#: admin/assets/js/admin.js:809
 msgid "The check stopped: a step failed %d times in a row. Click “Check all links now” to start again."
 msgstr "जाँच रुक गई: एक चरण लगातार %d बार विफल रहा। फिर से शुरू करने के लिए “अभी सभी लिंक जाँचें” पर क्लिक करें।"
 
 #. translators: 1: links checked, 2: links to missing pages, 3: links that did not answer.
-#: admin/assets/js/admin.js:814
+#: admin/assets/js/admin.js:817
 msgid "Done: %1$d links checked, %2$d to missing pages, %3$d did not answer."
 msgstr "हो गया: %1$d लिंक जाँचे गए, %2$d गायब पेजों पर, %3$d ने जवाब नहीं दिया।"
 
-#: admin/assets/js/admin.js:816
+#: admin/assets/js/admin.js:819
 msgid "The check stopped before it finished. Click the button to run it again."
 msgstr "जाँच पूरी होने से पहले रुक गई। इसे फिर से चलाने के लिए बटन पर क्लिक करें।"
 
 #. translators: %s: the error message from the site.
-#: admin/assets/js/admin.js:875
+#: admin/assets/js/admin.js:878
 msgid "This page could not go on with the check (%s). It carries on in the background; this line updates when it is done."
 msgstr "यह पेज जाँच जारी नहीं रख सका (%s)। यह बैकग्राउंड में चलती रहती है; पूरा होने पर यह पंक्ति अपडेट हो जाएगी।"
 
 #. translators: 1: date and time, 2: number of links checked.
-#: admin/assets/js/admin.js:925
+#: admin/assets/js/admin.js:928
 msgid "Last full check: %1$s, %2$d links checked."
 msgstr "पिछली पूरी जाँच: %1$s, %2$d लिंक जाँचे गए।"
 
-#: admin/assets/js/admin.js:927
+#: admin/assets/js/admin.js:930
 msgid "No full check has finished yet."
 msgstr "अभी तक कोई पूरी जाँच खत्म नहीं हुई है।"
 
 #. translators: %d: number of links never checked.
-#: admin/assets/js/admin.js:931
+#: admin/assets/js/admin.js:934
 msgid "%d link has never been checked."
 msgid_plural "%d links have never been checked."
 msgstr[0] "%d लिंक की कभी जाँच नहीं हुई।"
 msgstr[1] "%d लिंक की कभी जाँच नहीं हुई।"
 
-#: admin/assets/js/admin.js:936
+#: admin/assets/js/admin.js:939
 msgid "The last check stopped part way. Click “Check all links now” to finish it."
 msgstr "पिछली जाँच बीच में रुक गई। इसे पूरा करने के लिए “अभी सभी लिंक जाँचें” पर क्लिक करें।"
 
-#: admin/assets/js/admin.js:959
+#: admin/assets/js/admin.js:962
 msgid "No broken links"
 msgstr "कोई टूटा लिंक नहीं"
 
-#: admin/assets/js/admin.js:962
+#: admin/assets/js/admin.js:965
 msgid "Last checked %1$s, %2$d link in total."
 msgid_plural "Last checked %1$s, %2$d links in total."
 msgstr[0] "पिछली जाँच %1$s, कुल %2$d लिंक।"
 msgstr[1] "पिछली जाँच %1$s, कुल %2$d लिंक।"
 
-#: admin/assets/js/admin.js:964
+#: admin/assets/js/admin.js:967
 msgid "Last checked %s."
 msgstr "पिछली जाँच %s।"
 
-#: admin/assets/js/admin.js:965
+#: admin/assets/js/admin.js:968
 msgid "Linkweave checks your links once a day. Click “Check all links now” to do it straight away."
 msgstr "Linkweave दिन में एक बार आपके लिंक जाँचता है। इसे तुरंत करने के लिए “अभी सभी लिंक जाँचें” पर क्लिक करें।"
 
-#: admin/assets/js/admin.js:981
+#: admin/assets/js/admin.js:984
 msgid "No answer in time, or the server returned an error. The page may be fine: open it to check. Remove all leaves these links alone."
 msgstr "समय पर कोई जवाब नहीं मिला, या सर्वर ने त्रुटि लौटाई। हो सकता है पेज ठीक हो: जाँचने के लिए उसे खोलें। “गायब पेजों के सभी लिंक हटाएँ” इन लिंक को नहीं छूता।"
 
-#: admin/assets/js/admin.js:990
+#: admin/assets/js/admin.js:993
 msgid "Points at"
 msgstr "किस पर पॉइंट करता है"
 
-#: admin/assets/js/admin.js:990
+#: admin/assets/js/admin.js:993
 msgid "Checked"
 msgstr "जाँचा गया"
 
-#: admin/assets/js/admin.js:1038
+#: admin/assets/js/admin.js:1041
 msgid "Saving…"
 msgstr "सेव किया जा रहा है…"
 
-#: admin/assets/js/admin.js:1042
-#: admin/assets/js/admin.js:1046
+#: admin/assets/js/admin.js:1045
+#: admin/assets/js/admin.js:1049
 msgid "Settings saved."
 msgstr "सेटिंग्स सेव की गईं।"
 
-#: admin/assets/js/admin.js:1046
+#: admin/assets/js/admin.js:1049
 msgid "The index is being rebuilt in the background so the change reaches every post."
 msgstr "इंडेक्स बैकग्राउंड में फिर से बनाया जा रहा है, ताकि बदलाव हर पोस्ट तक पहुँचे।"
 
-#: admin/assets/js/admin.js:1059
+#: admin/assets/js/admin.js:1062
 msgid "Settings saved, with a change:"
 msgstr "सेटिंग्स सेव की गईं, एक बदलाव के साथ:"
 
@@ -2746,6 +2750,26 @@ msgstr "इंडेक्स बनाएँ"
 #: editor/src/SuggestionList.jsx:296
 msgid "Already built it? Save this post, then refresh."
 msgstr "पहले ही बना लिया? यह पोस्ट सहेजें, फिर रीफ़्रेश करें।"
+
+#~ msgid "How closely the two posts match"
+#~ msgstr "दोनों पोस्ट कितनी करीब से मेल खाती हैं"
+
+#~ msgid "already links here"
+#~ msgstr "पहले से यहाँ लिंक करती है"
+
+#~ msgid "you can't edit it"
+#~ msgstr "आप इसे संपादित नहीं कर सकते"
+
+#~ msgid "built with Elementor: add the link in Elementor"
+#~ msgstr "Elementor से बना है: लिंक Elementor में जोड़ें"
+
+#~ msgid "Skipped: %s."
+#~ msgstr "छोड़ा गया: %s।"
+
+#~ msgid "This post doesn't mention the topic in words a link would fit, so add a sentence by hand:"
+#~ msgid_plural "These posts don't mention the topic in words a link would fit, so add a sentence by hand:"
+#~ msgstr[0] "यह पोस्ट इस विषय का ज़िक्र ऐसे शब्दों में नहीं करती जिन पर लिंक ठीक बैठे, इसलिए खुद एक वाक्य जोड़ें:"
+#~ msgstr[1] "ये पोस्ट इस विषय का ज़िक्र ऐसे शब्दों में नहीं करतीं जिन पर लिंक ठीक बैठे, इसलिए खुद एक वाक्य जोड़ें:"
 
 #~ msgid "Undone in %1$d post(s); %2$d edited since were left as they are."
 #~ msgstr "%1$d पोस्ट में पलटा गया; बाद में बदली गई %2$d पोस्ट वैसी ही छोड़ी गईं।"

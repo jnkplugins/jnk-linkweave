@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.27.3
+Stable tag: 1.28.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,6 +169,9 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.28.0 =
+* Changed: Orphans > "Find posts that could link here" no longer shows "100%" on the top post. That number only meant "best in this list", so the top row now says "best match" and every row shows a bar for how close it is.
 
 = 1.27.3 =
 * Changed: the readme links to the new product video.

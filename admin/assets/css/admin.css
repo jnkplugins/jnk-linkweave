@@ -48,7 +48,12 @@
 .jnkui .jnk-opp { display: grid; grid-template-columns: auto 1fr 140px auto; align-items: center; gap: 12px; padding: 10px 12px; background: #fff; border: 1px solid var(--jnk-line); border-radius: 9px; cursor: pointer; }
 .jnkui .jnk-opp:not(:has(input)) { grid-template-columns: 1fr 140px auto; cursor: default; }
 .jnkui .jnk-opp:hover { border-color: #cbd5e1; }
-.jnkui .jnk-opp-body b { display: block; color: var(--jnk-ink); font-weight: 600; }
+.jnkui .jnk-opp-body > b { display: block; color: var(--jnk-ink); font-weight: 600; }
+/* Pro: where the link will go, under each row (LW 1.28.0). */
+.jnkui .jnk-opp-plan { display: block; margin-top: 6px; color: var(--jnk-ink); }
+.jnkui .jnk-opp-plan select { max-width: 100%; margin-inline-start: 4px; }
+.jnkui .jnk-opp-context { display: block; margin-top: 2px; font-size: 12px; line-height: 1.5; }
+.jnkui .jnk-opp-context b { color: var(--jnk-ink); font-weight: 600; background: rgba(34, 113, 177, .1); border-radius: 3px; padding: 0 2px; }
 .jnkui .jnk-opp-terms { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
 .jnkui .jnk-opps-foot { display: flex; align-items: center; gap: 10px; margin: 10px 0 0; }
 @media (max-width: 782px) { .jnkui .jnk-opp { grid-template-columns: auto 1fr; } .jnkui .jnk-opp-score { grid-column: 2; } }

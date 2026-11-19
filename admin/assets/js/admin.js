@@ -713,7 +713,10 @@
                         return `<label class="jnk-opp" data-source="${ escape( o.target_id ) }" data-rank="${ i }" data-score="${ escape( o.score || 0 ) }">`
                             + `<span class="jnk-opp-body"><b>${ escape( o.title ) }</b>`
                             + `<span class="jnk-opp-terms">${ ( o.matched_terms || [] ).map( ( t ) => `<span class="jnkui-pill">${ escape( t ) }</span>` ).join( "" ) }</span></span>`
-                            + `<span class="jnk-opp-score" title="${ escape( __( "How closely the two posts match", "jnk-linkweave" ) ) }"><span class="jnkui-bar"><i style="width:${ pct }%"></i></span> <span class="jnkui-muted">${ pct }%</span></span>`
+                            // Scores are relative to the best post in this list, so the top
+                            // one always read "100%", which looked like a promise that a
+                            // link would fit (owner, 17 Nov 2026). The bar only ranks.
+                            + `<span class="jnk-opp-score" title="${ escape( __( "How closely this post matches, compared with the others in this list", "jnk-linkweave" ) ) }"><span class="jnkui-bar"><i style="width:${ pct }%"></i></span>${ 0 === i ? ` <span class="jnkui-muted">${ escape( __( "best match", "jnk-linkweave" ) ) }</span>` : "" }</span>`
                             + ( o.edit_url ? `<a class="button button-small" href="${ escape( o.edit_url ) }">${ __( "Open", "jnk-linkweave" ) }</a>` : "" )
                             + `</label>`;
                     } ).join( "" ) + "</div>"
