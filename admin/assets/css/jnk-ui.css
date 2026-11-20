@@ -183,7 +183,11 @@ a.jnkui-stat:hover { border-color: color-mix(in srgb, var(--jnk-brand) 35%, var(
 .jnkui table.jnkui-table td:lang(ko):not(.jnk-linkweave-target), .jnkui table.jnk-linkweave-table td:lang(ko):not(.jnk-linkweave-target), .jnkui table.widefat td:lang(ko) { word-break: keep-all; overflow-wrap: break-word; }
 /* A long (often percent-encoded) URL wraps instead of pushing Status and Repair off-screen. */
 .jnkui td.jnk-linkweave-target { overflow-wrap: anywhere; word-break: break-word; min-width: 12rem; max-width: 28rem; }
-.jnkui td.is-num, .jnkui th.is-num { text-align: end; font-variant-numeric: tabular-nums; }
+/* Number columns: header and figures both on the end side. The selectors carry
+   "table" (and "thead" for th) so they outrank the header rule above
+   (.jnkui table.jnkui-table th { text-align: start }); before 20 Nov 2026 the
+   figures sat right and their headers left, so columns didn't line up. */
+.jnkui table td.is-num, .jnkui table th.is-num, .jnkui table thead th.is-num { text-align: end; font-variant-numeric: tabular-nums; }
 .jnkui .jnkui-sub { display: block; color: var(--jnk-mute); font-size: 12.5px; font-weight: 400; margin-top: 2px; }
 .jnkui-table-wrap { overflow-x: auto; border-radius: var(--jnk-radius); }
 .jnkui-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; margin: 0 0 14px; }

@@ -4,7 +4,7 @@ Tags: internal links, internal linking, broken links, orphan pages, seo
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.28.0
+Stable tag: 1.28.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,6 +169,9 @@ alongside its build output, so no external download is needed to read or rebuild
 Running that regenerates the build output from the source. No other build step is required.
 
 == Changelog ==
+
+= 1.28.1 =
+* Fixed: on Sites you link to, the column headings (Links, Posts, Nofollow, Sponsored) sat on the left while the numbers under them sat on the right, so it was hard to tell which number belonged to which heading. Headings and numbers now line up on the right. The same fix applies to the number columns of the Pro reports (Anchor Text, Competing pages, Snapshots, Links per post and others).
 
 = 1.28.0 =
 * Changed: Orphans > "Find posts that could link here" no longer shows "100%" on the top post. That number only meant "best in this list", so the top row now says "best match" and every row shows a bar for how close it is.
